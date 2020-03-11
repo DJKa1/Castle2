@@ -1,5 +1,6 @@
 package entities.creatures;
 import Inventory.*;
+import entities.ID;
 import entities.items.Bow;
 import entities.items.SteelSword;
 import main_pack.CreatureHandler;
@@ -12,9 +13,10 @@ public class Player extends Creature {
     protected HandSlot righthand;
 
 
-    public Player(float x, float y,String name) {
-        super(x,y,name);
+    public Player(float x, float y) {
+        super(x,y);
         this.hp=10;
+        id= ID.Player;
         width=25;
         height=25;
         friendly=true;
@@ -22,7 +24,6 @@ public class Player extends Creature {
         righthand=new HandSlot(0);
         createHitbox();
 
-        righthand.setCurrentItem(new SteelSword(0,0,10));
     }
 
 

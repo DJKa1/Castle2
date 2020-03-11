@@ -2,6 +2,7 @@ package main_pack;
 
 import Maps.Map;
 import States.*;
+import entities.ID;
 import entities.creatures.Camera;
 import entities.creatures.Creature;
 import entities.creatures.Player;
@@ -59,11 +60,15 @@ public class Game implements Runnable {
 
     }
 
+    public CreatureHandler getCreatureHandler() {
+        return creatureHandler;
+    }
+
     public void init(){
 
         window =new Window(title,width,height);
-        gameState=new GameState();
-        menuState=new MenuState();
+        gameState=new GameState(this);
+
 
         keyboardInput=new KeyboardInput(this);
         window.getJFrame().addKeyListener(keyboardInput);
@@ -72,14 +77,15 @@ public class Game implements Runnable {
         map=new Map("testMap");
 
         State.setState(gameState);
-        creatureHandler.addObject(new Player(100,100,"player"));
+        creatureHandler.addObject(new Player(100,100));
         camera = new Camera(0,0);
+
+
+        gameState.init();
     }
-    //momentate lösung
-    public void changeState(){
-        if (State.getState()==gameState){
-            State.setState(menuState);
-        }
+
+    public Map getMap() {
+        return map;
     }
 
     public void run() {
@@ -114,32 +120,19 @@ public class Game implements Runnable {
 
     }
 
+    public Camera getCamera() {
+        return camera;
+    }
+
     private void tick() {
         if (State.getState()!=null){
             State.getState().tick();
         }
         keyboardInput.tick();
-        creatureHandler.tick();
-        map.tick();
-
-
-
-        Creature tempPlayer=null;
-        //System.out.println("Creatures: "+creatureHandler.creatures.size());
-        for (int i = 0;i<creatureHandler.creatures.size();i++){
-            //System.out.println(creatureHandler.creatures.get(i).getName());
-            if(creatureHandler.creatures.get(i).getName()=="player") {
-                tempPlayer = creatureHandler.creatures.get(i);
-            }
-        }
-
-        camera.tick(tempPlayer);
 
     }
 
     private void render() {
-
-
         bs= window.getCanvas().getBufferStrategy();
         if (bs == null) {
             window.getCanvas().createBufferStrategy(3);
@@ -167,16 +160,16 @@ public class Game implements Runnable {
 
 
 
-        map.render(g);
+
 
 
 
         if (State.getState()!=null){
             State.getState().render(g);
-
+            System.out.println("hey");
 
         }
-        creatureHandler.render(g);
+
 
 
 

@@ -9,6 +9,7 @@ public class Camera {
     public Camera(float x, float y) {
         this.x = x;
         this.y = y;
+
     }
 
     public void tick(Creature player) {

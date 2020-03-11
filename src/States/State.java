@@ -1,15 +1,21 @@
 package States;
 
+import main_pack.Game;
+
 import java.awt.*;
 
 public abstract class State {
 
     private static State currentState=null;
+    protected Game game;
 
 
-    public State(){
+    public State(Game game){
+        this.game=game;
 
     }
+
+
 
     public static State getState(){
         return currentState;
@@ -17,6 +23,8 @@ public abstract class State {
     public static void setState(State state){
         currentState=state;
     }
+
+    public abstract void init();
 
     public abstract void tick();
 

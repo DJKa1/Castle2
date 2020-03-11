@@ -1,11 +1,14 @@
 package entities.creatures;
 
+import entities.ID;
+
 import java.awt.*;
 
 public class GreenSlime extends Creature {
 
-    public GreenSlime(float x, float y,String name) {
-        super(x, y,name);
+    public GreenSlime(float x, float y) {
+        super(x, y);
+        id= ID.Greenslime;
         width=10;
         height=10;
         baseDmg=1;
