@@ -6,6 +6,8 @@ import java.awt.*;
 
 public class GreenSlime extends Creature {
 
+
+
     public GreenSlime(float x, float y) {
         super(x, y);
         id= ID.Greenslime;
@@ -13,9 +15,9 @@ public class GreenSlime extends Creature {
         height=10;
         baseDmg=1;
         hp=5;
-        friendly=false;
         createHitbox();
     }
+
 
     @Override
     public void tick() {

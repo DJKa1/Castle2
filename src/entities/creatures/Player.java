@@ -1,6 +1,5 @@
 package entities.creatures;
 import Inventory.*;
-import Tiles.SpriteSheet;
 import Tiles.Texture;
 import entities.ID;
 import entities.items.Bow;
@@ -13,6 +12,7 @@ import java.awt.*;
 public class Player extends Creature {
     protected Inventory inventory;
     protected HandSlot righthand;
+    private final ID[] INCLUDE=null;
 
 
     public Player(float x, float y) {
@@ -21,7 +21,6 @@ public class Player extends Creature {
         id= ID.Player;
         width=25;
         height=25;
-        friendly=true;
         inventory=new Inventory();
         righthand=new HandSlot(0);
         createHitbox();
@@ -29,46 +28,54 @@ public class Player extends Creature {
     }
 
 
-    private void collision(){
-        for (int i = 0; i < CreatureHandler.creatures.size(); i++) {
-            Creature tempObject = CreatureHandler.creatures.get(i);
-            if (hitbox.intersects(tempObject.getHitbox())){
-                if (!tempObject.getFriendly()){
-                    hp-=tempObject.caculateDmg();
-                }
-
-            }
 
 
-        }
 
-    }
 
     @Override
     public void tick() {
-        updateHitbox();
+
 
         if (KeyboardInput.up){
-            y--;
+            speedY=-1;
 
-        }
-        if (KeyboardInput.down){
-            y++;
+        }else if (KeyboardInput.down){
+            speedY=+1;
 
+        }else{
+            speedY=0;
         }
         if (KeyboardInput.right){
-            x++;
+            speedX=+1;
 
-        }
-        if (KeyboardInput.left){
-            x--;
+        }else if (KeyboardInput.left){
+            speedX=-1;
 
+        }else{
+            speedX=0;
         }
+
+
+        updateHitbox((int) speedX,0);
+        if (!checkCollision_ifOneOf(hitbox,ID.Greenslime))
+            x+=speedX;
+        updateHitbox(0, (int) speedY);
+        if (!checkCollision_ifOneOf(hitbox,ID.Greenslime))
+            y+=speedY;
+
+
+
+
+
+
+
+
+
         inventory.addItem(new SteelSword(50,50,10));
         inventory.addItem(new Bow(50,50,10));
         inventory.tick();
         righthand.tick();
-        collision();
+
 
 
 
@@ -76,7 +83,8 @@ public class Player extends Creature {
 
     @Override
     public void render(Graphics g) {
-
+        g.setColor(Color.blue);
+        g.drawRect((int)x,(int)y,width,height);
         g.drawImage(Texture.sprite[0],(int)x,(int)y,null);
         //righthand.render(g,0,0);
         if (KeyboardInput.e){
@@ -85,3 +93,5 @@ public class Player extends Creature {
     }
 
 }
+
+

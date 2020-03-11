@@ -1,10 +1,31 @@
 package entities;
 
+import entities.creatures.Creature;
+import main_pack.CreatureHandler;
+
 import java.awt.*;
 
 public abstract class Entity {
     protected float x,y;
     protected ID id;
+
+    protected float speedY,speedX;
+
+    public float getSpeedY() {
+        return speedY;
+    }
+
+    public void setSpeedY(float speedY) {
+        this.speedY = speedY;
+    }
+
+    public float getSpeedX() {
+        return speedX;
+    }
+
+    public void setSpeedX(float speedX) {
+        this.speedX = speedX;
+    }
 
     public void setX(float x) {
         this.x = x;
@@ -35,6 +56,9 @@ public abstract class Entity {
         this.y=y;
 
     }
+
+
+
 
 
 

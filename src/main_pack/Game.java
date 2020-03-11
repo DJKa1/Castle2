@@ -65,23 +65,12 @@ public class Game implements Runnable {
     }
 
     public void init(){
-
         window =new Window(title,width,height);
         gameState=new GameState(this);
-
-
         keyboardInput=new KeyboardInput(this);
         window.getJFrame().addKeyListener(keyboardInput);
-
-        creatureHandler=new CreatureHandler();
-        map=new Map("testMap");
-
         State.setState(gameState);
-        creatureHandler.addObject(new Player(100,100));
-        camera = new Camera(0,0);
 
-
-        gameState.init();
     }
 
     public Map getMap() {
@@ -139,17 +128,9 @@ public class Game implements Runnable {
             return;
         }
         Graphics g = bs.getDrawGraphics();
-        //Draw fixed
-        Graphics2D gd2 = (Graphics2D) g;
-
         //Background
         g.setColor(Color.black);
         g.fillRect(0, 0, Launcher.WIDTH, Launcher.HEIGHT);
-
-        //Camera show
-
-        gd2.translate(camera.getX(), camera.getY()); //Cam start
-
 
 
         //draw

@@ -4,32 +4,38 @@ import Maps.Map;
 import entities.ID;
 import entities.creatures.Camera;
 import entities.creatures.Creature;
+import entities.creatures.Player;
 import main_pack.CreatureHandler;
 import main_pack.Game;
 
 
 import java.awt.*;
+import java.util.Arrays;
 
 public class GameState extends State{
-    CreatureHandler creatureHandler;
-    Camera camera;
-    Map map;
+    private CreatureHandler creatureHandler;
+    private Camera camera;
+    private Map map;
+    private final ID[] EXCLUDE=null;
 
 
 
     public GameState(Game game){
         super(game);
+        creatureHandler=new CreatureHandler();
+        map=new Map("testMap");
+        camera = new Camera(0,0);
+        init();
+
+
+
+
 
     }
 
     @Override
     public void init(){
-        this.creatureHandler=game.getCreatureHandler();
-        this.camera=game.getCamera();
-        this.map=game.getMap();
-
-
-
+        creatureHandler.addObject(new Player(100,600));
     }
 
 
@@ -51,7 +57,17 @@ public class GameState extends State{
         camera.tick(tempPlayer);
 
 
+        /*
+        for(Creature k:creatureHandler.creatures){
+            if (!Arrays.stream(EXCLUDE).anyMatch(k.getId()::equals)){
+                k.checkCollision();
+            }
 
+
+        }
+
+
+        */
 
     }
 
@@ -60,6 +76,13 @@ public class GameState extends State{
 
         map.render(g);
         creatureHandler.render(g);
+
+        //Draw fixed
+        Graphics2D gd2 = (Graphics2D) g;
+
+        //Camera show
+
+        gd2.translate(camera.getX(), camera.getY()); //Cam start
 
 
 
