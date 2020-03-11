@@ -1,0 +1,28 @@
+package Inventory;
+
+import main_pack.Launcher;
+
+import java.awt.*;
+
+public class HandSlot extends InvSlot{
+
+
+    public HandSlot(int slotNumber) {
+        super(slotNumber);
+    }
+    @Override
+    public void tick(){
+        if (currentItem!=null) {
+            weight = currentItem.getWeight();
+        }
+
+    }
+    @Override
+    public void render(Graphics g, int x, int y){
+        g.setColor(Color.CYAN);
+        g.drawRect(Launcher.width-150, Launcher.height-100,80,40);
+        if (currentItem!=null) {
+            currentItem.renderInv(g,Launcher.width-150, Launcher.height-75);
+        }
+    }
+}
