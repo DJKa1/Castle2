@@ -22,6 +22,8 @@ public class Game implements Runnable {
     private KeyboardInput keyboardInput;
     private CreatureHandler creatureHandler;
     private Map map;
+
+
     public Game(int width,int height) {
         this.width=width;
         this.height=height;
