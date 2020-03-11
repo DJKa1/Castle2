@@ -4,8 +4,8 @@ import java.awt.*;
 
 public class GreenSlime extends Creature {
 
-    public GreenSlime(float x, float y) {
-        super(x, y);
+    public GreenSlime(float x, float y,String name) {
+        super(x, y,name);
         width=10;
         height=10;
         baseDmg=1;

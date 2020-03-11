@@ -28,7 +28,7 @@ public class Window {
         jfi.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jfi.setResizable(false);
         jfi.setVisible(true);
-
+        jfi.setLocationRelativeTo(null);
         cvs=new Canvas();
         dimension=new Dimension(width,height);
         cvs.setPreferredSize(dimension);
