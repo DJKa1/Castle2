@@ -149,6 +149,10 @@ public class Game implements Runnable {
         //Draw fixed
         Graphics2D gd2 = (Graphics2D) g;
 
+        //Background
+        g.setColor(Color.black);
+        g.fillRect(0, 0, Launcher.WIDTH, Launcher.HEIGHT);
+
         //Camera show
 
         gd2.translate(camera.getX(), camera.getY()); //Cam start
