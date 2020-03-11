@@ -20,9 +20,9 @@ public class HandSlot extends InvSlot{
     @Override
     public void render(Graphics g, int x, int y){
         g.setColor(Color.CYAN);
-        g.drawRect(Launcher.width-150, Launcher.height-100,80,40);
+        g.drawRect(Launcher.WIDTH -150, Launcher.HEIGHT -100,80,40);
         if (currentItem!=null) {
-            currentItem.renderInv(g,Launcher.width-150, Launcher.height-75);
+            currentItem.renderInv(g,Launcher.WIDTH -150, Launcher.HEIGHT -75);
         }
     }
 }

@@ -2,6 +2,9 @@ package main_pack;
 
 import Maps.Map;
 import States.*;
+import entities.creatures.Camera;
+import entities.creatures.Creature;
+import entities.creatures.Player;
 import graphics.Window;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -23,6 +26,7 @@ public class Game implements Runnable {
     private CreatureHandler creatureHandler;
     private Map map;
 
+    Camera camera;
 
     public Game(int width,int height) {
         this.width=width;
@@ -68,14 +72,8 @@ public class Game implements Runnable {
         map=new Map("testMap");
 
         State.setState(gameState);
-
-
-
-
-
-
-
-
+        creatureHandler.addObject(new Player(100,100,"player"));
+        camera = new Camera(0,0);
     }
     //momentate lösung
     public void changeState(){
@@ -119,8 +117,6 @@ public class Game implements Runnable {
     private void tick() {
         if (State.getState()!=null){
             State.getState().tick();
-
-
         }
         keyboardInput.tick();
         creatureHandler.tick();
@@ -128,9 +124,16 @@ public class Game implements Runnable {
 
 
 
+        Creature tempPlayer=null;
+        //System.out.println("Creatures: "+creatureHandler.creatures.size());
+        for (int i = 0;i<creatureHandler.creatures.size();i++){
+            //System.out.println(creatureHandler.creatures.get(i).getName());
+            if(creatureHandler.creatures.get(i).getName()=="player") {
+                tempPlayer = creatureHandler.creatures.get(i);
+            }
+        }
 
-
-
+        camera.tick(tempPlayer);
 
     }
 
@@ -143,6 +146,15 @@ public class Game implements Runnable {
             return;
         }
         Graphics g = bs.getDrawGraphics();
+        //Draw fixed
+        Graphics2D gd2 = (Graphics2D) g;
+
+        //Camera show
+
+        gd2.translate(camera.getX(), camera.getY()); //Cam start
+
+
+
         //draw
         g.clearRect(0,0,width,height);
         g.setColor(Color.BLACK);
@@ -166,8 +178,6 @@ public class Game implements Runnable {
 
         g.dispose();
         bs.show();
-
-
 
     }
 

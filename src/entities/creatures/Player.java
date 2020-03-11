@@ -12,8 +12,8 @@ public class Player extends Creature {
     protected HandSlot righthand;
 
 
-    public Player(float x, float y) {
-        super(x,y);
+    public Player(float x, float y,String name) {
+        super(x,y,name);
         this.hp=10;
         width=25;
         height=25;
@@ -79,8 +79,6 @@ public class Player extends Creature {
         if (KeyboardInput.e){
             inventory.render(g);
         }
-
-
-
     }
+
 }

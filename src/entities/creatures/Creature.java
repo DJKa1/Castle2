@@ -10,10 +10,11 @@ public abstract class Creature extends Entity {
     protected Rectangle hitbox;
     protected double baseDmg;
     protected boolean friendly;
+    protected String name;
 
-    public Creature(float x,float y){
+    public Creature(float x,float y,String name){
         super(x,y);
-
+        this.name = name;
 
 
     }
@@ -37,5 +38,8 @@ public abstract class Creature extends Entity {
         return baseDmg;
     }
 
+    public float getX() {return x;}
+    public float getY() {return y;}
+    public String getName() {return name;}
 
 }

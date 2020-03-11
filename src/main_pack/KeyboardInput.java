@@ -20,10 +20,10 @@ public class KeyboardInput implements KeyListener {
 
     public void tick (){
 
-        up=keys[KeyEvent.VK_UP];
-        left=keys[KeyEvent.VK_LEFT];
-        right=keys[KeyEvent.VK_RIGHT];
-        down=keys[KeyEvent.VK_DOWN];
+        up=keys[KeyEvent.VK_W];
+        left=keys[KeyEvent.VK_A];
+        right=keys[KeyEvent.VK_D];
+        down=keys[KeyEvent.VK_S];
         jump=keys[KeyEvent.VK_SPACE];
         esc=keys[KeyEvent.VK_ESCAPE];
         e=keys[KeyEvent.VK_E];
