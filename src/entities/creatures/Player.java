@@ -1,5 +1,7 @@
 package entities.creatures;
 import Inventory.*;
+import Tiles.SpriteSheet;
+import Tiles.Texture;
 import entities.ID;
 import entities.items.Bow;
 import entities.items.SteelSword;
@@ -74,9 +76,9 @@ public class Player extends Creature {
 
     @Override
     public void render(Graphics g) {
-        g.setColor(Color.BLUE);
-        g.fillRect((int)x,(int)y,width,height);
-        righthand.render(g,0,0);
+
+        g.drawImage(Texture.sprite[0],(int)x,(int)y,null);
+        //righthand.render(g,0,0);
         if (KeyboardInput.e){
             inventory.render(g);
         }
