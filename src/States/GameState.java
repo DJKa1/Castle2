@@ -7,6 +7,7 @@ import entities.creatures.Creature;
 import entities.creatures.Player;
 import main_pack.CreatureHandler;
 import main_pack.Game;
+import main_pack.Launcher;
 
 
 import java.awt.*;
@@ -74,16 +75,17 @@ public class GameState extends State{
     @Override
     public void render(Graphics g) {
 
-        map.render(g);
-        creatureHandler.render(g);
+
 
         //Draw fixed
         Graphics2D gd2 = (Graphics2D) g;
-
+        g.setColor(Color.black);
+        g.fillRect(0, 0, Launcher.WIDTH, Launcher.HEIGHT);
         //Camera show
 
         gd2.translate(camera.getX(), camera.getY()); //Cam start
-
+        map.render(g);
+        creatureHandler.render(g);
 
 
     }
