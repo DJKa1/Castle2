@@ -5,6 +5,7 @@ import Tiles.Texture;
 import entities.ID;
 import entities.items.Bow;
 import entities.items.SteelSword;
+import graphics.Animation;
 import main_pack.CreatureHandler;
 import main_pack.KeyboardInput;
 
@@ -14,6 +15,7 @@ public class Player extends Creature {
     protected Inventory inventory;
     protected HandSlot righthand;
     private final ID[] INCLUDE=null;
+    private Animation playerWalk;
 
 
     public Player(float x, float y) {
@@ -25,6 +27,8 @@ public class Player extends Creature {
         inventory=new Inventory();
         righthand=new HandSlot(0);
         createHitbox();
+
+        playerWalk = new Animation(3,GameState.texture.sprite[0],GameState.texture.sprite[1],GameState.texture.sprite[2],GameState.texture.sprite[3],GameState.texture.sprite[4]);
 
     }
 
@@ -64,21 +68,12 @@ public class Player extends Creature {
         if (!checkCollision_ifOneOf(hitbox,ID.Greenslime))
             y+=speedY;
 
-
-
-
-
-
-
-
-
         inventory.addItem(new SteelSword(50,50,10));
         inventory.addItem(new Bow(50,50,10));
         inventory.tick();
         righthand.tick();
 
-
-
+        playerWalk.runAnimation();
 
     }
 
@@ -86,7 +81,8 @@ public class Player extends Creature {
     public void render(Graphics g) {
         g.setColor(Color.blue);
         //g.drawRect((int)x,(int)y,width,height);
-        g.drawImage(GameState.texture.sprite[0],(int)x,(int)y,null);
+        //g.drawImage(GameState.texture.sprite[0],(int)x,(int)y,null);
+        playerWalk.drawAnimation(g,(int)x,(int)y);
         //righthand.render(g,0,0);
         if (KeyboardInput.e){
             inventory.render(g);

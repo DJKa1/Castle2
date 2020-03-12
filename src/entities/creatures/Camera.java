@@ -5,7 +5,7 @@ import main_pack.Launcher;
 public class Camera {
     private float x;
     private float y;
-    private final float SCALE = 2;
+    private final float SCALE = 4;
 
     public Camera(float x, float y) {
         this.x = x;

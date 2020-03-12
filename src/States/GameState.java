@@ -86,12 +86,12 @@ public class GameState extends State{
         g.setColor(Color.black);
         g.fillRect(0, 0, Launcher.WIDTH, Launcher.HEIGHT);
         //Camera show
-
-        gd2.translate(camera.getX()/camera.getSCALE(), camera.getY()/camera.getSCALE()); //Cam start
         gd2.scale(camera.getSCALE(),camera.getSCALE());
+        gd2.translate(camera.getX(), camera.getY()); //Cam start
+
         map.render(g);
         creatureHandler.render(g);
-
+        gd2.translate(-camera.getX(), -camera.getY());//Cam end
 
     }
 
