@@ -1,6 +1,7 @@
 package States;
 
 import Maps.Map;
+import Tiles.Texture;
 import entities.ID;
 import entities.creatures.Camera;
 import entities.creatures.Creature;
@@ -18,6 +19,7 @@ public class GameState extends State{
     private Camera camera;
     private Map map;
     private final ID[] EXCLUDE=null;
+    public static Texture texture;
 
 
 
@@ -36,7 +38,9 @@ public class GameState extends State{
 
     @Override
     public void init(){
+        texture = new Texture();
         creatureHandler.addObject(new Player(100,600));
+
     }
 
 
@@ -83,10 +87,12 @@ public class GameState extends State{
         g.fillRect(0, 0, Launcher.WIDTH, Launcher.HEIGHT);
         //Camera show
 
-        gd2.translate(camera.getX(), camera.getY()); //Cam start
+        gd2.translate(camera.getX()/camera.getSCALE(), camera.getY()/camera.getSCALE()); //Cam start
+        gd2.scale(camera.getSCALE(),camera.getSCALE());
         map.render(g);
         creatureHandler.render(g);
 
 
     }
+
 }

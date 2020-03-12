@@ -18,7 +18,7 @@ public class Texture {
         BufferedImageLoader loader = new BufferedImageLoader();
 
         try {
-            sprite_Sheet = loader.LoadImage("C:\\Users\\Pete Louis Benz\\Documents\\Castle2\\rsc\\Assets\\SpriteSheet.png");
+            sprite_Sheet = loader.LoadImage("./rsc/Assets/SpriteSheet.png");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -30,9 +30,9 @@ public class Texture {
     }
     private void getTextures() {
         int i = 0;
-        for(int y = 0;y<32;y++) {
-            for(int x = 0;x<32;x++) {
-                sprite[i] = ts.grabImage(x+1, y+1,32,32);
+        for(int y = 0;y<8;y++) {
+            for(int x = 0;x<8;x++) {
+                sprite[i] = ts.grabImage(x+1, y+1,16,16);
                 i++;
             }
         }

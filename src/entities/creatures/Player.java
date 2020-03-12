@@ -1,5 +1,6 @@
 package entities.creatures;
 import Inventory.*;
+import States.GameState;
 import Tiles.Texture;
 import entities.ID;
 import entities.items.Bow;
@@ -19,8 +20,8 @@ public class Player extends Creature {
         super(x,y);
         this.hp=10;
         id= ID.Player;
-        width=25;
-        height=25;
+        width=16;
+        height=16;
         inventory=new Inventory();
         righthand=new HandSlot(0);
         createHitbox();
@@ -84,8 +85,8 @@ public class Player extends Creature {
     @Override
     public void render(Graphics g) {
         g.setColor(Color.blue);
-        g.drawRect((int)x,(int)y,width,height);
-        g.drawImage(Texture.sprite[0],(int)x,(int)y,null);
+        //g.drawRect((int)x,(int)y,width,height);
+        g.drawImage(GameState.texture.sprite[0],(int)x,(int)y,null);
         //righthand.render(g,0,0);
         if (KeyboardInput.e){
             inventory.render(g);
