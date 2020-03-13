@@ -78,7 +78,7 @@ public class GameState extends State{
         //Draw fixed
         Graphics2D gd2 = (Graphics2D) g;
         //Background
-        g.setColor(Color.black);
+        g.setColor(new Color(10, 20, 30));
         g.fillRect(0, 0, Launcher.WIDTH, Launcher.HEIGHT);
 
 
