@@ -13,6 +13,7 @@ import java.awt.image.BufferStrategy;
 
 public class Game implements Runnable {
 
+    public static int Frames = 0,Ticks = 0;
 
 
     private Thread thread;
@@ -84,7 +85,7 @@ public class Game implements Runnable {
         double ns = 1000000000 / amountOfTicks;
         double delta = 0;
         long timer = System.currentTimeMillis();
-        int frames = 0;
+        int frames = 0,ticks=0;
 
         while (running) {
             long now = System.nanoTime();
@@ -92,6 +93,7 @@ public class Game implements Runnable {
             lastTime = now;
             while (delta >= 1) {
                 tick();
+                ticks++;
                 delta--;
 
             }
@@ -101,8 +103,11 @@ public class Game implements Runnable {
             frames++;
             if (System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
-                // System.out.println("FPS:"+frames);
+                Frames = frames;
+                Ticks = ticks;
+                //System.out.println(String.format("UPS: %s, FPS: %s", ticks, frames));
                 frames = 0;
+                ticks = 0;
             }
         }
         stop();
@@ -128,19 +133,6 @@ public class Game implements Runnable {
             return;
         }
         Graphics g = bs.getDrawGraphics();
-        //Background
-
-
-
-        //draw
-
-
-
-
-
-
-
-
 
         if (State.getState()!=null){
             State.getState().render(g);

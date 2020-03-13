@@ -3,7 +3,7 @@ package Tiles;
 import java.awt.*;
 
 public abstract class Tile {
-    protected int width=64,height=64;
+    protected int width=16,height=16;
     protected int id;
     protected boolean solid;
     public static Tile[] idList =new Tile[64];

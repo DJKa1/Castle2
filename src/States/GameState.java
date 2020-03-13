@@ -30,16 +30,12 @@ public class GameState extends State{
         camera = new Camera(0,0);
         init();
 
-
-
-
-
     }
 
     @Override
     public void init(){
         texture = new Texture();
-        creatureHandler.addObject(new Player(100,600));
+        creatureHandler.addObject(new Player(50,100));
 
     }
 
@@ -79,20 +75,27 @@ public class GameState extends State{
     @Override
     public void render(Graphics g) {
 
-
-
         //Draw fixed
         Graphics2D gd2 = (Graphics2D) g;
+        //Background
         g.setColor(Color.black);
         g.fillRect(0, 0, Launcher.WIDTH, Launcher.HEIGHT);
+
+
         //Camera show
         gd2.scale(camera.getSCALE(),camera.getSCALE());
         gd2.translate(camera.getX(), camera.getY()); //Cam start
 
         map.render(g);
         creatureHandler.render(g);
-        gd2.translate(-camera.getX(), -camera.getY());//Cam end
 
+        gd2.translate(-camera.getX(), -camera.getY());//Cam end
+        gd2.scale(1d/(double) camera.getSCALE(),1d/(double)camera.getSCALE());
+        //FPS and UPS
+        g.setColor(Color.BLACK);
+        g.fillRect(0,0,150,20);
+        g.setColor(Color.white);
+        g.drawString(String.format("FPS: %s, UPS: %s",Game.Frames,Game.Ticks),10,15);
     }
 
 }

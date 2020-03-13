@@ -15,8 +15,7 @@ public class Rock extends Tile {
 
     @Override
     public void render(Graphics g, int x, int y) {
-        g.setColor(Color.darkGray);
-        g.fillRect((int)x*width,(int)y*height,width,height);
+        g.drawImage(Texture.sprite[17],x*width,y*height,null);
 
     }
 }

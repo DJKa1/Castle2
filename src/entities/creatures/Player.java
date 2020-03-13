@@ -15,7 +15,12 @@ public class Player extends Creature {
     protected Inventory inventory;
     protected HandSlot righthand;
     private final ID[] INCLUDE=null;
-    private Animation playerWalk;
+
+    private Animation playerWalkRight;
+    private Animation playerWalkLeft;
+    private Animation playerWalkUp;
+    private Animation playerWalkDown;
+    private Animation idle;
 
 
     public Player(float x, float y) {
@@ -28,7 +33,11 @@ public class Player extends Creature {
         righthand=new HandSlot(0);
         createHitbox();
 
-        playerWalk = new Animation(3,GameState.texture.sprite[0],GameState.texture.sprite[1],GameState.texture.sprite[2],GameState.texture.sprite[3],GameState.texture.sprite[4]);
+        playerWalkLeft = new Animation(3,GameState.texture.sprite[8],GameState.texture.sprite[9],GameState.texture.sprite[10],GameState.texture.sprite[11],GameState.texture.sprite[12]);
+        playerWalkRight = new Animation(3,GameState.texture.sprite[0],GameState.texture.sprite[1],GameState.texture.sprite[2],GameState.texture.sprite[3],GameState.texture.sprite[4]);
+        playerWalkUp = new Animation(3,GameState.texture.sprite[0],GameState.texture.sprite[1],GameState.texture.sprite[2],GameState.texture.sprite[3],GameState.texture.sprite[4]);
+        playerWalkDown = new Animation(3,GameState.texture.sprite[0],GameState.texture.sprite[1],GameState.texture.sprite[2],GameState.texture.sprite[3],GameState.texture.sprite[4]);
+        idle = new Animation(10,GameState.texture.sprite[0],GameState.texture.sprite[5]);
 
     }
 
@@ -43,23 +52,29 @@ public class Player extends Creature {
 
         if (KeyboardInput.up){
             speedY=-1;
+            //playerWalkUp.runAnimation();
 
         }else if (KeyboardInput.down){
             speedY=+1;
+            //playerWalkDown.runAnimation();
 
         }else{
             speedY=0;
+            //idle.runAnimation();
         }
         if (KeyboardInput.right){
             speedX=+1;
+            //playerWalkRight.runAnimation();
 
         }else if (KeyboardInput.left){
             speedX=-1;
+            //playerWalkLeft.runAnimation();
 
         }else{
             speedX=0;
+            //idle.runAnimation();
         }
-
+        idle.runAnimation();
 
         updateHitbox((int) speedX,0);
         if (!checkCollision_ifOneOf(hitbox,ID.Greenslime))
@@ -73,7 +88,7 @@ public class Player extends Creature {
         inventory.tick();
         righthand.tick();
 
-        playerWalk.runAnimation();
+
 
     }
 
@@ -82,7 +97,7 @@ public class Player extends Creature {
         g.setColor(Color.blue);
         //g.drawRect((int)x,(int)y,width,height);
         //g.drawImage(GameState.texture.sprite[0],(int)x,(int)y,null);
-        playerWalk.drawAnimation(g,(int)x,(int)y);
+        idle.drawAnimation(g,(int)x,(int)y);
         //righthand.render(g,0,0);
         if (KeyboardInput.e){
             inventory.render(g);
