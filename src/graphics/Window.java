@@ -36,11 +36,6 @@ public class Window {
         cvs.setMinimumSize(dimension);
         cvs.setFocusable(false);
         jfi.add(cvs);
-
-
-
-
-
     }
 
     public Canvas getCanvas(){

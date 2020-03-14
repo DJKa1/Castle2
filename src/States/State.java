@@ -1,5 +1,6 @@
 package States;
 
+import entities.creatures.Player;
 import main_pack.Game;
 
 import java.awt.*;

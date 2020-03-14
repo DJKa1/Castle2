@@ -10,12 +10,10 @@ public class KeyboardInput implements KeyListener {
 
     protected boolean []keys;
     public static boolean up,left,right,down,jump,esc,e;
-    protected Game game;
 
     
-    public KeyboardInput(Game game){
+    public KeyboardInput(){
         keys= new boolean[256];
-        this.game=game;
     }
 
     public void tick (){

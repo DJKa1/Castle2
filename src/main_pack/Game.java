@@ -8,6 +8,7 @@ import entities.creatures.Creature;
 import entities.creatures.Player;
 import graphics.Window;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 
 
@@ -27,6 +28,7 @@ public class Game implements Runnable {
     private KeyboardInput keyboardInput;
     private CreatureHandler creatureHandler;
     private Map map;
+    private MouseInput mouseInput;
 
     Camera camera;
 
@@ -68,9 +70,16 @@ public class Game implements Runnable {
     public void init(){
         window =new Window(title,width,height);
         gameState=new GameState(this);
-        keyboardInput=new KeyboardInput(this);
+        mouseInput=new MouseInput();
+        //window.getJFrame().addMouseListener(mouseInput);
+        //window.getJFrame().addMouseMotionListener(mouseInput);
+        window.getCanvas().addMouseListener(mouseInput);
+        window.getCanvas().addMouseMotionListener(mouseInput);
+        keyboardInput=new KeyboardInput();
         window.getJFrame().addKeyListener(keyboardInput);
         State.setState(gameState);
+
+
 
     }
 

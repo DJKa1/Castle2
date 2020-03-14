@@ -6,9 +6,9 @@ import entities.ID;
 import entities.creatures.Camera;
 import entities.creatures.Creature;
 import entities.creatures.Player;
-import main_pack.CreatureHandler;
-import main_pack.Game;
-import main_pack.Launcher;
+import entities.projectile.Plasmabolt;
+import entities.projectile.Projectile;
+import main_pack.*;
 
 
 import java.awt.*;
@@ -16,10 +16,15 @@ import java.util.Arrays;
 
 public class GameState extends State{
     private CreatureHandler creatureHandler;
+    private ProjectileHandler projectileHandler;
     private Camera camera;
     private Map map;
+    private Player player;
     private final ID[] EXCLUDE=null;
     public static Texture texture;
+
+
+
 
 
 
@@ -28,14 +33,20 @@ public class GameState extends State{
         creatureHandler=new CreatureHandler();
         map=new Map("testMap");
         camera = new Camera(0,0);
+
         init();
 
     }
 
+
     @Override
     public void init(){
         texture = new Texture();
-        creatureHandler.addObject(new Player(50,100));
+        projectileHandler=new ProjectileHandler();
+        player=new Player(50,100,projectileHandler);
+        creatureHandler.addObject(player);
+
+
 
     }
 
@@ -44,7 +55,9 @@ public class GameState extends State{
     public void tick() {
 
         creatureHandler.tick();
+        projectileHandler.tick();
         map.tick();
+
 
         Creature tempPlayer=null;
         //System.out.println("Creatures: "+creatureHandler.creatures.size());
@@ -88,6 +101,10 @@ public class GameState extends State{
 
         map.render(g);
         creatureHandler.render(g);
+        projectileHandler.render(g);
+
+
+
 
         gd2.translate(-camera.getX(), -camera.getY());//Cam end
         gd2.scale(1d/(double) camera.getSCALE(),1d/(double)camera.getSCALE());
@@ -96,6 +113,10 @@ public class GameState extends State{
         g.fillRect(0,0,150,20);
         g.setColor(Color.white);
         g.drawString(String.format("FPS: %s, UPS: %s",Game.Frames,Game.Ticks),10,15);
+
+
+
+
     }
 
 }

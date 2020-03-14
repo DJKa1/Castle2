@@ -5,9 +5,12 @@ import Tiles.Texture;
 import entities.ID;
 import entities.items.Bow;
 import entities.items.SteelSword;
+import entities.projectile.Plasmabolt;
 import graphics.Animation;
 import main_pack.CreatureHandler;
 import main_pack.KeyboardInput;
+import main_pack.MouseInput;
+import main_pack.ProjectileHandler;
 
 import java.awt.*;
 
@@ -21,11 +24,14 @@ public class Player extends Creature {
     private Animation playerWalkUp;
     private Animation playerWalkDown;
     private Animation idle;
+    private ProjectileHandler projectileHandler;
+    private int plasmacooldown;
 
 
-    public Player(float x, float y) {
+    public Player(float x, float y, ProjectileHandler projectileHandler) {
         super(x,y);
         this.hp=10;
+        this.projectileHandler=projectileHandler;
         id= ID.Player;
         width=16;
         height=16;
@@ -38,6 +44,13 @@ public class Player extends Creature {
         playerWalkUp = new Animation(3,GameState.texture.sprite[0],GameState.texture.sprite[1],GameState.texture.sprite[2],GameState.texture.sprite[3],GameState.texture.sprite[4]);
         playerWalkDown = new Animation(3,GameState.texture.sprite[0],GameState.texture.sprite[1],GameState.texture.sprite[2],GameState.texture.sprite[3],GameState.texture.sprite[4]);
         idle = new Animation(10,GameState.texture.sprite[0],GameState.texture.sprite[5]);
+
+    }
+
+
+    public void firePlasma(float aimX,float aimY){
+        projectileHandler.addObject(new Plasmabolt(x,y,aimX,aimY));
+
 
     }
 
@@ -87,6 +100,17 @@ public class Player extends Creature {
         inventory.addItem(new Bow(50,50,10));
         inventory.tick();
         righthand.tick();
+
+        if (MouseInput.leftPressed&&plasmacooldown==0){
+            firePlasma(MouseInput.mouseX,MouseInput.mouseY);
+            plasmacooldown=10;
+        }else if (plasmacooldown>0){
+            plasmacooldown--;
+        }
+
+
+
+
 
 
 
