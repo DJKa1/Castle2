@@ -25,6 +25,8 @@ public class Player extends Creature {
     private Animation playerWalkUp;
     private Animation playerWalkDown;
     private Animation idle;
+    private Animation[] animation;
+    private int animationIndex = 0;
     private ProjectileHandler projectileHandler;
     private int plasmacooldown;
     private Vector2D move;
@@ -48,6 +50,12 @@ public class Player extends Creature {
         playerWalkDown = new Animation(3,GameState.texture.sprite[0],GameState.texture.sprite[1],GameState.texture.sprite[2],GameState.texture.sprite[3],GameState.texture.sprite[4]);
         idle = new Animation(10,GameState.texture.sprite[0],GameState.texture.sprite[5]);
 
+        animation = new Animation[5];
+        animation[0] = idle;
+        animation[1] = playerWalkRight;
+        animation[2] = playerWalkLeft;
+        animation[3] = playerWalkUp;
+        animation[4] = playerWalkDown;
     }
 
 
@@ -57,53 +65,69 @@ public class Player extends Creature {
 
     }
 
-
-
-
-
-
     @Override
     public void tick() {
 
 
         if (KeyboardInput.up){
             move.y = -1;
-            //playerWalkUp.runAnimation();
+            playerWalkUp.runAnimation();
+            animationIndex = 3;
 
         }else if (KeyboardInput.down){
             move.y = 1;
-            //playerWalkDown.runAnimation();
+            playerWalkDown.runAnimation();
+            animationIndex = 4;
 
         }else{
             move.y=0;
-
-            //idle.runAnimation();
         }
         if (KeyboardInput.right){
             move.x = 1;
-            //playerWalkRight.runAnimation();
+            playerWalkRight.runAnimation();
+            animationIndex = 1;
 
         }else if (KeyboardInput.left){
             move.x = -1;
-            //playerWalkLeft.runAnimation();
+            playerWalkLeft.runAnimation();
+            animationIndex = 2;
 
         }else{
             move.x = 0;
-            //idle.runAnimation();
+
         }
         if(!(move.x==0||move.y==0)) {
             move.normalize();
+        }else if(move.x==0&&move.y==0) {
+            idle.runAnimation();
+            animationIndex = 0;
         }
 
         speedX = (float) move.x;
         speedY = (float) move.y;
         System.out.print(String.format("X: %s;Y: %s",speedX,speedY)+"\r");
-        idle.runAnimation();
 
-        updateHitbox((int) speedX,0);
+        int speIntX = (int)speedX;
+        int speIntY = (int)speedY;
+        if(speedX!=0){
+            if(speedX>0){
+                speIntX = 1;
+            }else {
+                speIntX = -1;
+            }
+        }
+        if(speedY!=0){
+            if(speedY>0){
+                speIntY = 1;
+            }else {
+                speIntY = -1;
+            }
+        }
+
+        updateHitbox(speIntX,0);
         if (!checkCollision_ifOneOf(hitbox,ID.Greenslime))
             x+=speedX;
-        updateHitbox(0, (int) speedY);
+        updateHitbox(0, speIntY);
         if (!checkCollision_ifOneOf(hitbox,ID.Greenslime))
             y+=speedY;
 
@@ -119,20 +143,12 @@ public class Player extends Creature {
             plasmacooldown--;
         }
 
-
-
-
-
-
-
     }
 
     @Override
     public void render(Graphics g) {
         g.setColor(Color.blue);
-        //g.drawRect((int)x,(int)y,width,height);
-        //g.drawImage(GameState.texture.sprite[0],(int)x,(int)y,null);
-        idle.drawAnimation(g,(int)x,(int)y);
+        animation[animationIndex].drawAnimation(g,(int)x,(int)y);
         //righthand.render(g,0,0);
         if (KeyboardInput.e){
             inventory.render(g);
