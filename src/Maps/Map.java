@@ -21,8 +21,7 @@ public class Map {
                 if (i%2==00){
                     tiles[i][j] = 0;
                 }else {
-                    tiles[i][j] = 1;
-
+                    tiles[i][j] = 0;
                 }
             }
 
@@ -31,7 +30,6 @@ public class Map {
 
     public Tile getTilebyID(int x, int y){
         return Tile.idList[tiles[x][y]];
-
     }
 
     public  void tick(){

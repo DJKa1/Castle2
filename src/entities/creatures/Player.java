@@ -3,6 +3,7 @@ import Inventory.*;
 import States.GameState;
 import Tiles.Texture;
 import entities.ID;
+import entities.Vector2D;
 import entities.items.Bow;
 import entities.items.SteelSword;
 import entities.projectile.Plasmabolt;
@@ -26,12 +27,14 @@ public class Player extends Creature {
     private Animation idle;
     private ProjectileHandler projectileHandler;
     private int plasmacooldown;
+    private Vector2D move;
 
 
     public Player(float x, float y, ProjectileHandler projectileHandler) {
         super(x,y);
         this.hp=10;
         this.projectileHandler=projectileHandler;
+        move = new Vector2D(0,0);
         id= ID.Player;
         width=16;
         height=16;
@@ -64,29 +67,37 @@ public class Player extends Creature {
 
 
         if (KeyboardInput.up){
-            speedY=-1;
+            move.y = -1;
             //playerWalkUp.runAnimation();
 
         }else if (KeyboardInput.down){
-            speedY=+1;
+            move.y = 1;
             //playerWalkDown.runAnimation();
 
         }else{
-            speedY=0;
+            move.y=0;
+
             //idle.runAnimation();
         }
         if (KeyboardInput.right){
-            speedX=+1;
+            move.x = 1;
             //playerWalkRight.runAnimation();
 
         }else if (KeyboardInput.left){
-            speedX=-1;
+            move.x = -1;
             //playerWalkLeft.runAnimation();
 
         }else{
-            speedX=0;
+            move.x = 0;
             //idle.runAnimation();
         }
+        if(!(move.x==0||move.y==0)) {
+            move.normalize();
+        }
+
+        speedX = (float) move.x;
+        speedY = (float) move.y;
+        System.out.print(String.format("X: %s;Y: %s",speedX,speedY)+"\r");
         idle.runAnimation();
 
         updateHitbox((int) speedX,0);
