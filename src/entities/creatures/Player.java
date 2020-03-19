@@ -15,6 +15,7 @@ import main_pack.ProjectileHandler;
 
 import java.awt.*;
 
+import static main_pack.Game.SCALE;
 import static main_pack.Game.UNIT_SCALE;
 
 
@@ -36,7 +37,7 @@ public class Player extends Creature {
 
 
     public Player(float x, float y, ProjectileHandler projectileHandler) {
-        super(x, y);
+        super(x,y);
         this.hp = 10;
         this.projectileHandler = projectileHandler;
         move = new Vector2D(0, 0);
@@ -110,8 +111,8 @@ public class Player extends Creature {
 
         playAnimation(move.x,move.y);
 
-        speedX = (float) move.x * 4;
-        speedY = (float) move.y * 4;
+        speedX = (float) move.x * (int)SCALE;
+        speedY = (float) move.y * (int)SCALE;
     }
     public int nextIntDependingOnAbsulutVal(float round){
         if (round != 0) {

@@ -15,8 +15,8 @@ import java.awt.image.BufferStrategy;
 public class Game implements Runnable {
 
     public static int Frames = 0,Ticks = 0;
-    //public final static double SCALE = 8;
-    //public final static int UNITDIMENSION = 16;
+    public final static double SCALE = 8;
+    public final static int UNITDIMENSION = 16;
     public final static int UNIT_SCALE = 128;
 
 

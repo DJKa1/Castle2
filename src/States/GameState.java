@@ -44,9 +44,9 @@ public class GameState extends State{
     public void init(){
         texture = new Texture();
         projectileHandler=new ProjectileHandler();
-        player=new Player(0,0,projectileHandler);
+        player=new Player(3,0.1f,projectileHandler);
         creatureHandler.addObject(player);
-        creatureHandler.addObject(new GreenSlime(100,100));
+        creatureHandler.addObject(new GreenSlime(100,200));
         creatureHandler.addObject(new GreenSlime(200,100));
 
 

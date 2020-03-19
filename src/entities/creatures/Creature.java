@@ -6,6 +6,8 @@ import main_pack.CreatureHandler;
 
 import java.awt.*;
 
+import static main_pack.Game.UNIT_SCALE;
+
 
 public abstract class Creature extends Entity {
     protected double hp;

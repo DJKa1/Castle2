@@ -5,6 +5,8 @@ import main_pack.CreatureHandler;
 
 import java.awt.*;
 
+import static main_pack.Game.UNIT_SCALE;
+
 public abstract class Entity {
     protected float x,y;
     protected ID id;
@@ -52,8 +54,8 @@ public abstract class Entity {
     }
 
     public Entity(float x, float y){
-        this.x=x;
-        this.y=y;
+        this.x=x*UNIT_SCALE;
+        this.y=y*UNIT_SCALE;
 
     }
 
