@@ -11,8 +11,6 @@ public class CreatureHandler {
 
     public CreatureHandler(){
         creatures= new LinkedList<>();
-        creatures.add(new GreenSlime(100,100));
-        creatures.add(new GreenSlime(200,100));
 
     }
     public void tick() {

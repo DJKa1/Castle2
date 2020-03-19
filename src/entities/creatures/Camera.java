@@ -2,8 +2,7 @@ package entities.creatures;
 
 import main_pack.Launcher;
 
-import static main_pack.Game.SCALE;
-import static main_pack.Game.UNITDIMENSION;
+import static main_pack.Game.*;
 
 public class Camera {
     private float x;
@@ -17,8 +16,8 @@ public class Camera {
     }
 
     public void tick(Creature player) {
-        x = -player.getX()+ Launcher.WIDTH/2 - (int)(UNITDIMENSION*SCALE)/2;
-        y = -player.getY()+ Launcher.HEIGHT/2 - (int)(UNITDIMENSION*SCALE)/2;
+        x = -player.getX()+ Launcher.WIDTH/2 - (int)(UNIT_SCALE)/2;
+        y = -player.getY()+ Launcher.HEIGHT/2 - (int)(UNIT_SCALE)/2;
     }
 
     public void setX(float x) {

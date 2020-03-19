@@ -5,6 +5,7 @@ import Tiles.Texture;
 import entities.ID;
 import entities.creatures.Camera;
 import entities.creatures.Creature;
+import entities.creatures.GreenSlime;
 import entities.creatures.Player;
 import entities.projectile.Plasmabolt;
 import entities.projectile.Projectile;
@@ -45,6 +46,8 @@ public class GameState extends State{
         projectileHandler=new ProjectileHandler();
         player=new Player(0,0,projectileHandler);
         creatureHandler.addObject(player);
+        creatureHandler.addObject(new GreenSlime(100,100));
+        creatureHandler.addObject(new GreenSlime(200,100));
 
 
 

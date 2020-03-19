@@ -15,8 +15,8 @@ import main_pack.ProjectileHandler;
 
 import java.awt.*;
 
-import static main_pack.Game.SCALE;
-import static main_pack.Game.UNITDIMENSION;
+import static main_pack.Game.UNIT_SCALE;
+
 
 public class Player extends Creature {
     protected Inventory inventory;
@@ -41,8 +41,8 @@ public class Player extends Creature {
         this.projectileHandler = projectileHandler;
         move = new Vector2D(0, 0);
         id = ID.Player;
-        width = Game.UNIT_SCALE;
-        height = Game.UNIT_SCALE;
+        width = UNIT_SCALE;
+        height = UNIT_SCALE;
         inventory = new Inventory();
         righthand = new HandSlot(0);
         createHitbox();
@@ -97,7 +97,7 @@ public class Player extends Creature {
     @Override
     public void render(Graphics g) {
         g.setColor(Color.blue);
-        animation[animationIndex].drawAnimation(g, (int) x, (int)y,(int)(UNITDIMENSION*SCALE));
+        animation[animationIndex].drawAnimation(g, (int) x, (int)y,(int)(UNIT_SCALE));
         //righthand.render(g,0,0);
         if (KeyboardInput.e) {
             inventory.render(g);
