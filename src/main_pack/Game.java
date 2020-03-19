@@ -15,6 +15,9 @@ import java.awt.image.BufferStrategy;
 public class Game implements Runnable {
 
     public static int Frames = 0,Ticks = 0;
+    public final static double SCALE = 4;
+    public final static int UNITDIMENSION = 16;
+    public final static int UNIT_SCALE = 64;
 
 
     private Thread thread;
@@ -29,6 +32,7 @@ public class Game implements Runnable {
     private CreatureHandler creatureHandler;
     private Map map;
     private MouseInput mouseInput;
+
 
     Camera camera;
 
@@ -145,11 +149,7 @@ public class Game implements Runnable {
 
         if (State.getState()!=null){
             State.getState().render(g);
-
-
         }
-
-
 
 
         g.dispose();

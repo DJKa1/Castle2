@@ -43,7 +43,7 @@ public class GameState extends State{
     public void init(){
         texture = new Texture();
         projectileHandler=new ProjectileHandler();
-        player=new Player(50,100,projectileHandler);
+        player=new Player(0,0,projectileHandler);
         creatureHandler.addObject(player);
 
 
@@ -96,7 +96,7 @@ public class GameState extends State{
 
 
         //Camera show
-        gd2.scale(camera.getSCALE(),camera.getSCALE());
+        //gd2.scale(camera.getSCALE(),camera.getSCALE());
         gd2.translate(camera.getX(), camera.getY()); //Cam start
 
         map.render(g);
@@ -107,7 +107,7 @@ public class GameState extends State{
 
 
         gd2.translate(-camera.getX(), -camera.getY());//Cam end
-        gd2.scale(1d/(double) camera.getSCALE(),1d/(double)camera.getSCALE());
+        //gd2.scale(1d/(double) camera.getSCALE(),1d/(double)camera.getSCALE());
         //FPS and UPS
         g.setColor(Color.BLACK);
         g.fillRect(0,0,150,20);

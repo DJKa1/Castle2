@@ -18,11 +18,7 @@ public class Map {
         tiles=new int[32][32];
         for (int i=0;i<32;i++){
             for (int j=0;j<32;j++) {
-                if (i%2==00){
-                    tiles[i][j] = 0;
-                }else {
-                    tiles[i][j] = 0;
-                }
+                tiles[i][j] = 0;
             }
 
             }

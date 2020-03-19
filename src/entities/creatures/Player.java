@@ -8,11 +8,15 @@ import entities.items.Bow;
 import entities.items.SteelSword;
 import entities.projectile.Plasmabolt;
 import graphics.Animation;
+import main_pack.Game;
 import main_pack.KeyboardInput;
 import main_pack.MouseInput;
 import main_pack.ProjectileHandler;
 
 import java.awt.*;
+
+import static main_pack.Game.SCALE;
+import static main_pack.Game.UNITDIMENSION;
 
 public class Player extends Creature {
     protected Inventory inventory;
@@ -37,8 +41,8 @@ public class Player extends Creature {
         this.projectileHandler = projectileHandler;
         move = new Vector2D(0, 0);
         id = ID.Player;
-        width = 16;
-        height = 16;
+        width = Game.UNIT_SCALE;
+        height = Game.UNIT_SCALE;
         inventory = new Inventory();
         righthand = new HandSlot(0);
         createHitbox();
@@ -93,7 +97,7 @@ public class Player extends Creature {
     @Override
     public void render(Graphics g) {
         g.setColor(Color.blue);
-        animation[animationIndex].drawAnimation(g, (int) x, (int) y);
+        animation[animationIndex].drawAnimation(g, (int) x, (int)y,(int)(UNITDIMENSION*SCALE));
         //righthand.render(g,0,0);
         if (KeyboardInput.e) {
             inventory.render(g);
@@ -101,36 +105,13 @@ public class Player extends Creature {
     }
 
     private void movement() {
-        if (KeyboardInput.up) {
-            move.y = -1;
-            playerWalkUp.runAnimation();
-            animationIndex = 3;
-        } else if (KeyboardInput.down) {
-            move.y = 1;
-            playerWalkDown.runAnimation();
-            animationIndex = 4;
-        } else {
-            move.y = 0;
-        }
-        if (KeyboardInput.right) {
-            move.x = 1;
-            playerWalkRight.runAnimation();
-            animationIndex = 1;
-        } else if (KeyboardInput.left) {
-            move.x = -1;
-            playerWalkLeft.runAnimation();
-            animationIndex = 2;
-        } else {
-            move.x = 0;
-        }
-        if (!(move.x == 0 || move.y == 0)) {
-            move.normalize();
-        } else if (move.x == 0 && move.y == 0) {
-            idle.runAnimation();
-            animationIndex = 0;
-        }
-        speedX = (float) move.x;
-        speedY = (float) move.y;
+        move.x = boolToInt(KeyboardInput.right) - boolToInt(KeyboardInput.left);
+        move.y = boolToInt(KeyboardInput.down) - boolToInt(KeyboardInput.up);
+
+        playAnimation(move.x,move.y);
+
+        speedX = (float) move.x * 4;
+        speedY = (float) move.y * 4;
     }
     public int nextIntDependingOnAbsulutVal(float round){
         if (round != 0) {
@@ -149,6 +130,33 @@ public class Player extends Creature {
         updateHitbox(0, speIntY);
         if (!checkCollision_ifOneOf(hitbox, ID.Greenslime))
             y += speedY;
+    }
+
+    public int boolToInt(boolean b) {
+        return b ? 1 : 0;
+    }
+    public void playAnimation(double velX, double velY){
+        if (velY<0) {
+            playerWalkUp.runAnimation();
+            animationIndex = 3;
+        } else if (velY>0) {
+            playerWalkDown.runAnimation();
+            animationIndex = 4;
+        }
+        if (velX>0) {
+            playerWalkRight.runAnimation();
+            animationIndex = 1;
+        } else if (velX<0) {
+            playerWalkLeft.runAnimation();
+            animationIndex = 2;
+        }
+
+        if (!(move.x == 0 || move.y == 0)) {
+            move.normalize();
+        } else if (move.x == 0 && move.y == 0) {
+            idle.runAnimation();
+            animationIndex = 0;
+        }
     }
 
 }

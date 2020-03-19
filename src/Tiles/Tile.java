@@ -1,9 +1,11 @@
 package Tiles;
 
+import main_pack.Game;
+
 import java.awt.*;
 
 public abstract class Tile {
-    protected int width=16,height=16;
+    protected int width= Game.UNIT_SCALE,height=Game.UNIT_SCALE;
     protected int id;
     protected boolean solid;
     public static Tile[] idList =new Tile[64];
