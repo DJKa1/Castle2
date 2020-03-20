@@ -128,18 +128,22 @@ public class Player extends Creature {
     }
     private void collision(int speIntX,int speIntY){
         updateHitbox(0, 0);
+
         //MapBorder
-        if (!isInMap(hitbox)){
-            x+=speedX*-1;
-            y+=speedY*-1;
-        }
         //GreenSlime
         updateHitbox(speIntX, 0);
+        if (!isInMap(hitbox)){
+            x+=speedX*-1;
+
+        }
         if (checkCollision_ifOneOf(hitbox, ID.Greenslime)){
             x+=speedX*-1;
         }
 
         updateHitbox(0, speIntY);
+        if (!isInMap(hitbox)){
+            y+=speedY*-1;
+        }
         if (checkCollision_ifOneOf(hitbox, ID.Greenslime)){
             y+=speedY*-1;
         }
