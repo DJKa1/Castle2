@@ -24,7 +24,7 @@ public class Game implements Runnable {
     private boolean running = false;
     private String title="Castle";
     private int width,height;
-    private State gameState,menuState,optionState;
+    private State gameState,menuState,optionState,ConsoleState;
     private BufferStrategy bs;
     private Graphics g;
     private Window window;
@@ -44,6 +44,46 @@ public class Game implements Runnable {
 
 
     }
+
+
+    //Init
+
+    public void init(){
+        window =new Window(title,width,height);
+        gameState=new GameState(this);
+        mouseInput=new MouseInput();
+        //window.getJFrame().addMouseListener(mouseInput);
+        //window.getJFrame().addMouseMotionListener(mouseInput);
+        window.getCanvas().addMouseListener(mouseInput);
+        window.getCanvas().addMouseMotionListener(mouseInput);
+        keyboardInput=new KeyboardInput(this);
+        window.getJFrame().addKeyListener(keyboardInput);
+        State.setState(gameState);
+    }
+
+    //Getters && Setters
+    public Map getMap() {
+        return map;
+    }
+    public Camera getCamera() {
+        return camera;
+    }
+    public CreatureHandler getCreatureHandler() {
+        return creatureHandler;
+    }
+    public KeyboardInput getKeyboardInput() { return keyboardInput; }
+    public MouseInput getMouseInput() { return mouseInput; }
+
+
+    public void activateConsole(){
+        System.out.println("hey");
+        State.setState(ConsoleState);
+    }
+
+
+
+
+    //Game Loop
 
     public synchronized void start() {
         if (running){
@@ -67,26 +107,11 @@ public class Game implements Runnable {
 
     }
 
-    public CreatureHandler getCreatureHandler() {
-        return creatureHandler;
-    }
 
-    public void init(){
-        window =new Window(title,width,height);
-        gameState=new GameState(this);
-        mouseInput=new MouseInput();
-        //window.getJFrame().addMouseListener(mouseInput);
-        //window.getJFrame().addMouseMotionListener(mouseInput);
-        window.getCanvas().addMouseListener(mouseInput);
-        window.getCanvas().addMouseMotionListener(mouseInput);
-        keyboardInput=new KeyboardInput();
-        window.getJFrame().addKeyListener(keyboardInput);
-        State.setState(gameState);
-    }
 
-    public Map getMap() {
-        return map;
-    }
+
+
+
 
     public void run() {
         init();
@@ -124,10 +149,12 @@ public class Game implements Runnable {
 
     }
 
-    public Camera getCamera() {
-        return camera;
-    }
 
+
+
+
+
+    //tick && render
     private void tick() {
         if (State.getState()!=null){
             State.getState().tick();
@@ -153,6 +180,7 @@ public class Game implements Runnable {
         bs.show();
 
     }
+
 
 
 

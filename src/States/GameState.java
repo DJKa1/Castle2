@@ -46,7 +46,7 @@ public class GameState extends State{
         projectileHandler=new ProjectileHandler();
         player=new Player(3,0.1f,projectileHandler);
         creatureHandler.addObject(player);
-        creatureHandler.addObject(new GreenSlime(100,200));
+        creatureHandler.addObject(new GreenSlime(1,2));
         creatureHandler.addObject(new GreenSlime(200,100));
 
 
@@ -72,19 +72,6 @@ public class GameState extends State{
         }
 
         camera.tick(tempPlayer);
-
-
-        /*
-        for(Creature k:creatureHandler.creatures){
-            if (!Arrays.stream(EXCLUDE).anyMatch(k.getId()::equals)){
-                k.checkCollision();
-            }
-
-
-        }
-
-
-        */
 
     }
 

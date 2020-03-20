@@ -3,17 +3,23 @@ package main_pack;
 
 
 
+import States.State;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyboardInput implements KeyListener {
 
+    public boolean checkTyped=false;
     protected boolean []keys;
     public static boolean up,left,right,down,jump,esc,e;
+    protected Game game;
+
 
     
-    public KeyboardInput(){
+    public KeyboardInput(Game game){
         keys= new boolean[256];
+        this.game=game;
     }
 
     public void tick (){
@@ -31,13 +37,18 @@ public class KeyboardInput implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-
-
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        keys[e.getKeyCode()]=true;
+        if (!checkTyped){
+            keys[e.getKeyCode()]=true;
+        }
+
+
+        if (e.getKeyCode()==KeyEvent.VK_T){
+            game.activateConsole(); }
+
 
 
 
@@ -47,8 +58,9 @@ public class KeyboardInput implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        keys[e.getKeyCode()]=false;
-
+        if (!checkTyped) {
+            keys[e.getKeyCode()] = false;
+        }
     }
 
 

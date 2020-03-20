@@ -20,6 +20,8 @@ public class Camera {
         y = -player.getY()+ Launcher.HEIGHT/2 - (int)(UNIT_SCALE)/2;
     }
 
+
+
     public void setX(float x) {
         this.x = x;
     }

@@ -1,5 +1,6 @@
 package entities.creatures;
 
+import Maps.Map;
 import entities.Entity;
 import entities.ID;
 import main_pack.CreatureHandler;
@@ -18,6 +19,8 @@ public abstract class Creature extends Entity {
     public Creature(float x,float y){
         super(x,y);
     }
+
+
 
     public Creature[] checkCollision_forAll(Rectangle hitbox, ID partner) {
         Creature []colliders=null;
@@ -45,6 +48,13 @@ public abstract class Creature extends Entity {
         }
         return false;
 
+    }
+
+    public boolean isInMap(Rectangle hitbox){
+        if (Map.BORDER.contains(hitbox)){
+            return true;
+        }
+        return false;
     }
 
     public void createHitbox(){

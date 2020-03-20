@@ -113,6 +113,8 @@ public class Player extends Creature {
 
         speedX = (float) move.x * (int)SCALE;
         speedY = (float) move.y * (int)SCALE;
+        x += speedX;
+        y += speedY;
     }
     public int nextIntDependingOnAbsulutVal(float round){
         if (round != 0) {
@@ -125,12 +127,24 @@ public class Player extends Creature {
         return (int)round;
     }
     private void collision(int speIntX,int speIntY){
+        updateHitbox(0, 0);
+        //MapBorder
+        if (!isInMap(hitbox)){
+            x+=speedX*-1;
+            y+=speedY*-1;
+        }
+        //GreenSlime
         updateHitbox(speIntX, 0);
-        if (!checkCollision_ifOneOf(hitbox, ID.Greenslime))
-            x += speedX;
+        if (checkCollision_ifOneOf(hitbox, ID.Greenslime)){
+            x+=speedX*-1;
+        }
+
         updateHitbox(0, speIntY);
-        if (!checkCollision_ifOneOf(hitbox, ID.Greenslime))
-            y += speedY;
+        if (checkCollision_ifOneOf(hitbox, ID.Greenslime)){
+            y+=speedY*-1;
+        }
+
+
     }
 
     public int boolToInt(boolean b) {

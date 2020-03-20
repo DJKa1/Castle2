@@ -11,6 +11,7 @@ public abstract class Tile {
     public static Tile[] idList =new Tile[64];
     public static Tile grass=new Grass(0);
     public static Tile rock=new Rock(1);
+    public static Tile border=new Border(2);
 
 
 

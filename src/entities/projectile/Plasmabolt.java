@@ -8,7 +8,7 @@ public class Plasmabolt extends Projectile {
 
     public Plasmabolt(float x, float y,float aimX,float aimY) {
         super(x, y);
-        this.projeticespeed = 5;
+        this.projeticespeed = 1;
         this.aimY = aimY;
         this.aimX = aimX;
 
@@ -32,7 +32,7 @@ public class Plasmabolt extends Projectile {
         speedX *= h;
 
         System.out.println(speedX+"   "+speedY);
-        System.out.println(aimX+"   "+aimY);
+
 
 
 
