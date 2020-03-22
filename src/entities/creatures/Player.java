@@ -42,8 +42,9 @@ public class Player extends Creature {
         this.projectileHandler = projectileHandler;
         move = new Vector2D(0, 0);
         id = ID.Player;
-        width = UNIT_SCALE;
-        height = UNIT_SCALE;
+        width = 0.8;
+        height = 0.8;
+        movementRate=0.1;
         inventory = new Inventory();
         righthand = new HandSlot(0);
         createHitbox();
@@ -72,37 +73,50 @@ public class Player extends Creature {
     @Override
     public void tick() {
         movement();
+        collision();
 
         System.out.print(String.format("X: %s;Y: %s", speedX, speedY) + "\r");
-        //Bei Werten zwischen 0 und 1 bleibt man in der Wand stecken, da das Offset durch (int) auf 0 gerundet wird
-        int speIntX = nextIntDependingOnAbsulutVal(speedX);
-        int speIntY = nextIntDependingOnAbsulutVal(speedY);
-        //--------------------------------------------------------------------------------------
-        collision(speIntX,speIntY);
+        //System.out.print(String.format("X: %s;Y: %s", x, y) + "\r");
+
+        //Plasmabeam
+        if (Ke)
 
 
-        inventory.addItem(new SteelSword(50, 50, 10));
-        inventory.addItem(new Bow(50, 50, 10));
+
+
+
+
+
+
+
+
+
         inventory.tick();
         righthand.tick();
 
-        if (MouseInput.leftPressed && plasmacooldown == 0) {
-            firePlasma(MouseInput.mouseX, MouseInput.mouseY);
-            plasmacooldown = 10;
-        } else if (plasmacooldown > 0) {
-            plasmacooldown--;
-        }
+
 
     }
 
     @Override
     public void render(Graphics g) {
         g.setColor(Color.blue);
-        animation[animationIndex].drawAnimation(g, (int) x, (int)y,(int)(UNIT_SCALE));
-        //righthand.render(g,0,0);
+
+        g.drawRect(getPixelPosition(x),1,getPixelPosition(width),getPixelPosition(height));
+        g.drawRect(getPixelPosition(x),getPixelPosition(y),getPixelPosition(width),getPixelPosition(height));
+        //animation[animationIndex].drawAnimation(g, (int) x, (int)y,(UNIT_SCALE));
+        drawHitbox(g);
         if (KeyboardInput.e) {
             inventory.render(g);
         }
+
+    }
+
+    @Override
+    public void drawHitbox(Graphics g) {
+        g.setColor(Color.BLACK);
+
+
     }
 
     private void movement() {
@@ -111,39 +125,29 @@ public class Player extends Creature {
 
         playAnimation(move.x,move.y);
 
-        speedX = (float) move.x * (int)SCALE;
-        speedY = (float) move.y * (int)SCALE;
+        speedX = (float) (move.x*movementRate);
+        speedY = (float) (move.y*movementRate) ;
         x += speedX;
         y += speedY;
     }
-    public int nextIntDependingOnAbsulutVal(float round){
-        if (round != 0) {
-            if (round > 0) {
-                round = 1;
-            } else {
-                round = -1;
-            }
-        }
-        return (int)round;
-    }
-    private void collision(int speIntX,int speIntY){
+
+    private void collision(){
         updateHitbox(0, 0);
 
         //MapBorder
-        //GreenSlime
-        updateHitbox(speIntX, 0);
         if (!isInMap(hitbox)){
+            y+=speedY*-1;
             x+=speedX*-1;
-
         }
+
+
+        //GreenSlime
+        updateHitbox(speedX/10, 0);
         if (checkCollision_ifOneOf(hitbox, ID.Greenslime)){
             x+=speedX*-1;
         }
 
-        updateHitbox(0, speIntY);
-        if (!isInMap(hitbox)){
-            y+=speedY*-1;
-        }
+        updateHitbox(0, speedY/10);
         if (checkCollision_ifOneOf(hitbox, ID.Greenslime)){
             y+=speedY*-1;
         }
@@ -177,6 +181,7 @@ public class Player extends Creature {
             animationIndex = 0;
         }
     }
+
 
 }
 

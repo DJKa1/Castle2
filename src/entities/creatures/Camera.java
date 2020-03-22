@@ -16,8 +16,8 @@ public class Camera {
     }
 
     public void tick(Creature player) {
-        x = -player.getX()+ Launcher.WIDTH/2 - (int)(UNIT_SCALE)/2;
-        y = -player.getY()+ Launcher.HEIGHT/2 - (int)(UNIT_SCALE)/2;
+        x = -player.getPixelPosition(player.getX())+ Launcher.WIDTH/2 - (int)(UNIT_SCALE)/2;
+        y = -player.getPixelPosition(player.getY())+ Launcher.HEIGHT/2 - (int)(UNIT_SCALE)/2;
     }
 
 

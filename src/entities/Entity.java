@@ -54,8 +54,8 @@ public abstract class Entity {
     }
 
     public Entity(float x, float y){
-        this.x=x*UNIT_SCALE;
-        this.y=y*UNIT_SCALE;
+        this.x=x;
+        this.y=y;
 
     }
 

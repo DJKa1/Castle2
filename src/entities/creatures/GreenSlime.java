@@ -1,6 +1,7 @@
 package entities.creatures;
 
 import entities.ID;
+import main_pack.Game;
 
 import java.awt.*;
 
@@ -11,11 +12,19 @@ public class GreenSlime extends Creature {
     public GreenSlime(float x, float y) {
         super(x, y);
         id= ID.Greenslime;
-        width=10;
-        height=10;
+        width= 1;
+        height=1;
         baseDmg=1;
         hp=5;
         createHitbox();
+    }
+
+    @Override
+    public void drawHitbox(Graphics g) {
+        g.setColor(Color.green);
+        g.drawRect(getPixelPosition(x),getPixelPosition(y),getPixelPosition(width),getPixelPosition(height));
+
+
     }
 
 
@@ -26,8 +35,7 @@ public class GreenSlime extends Creature {
 
     @Override
     public void render(Graphics g) {
-        g.setColor(Color.green);
-        g.drawRect((int)x,+(int)y,width,height);
+        drawHitbox(g);
 
     }
 }
