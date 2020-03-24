@@ -30,9 +30,8 @@ public class Game implements Runnable {
     private Window window;
     private KeyboardInput keyboardInput;
     private CreatureHandler creatureHandler;
-    private Map map;
-    private MouseInput mouseInput;
 
+    private MouseInput mouseInput;
 
     Camera camera;
 
@@ -59,12 +58,14 @@ public class Game implements Runnable {
         keyboardInput=new KeyboardInput(this);
         window.getJFrame().addKeyListener(keyboardInput);
         State.setState(gameState);
+        //System.out.println(map.getTilebyCords(1,1));
+        //System.out.println(map.test());
+
+
     }
 
     //Getters && Setters
-    public Map getMap() {
-        return map;
-    }
+
     public Camera getCamera() {
         return camera;
     }

@@ -7,7 +7,11 @@ import java.awt.*;
 public class Grass extends Tile{
     public Grass(int id) {
         super(id);
+
+        solid=false;
     }
+
+
 
     @Override
     public void tick() {

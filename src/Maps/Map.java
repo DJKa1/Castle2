@@ -24,13 +24,20 @@ public class Map {
             for (int j=0;j<32;j++) {
                 tiles[i][j] = 0;
             }
-
-            }
+        }
+        tiles[5][5]=1;
     }
 
-    public Tile getTilebyID(int x, int y){
+    public Tile getTilebyCords(int x, int y){
         return Tile.idList[tiles[x][y]];
     }
+
+
+    public int test(){
+        return 1;
+    }
+
+
 
     public  void tick(){
 
@@ -39,7 +46,7 @@ public class Map {
     public void render(Graphics g){
         for (int i=0;i<32;i++){
             for (int j=0;j<32;j++) {
-                getTilebyID(i,j).render(g,i,j);
+                getTilebyCords(i,j).render(g,i,j);
             }
 
 

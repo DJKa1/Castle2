@@ -1,6 +1,8 @@
 package entities.creatures;
 
 import Maps.Map;
+import States.GameState;
+import Tiles.Tile;
 import entities.Entity;
 import entities.ID;
 import main_pack.CreatureHandler;
@@ -39,17 +41,73 @@ public abstract class Creature extends Entity {
     }
 
 
-    public Creature checkCollision_ifOneOf(Rectangle2D.Double hitbox, ID partner) {
+    public Creature checkCollision_ifOneOf(Rectangle2D.Double hitbox, ID[] partner) {
         for (Creature k : CreatureHandler.creatures) {
-            if(k.getId()==partner) {
-                if (k.getHitbox().intersects(hitbox)) {
-                    return k;
+            for ( int i=0 ; i<partner.length;i++){
+                if(k.getId()==partner[i]) {
+                    if (k.getHitbox().intersects(hitbox)) {
+                        return k;
 
+                    }
                 }
             }
         }
         return null;
+    }
 
+    public boolean collisionWithNextTile(Rectangle2D.Double hitbox,float xSpeed, float ySpeed) {
+        Tile tile1,tile2;
+        if (xSpeed!=0){
+            if(speedX<0) {
+                tile1=GameState.map.getTilebyCords((int)Math.floor(hitbox.getX()),(int)Math.floor(hitbox.getY()));
+                tile2 = GameState.map.getTilebyCords((int) Math.floor(hitbox.getX()), (int) Math.floor(hitbox.getY() + hitbox.getHeight()));
+                if(!tile1.isSolid()&&!tile2.isSolid()) {
+                    return false;
+
+                }else return true;
+
+
+            }
+
+            if(speedX>0) {
+                tile1=GameState.map.getTilebyCords((int)Math.floor(hitbox.getX()+hitbox.getWidth()),(int)Math.floor(hitbox.getY()));
+                tile2 = GameState.map.getTilebyCords((int) Math.floor(hitbox.getX()+hitbox.getWidth()), (int) Math.floor(hitbox.getY() + hitbox.getHeight()));
+                if(!tile1.isSolid()&&!tile2.isSolid()) {
+                    return false;
+
+                }else return true;
+
+
+            }
+        }
+
+        if (ySpeed!=0){
+            if(speedY>0) {
+                tile1=GameState.map.getTilebyCords((int)Math.floor(hitbox.getX()),(int)Math.floor(hitbox.getY()+getHeight()));
+                tile2 = GameState.map.getTilebyCords((int) Math.floor(hitbox.getX()+getWidth()), (int) Math.floor(hitbox.getY()+getHeight()));
+                if(!tile1.isSolid()&&!tile2.isSolid()) {
+                    return false;
+
+                }else return true;
+
+
+            }
+
+            if(speedY<0) {
+                tile1=GameState.map.getTilebyCords((int)Math.floor(hitbox.getX()+hitbox.getWidth()),(int)Math.floor(hitbox.getY()));
+                tile2 = GameState.map.getTilebyCords((int) Math.floor(hitbox.getX()), (int) Math.floor(hitbox.getY()));
+                if(!tile1.isSolid()&&!tile2.isSolid()) {
+                    return false;
+
+                }else return true;
+
+
+            }
+        }
+
+
+
+        return false;
     }
 
     public boolean isInMap(Rectangle2D.Double hitbox){

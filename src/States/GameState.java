@@ -19,7 +19,7 @@ public class GameState extends State{
     private CreatureHandler creatureHandler;
     private ProjectileHandler projectileHandler;
     private Camera camera;
-    private Map map;
+    public static Map map;
     private Player player;
     private final ID[] EXCLUDE=null;
     public static Texture texture;

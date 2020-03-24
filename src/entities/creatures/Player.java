@@ -4,25 +4,14 @@ import Inventory.*;
 import States.GameState;
 import entities.ID;
 import entities.Vector2D;
-import entities.items.Bow;
-import entities.items.SteelSword;
 import entities.projectile.Plasmabolt;
 import graphics.Animation;
-import main_pack.Game;
 import main_pack.KeyboardInput;
-import main_pack.MouseInput;
 import main_pack.ProjectileHandler;
-
 import java.awt.*;
-
-import static main_pack.Game.SCALE;
-import static main_pack.Game.UNIT_SCALE;
-
-
 public class Player extends Creature {
     protected Inventory inventory;
     protected HandSlot righthand;
-    private final ID[] INCLUDE = null;
 
     private Animation playerWalkRight;
     private Animation playerWalkLeft;
@@ -34,10 +23,11 @@ public class Player extends Creature {
     private ProjectileHandler projectileHandler;
     private int plasmacooldown;
     private Vector2D move;
+    private ID[] blockedby={ID.Greenslime};
 
 
     //--------------------------------------------------------
-    boolean test;
+
     //-------------------------------------------------------
 
 
@@ -79,25 +69,14 @@ public class Player extends Creature {
     public void tick() {
         movement();
 
-
         //System.out.print(String.format("X: %s;Y: %s", speedX, speedY) + "\r");
         //System.out.print(String.format("X: %s;Y: %s", x, y) + "\r");
 
-        //Plasmabeam
-
-
-
-
-
-
-
-
-
-
-
-
         inventory.tick();
         righthand.tick();
+
+
+
 
 
 
@@ -105,12 +84,9 @@ public class Player extends Creature {
 
     @Override
     public void render(Graphics g) {
-        g.setColor(Color.blue);
-
-        g.drawRect(getPixelPosition(x),1,getPixelPosition(width),getPixelPosition(height));
-        g.drawRect(getPixelPosition(x),getPixelPosition(y),getPixelPosition(width),getPixelPosition(height));
         //animation[animationIndex].drawAnimation(g, (int) x, (int)y,(UNIT_SCALE));
         drawHitbox(g);
+
         if (KeyboardInput.e) {
             inventory.render(g);
         }
@@ -119,8 +95,8 @@ public class Player extends Creature {
 
     @Override
     public void drawHitbox(Graphics g) {
-        g.setColor(Color.BLACK);
-
+        g.setColor(Color.blue);
+        g.drawRect(getPixelPosition(x),getPixelPosition(y),getPixelPosition(width),getPixelPosition(height));
 
     }
 
@@ -133,73 +109,61 @@ public class Player extends Creature {
         speedX = (float) (move.x*movementRate);
         speedY = (float) (move.y*movementRate);
 
-
         collision();
-    /*
-        if(isEmpty(speedX,0)){
-            x+=speedX;
-        }
-
-        if(isEmpty(0,speedY)){
-            y+=speedY;
-        }
-*/
-
-
-    float i=geFreeSpaceindirectionX(speedX);
-    if(i!=-1){
-        x+=i;
-    }else x+=speedX;
 
 
 
-    i=geFreeSpaceindirectionY(speedY);
 
-        if(i!=-1){
-            if(i!=0) {
-                System.out.println(i);
-            }
-            y+=i;
-    }else y+=speedY;
+
 
 }
 
 
     private void collision(){
 
+        if(speedX!=0) {
+            normalizeHitbox();
+            updateHitbox(speedX, 0);
+            //------------------------------------
+            if(!isInMap(hitbox)){speedX=0;}
 
-
-
-
-    /*
-        //GreenSlime
-        updateHitbox(speedX, 0);
-        Creature k = checkCollision_ifOneOf(hitbox, ID.Greenslime);
-        if (k!=null){
-            if(k.getX()+k.getWidth()<x){
-
-                speedX=(float)(k.getX()+k.getWidth());
-
+            Creature k = checkCollision_ifOneOf(hitbox, blockedby);
+            float i=geFreeSpaceindirectionX(k);
+            if(i!=-1){
+                speedX=i;
+            }
+            if(collisionWithNextTile(hitbox,speedX,0)){
+                speedX=0;
             }
 
         }
-        normalizeHitbox();
 
-        updateHitbox(0, speedY);
-        k=checkCollision_ifOneOf(hitbox, ID.Greenslime);
-        if (k!=null){
-            speedY=0;
+        if (speedY!=0) {
+            normalizeHitbox();
+            updateHitbox(0, speedY);
+            //--------------------------------------
+            if(!isInMap(hitbox)){speedY=0;}
+
+
+
+
+            Creature k = checkCollision_ifOneOf(hitbox, blockedby);
+            float i=geFreeSpaceindirectionY(k);
+            if(i!=-1){
+                speedY=i;
+            }
+
+            if(collisionWithNextTile(hitbox,0,speedY)){
+                speedY=0;
+            }
         }
-*/
 
+        y+=speedY;
+        x+=speedX;
     }
 
-    private float geFreeSpaceindirectionX(float Offset) {
-        normalizeHitbox();
+    private float geFreeSpaceindirectionX(Creature k) {
 
-
-        updateHitbox(Offset, 0);
-        Creature k = checkCollision_ifOneOf(hitbox, ID.Greenslime);
         if (k != null) {
             if (speedX < 0) {
                 if ((x - k.getX() + k.getWidth()) >= 0) {
@@ -220,10 +184,7 @@ public class Player extends Creature {
 
     }
 
-        private float geFreeSpaceindirectionY(float Offset){
-            normalizeHitbox();
-            updateHitbox(0, Offset);
-            Creature k = checkCollision_ifOneOf(hitbox, ID.Greenslime);
+        private float geFreeSpaceindirectionY(Creature k){
             if (k!=null){
                 if (speedY<0){
                     if((y-k.getY()+k.getHeight())>=0){
@@ -237,13 +198,7 @@ public class Player extends Creature {
                         return 0;
 
                 }
-
-
-
             }
-
-
-
 
         return -1;
 

@@ -23,6 +23,10 @@ public abstract class Tile {
 
     }
 
+    public boolean isSolid() {
+        return solid;
+    }
+
     public abstract void tick();
 
     public abstract void render(Graphics g,int x,int y);
