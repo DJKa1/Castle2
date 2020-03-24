@@ -36,6 +36,11 @@ public class Player extends Creature {
     private Vector2D move;
 
 
+    //--------------------------------------------------------
+    boolean test;
+    //-------------------------------------------------------
+
+
     public Player(float x, float y, ProjectileHandler projectileHandler) {
         super(x,y);
         this.hp = 10;
@@ -73,13 +78,13 @@ public class Player extends Creature {
     @Override
     public void tick() {
         movement();
-        collision();
 
-        System.out.print(String.format("X: %s;Y: %s", speedX, speedY) + "\r");
+
+        //System.out.print(String.format("X: %s;Y: %s", speedX, speedY) + "\r");
         //System.out.print(String.format("X: %s;Y: %s", x, y) + "\r");
 
         //Plasmabeam
-        if (Ke)
+
 
 
 
@@ -126,31 +131,122 @@ public class Player extends Creature {
         playAnimation(move.x,move.y);
 
         speedX = (float) (move.x*movementRate);
-        speedY = (float) (move.y*movementRate) ;
-        x += speedX;
-        y += speedY;
-    }
+        speedY = (float) (move.y*movementRate);
+
+
+        collision();
+    /*
+        if(isEmpty(speedX,0)){
+            x+=speedX;
+        }
+
+        if(isEmpty(0,speedY)){
+            y+=speedY;
+        }
+*/
+
+
+    float i=geFreeSpaceindirectionX(speedX);
+    if(i!=-1){
+        x+=i;
+    }else x+=speedX;
+
+
+
+    i=geFreeSpaceindirectionY(speedY);
+
+        if(i!=-1){
+            if(i!=0) {
+                System.out.println(i);
+            }
+            y+=i;
+    }else y+=speedY;
+
+}
+
 
     private void collision(){
-        updateHitbox(0, 0);
-
-        //MapBorder
-        if (!isInMap(hitbox)){
-            y+=speedY*-1;
-            x+=speedX*-1;
-        }
 
 
+
+
+
+    /*
         //GreenSlime
-        updateHitbox(speedX/10, 0);
-        if (checkCollision_ifOneOf(hitbox, ID.Greenslime)){
-            x+=speedX*-1;
-        }
+        updateHitbox(speedX, 0);
+        Creature k = checkCollision_ifOneOf(hitbox, ID.Greenslime);
+        if (k!=null){
+            if(k.getX()+k.getWidth()<x){
 
-        updateHitbox(0, speedY/10);
-        if (checkCollision_ifOneOf(hitbox, ID.Greenslime)){
-            y+=speedY*-1;
+                speedX=(float)(k.getX()+k.getWidth());
+
+            }
+
         }
+        normalizeHitbox();
+
+        updateHitbox(0, speedY);
+        k=checkCollision_ifOneOf(hitbox, ID.Greenslime);
+        if (k!=null){
+            speedY=0;
+        }
+*/
+
+    }
+
+    private float geFreeSpaceindirectionX(float Offset) {
+        normalizeHitbox();
+
+
+        updateHitbox(Offset, 0);
+        Creature k = checkCollision_ifOneOf(hitbox, ID.Greenslime);
+        if (k != null) {
+            if (speedX < 0) {
+                if ((x - k.getX() + k.getWidth()) >= 0) {
+                    return (float) -(x - (k.getX() + k.getWidth()));
+                } else
+                    return 0;
+            } else if (speedX > 0) {
+                if (k.getX() - (x + width) >= 0) {
+                    return (float) (k.getX() - (x + width)-0.0001);
+                } else
+                    return 0;
+
+            }
+
+
+        }return -1;
+
+
+    }
+
+        private float geFreeSpaceindirectionY(float Offset){
+            normalizeHitbox();
+            updateHitbox(0, Offset);
+            Creature k = checkCollision_ifOneOf(hitbox, ID.Greenslime);
+            if (k!=null){
+                if (speedY<0){
+                    if((y-k.getY()+k.getHeight())>=0){
+                        return (float)-(y-(k.getY()+k.getHeight()));
+                    }else
+                        return 0;
+                }else if(speedY>0){
+                    if(k.getY()-(y+height)>=0){
+                        return (float)(k.getY()-(y+height));
+                    }else
+                        return 0;
+
+                }
+
+
+
+            }
+
+
+
+
+        return -1;
+
 
 
     }

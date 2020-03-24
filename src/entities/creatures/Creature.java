@@ -38,16 +38,17 @@ public abstract class Creature extends Entity {
 
     }
 
-    public boolean checkCollision_ifOneOf(Rectangle2D.Double hitbox, ID partner) {
+
+    public Creature checkCollision_ifOneOf(Rectangle2D.Double hitbox, ID partner) {
         for (Creature k : CreatureHandler.creatures) {
             if(k.getId()==partner) {
                 if (k.getHitbox().intersects(hitbox)) {
-                    return true;
+                    return k;
 
                 }
             }
         }
-        return false;
+        return null;
 
     }
 
@@ -70,6 +71,29 @@ public abstract class Creature extends Entity {
     public void updateHitbox(double xOffset,double yOffset){
         hitbox.setRect(x+xOffset,y+yOffset,width,height);
 
+    }
+
+
+
+
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public void normalizeHitbox(){
+        hitbox.setRect(x,y,width,height);
     }
 
     public Rectangle2D.Double getHitbox(){ return hitbox; }
