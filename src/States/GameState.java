@@ -10,6 +10,7 @@ import entities.creatures.Player;
 import entities.projectile.Plasmabolt;
 import entities.projectile.Projectile;
 import entities.projectile.ProjectilePool;
+import graphics.F3Infopanel;
 import main_pack.*;
 
 
@@ -23,6 +24,7 @@ public class GameState extends State{
     public static Map map;
     private Player player;
     private final ID[] EXCLUDE=null;
+    private F3Infopanel f3Infopanel;
     public static Texture texture;
     public ProjectilePool projectilePool;
 
@@ -41,12 +43,33 @@ public class GameState extends State{
 
     }
 
+    //Getters
+
+
+    public CreatureHandler getCreatureHandler() {
+        return creatureHandler;
+    }
+
+    public ProjectileHandler getProjectileHandler() {
+        return projectileHandler;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+
 
     @Override
     public void init(){
         texture = new Texture();
         projectileHandler=new ProjectileHandler();
         player=new Player((float)3,3,projectileHandler, projectilePool);
+        f3Infopanel=new F3Infopanel(this);
+
+
+
+        //-----------------------------------------
         creatureHandler.addObject(player);
         creatureHandler.addObject(new GreenSlime(1,6));
 
@@ -63,6 +86,7 @@ public class GameState extends State{
         projectileHandler.tick();
         map.tick();
 
+       f3Infopanel.tick();
 
         Creature tempPlayer=null;
         //System.out.println("Creatures: "+creatureHandler.creatures.size());
@@ -94,17 +118,11 @@ public class GameState extends State{
         map.render(g);
         creatureHandler.render(g);
         projectileHandler.render(g);
-
-
-
-
         gd2.translate(-camera.getX(), -camera.getY());//Cam end
-        //gd2.scale(1d/(double) camera.getSCALE(),1d/(double)camera.getSCALE());
-        //FPS and UPS
-        g.setColor(Color.BLACK);
-        g.fillRect(0,0,150,20);
-        g.setColor(Color.white);
-        g.drawString(String.format("FPS: %s, UPS: %s",Game.Frames,Game.Ticks),10,15);
+
+        if (KeyboardInput.f3G){
+            f3Infopanel.render(g);
+        }
 
 
 

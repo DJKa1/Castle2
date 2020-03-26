@@ -36,4 +36,8 @@ public class ProjectileHandler {
     public void removeObject(Projectile object) {
         this.projectile.remove(object);
     }
+
+    public int getProjectileCount(){
+        return projectile.size();
+    }
 }

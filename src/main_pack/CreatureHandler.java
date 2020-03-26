@@ -39,4 +39,9 @@ public class CreatureHandler {
     public void removeObject(Creature object) {
         this.creatures.remove(object);
     }
+
+
+    public int getCreatureCount(){
+        return creatures.size();
+    }
 }
