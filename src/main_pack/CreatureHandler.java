@@ -25,6 +25,9 @@ public class CreatureHandler {
         for (int i = 0; i < creatures.size(); i++) {
             Creature tempObject = creatures.get(i);
             tempObject.render(g);
+            if (KeyboardInput.f3){
+                tempObject.drawHitbox(g);
+            }
         }
 
     }

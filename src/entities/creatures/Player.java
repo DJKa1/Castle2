@@ -6,6 +6,7 @@ import entities.ID;
 import entities.Vector2D;
 import entities.projectile.Plasmabolt;
 import graphics.Animation;
+import main_pack.Game;
 import main_pack.KeyboardInput;
 import main_pack.ProjectileHandler;
 import java.awt.*;
@@ -84,8 +85,7 @@ public class Player extends Creature {
 
     @Override
     public void render(Graphics g) {
-        //animation[animationIndex].drawAnimation(g, (int) x, (int)y,(UNIT_SCALE));
-        drawHitbox(g);
+        animation[animationIndex].drawAnimation(g, getPixelPosition(x), getPixelPosition(y),(Game.UNIT_SCALE));
 
         if (KeyboardInput.e) {
             inventory.render(g);
@@ -133,7 +133,13 @@ public class Player extends Creature {
                 speedX=i;
             }
             if(collisionWithNextTile(hitbox,speedX,0)){
-                speedX=0;
+                if (speedX<0){
+                    speedX= -(float) (x-Math.floor(x));
+                }
+                else{
+                    speedX= (float) ((Math.ceil(x+width))-(x+width));
+
+                }
             }
 
         }
@@ -154,7 +160,13 @@ public class Player extends Creature {
             }
 
             if(collisionWithNextTile(hitbox,0,speedY)){
-                speedY=0;
+                if (speedY<0){
+                    speedY= -(float) (y-Math.floor(y));
+                }
+                else{
+                    speedY= (float) ((Math.ceil(y+height))-(y+height));
+
+                }
             }
         }
 

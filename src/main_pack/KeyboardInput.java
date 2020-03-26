@@ -12,7 +12,7 @@ public class KeyboardInput implements KeyListener {
 
     public boolean checkTyped=false;
     protected boolean []keys;
-    public static boolean up,left,right,down,jump,esc,e;
+    public static boolean up,left,right,down,jump,esc,e,f3;
     protected Game game;
 
 
@@ -31,6 +31,7 @@ public class KeyboardInput implements KeyListener {
         jump=keys[KeyEvent.VK_SPACE];
         esc=keys[KeyEvent.VK_ESCAPE];
         e=keys[KeyEvent.VK_E];
+        f3=keys[KeyEvent.VK_F3];
 
     }
 
