@@ -58,8 +58,7 @@ public class Game implements Runnable {
         keyboardInput=new KeyboardInput(this);
         window.getJFrame().addKeyListener(keyboardInput);
         State.setState(gameState);
-        //System.out.println(map.getTilebyCords(1,1));
-        //System.out.println(map.test());
+
 
 
     }
@@ -141,7 +140,6 @@ public class Game implements Runnable {
                 timer += 1000;
                 Frames = frames;
                 Ticks = ticks;
-                //System.out.println(String.format("UPS: %s, FPS: %s", ticks, frames));
                 frames = 0;
                 ticks = 0;
             }

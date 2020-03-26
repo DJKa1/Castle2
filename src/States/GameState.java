@@ -9,6 +9,7 @@ import entities.creatures.GreenSlime;
 import entities.creatures.Player;
 import entities.projectile.Plasmabolt;
 import entities.projectile.Projectile;
+import entities.projectile.ProjectilePool;
 import main_pack.*;
 
 
@@ -23,6 +24,7 @@ public class GameState extends State{
     private Player player;
     private final ID[] EXCLUDE=null;
     public static Texture texture;
+    public ProjectilePool projectilePool;
 
 
 
@@ -34,7 +36,7 @@ public class GameState extends State{
         creatureHandler=new CreatureHandler();
         map=new Map("testMap");
         camera = new Camera(0,0);
-
+        projectilePool=new ProjectilePool();
         init();
 
     }
@@ -44,7 +46,7 @@ public class GameState extends State{
     public void init(){
         texture = new Texture();
         projectileHandler=new ProjectileHandler();
-        player=new Player((float)3,3,projectileHandler);
+        player=new Player((float)3,3,projectileHandler, projectilePool);
         creatureHandler.addObject(player);
         creatureHandler.addObject(new GreenSlime(1,6));
 

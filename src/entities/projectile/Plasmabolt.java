@@ -1,5 +1,7 @@
 package entities.projectile;
 
+import main_pack.Game;
+
 import java.awt.*;
 
 public class Plasmabolt extends Projectile {
@@ -12,27 +14,8 @@ public class Plasmabolt extends Projectile {
         this.aimY = aimY;
         this.aimX = aimX;
 
-       speedX=1;
-        speedY = aimY / aimX;
-
-
-        if (aimX < 0 && aimY < 0) {
-            speedX*=-1;
-            speedY*=-1;
-
-
-        }else if (aimX<0){
-                speedY*=-1;
-                speedX*=-1;
-
-
-        }
-        h= projeticespeed / (Math.abs(speedX )+Math.abs(speedY));
-        speedY *= h;
-        speedX *= h;
-
-        System.out.println(speedX+"   "+speedY);
-
+        speedX=1;
+        speedY =1;
 
 
 
@@ -43,8 +26,7 @@ public class Plasmabolt extends Projectile {
     @Override
     public void render(Graphics g) {
         g.setColor(Color.red);
-
-        g.drawLine((int) (x - speedX * 1), (int) (y - speedY * 1), (int) x, (int) y);
+        g.drawLine((int)x,(int)y,(int)x-1,(int)y-1);
 
     }
 }

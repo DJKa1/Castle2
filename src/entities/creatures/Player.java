@@ -5,9 +5,12 @@ import States.GameState;
 import entities.ID;
 import entities.Vector2D;
 import entities.projectile.Plasmabolt;
+import entities.projectile.Projectile;
+import entities.projectile.ProjectilePool;
 import graphics.Animation;
 import main_pack.Game;
 import main_pack.KeyboardInput;
+import main_pack.MouseInput;
 import main_pack.ProjectileHandler;
 import java.awt.*;
 public class Player extends Creature {
@@ -22,20 +25,22 @@ public class Player extends Creature {
     private Animation[] animation;
     private int animationIndex = 0;
     private ProjectileHandler projectileHandler;
+    private ProjectilePool projectilePool;
     private int plasmacooldown;
     private Vector2D move;
     private ID[] blockedby={ID.Greenslime};
 
 
     //--------------------------------------------------------
-
+    int cooldown=0;
     //-------------------------------------------------------
 
 
-    public Player(float x, float y, ProjectileHandler projectileHandler) {
+    public Player(float x, float y, ProjectileHandler projectileHandler,ProjectilePool projectilePool) {
         super(x,y);
         this.hp = 10;
         this.projectileHandler = projectileHandler;
+        this.projectilePool=projectilePool;
         move = new Vector2D(0, 0);
         id = ID.Player;
         width = 0.8;
@@ -60,8 +65,8 @@ public class Player extends Creature {
     }
 
 
-    public void firePlasma(float aimX, float aimY) {
-        projectileHandler.addObject(new Plasmabolt(x, y, aimX, aimY));
+    public void firerrrPlasma(float aimX, float aimY) {
+        projectileHandler.addObject(new Plasmabolt(x,y, aimX,aimY));
 
 
     }
@@ -77,6 +82,19 @@ public class Player extends Creature {
         righthand.tick();
 
 
+        //------------------------------------------------------
+
+        if(MouseInput.leftPressed&&cooldown==0 ){
+            System.out.println("hesys");
+            firerrrPlasma(MouseInput.mouseX,MouseInput.mouseY);
+            cooldown=10;
+
+
+        }else if(cooldown>0){
+            cooldown--;
+        }
+
+        //--------------------------------------------------------
 
 
 
