@@ -28,27 +28,21 @@ public class GameState extends State{
     //------------------------------
     private Camera camera;
     public static Texture texture;
-
     public GameState(Game game){
         super(game);
         init();
-
     }
-
     //Getters
     public CreatureHandler getCreatureHandler() {
         return creatureHandler;
     }
-
     public Player getPlayer() {
         return player;
     }
     public ProjectileHandler getProjectileHandler() {
         return projectileHandler;
     }
-
     public Map getMap() { return map;}
-
     @Override
     public void init(){
         map=game.getMap();
@@ -64,21 +58,13 @@ public class GameState extends State{
         //-----------------------------------------
         creatureHandler.addObject(player);
         creatureHandler.addObject(new GreenSlime(1,6));
-
-
-
-
     }
-
-
     @Override
     public void tick() {
-
         creatureHandler.tick();
         projectileHandler.tick();
         map.tick();
         f3Infopanel.tick();
-
         Creature tempPlayer=null;
         //System.out.println("Creatures: "+creatureHandler.creatures.size());
         for (int i = 0;i<creatureHandler.creatures.size();i++){
@@ -89,10 +75,7 @@ public class GameState extends State{
         }
 
         camera.tick(tempPlayer);
-
-
     }
-
     @Override
     public void render(Graphics g) {
 
@@ -116,9 +99,5 @@ public class GameState extends State{
             f3Infopanel.render(g);
         }
         game.getGameConsole().renderLog(g);
-
-
-
     }
-
 }

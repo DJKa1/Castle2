@@ -11,7 +11,7 @@ public class GameConsole {
     private Font consoleFont=new Font("Arial",fontsize,fontsize);
     private Method[] vallidMethods;
     private StringBuilder input;
-    private String [] chatlog=new String[256];
+    private String [] chatlog=new String[9];
     private Graphics g;
     private final Rectangle chatbox=new Rectangle(0,(Launcher.HEIGHT*8)/10,(Launcher.WIDTH*6)/10,Launcher.HEIGHT);
     private final int sx=(int) (chatbox.getX()+(chatbox.getWidth()/20)),sy=(int)(chatbox.getHeight()-(chatbox.getHeight()/20)),dy= (int) ((chatbox.getHeight()-chatbox.getY())/10);
