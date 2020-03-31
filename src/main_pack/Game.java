@@ -2,13 +2,10 @@ package main_pack;
 
 import Maps.Map;
 import States.*;
-import entities.ID;
 import entities.creatures.Camera;
-import entities.creatures.Creature;
 import entities.creatures.Player;
 import graphics.Window;
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 
 
@@ -18,22 +15,25 @@ public class Game implements Runnable {
     public final static double SCALE = 8;
     public final static int UNITDIMENSION = 16;
     public final static int UNIT_SCALE = 128;
-
-
+    private  Player player;
+    private ProjectileHandler projectileHandler;
     private Thread thread;
     private boolean running = false;
     private String title="Castle";
     private int width,height;
-    private State gameState,menuState,optionState,ConsoleState;
+    private State gameState,menuState,optionState,consoleState;
     private BufferStrategy bs;
     private Graphics g;
     private Window window;
     private KeyboardInput keyboardInput;
     private CreatureHandler creatureHandler;
+    private GameConsole gameConsole;
 
     private MouseInput mouseInput;
 
-    Camera camera;
+    private Camera camera;
+    private Map map;
+
 
     public Game(int width,int height) {
         this.width=width;
@@ -49,10 +49,21 @@ public class Game implements Runnable {
 
     public void init(){
         window =new Window(title,width,height);
-        gameState=new GameState(this);
+        creatureHandler=new CreatureHandler();
+        map=new Map("testMap");
+        camera = new Camera(0,0);
         mouseInput=new MouseInput();
-        //window.getJFrame().addMouseListener(mouseInput);
-        //window.getJFrame().addMouseMotionListener(mouseInput);
+        gameConsole=new GameConsole(this);
+
+        projectileHandler=new ProjectileHandler();
+        player=new Player((float)3,3,projectileHandler);
+
+        gameState=new GameState(this);
+        consoleState=new ConsoleState(this);
+
+
+
+
         window.getCanvas().addMouseListener(mouseInput);
         window.getCanvas().addMouseMotionListener(mouseInput);
         keyboardInput=new KeyboardInput(this);
@@ -65,26 +76,42 @@ public class Game implements Runnable {
 
     //Getters && Setters
 
-    public Camera getCamera() {
-        return camera;
+    public Map getMap(){
+        return map;
     }
+
+    public State getactiveState(){
+        return State.getState();
+    }
+    public Player getPlayer(){
+        return player;
+    }
+
+    public ProjectileHandler getProjectileHandler(){
+        return projectileHandler;
+    }
+
     public CreatureHandler getCreatureHandler() {
         return creatureHandler;
+    }
+    public Camera getCamera() {
+        return camera;
     }
     public KeyboardInput getKeyboardInput() { return keyboardInput; }
     public MouseInput getMouseInput() { return mouseInput; }
 
-
-    public void activateConsole(){
-        System.out.println("hey");
-        State.setState(ConsoleState);
+    public GameConsole getGameConsole() {
+        return gameConsole;
     }
 
-
-
+    public void activateConsole(){
+        State.setState(consoleState);
+    }
+    public void deactivateConsole(){
+        State.setState((gameState));
+    }
 
     //Game Loop
-
     public synchronized void start() {
         if (running){
             return;
@@ -106,11 +133,6 @@ public class Game implements Runnable {
         }
 
     }
-
-
-
-
-
 
 
     public void run() {
@@ -149,10 +171,6 @@ public class Game implements Runnable {
     }
 
 
-
-
-
-
     //tick && render
     private void tick() {
         if (State.getState()!=null){
@@ -173,8 +191,6 @@ public class Game implements Runnable {
         if (State.getState()!=null){
             State.getState().render(g);
         }
-
-
         g.dispose();
         bs.show();
 

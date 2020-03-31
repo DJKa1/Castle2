@@ -8,10 +8,8 @@ import entities.projectile.Plasmabolt;
 import entities.projectile.Projectile;
 import entities.projectile.ProjectilePool;
 import graphics.Animation;
-import main_pack.Game;
-import main_pack.KeyboardInput;
-import main_pack.MouseInput;
-import main_pack.ProjectileHandler;
+import main_pack.*;
+
 import java.awt.*;
 public class Player extends Creature {
     protected Inventory inventory;
@@ -25,8 +23,6 @@ public class Player extends Creature {
     private Animation[] animation;
     private int animationIndex = 0;
     private ProjectileHandler projectileHandler;
-    private ProjectilePool projectilePool;
-    private int plasmacooldown;
     private Vector2D move;
     private ID[] blockedby={ID.Greenslime};
 
@@ -36,11 +32,10 @@ public class Player extends Creature {
     //-------------------------------------------------------
 
 
-    public Player(float x, float y, ProjectileHandler projectileHandler,ProjectilePool projectilePool) {
+    public Player(float x, float y, ProjectileHandler projectileHandler) {
         super(x,y);
         this.hp = 10;
         this.projectileHandler = projectileHandler;
-        this.projectilePool=projectilePool;
         move = new Vector2D(0, 0);
         id = ID.Player;
         width = 0.8;
@@ -65,8 +60,9 @@ public class Player extends Creature {
     }
 
 
-    public void firerrrPlasma(float aimX, float aimY) {
-        projectileHandler.addObject(new Plasmabolt(x,y, aimX,aimY));
+    public void firePlasma(float aimX, float aimY) {
+        projectileHandler.addObject(new Plasmabolt(x,y, aimX,aimY,projectileHandler));
+
 
 
     }
@@ -74,10 +70,6 @@ public class Player extends Creature {
     @Override
     public void tick() {
         movement();
-
-        //System.out.print(String.format("X: %s;Y: %s", speedX, speedY) + "\r");
-        //System.out.print(String.format("X: %s;Y: %s", x, y) + "\r");
-
         inventory.tick();
         righthand.tick();
 
@@ -85,9 +77,8 @@ public class Player extends Creature {
         //------------------------------------------------------
 
         if(MouseInput.leftPressed&&cooldown==0 ){
-            System.out.println("hesys");
-            firerrrPlasma(MouseInput.mouseX,MouseInput.mouseY);
-            cooldown=10;
+            firePlasma(MouseInput.mouseX,MouseInput.mouseY);
+            cooldown=1;
 
 
         }else if(cooldown>0){
@@ -119,23 +110,17 @@ public class Player extends Creature {
     }
 
     private void movement() {
-        move.x = boolToInt(KeyboardInput.right) - boolToInt(KeyboardInput.left);
-        move.y = boolToInt(KeyboardInput.down) - boolToInt(KeyboardInput.up);
 
-        playAnimation(move.x,move.y);
+            move.x = boolToInt(KeyboardInput.right) - boolToInt(KeyboardInput.left);
+            move.y = boolToInt(KeyboardInput.down) - boolToInt(KeyboardInput.up);
 
-        speedX = (float) (move.x*movementRate);
-        speedY = (float) (move.y*movementRate);
+            playAnimation(move.x, move.y);
+
+            speedX = (float) (move.x * movementRate);
+            speedY = (float) (move.y * movementRate);
 
         collision();
-
-
-
-
-
-
 }
-
 
     private void collision(){
 
@@ -143,14 +128,14 @@ public class Player extends Creature {
             normalizeHitbox();
             updateHitbox(speedX, 0);
             //------------------------------------
-            if(!isInMap(hitbox)){speedX=0;}
+            if(!isInMap()){speedX=0;}
 
             Creature k = checkCollision_ifOneOf(hitbox, blockedby);
             float i=geFreeSpaceindirectionX(k);
             if(i!=-1){
                 speedX=i;
             }
-            if(collisionWithNextTile(hitbox,speedX,0)){
+            if(collisionWithNextTile(speedX,0)){
                 if (speedX<0){
                     speedX= -(float) (x-Math.floor(x));
                 }
@@ -166,7 +151,7 @@ public class Player extends Creature {
             normalizeHitbox();
             updateHitbox(0, speedY);
             //--------------------------------------
-            if(!isInMap(hitbox)){speedY=0;}
+            if(!isInMap()){speedY=0;}
 
 
 
@@ -177,7 +162,7 @@ public class Player extends Creature {
                 speedY=i;
             }
 
-            if(collisionWithNextTile(hitbox,0,speedY)){
+            if(collisionWithNextTile(0,speedY)){
                 if (speedY<0){
                     speedY= -(float) (y-Math.floor(y));
                 }
@@ -213,27 +198,21 @@ public class Player extends Creature {
 
 
     }
-
-        private float geFreeSpaceindirectionY(Creature k){
-            if (k!=null){
-                if (speedY<0){
-                    if((y-k.getY()+k.getHeight())>=0){
-                        return (float)-(y-(k.getY()+k.getHeight()));
-                    }else
-                        return 0;
-                }else if(speedY>0){
-                    if(k.getY()-(y+height)>=0){
-                        return (float)(k.getY()-(y+height));
-                    }else
-                        return 0;
-
-                }
+    private float geFreeSpaceindirectionY(Creature k){
+        if (k!=null){
+            if (speedY<0){
+                if((y-k.getY()+k.getHeight())>=0){
+                    return (float)-(y-(k.getY()+k.getHeight()));
+                }else
+                    return 0;
+            }else if(speedY>0){
+                if(k.getY()-(y+height)>=0){
+                    return (float)(k.getY()-(y+height));
+                }else
+                    return 0;
             }
-
+        }
         return -1;
-
-
-
     }
 
     public int boolToInt(boolean b) {

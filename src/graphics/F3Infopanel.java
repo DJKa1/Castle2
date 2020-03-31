@@ -20,15 +20,13 @@ public class F3Infopanel {
     }
 
     public void updateInfo(){
-        information[0]="Running Castel2 0.0.1"+ " FPS:"+Game.Frames +" UPS:"+Game.Ticks;
+        information[0]="Running Castel2 "+Launcher.VERSION+ " FPS:"+Game.Frames +" UPS:"+Game.Ticks;
         information[1]=Launcher.WIDTH+"X"+Launcher.HEIGHT;
         information[2]="Player X:"+ gameState.getPlayer().getX() +" Y:" +gameState.getPlayer().getY();
         information[3]="CreatureCount:"+ gameState.getCreatureHandler().getCreatureCount();
         information[4]="ProjectileCount:"+ gameState.getProjectileHandler().getProjectileCount();
         information[5]=null;
     }
-
-
 
     public void tick(){
         updateInfo();

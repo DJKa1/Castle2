@@ -1,7 +1,5 @@
 package main_pack;
 import entities.creatures.Creature;
-import entities.creatures.GreenSlime;
-
 import java.awt.*;
 import java.util.LinkedList;
 
@@ -25,7 +23,7 @@ public class CreatureHandler {
         for (int i = 0; i < creatures.size(); i++) {
             Creature tempObject = creatures.get(i);
             tempObject.render(g);
-            if (KeyboardInput.f3){
+            if (KeyboardInput.f3G){
                 tempObject.drawHitbox(g);
             }
         }

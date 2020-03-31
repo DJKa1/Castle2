@@ -1,8 +1,10 @@
 package main_pack;
 
+import Maps.Map;
 import entities.projectile.Projectile;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.util.LinkedList;
 
 public class ProjectileHandler {
@@ -12,6 +14,7 @@ public class ProjectileHandler {
     public ProjectileHandler(){
         projectile= new LinkedList<>();
 
+
     }
     public void tick() {
         for (int i = 0; i < projectile.size(); i++) {
@@ -19,6 +22,7 @@ public class ProjectileHandler {
             tempObject.tick();
 
         }
+        removeUnneededProjectiles();
     }
 
     public void render(Graphics g) {
@@ -27,6 +31,23 @@ public class ProjectileHandler {
             tempObject.render(g);
         }
 
+    }
+
+    public void removeUnneededProjectiles(){
+        for (int i = 0; i < projectile.size(); i++) {
+            Projectile tempObject = projectile.get(i);
+            if (!isInMap(tempObject.getHitbox())){
+                removeObject(projectile.get(i));
+            }
+        }
+    }
+
+
+    public boolean isInMap(Rectangle2D.Double hitbox){
+        if (Map.BORDER.contains(hitbox)){
+            return true;
+        }
+        return false;
     }
 
     public void addObject(Projectile object) {

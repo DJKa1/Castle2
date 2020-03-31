@@ -17,15 +17,19 @@ public class ProjectilePool {
 
 
 
+
+
+
+
     public void addProjectile(Projectile projectile){
-        for (Projectile p:pool){
-            if(p==null){
-                p=projectile;
-                //System.out.println("working");
+        for (int i=0;i<pool.length;i++){
+            if(pool[i]==null){
+                pool[i]=projectile;
+                System.out.println("working slot" + i );
                 return;
             }
         }
-       // System.out.println("keine freien Projectile slots");
+        System.out.println("keine freien Projectile slots");
 
 
     }

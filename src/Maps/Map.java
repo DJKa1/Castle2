@@ -18,7 +18,7 @@ public class Map {
     }
 
     public void loadMap(){
-        BORDER =new Rectangle(0,0,tileWidth* Game.UNIT_SCALE, tileHeight*Game.UNIT_SCALE);
+        BORDER =new Rectangle(0,0,tileWidth, tileHeight);
         tiles=new int[tileWidth][tileHeight];
         for (int i=0;i<32;i++){
             for (int j=0;j<32;j++) {
@@ -31,13 +31,6 @@ public class Map {
     public Tile getTilebyCords(int x, int y){
         return Tile.idList[tiles[x][y]];
     }
-
-
-    public int test(){
-        return 1;
-    }
-
-
 
     public  void tick(){
 

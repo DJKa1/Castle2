@@ -20,54 +20,46 @@ import java.util.Arrays;
 public class GameState extends State{
     private CreatureHandler creatureHandler;
     private ProjectileHandler projectileHandler;
-    private Camera camera;
-    public static Map map;
     private Player player;
-    private final ID[] EXCLUDE=null;
     private F3Infopanel f3Infopanel;
+    //-----------------------------
+    //noch static access
+    public static Map map;
+    //------------------------------
+    private Camera camera;
     public static Texture texture;
-    public ProjectilePool projectilePool;
-
-
-
-
-
 
     public GameState(Game game){
         super(game);
-        creatureHandler=new CreatureHandler();
-        map=new Map("testMap");
-        camera = new Camera(0,0);
-        projectilePool=new ProjectilePool();
         init();
 
     }
 
     //Getters
-
-
     public CreatureHandler getCreatureHandler() {
         return creatureHandler;
-    }
-
-    public ProjectileHandler getProjectileHandler() {
-        return projectileHandler;
     }
 
     public Player getPlayer() {
         return player;
     }
+    public ProjectileHandler getProjectileHandler() {
+        return projectileHandler;
+    }
 
-
+    public Map getMap() { return map;}
 
     @Override
     public void init(){
+        map=game.getMap();
+        projectileHandler=game.getProjectileHandler();
+        player=game.getPlayer();
+        camera = game.getCamera();
+        creatureHandler=game.getCreatureHandler();
         texture = new Texture();
-        projectileHandler=new ProjectileHandler();
-        player=new Player((float)3,3,projectileHandler, projectilePool);
+
+
         f3Infopanel=new F3Infopanel(this);
-
-
 
         //-----------------------------------------
         creatureHandler.addObject(player);
@@ -85,8 +77,7 @@ public class GameState extends State{
         creatureHandler.tick();
         projectileHandler.tick();
         map.tick();
-
-       f3Infopanel.tick();
+        f3Infopanel.tick();
 
         Creature tempPlayer=null;
         //System.out.println("Creatures: "+creatureHandler.creatures.size());
@@ -98,6 +89,7 @@ public class GameState extends State{
         }
 
         camera.tick(tempPlayer);
+
 
     }
 
@@ -120,7 +112,7 @@ public class GameState extends State{
         projectileHandler.render(g);
         gd2.translate(-camera.getX(), -camera.getY());//Cam end
 
-        if (KeyboardInput.f3G){
+        if (KeyboardInput.f3_s){
             f3Infopanel.render(g);
         }
 
