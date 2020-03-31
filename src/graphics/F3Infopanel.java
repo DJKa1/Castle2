@@ -14,11 +14,7 @@ public class F3Infopanel {
 
     public F3Infopanel(GameState gameState){
         this.gameState=gameState;
-
-
-
     }
-
     public void updateInfo(){
         information[0]="Running Castel2 "+Launcher.VERSION+ " FPS:"+Game.Frames +" UPS:"+Game.Ticks;
         information[1]=Launcher.WIDTH+"X"+Launcher.HEIGHT;

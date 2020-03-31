@@ -115,7 +115,7 @@ public class GameState extends State{
         if (KeyboardInput.f3_s){
             f3Infopanel.render(g);
         }
-
+        game.getGameConsole().renderLog(g);
 
 
 

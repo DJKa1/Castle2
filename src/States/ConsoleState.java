@@ -31,6 +31,7 @@ public class ConsoleState extends  State{
     @Override
     public void render(Graphics g) {
         gameConsole.render(g);
+        gameConsole.renderLog(g);
 
 
 

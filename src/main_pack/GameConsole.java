@@ -7,6 +7,8 @@ public class GameConsole {
     protected Game game;
     protected KeyboardInput keyboardInput;
     private Color consoleColor=Color.white;
+    private int fontsize=14;
+    private Font consoleFont=new Font("Arial",fontsize,fontsize);
     private Method[] vallidMethods;
     private StringBuilder input;
     private String [] chatlog=new String[256];
@@ -19,6 +21,13 @@ public class GameConsole {
         keyboardInput=game.getKeyboardInput();
         vallidMethods=this.getClass().getDeclaredMethods();
         input=new StringBuilder();
+    }
+
+    public Color getConsoleColor(){
+        return consoleColor;
+    }
+    public Font getConsoleFont(){
+        return consoleFont;
     }
     public void appendInput(char c){
         input=input.append(c);
@@ -43,7 +52,7 @@ public class GameConsole {
         }
     }
     public void executeCommand(String command){
-        String[] para;
+        String[] para ;
 
         if (command.contains(" ")){
             String sub=null;
@@ -51,7 +60,8 @@ public class GameConsole {
             command=command.substring(1,command.indexOf(" "));
             para=sub.split(" ");
         }else {
-            para=null;
+            command=command.substring(1);
+            para=new String[0];
         }
 
         for (Method m :vallidMethods){
@@ -74,18 +84,40 @@ public class GameConsole {
         }
     }
     public void render(Graphics g){
+        g.setFont(consoleFont);
         g.setColor(Color.BLACK);
         g.fillRect((int)chatbox.getX(),(int)chatbox.getY(),(int)chatbox.getWidth(),(int)chatbox.getHeight());
         g.setColor(consoleColor);
         g.drawString(input.toString(),sx,sy);
+
+    }
+
+    public void renderLog(Graphics g){
+        g.setFont(consoleFont);
+        g.setColor(consoleColor);
         for (int i=0 ;i<chatlog.length;i++){
             if (chatlog[i]!=null){
                 g.drawString(chatlog[i],sx,sy-(dy*(i+1)));
             }
         }
     }
-    public void getPlayerPosition(String str){
-        setInput("X:"+game.getPlayer().getX()+" Y:"+ game.getPlayer().getY());
+
+    //Commands--------------------------------------------------------------------
+    public void getPlayerPosition(){
+        setInput("Player is at X:"+game.getPlayer().getX()+"and Y:"+ game.getPlayer().getY());
+        send();
+    }
+
+    public void tp(String x, String y){
+        game.getPlayer().setX(Float.valueOf(x));
+        game.getPlayer().setY(Float.valueOf(y));
+        setInput("/getPlayerPosition");
+        send();
+    }
+
+    public void activateHackerman(){
+        consoleColor=Color.GREEN;
+        setInput("YOU NOW POSSES THE POWER OF THE INTERNET");
         send();
     }
 
