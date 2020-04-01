@@ -33,8 +33,10 @@ public class Tile {
     }
 
     public void render(Graphics g, int x, int y) {
-
+        g.drawImage(img,x,y,null);
     }
 
-
+    public BufferedImage getImg() {
+        return Texture.sprite[16];
+    }
 }

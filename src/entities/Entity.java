@@ -114,9 +114,10 @@ public abstract class Entity {
             if (speedX < 0) {
                 tile1 = GameState.map.getTilebyCords((int) Math.floor(hitbox.getX()), (int) Math.floor(hitbox.getY()));
                 tile2 = GameState.map.getTilebyCords((int) Math.floor(hitbox.getX()), (int) Math.floor(hitbox.getY() + hitbox.getHeight()));
-                if (!tile1.isSolid() && !tile2.isSolid()) {
-                    return false;
-
+                if (!(tile1==null||tile2==null)) {
+                    if (!tile1.isSolid() && !tile2.isSolid()) {
+                        return false;
+                    }
                 } else return true;
 
 
@@ -125,9 +126,10 @@ public abstract class Entity {
             if (speedX > 0) {
                 tile1 = GameState.map.getTilebyCords((int) Math.floor(hitbox.getX() + hitbox.getWidth()), (int) Math.floor(hitbox.getY()));
                 tile2 = GameState.map.getTilebyCords((int) Math.floor(hitbox.getX() + hitbox.getWidth()), (int) Math.floor(hitbox.getY() + hitbox.getHeight()));
-                if (!tile1.isSolid() && !tile2.isSolid()) {
-                    return false;
-
+                if (!(tile1==null||tile2==null)) {
+                    if (!tile1.isSolid() && !tile2.isSolid()) {
+                        return false;
+                    }
                 } else return true;
 
 
@@ -138,9 +140,10 @@ public abstract class Entity {
             if (speedY > 0) {
                 tile1 = GameState.map.getTilebyCords((int) Math.floor(hitbox.getX()), (int) Math.floor(hitbox.getY() + getHeight()));
                 tile2 = GameState.map.getTilebyCords((int) Math.floor(hitbox.getX() + getWidth()), (int) Math.floor(hitbox.getY() + getHeight()));
-                if (!tile1.isSolid() && !tile2.isSolid()) {
-                    return false;
-
+                if (!(tile1==null||tile2==null)) {
+                    if (!tile1.isSolid() && !tile2.isSolid()) {
+                        return false;
+                    }
                 } else return true;
 
 
@@ -149,9 +152,10 @@ public abstract class Entity {
             if (speedY < 0) {
                 tile1 = GameState.map.getTilebyCords((int) Math.floor(hitbox.getX() + hitbox.getWidth()), (int) Math.floor(hitbox.getY()));
                 tile2 = GameState.map.getTilebyCords((int) Math.floor(hitbox.getX()), (int) Math.floor(hitbox.getY()));
-                if (!tile1.isSolid() && !tile2.isSolid()) {
-                    return false;
-
+                if (!(tile1==null||tile2==null)) {
+                    if (!tile1.isSolid() && !tile2.isSolid()) {
+                        return false;
+                    }
                 } else return true;
 
 

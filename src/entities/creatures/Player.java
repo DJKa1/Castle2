@@ -62,9 +62,6 @@ public class Player extends Creature {
 
     public void firePlasma(float aimX, float aimY) {
         projectileHandler.addObject(new Plasmabolt(x,y, aimX,aimY,projectileHandler));
-
-
-
     }
 
     @Override
@@ -72,24 +69,14 @@ public class Player extends Creature {
         movement();
         inventory.tick();
         righthand.tick();
-
-
         //------------------------------------------------------
-
         if(MouseInput.leftPressed&&cooldown==0 ){
             firePlasma(MouseInput.mouseX,MouseInput.mouseY);
             cooldown=1;
-
-
         }else if(cooldown>0){
             cooldown--;
         }
-
-        //--------------------------------------------------------
-
-
-
-
+        //------------------------------------------------------
     }
 
     @Override

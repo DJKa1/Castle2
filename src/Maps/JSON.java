@@ -6,6 +6,8 @@ import Tiles.Tile;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -26,7 +28,7 @@ public class JSON {
 
             Iterator<String> keys = all.keys();
             ArrayList<String> levelnames = new ArrayList<>();
-            while(keys.hasNext()) {
+            while (keys.hasNext()) {
                 String key = keys.next();
                 levelnames.add(key);
             }
@@ -37,14 +39,15 @@ public class JSON {
         }
         return null;
     }
+
     public static boolean exsists(String key) {
         try {
-            String speicher = new String((Files.readAllBytes(Paths.get(saveMapFile.toURI()))),"UTF-8");
+            String speicher = new String((Files.readAllBytes(Paths.get(saveMapFile.toURI()))), "UTF-8");
             JSONObject all = new JSONObject(speicher);
 
-            if(all.has(key)) {
+            if (all.has(key)) {
                 return true;
-            }else {
+            } else {
                 return false;
             }
         } catch (IOException e) {
@@ -52,15 +55,14 @@ public class JSON {
         }
         return false;
     }
+
     public static int getGridSize(String level, boolean x) {
         try {
             String speicher = new String(Files.readAllBytes(Paths.get(saveMapFile.toURI())), "UTF-8");
             JSONObject all = new JSONObject(speicher);
-
-
             if (x) {
                 return all.getJSONArray(level).getJSONObject(0).getInt("MapWidth");
-            }else {
+            } else {
                 return all.getJSONArray(level).getJSONObject(0).getInt("MapHeight");
             }
 
@@ -76,15 +78,23 @@ public class JSON {
             String jsonString = new String(Files.readAllBytes(Paths.get(saveMapFile.toURI())), "UTF-8");
             JSONObject all = new JSONObject(jsonString);
             JSONArray level = all.getJSONArray(levelname);
+            //FirstObject stores Width and Height
             JSONObject dim = level.getJSONObject(0);
             int width = dim.getInt("MapWidth");
             int height = dim.getInt("MapHeight");
-            Tile[][][] map = new Tile[width][height][3];
+
+
+            Tile[][][] map = new Tile[16][16][3];
 
             JSONObject t = null;
-            for (int i = 1; i<level.length();i++) {
+            for (int i = 1; i < level.length(); i++) {
                 t = level.getJSONObject(i);
-                //map[t.getInt("X")][t.getInt("Y")][t.getInt("layer")] = new Tile(t.getInt("X"),t.getInt("Y"),));
+                BufferedImage img = Texture.sprite[16];
+                //map[t.getInt("X")][t.getInt("Y")][t.getInt("layer")] = new Tile(t.getInt("X"), t.getInt("Y"),img,false);
+                map[t.getInt("X")][t.getInt("Y")][t.getInt("layer")] = new Tile(t.getInt("X"), t.getInt("Y"),Texture.sprite[16],false);
+                System.out.println(t.getInt("X"));
+                System.out.println(t.getInt("Y"));
+                System.out.println(t.getInt("layer"));
             }
 
             return map;

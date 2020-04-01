@@ -50,28 +50,22 @@ public class Game implements Runnable {
     public void init(){
         window =new Window(title,width,height);
         creatureHandler=new CreatureHandler();
-        map=new Map("testMap");
+        map = new Map("FirstLevel");
         camera = new Camera(0,0);
         mouseInput=new MouseInput();
         gameConsole=new GameConsole(this);
 
         projectileHandler=new ProjectileHandler();
-        player=new Player((float)3,3,projectileHandler);
+        player=new Player(1,1,projectileHandler);
 
         gameState=new GameState(this);
         consoleState=new ConsoleState(this);
-
-
-
 
         window.getCanvas().addMouseListener(mouseInput);
         window.getCanvas().addMouseMotionListener(mouseInput);
         keyboardInput=new KeyboardInput(this);
         window.getJFrame().addKeyListener(keyboardInput);
         State.setState(gameState);
-
-
-
     }
 
     //Getters && Setters

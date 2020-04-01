@@ -57,7 +57,7 @@ public class GameState extends State{
 
         //-----------------------------------------
         creatureHandler.addObject(player);
-        creatureHandler.addObject(new GreenSlime(1,6));
+        //creatureHandler.addObject(new GreenSlime(1,6));
     }
     @Override
     public void tick() {

@@ -1,48 +1,54 @@
 package Maps;
 
+import Tiles.Texture;
 import Tiles.Tile;
+import main_pack.Game;
 
 import java.awt.*;
+
 
 public class Map {
 
     public static Rectangle BORDER;
 
-    protected int tileWidth=32,tileHeight=32;
+    protected int MapWidth = 16, MapHeight = 16;
     protected Tile[][][] Tiles;
 
-    public Map(String source){
-        this.source=source;
+    public Map(String LevelName) {
+        Tiles = JSON.loadMapJson(LevelName);
         loadMap();
     }
 
-    public void loadMap(){
+    public void loadMap() {
 
-        BORDER =new Rectangle(0,0,tileWidth, tileHeight);
-        tiles=new int[tileWidth][tileHeight];
-        for (int i=0;i<32;i++){
-            for (int j=0;j<32;j++) {
-                tiles[i][j] = 0;
+        BORDER = new Rectangle(0, 0, MapWidth, MapHeight);
+
+
+
+    }
+
+    public Tile getTilebyCords(int x, int y) {
+        return Tiles[x][y][1];
+    }
+
+    public void tick() {
+
+    }
+
+    public void render(Graphics g) {
+        for (int layer = 0;layer<2;layer++) {
+            for (int y = 0; y < MapHeight; y++) {
+                for (int x = 0; x < MapWidth; x++) {
+                    try {
+                        //g.drawImage(Texture.sprite[16],x*Game.UNIT_SCALE,y*Game.UNIT_SCALE,Game.UNIT_SCALE,Game.UNIT_SCALE,null);
+                        if (Tiles[x][y][layer]!=null) {
+                            g.drawImage(Tiles[x][y][layer].getImg(),x*Game.UNIT_SCALE,y*Game.UNIT_SCALE,Game.UNIT_SCALE,Game.UNIT_SCALE,null);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-        }
-        tiles[5][5]=1;
-    }
-
-    public Tile getTilebyCords(int x, int y){
-        return Tile.idList[tiles[x][y]];
-    }
-
-    public  void tick(){
-
-    }
-
-    public void render(Graphics g){
-        for (int i=0;i<32;i++){
-            for (int j=0;j<32;j++) {
-                getTilebyCords(i,j).render(g,i,j);
-            }
-
-
         }
     }
 }

@@ -13,9 +13,9 @@ public class BufferedImageLoader {
         BufferedImage img = null;
 
         try{
-            System.out.println("try to read");
+            //System.out.println("try to read");
             img = ImageIO.read(new File(FileName));
-            System.out.println("File read");
+            //System.out.println("File read");
         }catch(IOException e){
             e.printStackTrace();
         }
