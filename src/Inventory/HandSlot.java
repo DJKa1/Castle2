@@ -13,7 +13,7 @@ public class HandSlot extends InvSlot{
     @Override
     public void tick(){
         if (currentItem!=null) {
-            weight = currentItem.getWeight();
+            //weight = currentItem.getWeight();
         }
 
     }
@@ -22,7 +22,7 @@ public class HandSlot extends InvSlot{
         g.setColor(Color.CYAN);
         g.drawRect(Launcher.WIDTH -150, Launcher.HEIGHT -100,80,40);
         if (currentItem!=null) {
-            currentItem.renderInv(g,Launcher.WIDTH -150, Launcher.HEIGHT -75);
+            //currentItem.renderInv(g,Launcher.WIDTH -150, Launcher.HEIGHT -75);
         }
     }
 }

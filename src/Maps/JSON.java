@@ -18,8 +18,8 @@ import java.util.Iterator;
 
 
 public class JSON {
-    public static File conficFile = new File("C:\\Users\\Pete Louis Benz\\Documents\\LevelEditor\\config\\config.json");
-    public static File saveMapFile = new File("C:\\Users\\Pete Louis Benz\\Documents\\LevelEditorFx\\rsc\\map.json");
+    //public static File conficFile = new File("C:\\Users\\Pete Louis Benz\\Documents\\LevelEditor\\config\\config.json");
+    public static File saveMapFile = new File("rsc/Worlds/map.json");
 
     public static ArrayList<String> getLevelNames() {
         try {
