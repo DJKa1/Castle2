@@ -1,5 +1,6 @@
 package main_pack;
 
+import Maps.JSON;
 import Maps.Map;
 import States.*;
 import entities.creatures.Camera;
@@ -48,17 +49,19 @@ public class Game implements Runnable {
     //Init
 
     public void init(){
+
         window =new Window(title,width,height);
         creatureHandler=new CreatureHandler();
-        map = new Map("FirstLevel");
+
         camera = new Camera(0,0);
         mouseInput=new MouseInput();
         gameConsole=new GameConsole(this);
 
         projectileHandler=new ProjectileHandler();
         player=new Player(1,1,projectileHandler);
-
+        map = new Map("Level");
         gameState=new GameState(this);
+
         consoleState=new ConsoleState(this);
 
         window.getCanvas().addMouseListener(mouseInput);

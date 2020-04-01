@@ -14,7 +14,7 @@ public class Tile {
     public Tile(int x, int y,BufferedImage img, boolean isSolid){
         this.x = x;
         this.y = y;
-        this.img = img;
+        this.img = Texture.sprite[16];
         this.isSolid = isSolid;
     }
     public Tile(int x, int y,BufferedImage img, Rectangle hitbox) {
@@ -37,6 +37,18 @@ public class Tile {
     }
 
     public BufferedImage getImg() {
-        return Texture.sprite[16];
+        return img;
+    }
+
+    public void setImg(BufferedImage img) {
+        this.img = img;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 }

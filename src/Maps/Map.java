@@ -24,7 +24,6 @@ public class Map {
         BORDER = new Rectangle(0, 0, MapWidth, MapHeight);
 
 
-
     }
 
     public Tile getTilebyCords(int x, int y) {
@@ -36,20 +35,14 @@ public class Map {
     }
 
     public void render(Graphics g) {
-        for (int layer = 0;layer<2;layer++) {
+        for (int layer = 0; layer < 2; layer++) {
             for (int y = 0; y < MapHeight; y++) {
                 for (int x = 0; x < MapWidth; x++) {
-                        if (Tiles[x][y][layer]!=null) {
-                            g.setColor(Color.pink);
-                            g.drawRect(x*Game.UNIT_SCALE,y*Game.UNIT_SCALE,Game.UNIT_SCALE,Game.UNIT_SCALE);
-                            try{
-                                g.drawImage(Tiles[x][y][layer].getImg(),x*Game.UNIT_SCALE,y*Game.UNIT_SCALE,Game.UNIT_SCALE,Game.UNIT_SCALE,null);
-                            }catch (Exception e){
-                            }
-
-                        }
-
-
+                    if (Tiles[x][y][layer] != null) {
+                        g.setColor(Color.pink);
+                        g.drawRect(x * Game.UNIT_SCALE, y * Game.UNIT_SCALE, Game.UNIT_SCALE, Game.UNIT_SCALE);
+                        g.drawImage(Tiles[x][y][0].getImg(), x * Game.UNIT_SCALE, y * Game.UNIT_SCALE, Game.UNIT_SCALE, Game.UNIT_SCALE, null);
+                    }
                 }
             }
         }
