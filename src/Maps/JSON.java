@@ -91,10 +91,8 @@ public class JSON {
             JSONObject t = null;
             for (int i = 1; i < level.length(); i++) {
                 t = level.getJSONObject(i);
-                BufferedImage img = Game.texture.sprite[16];
                 //map[t.getInt("X")][t.getInt("Y")][t.getInt("layer")] = new Tile(t.getInt("X"), t.getInt("Y"),img,false);
-                map[t.getInt("X")][t.getInt("Y")][t.getInt("layer")] = new Tile(t.getInt("X"), t.getInt("Y"),Game.texture.sprite[16],false);
-
+                map[t.getInt("X")][t.getInt("Y")][t.getInt("layer")] = new Tile(t.getInt("X"), t.getInt("Y"),Game.texture.tiles[t.getInt("imgX")][t.getInt("imgY")],false);
             }
 
             return map;
