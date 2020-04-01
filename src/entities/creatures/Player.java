@@ -11,6 +11,8 @@ import graphics.Animation;
 import main_pack.*;
 
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
+
 public class Player extends Creature {
     protected Inventory inventory;
     protected HandSlot righthand;
@@ -32,7 +34,7 @@ public class Player extends Creature {
     //-------------------------------------------------------
 
 
-    public Player(float x, float y, ProjectileHandler projectileHandler) {
+    public Player(float x, float y, ProjectileHandler projectileHandler)  {
         super(x,y);
         this.hp = 10;
         this.projectileHandler = projectileHandler;
@@ -57,6 +59,10 @@ public class Player extends Creature {
         animation[2] = playerWalkLeft;
         animation[3] = playerWalkUp;
         animation[4] = playerWalkDown;
+
+        //Test------------------------------------
+        inventory.addItembyID("testWeapon");
+        //---------------------------------------
     }
 
 

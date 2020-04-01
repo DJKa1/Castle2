@@ -1,6 +1,7 @@
 package Inventory;
 
-import entities.items.Item;
+
+import items.Item;
 
 import java.awt.*;
 
@@ -22,24 +23,12 @@ public class InvSlot {
     }
 
     public void tick(){
-        if (currentItem!=null) {
-            weight = currentItem.getWeight();
 
-
-        }
 
     }
 
     public void render(Graphics g, int x, int y){
-
-        g.drawRect(x+slotNumber*10,y,10,10);
-        if (currentItem!=null) {
-            currentItem.renderInv(g,x+slotNumber*10,y);
-            if (itemcount!=1){
-                g.setColor(Color.BLACK);
-                g.drawString(String.valueOf(itemcount),x+slotNumber*10+10,y);
-            }
-        }
+        g.drawImage(currentItem.getImage(),x,y,null);
     }
 
 
@@ -56,10 +45,10 @@ public class InvSlot {
     public int getItemcount() {
         return itemcount;
     }
-    public void addItemtoStack(Item item) {
-        if (item.getName() == currentItem.getName()) {
-            itemcount++;
-        }
+
+
+    public void addItemtoStack() {
+        itemcount++;
     }
     public void setCurrentItem(Item item){
         if (currentItem==null){

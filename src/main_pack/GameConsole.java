@@ -32,6 +32,9 @@ public class GameConsole {
     public void appendInput(char c){
         input=input.append(c);
     }
+    public void deletelastKey(){
+        input.deleteCharAt(input.length()-1);
+    }
     public void setInput(String str){
         input.delete(0,input.length());
         input.append(str);
@@ -109,9 +112,14 @@ public class GameConsole {
     }
 
     public void tp(String x, String y){
-        game.getPlayer().setX(Float.valueOf(x));
-        game.getPlayer().setY(Float.valueOf(y));
-        setInput("/getPlayerPosition");
+        try {
+            game.getPlayer().setX(Float.valueOf(x));
+            game.getPlayer().setY(Float.valueOf(y));
+            setInput("/getPlayerPosition");
+        }catch (IllegalArgumentException e){
+            setInput("Arguments must be float float");
+
+        }
         send();
     }
 
