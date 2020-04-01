@@ -61,7 +61,7 @@ public class Player extends Creature {
         animation[4] = playerWalkDown;
 
         //Test------------------------------------
-        inventory.addItembyID("testWeapon");
+        // inventory.addItembyID("testWeapon");
         //---------------------------------------
     }
 
@@ -112,7 +112,7 @@ public class Player extends Creature {
             speedX = (float) (move.x * movementRate);
             speedY = (float) (move.y * movementRate);
 
-        collision();
+       // collision();
 }
 
     private void collision(){

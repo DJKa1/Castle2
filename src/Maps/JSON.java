@@ -92,9 +92,7 @@ public class JSON {
                 BufferedImage img = Texture.sprite[16];
                 //map[t.getInt("X")][t.getInt("Y")][t.getInt("layer")] = new Tile(t.getInt("X"), t.getInt("Y"),img,false);
                 map[t.getInt("X")][t.getInt("Y")][t.getInt("layer")] = new Tile(t.getInt("X"), t.getInt("Y"),Texture.sprite[16],false);
-                System.out.println(t.getInt("X"));
-                System.out.println(t.getInt("Y"));
-                System.out.println(t.getInt("layer"));
+
             }
 
             return map;

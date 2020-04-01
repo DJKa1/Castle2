@@ -39,14 +39,21 @@ public class Map {
         for (int layer = 0;layer<2;layer++) {
             for (int y = 0; y < MapHeight; y++) {
                 for (int x = 0; x < MapWidth; x++) {
-                    try {
+
                         //g.drawImage(Texture.sprite[16],x*Game.UNIT_SCALE,y*Game.UNIT_SCALE,Game.UNIT_SCALE,Game.UNIT_SCALE,null);
                         if (Tiles[x][y][layer]!=null) {
-                            g.drawImage(Tiles[x][y][layer].getImg(),x*Game.UNIT_SCALE,y*Game.UNIT_SCALE,Game.UNIT_SCALE,Game.UNIT_SCALE,null);
+                            g.setColor(Color.pink);
+                            g.drawRect(x*Game.UNIT_SCALE,y*Game.UNIT_SCALE,Game.UNIT_SCALE,Game.UNIT_SCALE);
+
+                            try{
+                                g.drawImage(Tiles[x][y][layer].getImg(),x*Game.UNIT_SCALE,y*Game.UNIT_SCALE,Game.UNIT_SCALE,Game.UNIT_SCALE,null);
+
+                            }catch (Exception e){
+                            }
+
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+
+
                 }
             }
         }

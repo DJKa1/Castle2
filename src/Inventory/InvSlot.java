@@ -28,8 +28,9 @@ public class InvSlot {
     }
 
     public void render(Graphics g, int x, int y){
+        if (currentItem!=null){
         g.drawImage(currentItem.getImage(),x,y,null);
-    }
+    }}
 
 
 
