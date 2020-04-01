@@ -77,12 +77,14 @@ public class KeyboardInput implements KeyListener {
 
         //ConsoleInput--------------------------------
         if (game.getactiveState().getClass()==ConsoleState.class) {
-            if (e.getKeyChar() != '\uFFFF' && e.getKeyCode() != KeyEvent.VK_DELETE&& e.getKeyCode()!=KeyEvent.VK_ENTER){
+            if (e.getKeyChar() != '\uFFFF' && e.getKeyCode() != KeyEvent.VK_DELETE&& e.getKeyCode()!=KeyEvent.VK_BACK_SPACE&&e.getKeyCode() != KeyEvent.VK_ENTER){
                 gameConsole.appendInput(e.getKeyChar());
 
             } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                 gameConsole.send();
                 game.deactivateConsole();
+            }else if (e.getKeyCode()== KeyEvent.VK_BACK_SPACE){
+                gameConsole.deletelastKey();
             }
 
         }else if(game.getactiveState().getClass()== GameState.class){

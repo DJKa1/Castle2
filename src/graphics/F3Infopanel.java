@@ -35,10 +35,7 @@ public class F3Infopanel {
          for ( int i=0;i<information.length;i++){
              if(information[i]!=null){
                  g.drawString(information[i],sx,sy+i*fontsize);
-
              }
-
         }
-
     }
 }
