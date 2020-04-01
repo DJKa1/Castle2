@@ -3,6 +3,7 @@ package Maps;
 
 import Tiles.Texture;
 import Tiles.Tile;
+import main_pack.Game;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -86,12 +87,13 @@ public class JSON {
 
             Tile[][][] map = new Tile[16][16][3];
 
+
             JSONObject t = null;
             for (int i = 1; i < level.length(); i++) {
                 t = level.getJSONObject(i);
                 BufferedImage img = Texture.sprite[16];
                 //map[t.getInt("X")][t.getInt("Y")][t.getInt("layer")] = new Tile(t.getInt("X"), t.getInt("Y"),img,false);
-                map[t.getInt("X")][t.getInt("Y")][t.getInt("layer")] = new Tile(t.getInt("X"), t.getInt("Y"),Texture.sprite[16],false);
+                map[t.getInt("X")][t.getInt("Y")][t.getInt("layer")] = new Tile(t.getInt("X"), t.getInt("Y"),Game.texture.sprite[16],false);
 
             }
 

@@ -41,7 +41,7 @@ public class Map {
                     if (Tiles[x][y][layer] != null) {
                         g.setColor(Color.pink);
                         g.drawRect(x * Game.UNIT_SCALE, y * Game.UNIT_SCALE, Game.UNIT_SCALE, Game.UNIT_SCALE);
-                        g.drawImage(Tiles[x][y][0].getImg(), x * Game.UNIT_SCALE, y * Game.UNIT_SCALE, Game.UNIT_SCALE, Game.UNIT_SCALE, null);
+                        g.drawImage(Tiles[x][y][layer].getImg(), x * Game.UNIT_SCALE, y * Game.UNIT_SCALE, Game.UNIT_SCALE, Game.UNIT_SCALE, null);
                     }
                 }
             }

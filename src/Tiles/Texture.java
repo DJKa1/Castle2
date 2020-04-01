@@ -11,6 +11,7 @@ public class Texture {
     private BufferedImage sprite_Sheet = null;
 
     public static BufferedImage[] sprite = new BufferedImage[1024];
+    public static BufferedImage[][] tiles = new BufferedImage[32][32];
 
 
     public Texture() {
