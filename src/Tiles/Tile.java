@@ -1,35 +1,40 @@
 package Tiles;
 
-import main_pack.Game;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
-public abstract class Tile {
-    protected int width= Game.UNIT_SCALE,height=Game.UNIT_SCALE;
-    protected int id;
-    protected boolean solid;
-    public static Tile[] idList =new Tile[64];
-    public static Tile grass=new Grass(0);
-    public static Tile rock=new Rock(1);
+public class Tile {
+    private int x,y;
+    private Rectangle hitbox;
+    private String tile;
+    private boolean isSolid;
+    private BufferedImage img;
 
-
-
-
-    public Tile(int id){
-        this.id =id;
-        idList[id]=this;
-        solid=false;
-
-
+    public Tile(int x, int y,BufferedImage img, boolean isSolid){
+        this.x = x;
+        this.y = y;
+        this.img = img;
+        this.isSolid = isSolid;
+    }
+    public Tile(int x, int y,BufferedImage img, Rectangle hitbox) {
+        this.x = x;
+        this.y = y;
+        this.img = img;
+        this.isSolid = true;
     }
 
     public boolean isSolid() {
-        return solid;
+        return isSolid;
     }
 
-    public abstract void tick();
+    public void tick() {
 
-    public abstract void render(Graphics g,int x,int y);
+    }
+
+    public void render(Graphics g, int x, int y) {
+
+    }
 
 
 }

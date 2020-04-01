@@ -7,7 +7,7 @@ import java.awt.*;
 public class Rock extends Tile {
     public Rock(int id) {
         super(id);
-        solid=true;
+        solid=false;
     }
 
     @Override
