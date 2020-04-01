@@ -2,6 +2,8 @@ package entities.creatures;
 
 import Inventory.*;
 import States.GameState;
+import States.State;
+import Tiles.Texture;
 import entities.ID;
 import entities.Vector2D;
 import entities.projectile.Plasmabolt;
@@ -27,6 +29,7 @@ public class Player extends Creature {
     private ProjectileHandler projectileHandler;
     private Vector2D move;
     private ID[] blockedby={ID.Greenslime};
+
 
 
     //--------------------------------------------------------
@@ -112,7 +115,7 @@ public class Player extends Creature {
             speedX = (float) (move.x * movementRate);
             speedY = (float) (move.y * movementRate);
 
-       // collision();
+        collision();
 }
 
     private void collision(){
@@ -128,6 +131,7 @@ public class Player extends Creature {
             if(i!=-1){
                 speedX=i;
             }
+            /*
             if(collisionWithNextTile(speedX,0)){
                 if (speedX<0){
                     speedX= -(float) (x-Math.floor(x));
@@ -136,7 +140,7 @@ public class Player extends Creature {
                     speedX= (float) ((Math.ceil(x+width))-(x+width));
 
                 }
-            }
+            }*/
 
         }
 
@@ -154,7 +158,7 @@ public class Player extends Creature {
             if(i!=-1){
                 speedY=i;
             }
-
+            /*
             if(collisionWithNextTile(0,speedY)){
                 if (speedY<0){
                     speedY= -(float) (y-Math.floor(y));
@@ -164,6 +168,8 @@ public class Player extends Creature {
 
                 }
             }
+
+             */
         }
 
         y+=speedY;

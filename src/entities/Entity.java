@@ -168,7 +168,7 @@ public abstract class Entity {
 
     public boolean isTileSolid(int x, int y){
         if(x>=0&&y>=0){
-            return GameState.map.getTilebyCords(x,y).isSolid();
+            //return GameState.map.getTilebyCords(x,y).isSolid();
         }
         return false;
     }

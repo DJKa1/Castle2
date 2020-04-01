@@ -20,7 +20,7 @@ import java.util.Iterator;
 
 public class JSON {
     //public static File conficFile = new File("C:\\Users\\Pete Louis Benz\\Documents\\LevelEditor\\config\\config.json");
-    public static File saveMapFile = new File("rsc/Worlds/map.json");
+    public  static File saveMapFile = new File("rsc/Worlds/map.json");
 
     public static ArrayList<String> getLevelNames() {
         try {
@@ -41,7 +41,7 @@ public class JSON {
         return null;
     }
 
-    public static boolean exsists(String key) {
+    public  static boolean exsists(String key) {
         try {
             String speicher = new String((Files.readAllBytes(Paths.get(saveMapFile.toURI()))), "UTF-8");
             JSONObject all = new JSONObject(speicher);
@@ -91,7 +91,7 @@ public class JSON {
             JSONObject t = null;
             for (int i = 1; i < level.length(); i++) {
                 t = level.getJSONObject(i);
-                BufferedImage img = Texture.sprite[16];
+                BufferedImage img = Game.texture.sprite[16];
                 //map[t.getInt("X")][t.getInt("Y")][t.getInt("layer")] = new Tile(t.getInt("X"), t.getInt("Y"),img,false);
                 map[t.getInt("X")][t.getInt("Y")][t.getInt("layer")] = new Tile(t.getInt("X"), t.getInt("Y"),Game.texture.sprite[16],false);
 

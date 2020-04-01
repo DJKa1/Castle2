@@ -1,5 +1,6 @@
 package main_pack;
 
+import Maps.JSON;
 import Maps.Map;
 import States.*;
 import Tiles.Texture;
@@ -16,7 +17,7 @@ public class Game implements Runnable {
     public final static double SCALE = 8;
     public final static int UNITDIMENSION = 16;
     public final static int UNIT_SCALE = 128;
-    private Player player;
+    private  Player player;
     private ProjectileHandler projectileHandler;
     private Thread thread;
     public static Texture texture;
@@ -51,14 +52,13 @@ public class Game implements Runnable {
 
     public void init(){
 
-
+        window =new Window(title,width,height);
         creatureHandler=new CreatureHandler();
         texture = new Texture();
         camera = new Camera(0,0);
+        mouseInput=new MouseInput();
         gameConsole=new GameConsole(this);
 
-        window =new Window(title,width,height);
-        mouseInput=new MouseInput();
         projectileHandler=new ProjectileHandler();
         player=new Player(1,1,projectileHandler);
         map = new Map("Level");
@@ -71,7 +71,6 @@ public class Game implements Runnable {
         keyboardInput=new KeyboardInput(this);
         window.getJFrame().addKeyListener(keyboardInput);
         State.setState(gameState);
-
     }
 
     //Getters && Setters

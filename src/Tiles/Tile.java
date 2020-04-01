@@ -17,13 +17,6 @@ public class Tile {
         this.img = Texture.sprite[16];
         this.isSolid = isSolid;
     }
-    public Tile(int x, int y,BufferedImage img, Rectangle hitbox) {
-        this.x = x;
-        this.y = y;
-        this.img = img;
-        this.isSolid = true;
-    }
-
     public boolean isSolid() {
         return isSolid;
     }
