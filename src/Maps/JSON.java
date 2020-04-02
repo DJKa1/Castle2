@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class JSON {
 
     public static ArrayList<String> getLevelNames() {
         try {
-            String speicher = new String(Files.readAllBytes(Paths.get(saveMapFile.toURI())), "UTF-8");
+            String speicher = new String(Files.readAllBytes(Paths.get(saveMapFile.toURI())), StandardCharsets.UTF_8);
             JSONObject all = new JSONObject(speicher);
 
             Iterator<String> keys = all.keys();
@@ -43,14 +44,10 @@ public class JSON {
 
     public  static boolean exsists(String key) {
         try {
-            String speicher = new String((Files.readAllBytes(Paths.get(saveMapFile.toURI()))), "UTF-8");
+            String speicher = new String((Files.readAllBytes(Paths.get(saveMapFile.toURI()))), StandardCharsets.UTF_8);
             JSONObject all = new JSONObject(speicher);
 
-            if (all.has(key)) {
-                return true;
-            } else {
-                return false;
-            }
+            return all.has(key);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -59,14 +56,13 @@ public class JSON {
 
     public static int getGridSize(String level, boolean x) {
         try {
-            String speicher = new String(Files.readAllBytes(Paths.get(saveMapFile.toURI())), "UTF-8");
+            String speicher = new String(Files.readAllBytes(Paths.get(saveMapFile.toURI())), StandardCharsets.UTF_8);
             JSONObject all = new JSONObject(speicher);
             if (x) {
                 return all.getJSONArray(level).getJSONObject(0).getInt("MapWidth");
             } else {
                 return all.getJSONArray(level).getJSONObject(0).getInt("MapHeight");
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -76,7 +72,7 @@ public class JSON {
 
     public static Tile[][][] loadMapJson(String levelname) {
         try {
-            String jsonString = new String(Files.readAllBytes(Paths.get(saveMapFile.toURI())), "UTF-8");
+            String jsonString = new String(Files.readAllBytes(Paths.get(saveMapFile.toURI())), StandardCharsets.UTF_8);
             JSONObject all = new JSONObject(jsonString);
             JSONArray level = all.getJSONArray(levelname);
             //FirstObject stores Width and Height

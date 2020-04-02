@@ -6,10 +6,7 @@ import java.awt.image.BufferedImage;
 public class Texture {
 
     SpriteSheet tileSheet, ts;
-
-
-    private BufferedImage sprite_Sheet = null;
-    private BufferedImage tile_sheet = null;
+    BufferedImage tile_sheet;
 
     public static BufferedImage[] sprite = new BufferedImage[1024];
     public static BufferedImage[][] tiles = new BufferedImage[24][10];
@@ -19,6 +16,8 @@ public class Texture {
 
         BufferedImageLoader loader = new BufferedImageLoader();
 
+        BufferedImage sprite_Sheet = null;
+        tile_sheet = null;
         try {
             tile_sheet = loader.LoadImage("./rsc/Assets/dungeon_sheet.png");
             sprite_Sheet = loader.LoadImage("./rsc/Assets/SpriteSheet.png");
