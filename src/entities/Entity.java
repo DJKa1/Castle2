@@ -112,23 +112,14 @@ public abstract class Entity {
 
 
     public Rectangle2D.Double collisionWithTiles(Tile[] tiles, Rectangle2D.Double hitbox){
-
         for (Tile t: tiles){
-
-            try {
-
+            if(t!=null){
                 if (t.isSolid()) {
-                    System.out.println(t.getX()+"   "+ t.getY());
-
                     if (t.getHitbox().intersects(hitbox)) {
                         return t.getHitbox();
                     }
                 }
-            }catch (Exception e){
-              //  System.out.println("hey");
             }
-
-
         }
         return null;
 

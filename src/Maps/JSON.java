@@ -91,7 +91,8 @@ public class JSON {
                 Tile tile = new Tile(t.getInt("X"), t.getInt("Y"),Game.texture.tiles[t.getInt("imgX")][t.getInt("imgY")],false);
                 if(t.has("ox")){
                     tile.setSolid(true);
-                    tile.setHitbox(new Rectangle2D.Double(t.getDouble("ox"),t.getDouble("oy"),t.getDouble("width"),t.getDouble("height")));
+                    tile.setHitbox(new Rectangle2D.Double(t.getDouble("ox")+tile.getX(),t.getDouble("oy")+tile.getY(),1,1));
+
                 }
                 map[t.getInt("X")][t.getInt("Y")][t.getInt("layer")] = tile;
 

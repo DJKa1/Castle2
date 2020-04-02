@@ -220,7 +220,7 @@ public class Player extends Creature {
                     return 0;
             } else if (speedY > 0) {
                 if (k.getY() - (y + height) >= 0) {
-                    return (float) (k.getY() - (y + height));
+                    return (float) (k.getY() - (y + height)-0.00001);
                 } else
                     return 0;
             }

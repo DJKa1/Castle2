@@ -3,6 +3,7 @@ package Maps;
 import Tiles.Texture;
 import Tiles.Tile;
 import main_pack.Game;
+import main_pack.KeyboardInput;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -54,13 +55,25 @@ public class Map {
                         g.drawImage(Tiles[x][y][layer].getImg(), x * Game.UNIT_SCALE, y * Game.UNIT_SCALE, Game.UNIT_SCALE, Game.UNIT_SCALE, null);
 
 
+                    }
+                }
+            }
+        }
+        if(KeyboardInput.f3G){
+        renderHitbox(g);
 
-                        if (temp != null) {
-                            //System.out.println(temp.getX()+"   "+ temp.getY());
-                            g.setColor(Color.pink);
-                            g.drawRect((int) x * Game.UNIT_SCALE, (int) y * Game.UNIT_SCALE, (int)1 * Game.UNIT_SCALE, (int) 1 * Game.UNIT_SCALE);
-                        }
+        }
+    }
 
+
+    public void renderHitbox(Graphics g){
+        for (int y = 0; y < MapHeight; y++) {
+            for (int x = 0; x < MapWidth; x++) {
+                if (Tiles[x][y][1] != null) {
+                    Rectangle2D temp = Tiles[x][y][1].getHitbox();
+                    if (temp != null) {
+                        g.setColor(Color.pink);
+                        g.drawRect((int) (temp.getX() * Game.UNIT_SCALE), (int) (temp.getY() * Game.UNIT_SCALE), (int) (temp.getWidth() * Game.UNIT_SCALE), (int) (temp.getHeight() * Game.UNIT_SCALE));
                     }
                 }
             }
