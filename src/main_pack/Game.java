@@ -1,6 +1,4 @@
 package main_pack;
-
-import Maps.JSON;
 import Maps.Map;
 import States.*;
 import Tiles.Texture;

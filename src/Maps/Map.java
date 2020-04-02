@@ -5,6 +5,7 @@ import Tiles.Tile;
 import main_pack.Game;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 
 public class Map {
@@ -42,7 +43,12 @@ public class Map {
                         //g.setColor(Color.pink);
                         //g.drawRect(x * Game.UNIT_SCALE, y * Game.UNIT_SCALE, Game.UNIT_SCALE, Game.UNIT_SCALE);
                         g.drawImage(Tiles[x][y][layer].getImg(), x * Game.UNIT_SCALE, y * Game.UNIT_SCALE, Game.UNIT_SCALE, Game.UNIT_SCALE, null);
-                    }
+
+                        Rectangle2D temp=Tiles[x][y][layer].getHitbox();
+                        if(temp!=null){
+                            g.setColor(Color.pink);
+                            g.drawRect((int)temp.getX()*Game.UNIT_SCALE,(int)temp.getY()*Game.UNIT_SCALE,(int)temp.getWidth()*Game.UNIT_SCALE,(int)temp.getHeight()*Game.UNIT_SCALE);
+                    }}
                 }
             }
         }

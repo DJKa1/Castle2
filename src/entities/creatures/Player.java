@@ -13,6 +13,7 @@ import main_pack.MouseInput;
 import main_pack.ProjectileHandler;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 public class Player extends Creature {
     protected Inventory inventory;
@@ -62,7 +63,7 @@ public class Player extends Creature {
         animation[4] = playerWalkDown;
 
         //Test------------------------------------
-        // inventory.addItembyID("testWeapon");
+         //inventory.addItembyID("Item.testWeapon");
         //---------------------------------------
     }
 
@@ -114,6 +115,13 @@ public class Player extends Creature {
         speedY = (float) (move.y * movementRate);
 
         collision();
+
+
+        System.out.println(speedX +":::"+speedY);
+        y += speedY;
+        x += speedX;
+
+
     }
 
     private void collision() {
@@ -127,20 +135,23 @@ public class Player extends Creature {
             }
 
             Creature k = checkCollision_ifOneOf(hitbox, blockedby);
-            float i = geFreeSpaceindirectionX(k);
-            if (i != -1) {
-                speedX = i;
-            }
-            /*
-            if(collisionWithNextTile(speedX,0)){
-                if (speedX<0){
-                    speedX= -(float) (x-Math.floor(x));
-                }
-                else{
-                    speedX= (float) ((Math.ceil(x+width))-(x+width));
+            if(k!=null){
+                float i = getFreeSpaceindirectionX(k.getHitbox());
+                if (i != -1) {
+                    speedX = i;
 
                 }
-            }*/
+            }
+
+
+
+
+            Rectangle2D.Double temp=collisionWithTiles(getTilesinDirection(speedX,0),hitbox);
+            float i = getFreeSpaceindirectionX(temp);
+            if (i != -1) {
+                speedX = i;
+
+            }
 
         }
 
@@ -154,33 +165,36 @@ public class Player extends Creature {
 
 
             Creature k = checkCollision_ifOneOf(hitbox, blockedby);
-            float i = geFreeSpaceindirectionY(k);
-            if (i != -1) {
-                speedY = i;
-            }
-            /*
-            if(collisionWithNextTile(0,speedY)){
-                if (speedY<0){
-                    speedY= -(float) (y-Math.floor(y));
-                }
-                else{
-                    speedY= (float) ((Math.ceil(y+height))-(y+height));
+            if(k!=null){
+                float i = getFreeSpaceindirectionY(k.getHitbox());
+                if (i != -1) {
+                    speedY = i;
 
                 }
             }
 
-             */
+
+            Rectangle2D.Double temp=collisionWithTiles(getTilesinDirection(0,speedY),hitbox);
+            if(temp!=null){
+                float i = getFreeSpaceindirectionY(temp);
+                if (i != -1) {
+                    speedY = i;
+
+                }
+
+            }
+
+
         }
 
-        y += speedY;
-        x += speedX;
+
     }
 
-    private float geFreeSpaceindirectionX(Creature k) {
+    private float getFreeSpaceindirectionX(Rectangle2D.Double k) {
 
         if (k != null) {
             if (speedX < 0) {
-                if ((x - k.getX() + k.getWidth()) >= 0) {
+                if (x -( k.getX() + k.getWidth()) >= 0) {
                     return (float) -(x - (k.getX() + k.getWidth()));
                 } else
                     return 0;
@@ -199,10 +213,10 @@ public class Player extends Creature {
 
     }
 
-    private float geFreeSpaceindirectionY(Creature k) {
+    private float getFreeSpaceindirectionY(Rectangle2D.Double k) {
         if (k != null) {
             if (speedY < 0) {
-                if ((y - k.getY() + k.getHeight()) >= 0) {
+                if (y -( k.getY() + k.getHeight()) >= 0) {
                     return (float) -(y - (k.getY() + k.getHeight()));
                 } else
                     return 0;

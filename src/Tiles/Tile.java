@@ -2,11 +2,12 @@ package Tiles;
 
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 public class Tile {
     private int x,y;
-    private Rectangle hitbox;
+    private Rectangle2D.Double hitbox;
     private String tile;
     private boolean isSolid;
     private BufferedImage img;
@@ -25,11 +26,11 @@ public class Tile {
         isSolid = solid;
     }
 
-    public Rectangle getHitbox() {
+    public Rectangle2D.Double getHitbox() {
         return hitbox;
     }
 
-    public void setHitbox(Rectangle hitbox) {
+    public void setHitbox(Rectangle2D.Double hitbox) {
         this.hitbox = hitbox;
     }
 

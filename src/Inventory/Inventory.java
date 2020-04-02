@@ -51,14 +51,10 @@ public class Inventory {
 
                 Item o= null;
                 try {
-                    o = (Item)Class.forName(id).getConstructor().newInstance();
+                    o = (Item)Class.forName(id).newInstance();
                 } catch (InstantiationException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                } catch (NoSuchMethodException e) {
                     e.printStackTrace();
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();

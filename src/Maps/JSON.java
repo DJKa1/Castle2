@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
@@ -90,7 +91,7 @@ public class JSON {
                 Tile tile = new Tile(t.getInt("X"), t.getInt("Y"),Game.texture.tiles[t.getInt("imgX")][t.getInt("imgY")],false);
                 if(t.has("ox")){
                     tile.setSolid(true);
-                    tile.setHitbox(new Rectangle(t.getInt("ox"),t.getInt("oy"),t.getInt("width"),t.getInt("height")));
+                    tile.setHitbox(new Rectangle2D.Double(t.getInt("ox"),t.getInt("oy"),t.getInt("width"),t.getInt("height")));
                 }
                 map[t.getInt("X")][t.getInt("Y")][t.getInt("layer")] = tile;
 
