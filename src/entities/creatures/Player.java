@@ -116,8 +116,6 @@ public class Player extends Creature {
 
         collision();
 
-
-        System.out.println(speedX +":::"+speedY);
         y += speedY;
         x += speedX;
 
