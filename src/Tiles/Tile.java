@@ -21,6 +21,10 @@ public class Tile {
         return isSolid;
     }
 
+    public void setSolid(boolean solid) {
+        isSolid = solid;
+    }
+
     public void tick() {
 
     }

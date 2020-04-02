@@ -1,19 +1,18 @@
 package entities.creatures;
 
-import Inventory.*;
+import Inventory.HandSlot;
+import Inventory.Inventory;
 import States.GameState;
-import States.State;
-import Tiles.Texture;
 import entities.ID;
 import entities.Vector2D;
 import entities.projectile.Plasmabolt;
-import entities.projectile.Projectile;
-import entities.projectile.ProjectilePool;
 import graphics.Animation;
-import main_pack.*;
+import main_pack.Game;
+import main_pack.KeyboardInput;
+import main_pack.MouseInput;
+import main_pack.ProjectileHandler;
 
 import java.awt.*;
-import java.lang.reflect.InvocationTargetException;
 
 public class Player extends Creature {
     protected Inventory inventory;
@@ -28,24 +27,23 @@ public class Player extends Creature {
     private int animationIndex = 0;
     private ProjectileHandler projectileHandler;
     private Vector2D move;
-    private ID[] blockedby={ID.Greenslime};
-
+    private ID[] blockedby = {ID.Greenslime};
 
 
     //--------------------------------------------------------
-    int cooldown=0;
+    int cooldown = 0;
     //-------------------------------------------------------
 
 
-    public Player(float x, float y, ProjectileHandler projectileHandler)  {
-        super(x,y);
+    public Player(float x, float y, ProjectileHandler projectileHandler) {
+        super(x, y);
         this.hp = 10;
         this.projectileHandler = projectileHandler;
         move = new Vector2D(0, 0);
         id = ID.Player;
         width = 0.8;
         height = 0.8;
-        movementRate=0.1;
+        movementRate = 0.1;
         inventory = new Inventory();
         righthand = new HandSlot(0);
         createHitbox();
@@ -70,7 +68,7 @@ public class Player extends Creature {
 
 
     public void firePlasma(float aimX, float aimY) {
-        projectileHandler.addObject(new Plasmabolt(x,y, aimX,aimY,projectileHandler));
+        projectileHandler.addObject(new Plasmabolt(x, y, aimX, aimY, projectileHandler));
     }
 
     @Override
@@ -79,10 +77,10 @@ public class Player extends Creature {
         inventory.tick();
         righthand.tick();
         //------------------------------------------------------
-        if(MouseInput.leftPressed&&cooldown==0 ){
-            firePlasma(MouseInput.mouseX,MouseInput.mouseY);
-            cooldown=1;
-        }else if(cooldown>0){
+        if (MouseInput.leftPressed && cooldown == 0) {
+            firePlasma(MouseInput.mouseX, MouseInput.mouseY);
+            cooldown = 1;
+        } else if (cooldown > 0) {
             cooldown--;
         }
         //------------------------------------------------------
@@ -90,7 +88,7 @@ public class Player extends Creature {
 
     @Override
     public void render(Graphics g) {
-        animation[animationIndex].drawAnimation(g, getPixelPosition(x), getPixelPosition(y),(Game.UNIT_SCALE));
+        animation[animationIndex].drawAnimation(g, getPixelPosition(x), getPixelPosition(y), (Game.UNIT_SCALE));
 
         if (KeyboardInput.e) {
             inventory.render(g);
@@ -101,35 +99,37 @@ public class Player extends Creature {
     @Override
     public void drawHitbox(Graphics g) {
         g.setColor(Color.blue);
-        g.drawRect(getPixelPosition(x),getPixelPosition(y),getPixelPosition(width),getPixelPosition(height));
+        g.drawRect(getPixelPosition(x), getPixelPosition(y), getPixelPosition(width), getPixelPosition(height));
 
     }
 
     private void movement() {
 
-            move.x = boolToInt(KeyboardInput.right) - boolToInt(KeyboardInput.left);
-            move.y = boolToInt(KeyboardInput.down) - boolToInt(KeyboardInput.up);
+        move.x = boolToInt(KeyboardInput.right) - boolToInt(KeyboardInput.left);
+        move.y = boolToInt(KeyboardInput.down) - boolToInt(KeyboardInput.up);
 
-            playAnimation(move.x, move.y);
+        playAnimation(move.x, move.y);
 
-            speedX = (float) (move.x * movementRate);
-            speedY = (float) (move.y * movementRate);
+        speedX = (float) (move.x * movementRate);
+        speedY = (float) (move.y * movementRate);
 
         collision();
-}
+    }
 
-    private void collision(){
+    private void collision() {
 
-        if(speedX!=0) {
+        if (speedX != 0) {
             normalizeHitbox();
             updateHitbox(speedX, 0);
             //------------------------------------
-            if(!isInMap()){speedX=0;}
+            if (!isInMap()) {
+                speedX = 0;
+            }
 
             Creature k = checkCollision_ifOneOf(hitbox, blockedby);
-            float i=geFreeSpaceindirectionX(k);
-            if(i!=-1){
-                speedX=i;
+            float i = geFreeSpaceindirectionX(k);
+            if (i != -1) {
+                speedX = i;
             }
             /*
             if(collisionWithNextTile(speedX,0)){
@@ -144,19 +144,19 @@ public class Player extends Creature {
 
         }
 
-        if (speedY!=0) {
+        if (speedY != 0) {
             normalizeHitbox();
             updateHitbox(0, speedY);
             //--------------------------------------
-            if(!isInMap()){speedY=0;}
-
-
+            if (!isInMap()) {
+                speedY = 0;
+            }
 
 
             Creature k = checkCollision_ifOneOf(hitbox, blockedby);
-            float i=geFreeSpaceindirectionY(k);
-            if(i!=-1){
-                speedY=i;
+            float i = geFreeSpaceindirectionY(k);
+            if (i != -1) {
+                speedY = i;
             }
             /*
             if(collisionWithNextTile(0,speedY)){
@@ -172,8 +172,8 @@ public class Player extends Creature {
              */
         }
 
-        y+=speedY;
-        x+=speedX;
+        y += speedY;
+        x += speedX;
     }
 
     private float geFreeSpaceindirectionX(Creature k) {
@@ -186,28 +186,30 @@ public class Player extends Creature {
                     return 0;
             } else if (speedX > 0) {
                 if (k.getX() - (x + width) >= 0) {
-                    return (float) (k.getX() - (x + width)-0.0001);
+                    return (float) (k.getX() - (x + width) - 0.0001);
                 } else
                     return 0;
 
             }
 
 
-        }return -1;
+        }
+        return -1;
 
 
     }
-    private float geFreeSpaceindirectionY(Creature k){
-        if (k!=null){
-            if (speedY<0){
-                if((y-k.getY()+k.getHeight())>=0){
-                    return (float)-(y-(k.getY()+k.getHeight()));
-                }else
+
+    private float geFreeSpaceindirectionY(Creature k) {
+        if (k != null) {
+            if (speedY < 0) {
+                if ((y - k.getY() + k.getHeight()) >= 0) {
+                    return (float) -(y - (k.getY() + k.getHeight()));
+                } else
                     return 0;
-            }else if(speedY>0){
-                if(k.getY()-(y+height)>=0){
-                    return (float)(k.getY()-(y+height));
-                }else
+            } else if (speedY > 0) {
+                if (k.getY() - (y + height) >= 0) {
+                    return (float) (k.getY() - (y + height));
+                } else
                     return 0;
             }
         }
@@ -217,18 +219,19 @@ public class Player extends Creature {
     public int boolToInt(boolean b) {
         return b ? 1 : 0;
     }
-    public void playAnimation(double velX, double velY){
-        if (velY<0) {
+
+    public void playAnimation(double velX, double velY) {
+        if (velY < 0) {
             playerWalkUp.runAnimation();
             animationIndex = 3;
-        } else if (velY>0) {
+        } else if (velY > 0) {
             playerWalkDown.runAnimation();
             animationIndex = 4;
         }
-        if (velX>0) {
+        if (velX > 0) {
             playerWalkRight.runAnimation();
             animationIndex = 1;
-        } else if (velX<0) {
+        } else if (velX < 0) {
             playerWalkLeft.runAnimation();
             animationIndex = 2;
         }
