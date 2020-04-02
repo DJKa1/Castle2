@@ -25,6 +25,14 @@ public class Tile {
         isSolid = solid;
     }
 
+    public Rectangle getHitbox() {
+        return hitbox;
+    }
+
+    public void setHitbox(Rectangle hitbox) {
+        this.hitbox = hitbox;
+    }
+
     public void tick() {
 
     }
