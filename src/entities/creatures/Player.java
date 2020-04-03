@@ -43,8 +43,8 @@ public class Player extends Creature {
         righthand = new HandSlot(0);
         hitbox=new Rectangle2D.Double(x,y,width,height);
 
-        xo=x+(width/8);
-        yo=y+height;
+        xo=width/8;
+        yo=height;
         wo=width-(width/4);
         ho=height/4;
         movementhitbox=new Rectangle2D.Double(xo,yo,wo,ho);
@@ -73,7 +73,10 @@ public class Player extends Creature {
     }
 
     public void updateMovementhitbox(float xOffset, float yOffset){
-        movementhitbox.setRect(xo+xOffset,yo+yOffset,wo,ho);
+        movementhitbox.setRect(x+xo+xOffset,y+yo+yOffset,wo,ho);
+    }
+    public void normalizeMovementhitbox(){
+        movementhitbox.setRect(x+xo,y+yo,wo,ho);
     }
 
 
@@ -126,8 +129,7 @@ public class Player extends Creature {
 
         y += speedY;
         x += speedX;
-        xo+=speedX;
-        yo+=speedY;
+
 
 
     }
@@ -139,6 +141,7 @@ public class Player extends Creature {
         //XOffset-----------------------------------------
         if (speedX != 0) {
             normalizeHitbox();
+            normalizeMovementhitbox();
             updateHitbox(speedX, 0);
             updateMovementhitbox(speedX,0);
 
@@ -146,14 +149,14 @@ public class Player extends Creature {
 
             Creature k = checkCollision_ifOneOf(blockedby);
             if(k!=null){
-                float i = getFreeSpaceindirectionX(hitbox,k.getHitbox());
+                float i = getFreeSpaceindirectionX(k.getHitbox());
                 if (i != -1) {
                     speedX = i;
                 }
             }
 
-            Rectangle2D.Double temp=collisionWithTiles(getTilesinDirection(speedX,0,movementhitbox),movementhitbox);
-            float i = getFreeSpaceindirectionX(movementhitbox,temp);
+            Rectangle2D.Double temp=collisionWithTiles(getTilesinDirection(speedX,0,hitbox),hitbox);
+            float i = getFreeSpaceindirectionX(temp);
             if (i != -1) {
                 speedX = i;
             }
@@ -162,20 +165,21 @@ public class Player extends Creature {
         //YOffest---------------------------------------------
         if (speedY != 0) {
             normalizeHitbox();
+            normalizeMovementhitbox();
             updateHitbox(0, speedY);
             updateMovementhitbox(0,speedY);
 
             Creature k = checkCollision_ifOneOf( blockedby);
             if(k!=null){
-                float i = getFreeSpaceindirectionY(hitbox,k.getHitbox());
+                float i = getFreeSpaceindirectionY(k.getHitbox());
                 if (i != -1) {
                     speedY = i;
                 }
             }
 
-            Rectangle2D.Double temp=collisionWithTiles(getTilesinDirection(0,speedY,movementhitbox),movementhitbox);
+            Rectangle2D.Double temp=collisionWithTiles(getTilesinDirection(0,speedY,hitbox),hitbox);
             if(temp!=null){
-                float i = getFreeSpaceindirectionY(movementhitbox,temp);
+                float i = getFreeSpaceindirectionY(-temp);
                 if (i != -1) {
                     speedY = i;
                 }

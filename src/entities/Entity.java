@@ -145,7 +145,43 @@ public abstract class Entity {
         return null;
     }
 
-    public float getFreeSpaceindirectionX(Rectangle2D.Double hb,Rectangle2D k) {
+    public float getFreeSpaceindirectionX(Rectangle2D k) {
+
+        if (k != null) {
+            if (speedX < 0) {
+                if (x -( k.getX() + k.getWidth()) >= 0) {
+                    return (float) -(x- (k.getX() + k.getWidth()));
+                } else
+                    return 0;
+            } else if (speedX > 0) {
+                if (k.getX() - (x + width) >= 0) {
+                    return (float) (k.getX() - (x + width) - 0.00001);
+                } else
+                    return 0;
+            }
+        }
+        return -1;
+    }
+
+    public float getFreeSpaceindirectionY( Rectangle2D k) {
+        if (k != null) {
+            if (speedY < 0) {
+                if (y -( k.getY() + k.getHeight()) >= 0) {
+                    return (float) -(y - (k.getY() + k.getHeight()));
+                } else
+                    return 0;
+            } else if (speedY > 0) {
+                if (k.getY() - (y+ height) >= 0) {
+                    return (float) (k.getY() - (y + height)-0.00001);
+                } else
+                    return 0;
+            }
+        }
+        return -1;
+    }
+
+    /*
+       public float getFreeSpaceindirectionX(Rectangle2D.Double hb,Rectangle2D k) {
 
         if (k != null) {
             if (speedX < 0) {
@@ -179,6 +215,7 @@ public abstract class Entity {
         }
         return -1;
     }
+     */
 
     public Rectangle2D.Double collisionWithTiles(Tile[] tiles,Rectangle2D hb){
         for (Tile t: tiles){
