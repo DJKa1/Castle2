@@ -1,31 +1,36 @@
 package entities.projectile;
-
-import Maps.Map;
 import entities.Entity;
+import entities.ID;
 import entities.Vector2D;
-import main_pack.Game;
 import main_pack.ProjectileHandler;
-
-import java.awt.geom.Rectangle2D;
 
 public abstract class Projectile extends Entity {
     protected float aimX,aimY;
     protected float projeticespeed;
-    protected Rectangle2D.Double hitbox;
-    protected Vector2D move;
-    protected float width=(float) 0.5,height=(float)0.5;
     protected ProjectileHandler projectileHandler;
+    protected ID[]isHit;
+    protected float baseDgm;
 
+    public float getBaseDgm() {
+        return baseDgm;
+    }
+    public float caculateDmg(){
+        return baseDgm;
+    }
+
+    public float getProjeticespeed() {
+        return projeticespeed;
+    }
+    public ProjectileHandler getProjectileHandler() {
+        return projectileHandler;
+    }
+    public ID[] getIsHit() {
+        return isHit;
+    }
     public Projectile(float x, float y, ProjectileHandler projectileHandler) {
         super(x, y);
         this.projectileHandler=projectileHandler;
         move=new Vector2D(0,0);
-    }
-
-
-
-    public Rectangle2D.Double getHitbox() {
-        return hitbox;
     }
 
     public float getAimY() {
@@ -44,14 +49,12 @@ public abstract class Projectile extends Entity {
         this.aimX = aimX;
     }
 
-    public void updateHitbox(double xOffset,double yOffset){
-        hitbox.setRect(x+xOffset,y+yOffset,width,height);
+    public void removeifSolid(float ox, float oy) {
+        if (collisionWithTiles(getTilesinDirection(ox, oy)) != null) {
+            projectileHandler.removeObject(this);
+        }
+    }
 
-    }
-    public int getPixelPosstion(float v){
-        return (int)(v* Game.UNIT_SCALE);
-    }
-    public abstract void collision();
 
 
 

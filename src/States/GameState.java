@@ -7,15 +7,11 @@ import entities.creatures.Camera;
 import entities.creatures.Creature;
 import entities.creatures.GreenSlime;
 import entities.creatures.Player;
-import entities.projectile.Plasmabolt;
-import entities.projectile.Projectile;
-import entities.projectile.ProjectilePool;
 import graphics.F3Infopanel;
 import main_pack.*;
 
 
 import java.awt.*;
-import java.util.Arrays;
 
 public class GameState extends State{
     private CreatureHandler creatureHandler;
@@ -51,12 +47,11 @@ public class GameState extends State{
         camera = game.getCamera();
         creatureHandler=game.getCreatureHandler();
         texture = new Texture();
-
-
         f3Infopanel=new F3Infopanel(this);
 
         //-----------------------------------------
         creatureHandler.addObject(player);
+        creatureHandler.addObject(new GreenSlime(3,7,creatureHandler));
         //creatureHandler.addObject(new GreenSlime(1,6));
     }
     @Override

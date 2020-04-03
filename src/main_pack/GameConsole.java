@@ -43,7 +43,7 @@ public class GameConsole {
         String currentInput=input.toString();
         input.delete(0,input.length());
         //subStrings--------------------
-        if (currentInput.startsWith("/")){
+        if (currentInput.startsWith("/")&&Launcher.enablecheats){
             executeCommand(currentInput);
 
         }else{

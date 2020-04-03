@@ -1,6 +1,7 @@
 package Inventory;
 
 import items.Item;
+import items.testWeapon;
 
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
@@ -47,24 +48,12 @@ public class Inventory {
             }
         }
         for (int i=0;i <slots.length;i++){
-            if (slots[i].getCurrentItem()==null){
-
-                Item o= null;
-                try {
-                    o = (Item)Class.forName(id).newInstance();
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+            if (slots[i].getCurrentItem()==null) {
+                Item item;
+                switch (id){
+                    case "testWeapon": item=new testWeapon();
                 }
-                slots[i].setCurrentItem(o);
-                    return;
-
-
             }
-
         }
 
     }

@@ -1,6 +1,6 @@
 package main_pack;
 
-import entities.creatures.Player;
+
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -14,7 +14,6 @@ public class MouseInput implements MouseListener, MouseMotionListener {
 
 
     public MouseInput(){
-
 
     }
 
