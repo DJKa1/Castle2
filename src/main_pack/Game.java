@@ -61,7 +61,9 @@ public class Game implements Runnable {
         player=new Player(1,1,projectileHandler,creatureHandler);
         map = new Map("FirstLevel");
         gameState=new GameState(this);
+
         consoleState=new ConsoleState(this);
+
         window.getCanvas().addMouseListener(mouseInput);
         window.getCanvas().addMouseMotionListener(mouseInput);
         keyboardInput=new KeyboardInput(this);

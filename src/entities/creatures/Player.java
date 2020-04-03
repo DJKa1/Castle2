@@ -179,7 +179,7 @@ public class Player extends Creature {
 
             Rectangle2D.Double temp=collisionWithTiles(getTilesinDirection(0,speedY,hitbox),hitbox);
             if(temp!=null){
-                float i = getFreeSpaceindirectionY(-temp);
+                float i = getFreeSpaceindirectionY(temp);
                 if (i != -1) {
                     speedY = i;
                 }
