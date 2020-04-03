@@ -50,7 +50,7 @@ public abstract class Projectile extends Entity {
     }
 
     public void removeifSolid(float ox, float oy) {
-        if (collisionWithTiles(getTilesinDirection(ox, oy)) != null) {
+        if (collisionWithTiles(getTilesinDirection(ox, oy,hitbox),hitbox) != null) {
             projectileHandler.removeObject(this);
         }
     }

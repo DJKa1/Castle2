@@ -97,7 +97,7 @@ public abstract class Entity {
         return (int) v;
     }
 
-    public void updateHitbox(double xOffset, double yOffset) {
+    public void updateHitbox(float xOffset, float yOffset) {
         hitbox.setRect(x + xOffset, y + yOffset, width, height);
     }
 
@@ -145,17 +145,17 @@ public abstract class Entity {
         return null;
     }
 
-    public float getFreeSpaceindirectionX(Rectangle2D.Double k) {
+    public float getFreeSpaceindirectionX(Rectangle2D.Double hb,Rectangle2D k) {
 
         if (k != null) {
             if (speedX < 0) {
-                if (x -( k.getX() + k.getWidth()) >= 0) {
-                    return (float) -(x - (k.getX() + k.getWidth()));
+                if (hb.getX() -( k.getX() + k.getWidth()) >= 0) {
+                    return (float) -(hb.getX() - (k.getX() + k.getWidth()));
                 } else
                     return 0;
             } else if (speedX > 0) {
-                if (k.getX() - (x + width) >= 0) {
-                    return (float) (k.getX() - (x + width) - 0.0001);
+                if (k.getX() - (hb.getX() + hb.getWidth()) >= 0) {
+                    return (float) (k.getX() - (hb.getX() + hb.getWidth()) - 0.00001);
                 } else
                     return 0;
             }
@@ -163,16 +163,16 @@ public abstract class Entity {
         return -1;
     }
 
-    public float getFreeSpaceindirectionY(Rectangle2D.Double k) {
+    public float getFreeSpaceindirectionY(Rectangle2D.Double hb, Rectangle2D k) {
         if (k != null) {
             if (speedY < 0) {
-                if (y -( k.getY() + k.getHeight()) >= 0) {
-                    return (float) -(y - (k.getY() + k.getHeight()));
+                if (hb.getY() -( k.getY() + k.getHeight()) >= 0) {
+                    return (float) -(hb.getY() - (k.getY() + k.getHeight()));
                 } else
                     return 0;
             } else if (speedY > 0) {
-                if (k.getY() - (y + height) >= 0) {
-                    return (float) (k.getY() - (y + height)-0.00001);
+                if (k.getY() - (hb.getY() + hb.getHeight()) >= 0) {
+                    return (float) (k.getY() - (hb.getY() + hb.getHeight())-0.00001);
                 } else
                     return 0;
             }
@@ -180,11 +180,11 @@ public abstract class Entity {
         return -1;
     }
 
-    public Rectangle2D.Double collisionWithTiles(Tile[] tiles){
+    public Rectangle2D.Double collisionWithTiles(Tile[] tiles,Rectangle2D hb){
         for (Tile t: tiles){
             if(t!=null){
                 if (t.isSolid()) {
-                    if (t.getHitbox().intersects(hitbox)) {
+                    if (t.getHitbox().intersects(hb)) {
                         return t.getHitbox();
                     }
                 }
@@ -193,27 +193,27 @@ public abstract class Entity {
         return null;
 
     }
-    public Tile[] getTilesinDirection(float xSpeed, float ySpeed) {
+    public Tile[] getTilesinDirection(float xSpeed, float ySpeed, Rectangle2D.Double hb) {
         Tile tile1=null, tile2=null;
         if (xSpeed != 0) {
             if (speedX < 0) {
-                tile1 = GameState.map.getTilebyCords((int) Math.floor(hitbox.getX()), (int) Math.floor(hitbox.getY()));
-                tile2 = GameState.map.getTilebyCords((int) Math.floor(hitbox.getX()), (int) Math.floor(hitbox.getY() + hitbox.getHeight()));
+                tile1 = GameState.map.getTilebyCords((int) Math.floor(hb.getX()), (int) Math.floor(hb.getY()));
+                tile2 = GameState.map.getTilebyCords((int) Math.floor(hb.getX()), (int) Math.floor(hb.getY() + hb.getHeight()));
             }
             if (speedX > 0) {
-                tile1 = GameState.map.getTilebyCords((int) Math.floor(hitbox.getX() + hitbox.getWidth()), (int) Math.floor(hitbox.getY()));
-                tile2 = GameState.map.getTilebyCords((int) Math.floor(hitbox.getX() + hitbox.getWidth()), (int) Math.floor(hitbox.getY() + hitbox.getHeight()));
+                tile1 = GameState.map.getTilebyCords((int) Math.floor(hb.getX() + hb.getWidth()), (int) Math.floor(hb.getY()));
+                tile2 = GameState.map.getTilebyCords((int) Math.floor(hb.getX() + hb.getWidth()), (int) Math.floor(hb.getY() + hb.getHeight()));
             }
         }
 
         if (ySpeed != 0) {
             if (speedY > 0) {
-                tile1 = GameState.map.getTilebyCords((int) Math.floor(hitbox.getX()), (int) Math.floor(hitbox.getY() + getHeight()));
-                tile2 = GameState.map.getTilebyCords((int) Math.floor(hitbox.getX() + getWidth()), (int) Math.floor(hitbox.getY() + getHeight()));
+                tile1 = GameState.map.getTilebyCords((int) Math.floor(hb.getX()), (int) Math.floor(hb.getY() + getHeight()));
+                tile2 = GameState.map.getTilebyCords((int) Math.floor(hb.getX() + getWidth()), (int) Math.floor(hb.getY() + getHeight()));
             }
             if (speedY < 0) {
-                tile1 = GameState.map.getTilebyCords((int) Math.floor(hitbox.getX() + hitbox.getWidth()), (int) Math.floor(hitbox.getY()));
-                tile2 = GameState.map.getTilebyCords((int) Math.floor(hitbox.getX()), (int) Math.floor(hitbox.getY()));
+                tile1 = GameState.map.getTilebyCords((int) Math.floor(hb.getX() + hb.getWidth()), (int) Math.floor(hb.getY()));
+                tile2 = GameState.map.getTilebyCords((int) Math.floor(hb.getX()), (int) Math.floor(hb.getY()));
             }
         }
 

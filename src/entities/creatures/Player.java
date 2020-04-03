@@ -22,6 +22,8 @@ public class Player extends Creature {
     private int animationIndex = 0;
     private ProjectileHandler projectileHandler;
     private ID[] blockedby = {ID.Greenslime};
+    private Rectangle2D.Double movementhitbox;
+
 
     //--------------------------------------------------------
     int cooldown = 0;
@@ -39,6 +41,8 @@ public class Player extends Creature {
         inventory = new Inventory();
         righthand = new HandSlot(0);
         hitbox=new Rectangle2D.Double(x,y,width,height);
+        movementhitbox=new Rectangle2D.Double(x+(width/8),y+height,width-(width/8),(height/4));
+
 
         playerWalkLeft = new Animation(3, GameState.texture.sprite[8], GameState.texture.sprite[9], GameState.texture.sprite[10], GameState.texture.sprite[11], GameState.texture.sprite[12]);
         playerWalkRight = new Animation(3, GameState.texture.sprite[0], GameState.texture.sprite[1], GameState.texture.sprite[2], GameState.texture.sprite[3], GameState.texture.sprite[4]);
@@ -61,6 +65,10 @@ public class Player extends Creature {
 
     public void firePlasma(float aimX, float aimY) {
         projectileHandler.addObject(new Plasmabolt(x, y, aimX, aimY, projectileHandler));
+    }
+
+    public void updateMovementhitbox(float xOffset, float yOffset){
+        movementhitbox.setRect(x+(width/8)+xOffset,y+(height-(height/4))+yOffset,width-(width/8),height/4);
     }
 
 
@@ -94,6 +102,9 @@ public class Player extends Creature {
         g.setColor(Color.blue);
         g.drawRect(getPixelPosition(x), getPixelPosition(y), getPixelPosition(width), getPixelPosition(height));
 
+        g.setColor(Color.lightGray);
+        g.drawRect(getPixelPosition((float) movementhitbox.getX()),getPixelPosition((float) movementhitbox.getY()),getPixelPosition((float) movementhitbox.getWidth()),getPixelPosition((float) movementhitbox.getHeight()));
+
     }
 
     private void movement() {
@@ -115,20 +126,24 @@ public class Player extends Creature {
     }
 
     private void collision() {
+
+
         //XOffset-----------------------------------------
         if (speedX != 0) {
             normalizeHitbox();
             updateHitbox(speedX, 0);
+            updateMovementhitbox(0,0);
 
             Creature k = checkCollision_ifOneOf(blockedby);
             if(k!=null){
-                float i = getFreeSpaceindirectionX(k.getHitbox());
+                float i = getFreeSpaceindirectionX(hitbox,k.getHitbox());
                 if (i != -1) {
                     speedX = i;
                 }
             }
-            Rectangle2D.Double temp=collisionWithTiles(getTilesinDirection(speedX,0));
-            float i = getFreeSpaceindirectionX(temp);
+
+            Rectangle2D.Double temp=collisionWithTiles(getTilesinDirection(speedX,0,movementhitbox),movementhitbox);
+            float i = getFreeSpaceindirectionX(movementhitbox,temp);
             if (i != -1) {
                 speedX = i;
             }
@@ -138,18 +153,19 @@ public class Player extends Creature {
         if (speedY != 0) {
             normalizeHitbox();
             updateHitbox(0, speedY);
+            updateMovementhitbox(0,0);
 
             Creature k = checkCollision_ifOneOf( blockedby);
             if(k!=null){
-                float i = getFreeSpaceindirectionY(k.getHitbox());
+                float i = getFreeSpaceindirectionY(hitbox,k.getHitbox());
                 if (i != -1) {
                     speedY = i;
                 }
             }
 
-            Rectangle2D.Double temp=collisionWithTiles(getTilesinDirection(0,speedY));
+            Rectangle2D.Double temp=collisionWithTiles(getTilesinDirection(0,speedY,movementhitbox),movementhitbox);
             if(temp!=null){
-                float i = getFreeSpaceindirectionY(temp);
+                float i = getFreeSpaceindirectionY(movementhitbox,temp);
                 if (i != -1) {
                     speedY = i;
                 }
