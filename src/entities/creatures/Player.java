@@ -23,6 +23,7 @@ public class Player extends Creature {
     private ProjectileHandler projectileHandler;
     private ID[] blockedby = {ID.Greenslime};
     private Rectangle2D.Double movementhitbox;
+    private float xo,yo,wo,ho;
 
 
     //--------------------------------------------------------
@@ -41,8 +42,12 @@ public class Player extends Creature {
         inventory = new Inventory();
         righthand = new HandSlot(0);
         hitbox=new Rectangle2D.Double(x,y,width,height);
-        movementhitbox=new Rectangle2D.Double(x+(width/8),y+height,width-(width/8),(height/4));
 
+        xo=x+(width/8);
+        yo=y+height;
+        wo=width-(width/4);
+        ho=height/4;
+        movementhitbox=new Rectangle2D.Double(xo,yo,wo,ho);
 
         playerWalkLeft = new Animation(3, GameState.texture.sprite[8], GameState.texture.sprite[9], GameState.texture.sprite[10], GameState.texture.sprite[11], GameState.texture.sprite[12]);
         playerWalkRight = new Animation(3, GameState.texture.sprite[0], GameState.texture.sprite[1], GameState.texture.sprite[2], GameState.texture.sprite[3], GameState.texture.sprite[4]);
@@ -68,7 +73,7 @@ public class Player extends Creature {
     }
 
     public void updateMovementhitbox(float xOffset, float yOffset){
-        movementhitbox.setRect(x+(width/8)+xOffset,y+(height-(height/4))+yOffset,width-(width/8),height/4);
+        movementhitbox.setRect(xo+xOffset,yo+yOffset,wo,ho);
     }
 
 
@@ -103,7 +108,7 @@ public class Player extends Creature {
         g.drawRect(getPixelPosition(x), getPixelPosition(y), getPixelPosition(width), getPixelPosition(height));
 
         g.setColor(Color.lightGray);
-        g.drawRect(getPixelPosition((float) movementhitbox.getX()),getPixelPosition((float) movementhitbox.getY()),getPixelPosition((float) movementhitbox.getWidth()),getPixelPosition((float) movementhitbox.getHeight()));
+        g.fillRect(getPixelPosition((float) movementhitbox.getX()),getPixelPosition((float) movementhitbox.getY()),getPixelPosition((float) movementhitbox.getWidth()),getPixelPosition((float) movementhitbox.getHeight()));
 
     }
 
@@ -121,6 +126,8 @@ public class Player extends Creature {
 
         y += speedY;
         x += speedX;
+        xo+=speedX;
+        yo+=speedY;
 
 
     }
@@ -128,11 +135,14 @@ public class Player extends Creature {
     private void collision() {
 
 
+
         //XOffset-----------------------------------------
         if (speedX != 0) {
             normalizeHitbox();
             updateHitbox(speedX, 0);
-            updateMovementhitbox(0,0);
+            updateMovementhitbox(speedX,0);
+
+
 
             Creature k = checkCollision_ifOneOf(blockedby);
             if(k!=null){
@@ -153,7 +163,7 @@ public class Player extends Creature {
         if (speedY != 0) {
             normalizeHitbox();
             updateHitbox(0, speedY);
-            updateMovementhitbox(0,0);
+            updateMovementhitbox(0,speedY);
 
             Creature k = checkCollision_ifOneOf( blockedby);
             if(k!=null){
