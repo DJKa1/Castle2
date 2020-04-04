@@ -23,7 +23,6 @@ public class Player extends Creature {
     private ProjectileHandler projectileHandler;
     private ID[] blockedby = {ID.Greenslime};
     private Rectangle2D.Double movementhitbox;
-    private float xo,yo,wo,ho;
 
 
     //--------------------------------------------------------
@@ -43,11 +42,8 @@ public class Player extends Creature {
         righthand = new HandSlot(0);
         hitbox=new Rectangle2D.Double(x,y,width,height);
 
-        xo=width/8;
-        yo=height;
-        wo=width-(width/4);
-        ho=height/4;
-        movementhitbox=new Rectangle2D.Double(xo,yo,wo,ho);
+
+        movementhitbox=new Rectangle2D.Double(x,y+height,width,height/4);
 
         playerWalkLeft = new Animation(3, GameState.texture.sprite[8], GameState.texture.sprite[9], GameState.texture.sprite[10], GameState.texture.sprite[11], GameState.texture.sprite[12]);
         playerWalkRight = new Animation(3, GameState.texture.sprite[0], GameState.texture.sprite[1], GameState.texture.sprite[2], GameState.texture.sprite[3], GameState.texture.sprite[4]);
@@ -73,10 +69,10 @@ public class Player extends Creature {
     }
 
     public void updateMovementhitbox(float xOffset, float yOffset){
-        movementhitbox.setRect(x+xo+xOffset,y+yo+yOffset,wo,ho);
+        movementhitbox.setRect(x+xOffset,y+height+yOffset,width,height/4);
     }
     public void normalizeMovementhitbox(){
-        movementhitbox.setRect(x+xo,y+yo,wo,ho);
+        movementhitbox.setRect(x,y+height,width,height/4);
     }
 
 
@@ -111,8 +107,7 @@ public class Player extends Creature {
         g.drawRect(getPixelPosition(x), getPixelPosition(y), getPixelPosition(width), getPixelPosition(height));
 
         g.setColor(Color.lightGray);
-        g.fillRect(getPixelPosition((float) movementhitbox.getX()),getPixelPosition((float) movementhitbox.getY()),getPixelPosition((float) movementhitbox.getWidth()),getPixelPosition((float) movementhitbox.getHeight()));
-
+        g.drawRect(getPixelPosition(x),getPixelPosition(y+width),getPixelPosition(width),getPixelPosition(height/4));
     }
 
     private void movement() {
@@ -125,10 +120,14 @@ public class Player extends Creature {
         speedX = (float) (move.x * movementRate);
         speedY = (float) (move.y * movementRate);
 
+        normalizeHitbox();
+        normalizeMovementhitbox();
+
         collision();
 
         y += speedY;
         x += speedX;
+
 
 
 
@@ -140,12 +139,8 @@ public class Player extends Creature {
 
         //XOffset-----------------------------------------
         if (speedX != 0) {
-            normalizeHitbox();
-            normalizeMovementhitbox();
             updateHitbox(speedX, 0);
             updateMovementhitbox(speedX,0);
-
-
 
             Creature k = checkCollision_ifOneOf(blockedby);
             if(k!=null){
@@ -155,17 +150,19 @@ public class Player extends Creature {
                 }
             }
 
-            Rectangle2D.Double temp=collisionWithTiles(getTilesinDirection(speedX,0,hitbox),hitbox);
-            float i = getFreeSpaceindirectionX(temp);
-            if (i != -1) {
-                speedX = i;
+            Rectangle2D.Double temp=collisionWithTiles(getTilesinDirection(speedX,0,movementhitbox),movementhitbox);
+            if (temp!=null) {
+                normalizeMovementhitbox();
+                float i = getFreeSpaceindirectionX(movementhitbox, temp);
+                if (i != -1) {
+                    speedX = i;
+                }
             }
         }
 
+
         //YOffest---------------------------------------------
         if (speedY != 0) {
-            normalizeHitbox();
-            normalizeMovementhitbox();
             updateHitbox(0, speedY);
             updateMovementhitbox(0,speedY);
 
@@ -176,15 +173,16 @@ public class Player extends Creature {
                     speedY = i;
                 }
             }
-
-            Rectangle2D.Double temp=collisionWithTiles(getTilesinDirection(0,speedY,hitbox),hitbox);
+            Rectangle2D.Double temp=collisionWithTiles(getTilesinDirection(0,speedY,movementhitbox),movementhitbox);
             if(temp!=null){
-                float i = getFreeSpaceindirectionY(temp);
+                normalizeMovementhitbox();
+                float i = getFreeSpaceindirectionY(movementhitbox,temp);
                 if (i != -1) {
                     speedY = i;
                 }
             }
         }
+
     }
     public void playAnimation(double velX, double velY) {
         if (velY < 0) {

@@ -180,7 +180,7 @@ public abstract class Entity {
         return -1;
     }
 
-    /*
+
        public float getFreeSpaceindirectionX(Rectangle2D.Double hb,Rectangle2D k) {
 
         if (k != null) {
@@ -215,7 +215,7 @@ public abstract class Entity {
         }
         return -1;
     }
-     */
+
 
     public Rectangle2D.Double collisionWithTiles(Tile[] tiles,Rectangle2D hb){
         for (Tile t: tiles){
