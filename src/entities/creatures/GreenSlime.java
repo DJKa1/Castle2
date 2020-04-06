@@ -1,6 +1,9 @@
 package entities.creatures;
+import States.GameState;
 import entities.ID;
 import main_pack.CreatureHandler;
+import main_pack.Game;
+
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
@@ -21,7 +24,7 @@ public class GreenSlime extends Creature {
 
     @Override
     public void render(Graphics g) {
-
+        g.drawImage(GameState.texture.sprite[43],getPixelPosition(x),getPixelPosition(y),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
     }
     @Override
     public void drawHitbox(Graphics g) {
