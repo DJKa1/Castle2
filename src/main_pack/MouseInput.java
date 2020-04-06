@@ -8,6 +8,7 @@ public class MouseInput implements MouseListener, MouseMotionListener , MouseWhe
 
     public static float mouseX,mouseY;
     public static boolean leftPressed,rightPressed;
+    public static int mouseWheelPos;
     public MouseInput(){
 
 
@@ -67,8 +68,10 @@ public class MouseInput implements MouseListener, MouseMotionListener , MouseWhe
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent) {
-        System.out.println(mouseWheelEvent.getScrollAmount());
-        System.out.println("hey");
+        mouseWheelPos+=mouseWheelEvent.getWheelRotation();
+        if (mouseWheelPos<0){
+            mouseWheelPos=0;
+        }
 
     }
 }

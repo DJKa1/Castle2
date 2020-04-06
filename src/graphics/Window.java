@@ -11,13 +11,14 @@ public class Window {
     private int width,height;
     private String title;
     private  Dimension dimension;
+    private Game game;
 
 
-    public Window(String title , int width, int height) {
+    public Window(String title , int width, int height,Game game) {
         this.title=title;
         this.width=width;
         this.height=height;
-
+        this.game=game;
 
         create_window();
 
@@ -36,6 +37,7 @@ public class Window {
         cvs.setMinimumSize(dimension);
         cvs.setFocusable(false);
         jfi.add(cvs);
+        jfi.addMouseWheelListener(game.getMouseInput());
     }
 
     public Canvas getCanvas(){

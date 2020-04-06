@@ -52,11 +52,12 @@ public class Game implements Runnable {
 
     public void init(){
 
-        window =new Window(title,width,height);
+        mouseInput=new MouseInput();
+        window =new Window(title,width,height,this);
         creatureHandler=new CreatureHandler();
         texture = new Texture();
         camera = new Camera(0,0);
-        mouseInput=new MouseInput();
+
 
         gameConsole=new GameConsole(this);
 
