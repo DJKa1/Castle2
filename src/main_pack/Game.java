@@ -59,7 +59,7 @@ public class Game implements Runnable {
 
         projectileHandler=new ProjectileHandler();
         player=new Player(1,3,projectileHandler,creatureHandler);
-        map = new Map("FirstLevel");
+        map = new Map("Level");
         gameState=new GameState(this);
 
         consoleState=new ConsoleState(this);
