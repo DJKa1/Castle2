@@ -2,6 +2,7 @@ package main_pack;
 import States.ConsoleState;
 import States.GameState;
 import States.MenuState;
+import States.State;
 import entities.creatures.Player;
 
 import java.awt.event.KeyEvent;
@@ -88,12 +89,6 @@ public class KeyboardInput implements KeyListener {
 
 
             }
-            if(game.getactiveState().getClass() == GameState.class) {
-                if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
-                    game.activateMenu();
-                }
-            }
-
             //ConsoleInput--------------------------------
             if (game.getactiveState().getClass() == ConsoleState.class) {
                 if (e.getKeyChar() != '\uFFFF' && e.getKeyCode() != KeyEvent.VK_DELETE && e.getKeyCode() != KeyEvent.VK_BACK_SPACE && e.getKeyCode() != KeyEvent.VK_ENTER) {
@@ -107,11 +102,21 @@ public class KeyboardInput implements KeyListener {
                 }
 
             } else if (game.getactiveState().getClass() == GameState.class) {
-                if (e.getKeyCode() == KeyEvent.VK_F8) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     game.activateConsole();
                 }
             }
 
+
+            if(game.getactiveState().getClass() == GameState.class) {
+                if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+                    State.setState(Game.menuState);
+                }
+            }else if(game.getactiveState().getClass() == MenuState.class) {
+                if (e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+                    State.setState(Game.gameState);
+                }
+            }
 
         }
     }

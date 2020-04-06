@@ -32,8 +32,5 @@ public class ConsoleState extends  State{
     public void render(Graphics g) {
         gameConsole.render(g);
         gameConsole.renderLog(g);
-
-
-
     }
 }

@@ -24,6 +24,7 @@ public class Game implements Runnable {
     private boolean running = false;
     private String title="Castle";
     private int width,height;
+
     public static State gameState, menuState, optionState, consoleState;
     private BufferStrategy bs;
     private Graphics g;
@@ -58,23 +59,29 @@ public class Game implements Runnable {
 
         texture = new Texture();
         camera = new Camera(0,0);
-        mouseInput=new MouseInput();
-        gameConsole=new GameConsole(this);
-
-        player=new Player(1,3,projectileHandler,creatureHandler);
+        player=new Player(1,2,projectileHandler,creatureHandler);
 
         //MapLoad----------------------------------------------------------------
         map = new Map("FirstLevel");
 
+        gameConsole=new GameConsole(this);
+
+        //States
+        consoleState=new ConsoleState(this);
+        menuState = new MenuState(this);
         gameState=new GameState(this);
         State.setState(gameState);
-        consoleState=new ConsoleState(this);
+
+
+
+        //Inputs
+        mouseInput=new MouseInput();
+        keyboardInput=new KeyboardInput(this);
+
         window =new Window(title,width,height);
         window.getCanvas().addMouseListener(mouseInput);
         window.getCanvas().addMouseMotionListener(mouseInput);
-        keyboardInput=new KeyboardInput(this);
         window.getJFrame().addKeyListener(keyboardInput);
-
     }
 
     //Getters && Setters
@@ -116,12 +123,7 @@ public class Game implements Runnable {
     public void deactivateConsole(){
         State.setState((gameState));
     }
-    public void activateMenu() {
-        State.setState(menuState);
-    }
-    public void deactivateMenu() {
-        State.setState(menuState);
-    }
+
 
     //Game Loop
     public synchronized void start() {

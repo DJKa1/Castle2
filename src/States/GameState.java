@@ -45,7 +45,7 @@ public class GameState extends State{
     public void init(){
         map=game.getMap();
         projectileHandler=game.getProjectileHandler();
-        player=new Player(1,3,projectileHandler,creatureHandler);
+        player= game.getPlayer();
         camera = game.getCamera();
         creatureHandler=game.getCreatureHandler();
         texture = new Texture();
@@ -74,7 +74,7 @@ public class GameState extends State{
         //Draw fixed
         Graphics2D gd2 = (Graphics2D) g;
         //Background
-        g.setColor(new Color(47, 40, 58));
+        g.setColor(new Color(21, 10, 31));
         g.fillRect(0, 0, Launcher.WIDTH, Launcher.HEIGHT);
 
         //Cam start-------------------------------------------------------
