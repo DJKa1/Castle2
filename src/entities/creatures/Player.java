@@ -134,9 +134,6 @@ public class Player extends Creature {
     }
 
     private void collision() {
-
-
-
         //XOffset-----------------------------------------
         if (speedX != 0) {
             updateHitbox(speedX, 0);

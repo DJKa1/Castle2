@@ -241,6 +241,7 @@ public abstract class Entity {
                 tile1 = GameState.map.getTilebyCords((int) Math.floor(hb.getX() + hb.getWidth()), (int) Math.floor(hb.getY()));
                 tile2 = GameState.map.getTilebyCords((int) Math.floor(hb.getX() + hb.getWidth()), (int) Math.floor(hb.getY() + hb.getHeight()));
             }
+            return new Tile[]{tile1,tile2};
         }
 
         if (ySpeed != 0) {
@@ -252,9 +253,18 @@ public abstract class Entity {
                 tile1 = GameState.map.getTilebyCords((int) Math.floor(hb.getX() + hb.getWidth()), (int) Math.floor(hb.getY()));
                 tile2 = GameState.map.getTilebyCords((int) Math.floor(hb.getX()), (int) Math.floor(hb.getY()));
             }
+            return new Tile[]{tile1,tile2};
         }
 
-        return new Tile[]{tile1,tile2};
+        if(xSpeed==0&&speedY==0){
+            tile1= GameState.map.getTilebyCords((int) Math.floor(hb.getX()), (int) Math.floor(hb.getY()));
+            return new Tile[]{tile1};
+
+        }
+        return new Tile[]{null, null};
+
+
+
     }
 
     public boolean isInMap(){
