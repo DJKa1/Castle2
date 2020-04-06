@@ -1,4 +1,5 @@
 package Inventory;
+import entities.creatures.Player;
 import items.Item;
 import items.testWeapon;
 import main_pack.KeyboardInput;
@@ -8,10 +9,15 @@ import java.util.LinkedList;
 
 public class Inventory {
     private Hotbar hotbar;
+    private Player owner;
     public LinkedList<Item> iventoryItems;
     public int activeSlot=1;
 
-    public Inventory(){
+
+
+
+    public Inventory(Player owner){
+        this.owner=owner;
         iventoryItems=new LinkedList<>();
         hotbar=new Hotbar(this);
     }
@@ -22,6 +28,10 @@ public class Inventory {
 
     public void setActiveSlot(int n) {
         this.activeSlot = n;
+    }
+
+    public Player getOwner() {
+        return owner;
     }
 
 
@@ -47,7 +57,7 @@ public class Inventory {
     public void addItembyID(String id) {
         Item item=null;
         switch (id){
-            case "testWeapon": item=new testWeapon();
+            case "testWeapon": item=new testWeapon(this);
         }
         addItem(item);
     }

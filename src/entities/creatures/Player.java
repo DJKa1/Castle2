@@ -24,11 +24,6 @@ public class Player extends Creature {
     private ID[] blockedby = {ID.Greenslime};
     private Rectangle2D.Double movementhitbox;
 
-
-    //--------------------------------------------------------
-    int cooldown = 0;
-    //-------------------------------------------------------
-
     public Player(float x, float y, ProjectileHandler projectileHandler, CreatureHandler creatureHandler) {
         super(x, y,creatureHandler);
         this.hp = 10;
@@ -38,7 +33,7 @@ public class Player extends Creature {
         width = (float)0.8;
         height = (float)0.8;
         movementRate = (float) 0.1;
-        inventory = new Inventory();
+        inventory = new Inventory(this);
         hitbox=new Rectangle2D.Double(x,y,width,height);
 
 
@@ -58,7 +53,7 @@ public class Player extends Creature {
         animation[4] = playerWalkDown;
 
         //Test------------------------------------
-         inventory.addItembyID("testWeapon");
+        inventory.addItembyID("testWeapon");
         inventory.addItembyID("testWeapon");
         inventory.addItembyID("testWeapon");
         inventory.addItembyID("testWeapon");
@@ -87,13 +82,9 @@ public class Player extends Creature {
         movement();
         inventory.tick();
         //------------------------------------------------------
-        if (MouseInput.leftPressed && cooldown == 0) {
-            firePlasma(MouseInput.mouseX, MouseInput.mouseY);
-            cooldown = 10;
-        } else if (cooldown > 0) {
-            cooldown--;
+        if (MouseInput.leftPressed) {
+            inventory.getItem(inventory.getActiveSlot()).use();
         }
-        //------------------------------------------------------
     }
 
     @Override

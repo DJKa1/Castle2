@@ -83,7 +83,6 @@ public class KeyboardInput implements KeyListener {
                 //InventoryManagment---------------------------------
                 if (String.valueOf(e.getKeyChar()).matches("[0-9]")){
                     player.getInventory().setActiveSlot(Integer.valueOf(e.getKeyChar())-48);
-                    System.out.println(Integer.valueOf(e.getKeyChar()));
                 }
 
 
