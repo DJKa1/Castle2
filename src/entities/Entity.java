@@ -246,8 +246,8 @@ public abstract class Entity {
 
         if (ySpeed != 0) {
             if (speedY > 0) {
-                tile1 = GameState.map.getTilebyCords((int) Math.floor(hb.getX()), (int) Math.floor(hb.getY() + getHeight()));
-                tile2 = GameState.map.getTilebyCords((int) Math.floor(hb.getX() + getWidth()), (int) Math.floor(hb.getY() + getHeight()));
+                tile1 = GameState.map.getTilebyCords((int) Math.floor(hb.getX()), (int) Math.floor(hb.getY() + hb.getHeight()));
+                tile2 = GameState.map.getTilebyCords((int) Math.floor(hb.getX() + hb.getWidth()), (int) Math.floor(hb.getY() + hb.getHeight()));
             }
             if (speedY < 0) {
                 tile1 = GameState.map.getTilebyCords((int) Math.floor(hb.getX() + hb.getWidth()), (int) Math.floor(hb.getY()));
