@@ -5,6 +5,7 @@ import entities.ID;
 import entities.Vector2D;
 import entities.projectile.Plasmabolt;
 import graphics.Animation;
+import items.Item;
 import main_pack.*;
 
 import java.awt.*;
@@ -18,14 +19,12 @@ public class Player extends Creature {
     private Animation idle;
     private Animation[] animation;
     private int animationIndex = 0;
-    private ProjectileHandler projectileHandler;
     private ID[] blockedby = {ID.Greenslime};
     private Rectangle2D.Double movementhitbox;
 
     public Player(float x, float y, ProjectileHandler projectileHandler, CreatureHandler creatureHandler) {
-        super(x, y,creatureHandler);
+        super(x, y,creatureHandler,projectileHandler);
         this.hp = 10;
-        this.projectileHandler = projectileHandler;
         move = new Vector2D(0, 0);
         id = ID.Player;
         width = (float)0.8;
@@ -59,11 +58,6 @@ public class Player extends Creature {
         //---------------------------------------
     }
 
-
-    public void firePlasma(float aimX, float aimY) {
-        projectileHandler.addObject(new Plasmabolt(x, y, aimX, aimY, projectileHandler));
-    }
-
     public void updateMovementhitbox(float xOffset, float yOffset){
         movementhitbox.setRect(x+xOffset,y+height+yOffset,width,height/4);
     }
@@ -75,13 +69,17 @@ public class Player extends Creature {
         return inventory;
     }
 
+
     @Override
     public void tick() {
         movement();
         inventory.tick();
         //------------------------------------------------------
         if (MouseInput.leftPressed) {
-            inventory.getItem(inventory.getActiveSlot()).use();
+            Item item= inventory.getItem(inventory.getActiveSlot());
+            if(item!=null){
+                item.use();
+            }
         }
     }
 

@@ -50,7 +50,7 @@ public class GameState extends State{
         f3Infopanel=new F3Infopanel(this);
         //------------------------------------------------------------------
         creatureHandler.addObject(player);
-        creatureHandler.addObject(new GreenSlime(3,7,creatureHandler));
+        creatureHandler.addObject(new GreenSlime(3,7,creatureHandler,projectileHandler));
     }
     @Override
     public void tick() {

@@ -2,17 +2,12 @@ package main_pack;
 
 
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 
-public class MouseInput implements MouseListener, MouseMotionListener {
+public class MouseInput implements MouseListener, MouseMotionListener , MouseWheelListener {
 
     public static float mouseX,mouseY;
     public static boolean leftPressed,rightPressed;
-
-
-
     public MouseInput(){
 
     }
@@ -66,6 +61,12 @@ public class MouseInput implements MouseListener, MouseMotionListener {
     public void mouseMoved(MouseEvent mouseEvent) {
 
 
+
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent) {
+        System.out.println(mouseWheelEvent.getScrollAmount());
 
     }
 }

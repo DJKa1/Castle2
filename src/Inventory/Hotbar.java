@@ -18,13 +18,13 @@ public class Hotbar {
             if(i<inventory.iventoryItems.size()) {
                 Item tempItem = inventory.getItem(i);
                 if (tempItem != null) {
-                    g.drawImage(tempItem.getImage(),px+i*(slotWidth-1), py,null);
+                    g.drawImage(tempItem.getImage(),px+i*(slotWidth), py,null);
 
                 }
             }
             g.setColor(borderColor);
             g.drawRect(px+i*(slotWidth-1),py,slotWidth,slotHeight);
-            if(i==inventory.getActiveSlot()-1){
+            if(i==inventory.getActiveSlot()){
                 g.setColor(Color.BLACK);
                 g.drawRect(px+i*(slotWidth-1),py,slotWidth,slotHeight);
 

@@ -3,6 +3,7 @@ import entities.Entity;
 import entities.projectile.Projectile;
 import main_pack.CreatureHandler;
 import main_pack.Game;
+import main_pack.ProjectileHandler;
 
 import java.awt.*;
 
@@ -12,11 +13,18 @@ public abstract class Creature extends Entity {
     protected float movementRate;
     protected float baseDmg;
     protected CreatureHandler creatureHandler;
+    protected ProjectileHandler projectileHandler;
 
-    public Creature(float x,float y,CreatureHandler creatureHandler){
+    public Creature(float x,float y,CreatureHandler creatureHandler,ProjectileHandler projectileHandler){
         super(x,y);
         this.creatureHandler=creatureHandler;
+        this.projectileHandler=projectileHandler;
     }
+
+    public ProjectileHandler getProjectileHandler() {
+        return projectileHandler;
+    }
+
 
     public float caculateDmg(){
         return baseDmg;

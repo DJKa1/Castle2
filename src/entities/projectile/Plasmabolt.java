@@ -46,7 +46,6 @@ public class Plasmabolt extends Projectile {
         }else {
             removeifSolid(0, speedY);
         }
-
         Creature[] creatures=checkCollision_forAll(isHit);
             for (Creature k :creatures) {
                 if(k!=null){

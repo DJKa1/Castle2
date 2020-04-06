@@ -3,12 +3,14 @@ import States.GameState;
 import entities.ID;
 import main_pack.CreatureHandler;
 import main_pack.Game;
+import main_pack.ProjectileHandler;
+
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 public class GreenSlime extends Creature {
-    public GreenSlime(float x, float y,CreatureHandler creatureHandler) {
-        super(x, y,creatureHandler);
+    public GreenSlime(float x, float y, CreatureHandler creatureHandler, ProjectileHandler projectileHandler) {
+        super(x, y,creatureHandler,projectileHandler);
         id= ID.Greenslime;
         width= 1;
         height=1;

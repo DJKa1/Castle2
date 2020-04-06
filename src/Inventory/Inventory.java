@@ -10,8 +10,11 @@ import java.util.LinkedList;
 public class Inventory {
     private Hotbar hotbar;
     private Player owner;
+    public final int xpos=10,ypos=10,slotwidth=50,slotheight=50;
     public LinkedList<Item> iventoryItems;
     public int activeSlot=1;
+    private int first=-1,last =first+9;
+
 
 
 
@@ -41,10 +44,14 @@ public class Inventory {
     public void render(Graphics g) {
         if(KeyboardInput.e_s) {
             for (int i = 0; i < iventoryItems.size(); i++) {
-                Item tempItem = iventoryItems.get(i);
+                if(first<i&&i<last) {
+                    Item tempItem = iventoryItems.get(i);
+                    g.drawImage(tempItem.getImage(), xpos, ypos + ((i - first) * slotheight), null);
+                    g.setColor(Color.BLACK);
+                    g.drawRect(xpos, ypos + ((i - first) * slotheight), slotwidth, slotheight);
+                }
             }
         }
-
         hotbar.render(g);
     }
 
@@ -65,7 +72,11 @@ public class Inventory {
         iventoryItems.add(item);
     }
     public Item getItem(int i){
-        return iventoryItems.get(i);
+        if(i<iventoryItems.size()){
+            return iventoryItems.get(i);
+        }else {
+            return null;
+        }
     }
 
 }
