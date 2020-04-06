@@ -1,6 +1,7 @@
 package main_pack;
 import States.ConsoleState;
 import States.GameState;
+import States.MenuState;
 import entities.creatures.Player;
 
 import java.awt.event.KeyEvent;
@@ -86,6 +87,11 @@ public class KeyboardInput implements KeyListener {
 
 
 
+            }
+            if(game.getactiveState().getClass() == GameState.class) {
+                if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+                    game.activateMenu();
+                }
             }
 
             //ConsoleInput--------------------------------

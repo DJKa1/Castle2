@@ -1,5 +1,7 @@
 package States;
 
+import Handler.CreatureHandler;
+import Handler.ProjectileHandler;
 import Maps.Map;
 import Tiles.Texture;
 import entities.ID;
@@ -43,7 +45,7 @@ public class GameState extends State{
     public void init(){
         map=game.getMap();
         projectileHandler=game.getProjectileHandler();
-        player=game.getPlayer();
+        player=new Player(1,3,projectileHandler,creatureHandler);
         camera = game.getCamera();
         creatureHandler=game.getCreatureHandler();
         texture = new Texture();

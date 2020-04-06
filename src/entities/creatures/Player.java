@@ -1,4 +1,6 @@
 package entities.creatures;
+import Handler.CreatureHandler;
+import Handler.ProjectileHandler;
 import Inventory.Inventory;
 import States.GameState;
 import entities.ID;

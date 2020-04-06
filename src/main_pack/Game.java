@@ -1,4 +1,6 @@
 package main_pack;
+import Handler.CreatureHandler;
+import Handler.ProjectileHandler;
 import Maps.Map;
 import States.*;
 import Tiles.Texture;
@@ -22,10 +24,11 @@ public class Game implements Runnable {
     private boolean running = false;
     private String title="Castle";
     private int width,height;
-    private State gameState,menuState,optionState,consoleState;
+    public static State gameState, menuState, optionState, consoleState;
     private BufferStrategy bs;
     private Graphics g;
     private Window window;
+
     private KeyboardInput keyboardInput;
     private CreatureHandler creatureHandler;
     private GameConsole gameConsole;
@@ -49,29 +52,29 @@ public class Game implements Runnable {
     //Init
 
     public void init(){
-
-        window =new Window(title,width,height);
+        //Handler
         creatureHandler=new CreatureHandler();
+        projectileHandler=new ProjectileHandler();
+
         texture = new Texture();
         camera = new Camera(0,0);
         mouseInput=new MouseInput();
         gameConsole=new GameConsole(this);
 
-        projectileHandler=new ProjectileHandler();
         player=new Player(1,3,projectileHandler,creatureHandler);
 
         //MapLoad----------------------------------------------------------------
         map = new Map("FirstLevel");
 
         gameState=new GameState(this);
-
+        State.setState(gameState);
         consoleState=new ConsoleState(this);
-
+        window =new Window(title,width,height);
         window.getCanvas().addMouseListener(mouseInput);
         window.getCanvas().addMouseMotionListener(mouseInput);
         keyboardInput=new KeyboardInput(this);
         window.getJFrame().addKeyListener(keyboardInput);
-        State.setState(gameState);
+
     }
 
     //Getters && Setters
@@ -82,6 +85,9 @@ public class Game implements Runnable {
 
     public State getactiveState(){
         return State.getState();
+    }
+    public void setState(State state) {
+        State.setState(state);
     }
     public Player getPlayer(){
         return player;
@@ -109,6 +115,12 @@ public class Game implements Runnable {
     }
     public void deactivateConsole(){
         State.setState((gameState));
+    }
+    public void activateMenu() {
+        State.setState(menuState);
+    }
+    public void deactivateMenu() {
+        State.setState(menuState);
     }
 
     //Game Loop
@@ -195,11 +207,6 @@ public class Game implements Runnable {
         bs.show();
 
     }
-
-
-
-
-
 
 }
 
