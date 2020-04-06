@@ -26,6 +26,5 @@ public class MenuState extends State{
         g.setColor(Color.cyan);
 
         g.drawRect(200,200,200,200);
-
     }
 }

@@ -4,12 +4,11 @@ import Maps.Map;
 import States.GameState;
 import Tiles.Tile;
 import entities.creatures.Creature;
-import main_pack.CreatureHandler;
+import Handler.CreatureHandler;
 import main_pack.Game;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
-import java.lang.reflect.Array;
 
 public abstract class Entity {
     protected float x, y;

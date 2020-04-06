@@ -1,7 +1,7 @@
 package entities.creatures;
 import States.GameState;
 import entities.ID;
-import main_pack.CreatureHandler;
+import Handler.CreatureHandler;
 import main_pack.Game;
 import main_pack.ProjectileHandler;
 

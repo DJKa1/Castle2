@@ -72,8 +72,6 @@ public class Game implements Runnable {
         keyboardInput=new KeyboardInput(this);
         window.getJFrame().addKeyListener(keyboardInput);
         State.setState(gameState);
-
-
     }
 
     //Getters && Setters
