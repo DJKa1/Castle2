@@ -15,6 +15,7 @@ public class GreenSlime extends Creature {
         height=1;
         baseDmg=1;
         hp=50;
+        maxHp = hp;
         hitbox=new Rectangle2D.Double(x,y,width,height);
     }
     @Override
@@ -25,6 +26,7 @@ public class GreenSlime extends Creature {
     @Override
     public void render(Graphics g) {
         g.drawImage(GameState.texture.sprite[43],getPixelPosition(x),getPixelPosition(y),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
+        renderHealthbar(g);
     }
     @Override
     public void drawHitbox(Graphics g) {

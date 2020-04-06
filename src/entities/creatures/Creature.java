@@ -2,9 +2,13 @@ package entities.creatures;
 import entities.Entity;
 import entities.projectile.Projectile;
 import main_pack.CreatureHandler;
+import main_pack.Game;
+
+import java.awt.*;
 
 public abstract class Creature extends Entity {
     protected float hp;
+    protected float maxHp;
     protected float movementRate;
     protected float baseDmg;
     protected CreatureHandler creatureHandler;
@@ -26,6 +30,15 @@ public abstract class Creature extends Entity {
     }
     public void hitbyProjectile(Projectile p){
         hp-=p.caculateDmg();
+    }
+
+    public void renderHealthbar(Graphics g) {
+        g.setColor(Color.BLACK);
+        g.fillRect(getPixelPosition(x)-5,getPixelPosition(y)-5, (int) (width* Game.UNIT_SCALE)+10,30);
+        g.setColor(Color.WHITE);
+        g.fillRect(getPixelPosition(x),getPixelPosition(y), (int) (width*Game.UNIT_SCALE),20);
+        g.setColor(Color.RED);
+        g.fillRect(getPixelPosition(x),getPixelPosition(y), (int) (hp/maxHp*width*Game.UNIT_SCALE),20);
     }
 
 }
