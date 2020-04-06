@@ -19,7 +19,8 @@ public class Texture {
         BufferedImage sprite_Sheet = null;
         tile_sheet = null;
         try {
-            tile_sheet = loader.LoadImage("./rsc/Assets/dungeon_sheet.png");
+            tile_sheet = loader.LoadImage("./rsc/Assets/dungeon_sheet2" +
+                    ".png");
             sprite_Sheet = loader.LoadImage("./rsc/Assets/SpriteSheet.png");
 
         } catch (Exception e) {
