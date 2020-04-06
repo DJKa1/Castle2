@@ -31,24 +31,18 @@ public class Plasmabolt extends Projectile {
         x+=speedX;
         y+=speedY;
         collision();
-
     }
-
     @Override
     public void render(Graphics g) {
-
-
     }
 
     @Override
     public void drawHitbox(Graphics g) {
         g.setColor(Color.red);
         g.drawRect(getPixelPosition(x),getPixelPosition(y),getPixelPosition(width),getPixelPosition(height));
-
     }
 
     public void collision() {
-
         //NoOffset---------------------------------------------------
         normalizeHitbox();
         if(speedX>speedY){
@@ -56,7 +50,6 @@ public class Plasmabolt extends Projectile {
         }else {
             removeifSolid(0, speedY);
         }
-
 
         Creature[] creatures=checkCollision_forAll(isHit);
             for (Creature k :creatures) {

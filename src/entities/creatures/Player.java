@@ -171,6 +171,7 @@ public class Player extends Creature {
                 }
             }
             Rectangle2D.Double temp=collisionWithTiles(getTilesinDirection(0,speedY,movementhitbox),movementhitbox);
+            System.out.println(getTilesinDirection(0,speedY,movementhitbox)[0]);
             if(temp!=null){
                 normalizeMovementhitbox();
                 float i = getFreeSpaceindirectionY(movementhitbox,temp);

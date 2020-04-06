@@ -186,12 +186,12 @@ public abstract class Entity {
         if (k != null) {
             if (speedX < 0) {
                 if (hb.getX() -( k.getX() + k.getWidth()) >= 0) {
-                    return (float) -(hb.getX() - (k.getX() + k.getWidth()));
+                    return (float) (-(hb.getX() - (k.getX() + k.getWidth()))+0.000001);
                 } else
                     return 0;
             } else if (speedX > 0) {
                 if (k.getX() - (hb.getX() + hb.getWidth()) >= 0) {
-                    return (float) (k.getX() - (hb.getX() + hb.getWidth()) - 0.00001);
+                    return (float) (k.getX() - (hb.getX() + hb.getWidth())-0.000001);
                 } else
                     return 0;
             }
@@ -203,12 +203,12 @@ public abstract class Entity {
         if (k != null) {
             if (speedY < 0) {
                 if (hb.getY() -( k.getY() + k.getHeight()) >= 0) {
-                    return (float) -(hb.getY() - (k.getY() + k.getHeight()));
+                    return  (float) (-(hb.getY() - (k.getY() + k.getHeight()))+0.000001);
                 } else
                     return 0;
             } else if (speedY > 0) {
                 if (k.getY() - (hb.getY() + hb.getHeight()) >= 0) {
-                    return (float) (k.getY() - (hb.getY() + hb.getHeight())-0.00001);
+                    return (float) (k.getY() - (hb.getY() + hb.getHeight())-0.000001);
                 } else
                     return 0;
             }
