@@ -1,4 +1,5 @@
 package main_pack;
+
 import Handler.CreatureHandler;
 import Handler.ProjectileHandler;
 import Maps.Map;
@@ -7,30 +8,33 @@ import Tiles.Texture;
 import entities.creatures.Camera;
 import entities.creatures.Player;
 import graphics.Window;
+
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 
 public class Game implements Runnable {
 
-    public static int Frames = 0,Ticks = 0;
+    public static int Frames = 0, Ticks = 0;
     public final static double SCALE = 8;
     public final static int UNITDIMENSION = 16;
     public final static int UNIT_SCALE = 128;
-    private  Player player;
+    private Player player;
     private ProjectileHandler projectileHandler;
     private Thread thread;
     public static Texture texture;
     private boolean running = false;
-    private String title="Castle";
-    private int width,height;
-    private State gameState,menuState,optionState,consoleState;
+    private String title = "Castle";
+    private int width, height;
+    public static State gameState, menuState, optionState, consoleState;
     private BufferStrategy bs;
     private Graphics g;
     private Window window;
     private KeyboardInput keyboardInput;
     private CreatureHandler creatureHandler;
+
     private GameConsole gameConsole;
+    private Menu menu;
 
     private MouseInput mouseInput;
 
@@ -38,11 +42,10 @@ public class Game implements Runnable {
     private Map map;
 
 
-    public Game(int width,int height) {
-        this.width=width;
-        this.height=height;
+    public Game(int width, int height) {
+        this.width = width;
+        this.height = height;
         this.start();
-
 
 
     }
@@ -50,74 +53,88 @@ public class Game implements Runnable {
 
     //Init
 
-    public void init(){
-
-        mouseInput=new MouseInput();
-        window =new Window(title,width,height,this);
-        creatureHandler=new CreatureHandler();
+    public void init() {
         texture = new Texture();
-        camera = new Camera(0,0);
+        camera = new Camera(0, 0);
 
+        //Handler
+        projectileHandler = new ProjectileHandler();
+        creatureHandler = new CreatureHandler();
 
-        gameConsole=new GameConsole(this);
-
-        projectileHandler=new ProjectileHandler();
-        player=new Player(1,3,projectileHandler,creatureHandler);
+        player = new Player(1, 3, projectileHandler, creatureHandler);
 
         //MapLoad----------------------------------------------------------------
         map = new Map("FirstLevel");
 
-        gameState=new GameState(this);
+        //GameState Classes
+        gameConsole = new GameConsole(this);
+        menu = new Menu(this);
 
-        consoleState=new ConsoleState(this);
+        //States
+        gameState = new GameState(this);
+        consoleState = new ConsoleState(this);
+        menuState = new MenuState(this);
+        State.setState(gameState);
 
+        //Input
+        keyboardInput = new KeyboardInput(this);
+        mouseInput = new MouseInput();
+
+        window = new Window(title,width,height,this);
         window.getCanvas().addMouseListener(mouseInput);
         window.getCanvas().addMouseMotionListener(mouseInput);
-        keyboardInput=new KeyboardInput(this);
         window.getJFrame().addKeyListener(keyboardInput);
-        State.setState(gameState);
     }
 
     //Getters && Setters
 
-    public Map getMap(){
+    public Map getMap() {
         return map;
     }
 
-    public State getactiveState(){
+    public State getactiveState() {
         return State.getState();
     }
-    public Player getPlayer(){
+
+    public Player getPlayer() {
         return player;
     }
 
-    public ProjectileHandler getProjectileHandler(){
+    public ProjectileHandler getProjectileHandler() {
         return projectileHandler;
     }
 
     public CreatureHandler getCreatureHandler() {
         return creatureHandler;
     }
+
     public Camera getCamera() {
         return camera;
     }
-    public KeyboardInput getKeyboardInput() { return keyboardInput; }
-    public MouseInput getMouseInput() { return mouseInput; }
+
+    public KeyboardInput getKeyboardInput() {
+        return keyboardInput;
+    }
+
+    public MouseInput getMouseInput() {
+        return mouseInput;
+    }
 
     public GameConsole getGameConsole() {
         return gameConsole;
     }
 
-    public void activateConsole(){
+    public void activateConsole() {
         State.setState(consoleState);
     }
-    public void deactivateConsole(){
+
+    public void deactivateConsole() {
         State.setState((gameState));
     }
 
     //Game Loop
     public synchronized void start() {
-        if (running){
+        if (running) {
             return;
         }
         thread = new Thread(this);
@@ -126,7 +143,7 @@ public class Game implements Runnable {
     }
 
     public synchronized void stop() {
-        if (running==false){
+        if (running == false) {
             return;
         }
         try {
@@ -146,7 +163,7 @@ public class Game implements Runnable {
         double ns = 1000000000 / amountOfTicks;
         double delta = 0;
         long timer = System.currentTimeMillis();
-        int frames = 0,ticks=0;
+        int frames = 0, ticks = 0;
 
         while (running) {
             long now = System.nanoTime();
@@ -177,7 +194,7 @@ public class Game implements Runnable {
 
     //tick && render
     private void tick() {
-        if (State.getState()!=null){
+        if (State.getState() != null) {
             State.getState().tick();
         }
         keyboardInput.tick();
@@ -185,24 +202,20 @@ public class Game implements Runnable {
     }
 
     private void render() {
-        bs= window.getCanvas().getBufferStrategy();
+        bs = window.getCanvas().getBufferStrategy();
         if (bs == null) {
             window.getCanvas().createBufferStrategy(3);
             return;
         }
         Graphics g = bs.getDrawGraphics();
 
-        if (State.getState()!=null){
+        if (State.getState() != null) {
             State.getState().render(g);
         }
         g.dispose();
         bs.show();
 
     }
-
-
-
-
 
 
 }
