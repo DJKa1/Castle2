@@ -1,4 +1,6 @@
 package main_pack;
+import Handler.CreatureHandler;
+import Handler.ProjectileHandler;
 import Maps.Map;
 import States.*;
 import Tiles.Texture;
@@ -55,6 +57,7 @@ public class Game implements Runnable {
         texture = new Texture();
         camera = new Camera(0,0);
         mouseInput=new MouseInput();
+
         gameConsole=new GameConsole(this);
 
         projectileHandler=new ProjectileHandler();

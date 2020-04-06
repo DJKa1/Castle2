@@ -1,5 +1,7 @@
 package States;
 
+import Handler.CreatureHandler;
+import Handler.ProjectileHandler;
 import Maps.Map;
 import Tiles.Texture;
 import entities.ID;

@@ -2,7 +2,7 @@ package entities.projectile;
 import entities.Entity;
 import entities.ID;
 import entities.Vector2D;
-import main_pack.ProjectileHandler;
+import Handler.ProjectileHandler;
 
 public abstract class Projectile extends Entity {
     protected float aimX,aimY;

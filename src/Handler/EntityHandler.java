@@ -1,4 +1,4 @@
-package main_pack;
+package Handler;
 
 import entities.Entity;
 

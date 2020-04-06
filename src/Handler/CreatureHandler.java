@@ -1,5 +1,7 @@
-package main_pack;
+package Handler;
 import entities.creatures.Creature;
+import main_pack.KeyboardInput;
+
 import java.awt.*;
 import java.util.LinkedList;
 

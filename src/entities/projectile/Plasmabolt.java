@@ -1,7 +1,7 @@
 package entities.projectile;
 import entities.ID;
 import entities.creatures.Creature;
-import main_pack.ProjectileHandler;
+import Handler.ProjectileHandler;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 

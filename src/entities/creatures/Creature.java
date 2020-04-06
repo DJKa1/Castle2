@@ -1,9 +1,9 @@
 package entities.creatures;
 import entities.Entity;
 import entities.projectile.Projectile;
-import main_pack.CreatureHandler;
+import Handler.CreatureHandler;
 import main_pack.Game;
-import main_pack.ProjectileHandler;
+import Handler.ProjectileHandler;
 
 import java.awt.*;
 
