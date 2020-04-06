@@ -8,7 +8,7 @@ public abstract class Item {
     protected BufferedImage image;
 
     public Item(){
-        this.id=ItemID.valueOf(this.getClass().getName());
+        this.id=ItemID.valueOf(this.getClass().getSimpleName());
 
     }
 

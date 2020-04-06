@@ -1,78 +1,61 @@
 package Inventory;
-
 import items.Item;
 import items.testWeapon;
+import main_pack.KeyboardInput;
 
 import java.awt.*;
-import java.lang.reflect.InvocationTargetException;
+import java.util.LinkedList;
 
 public class Inventory {
-
-    private InvSlot[] slots;
-    private double invWeight;
-    private float x=100,y=100;
-    protected int slotwidth=10,slotheight=10;
-
+    private Hotbar hotbar;
+    public LinkedList<Item> iventoryItems;
+    public int activeSlot=1;
 
     public Inventory(){
-        slots=new InvSlot[16];
-        for (int i=0;i <slots.length;i++){
-            slots[i]=new InvSlot(i);
-
-        }
-
-
+        iventoryItems=new LinkedList<>();
+        hotbar=new Hotbar(this);
     }
+
+    public int getActiveSlot() {
+        return activeSlot;
+    }
+
+    public void setActiveSlot(int n) {
+        this.activeSlot = n;
+    }
+
 
     public void tick(){
-        invWeight=0;
-        for (int i=0;i <slots.length;i++){
-            slots[i].tick();
-            invWeight+=slots[i].getWeight();
-
-        }
     }
 
-    public void render(Graphics g){
-        g.setColor(Color.cyan);
-        for (int i=0;i <slots.length;i++){
-            slots[i].render(g,(int)x,(int)y);
+    public void render(Graphics g) {
+        if(KeyboardInput.e_s) {
+            for (int i = 0; i < iventoryItems.size(); i++) {
+                Item tempItem = iventoryItems.get(i);
+            }
         }
 
+        hotbar.render(g);
     }
 
+
+
+
+
+
+    //ItemManagement------------------------------------------
     public void addItembyID(String id) {
-        for (int j=0;j <slots.length;j++) {
-            if (slots[j].getCurrentItem() != null&&slots[j].getCurrentItem().getId().toString()==id) {
-                slots[j].addItemtoStack();
-            }
+        Item item=null;
+        switch (id){
+            case "testWeapon": item=new testWeapon();
         }
-        for (int i=0;i <slots.length;i++){
-            if (slots[i].getCurrentItem()==null) {
-                Item item;
-                switch (id){
-                    case "testWeapon": item=new testWeapon();
-                }
-            }
-        }
-
+        addItem(item);
     }
-
     public void addItem(Item item){
-        for (int j=0;j <slots.length;j++) {
-            if (slots[j].getCurrentItem() != null) {
-                if (item.getId() == slots[j].getCurrentItem().getId()) {
-                    slots[j].addItemtoStack();
-                    return;
-                }
-            }
-        }
-        for (int i=0;i <slots.length;i++){
-            if (slots[i].getCurrentItem()==null){
-                slots[i].setCurrentItem(item);
-                return;
-            }
-
-        }
+        iventoryItems.add(item);
     }
+    public Item getItem(int i){
+        return iventoryItems.get(i);
+    }
+
 }

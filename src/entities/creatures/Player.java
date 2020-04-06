@@ -1,5 +1,4 @@
 package entities.creatures;
-import Inventory.HandSlot;
 import Inventory.Inventory;
 import States.GameState;
 import entities.ID;
@@ -12,7 +11,6 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 public class Player extends Creature {
     protected Inventory inventory;
-    protected HandSlot righthand;
     private Animation playerWalkRight;
     private Animation playerWalkLeft;
     private Animation playerWalkUp;
@@ -39,7 +37,6 @@ public class Player extends Creature {
         height = (float)0.8;
         movementRate = (float) 0.1;
         inventory = new Inventory();
-        righthand = new HandSlot(0);
         hitbox=new Rectangle2D.Double(x,y,width,height);
 
 
@@ -59,7 +56,11 @@ public class Player extends Creature {
         animation[4] = playerWalkDown;
 
         //Test------------------------------------
-         inventory.addItembyID("Item.testWeapon");
+         inventory.addItembyID("testWeapon");
+        inventory.addItembyID("testWeapon");
+        inventory.addItembyID("testWeapon");
+        inventory.addItembyID("testWeapon");
+        inventory.addItembyID("testWeapon");
         //---------------------------------------
     }
 
@@ -75,12 +76,14 @@ public class Player extends Creature {
         movementhitbox.setRect(x,y+height,width,height/4);
     }
 
+    public Inventory getInventory(){
+        return inventory;
+    }
 
     @Override
     public void tick() {
         movement();
         inventory.tick();
-        righthand.tick();
         //------------------------------------------------------
         if (MouseInput.leftPressed && cooldown == 0) {
             firePlasma(MouseInput.mouseX, MouseInput.mouseY);
@@ -95,11 +98,8 @@ public class Player extends Creature {
     public void render(Graphics g) {
         animation[animationIndex].drawAnimation(g, getPixelPosition(x), getPixelPosition(y), (Game.UNIT_SCALE));
 
-        if (KeyboardInput.e) {
-            inventory.render(g);
-        }
-
     }
+
 
     @Override
     public void drawHitbox(Graphics g) {
@@ -109,6 +109,8 @@ public class Player extends Creature {
         g.setColor(Color.lightGray);
         g.drawRect(getPixelPosition(x),getPixelPosition(y+width),getPixelPosition(width),getPixelPosition(height/4));
     }
+
+
 
     private void movement() {
 

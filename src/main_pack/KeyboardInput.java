@@ -1,16 +1,18 @@
 package main_pack;
 import States.ConsoleState;
 import States.GameState;
+import entities.creatures.Player;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 public class KeyboardInput implements KeyListener {
     protected boolean []keySwitch,keyF3,keys;
     public static boolean up,left,right,down,jump,esc,e,f3,g,enter;
-    public static boolean f3_s,t_s;
+    public static boolean f3_s,t_s,e_s;
     public static  boolean f3G;
     private Game game;
     private GameConsole gameConsole;
+    private Player player;
 
 
 
@@ -19,7 +21,7 @@ public class KeyboardInput implements KeyListener {
         keySwitch=new boolean[256];
         keyF3=new boolean[256];
         this.game=game;
-
+        player=game.getPlayer();
         gameConsole= game.getGameConsole();
     }
     public void tick (){
@@ -39,10 +41,12 @@ public class KeyboardInput implements KeyListener {
         //KeySwitch----------------------------------
         f3_s=keySwitch[KeyEvent.VK_F3];
         t_s=keySwitch[KeyEvent.VK_T];
+        e_s=keySwitch[KeyEvent.VK_E];
 
 
         //KeyF3--------------------------------------
         f3G=keyF3[KeyEvent.VK_G];
+
 
 
     }
@@ -53,50 +57,62 @@ public class KeyboardInput implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode()<=256) {
-            keys[e.getKeyCode()] = true;
+            if (game.getactiveState().getClass() == GameState.class) {
+                keys[e.getKeyCode()] = true;
 
-            if (keySwitch[e.getKeyCode()]) {
-                keySwitch[e.getKeyCode()] = false;
-            } else {
-                keySwitch[e.getKeyCode()] = true;
-            }
-
-
-            //F3-Funktions--------------------------------
-            if (f3) {
-                if (keyF3[e.getKeyCode()]) {
-                    keyF3[e.getKeyCode()] = false;
+                if (keySwitch[e.getKeyCode()]) {
+                    keySwitch[e.getKeyCode()] = false;
                 } else {
-                    keyF3[e.getKeyCode()] = true;
+                    keySwitch[e.getKeyCode()] = true;
                 }
 
 
+                //F3-Funktions--------------------------------
+                if (f3) {
+                    if (keyF3[e.getKeyCode()]) {
+                        keyF3[e.getKeyCode()] = false;
+                    } else {
+                        keyF3[e.getKeyCode()] = true;
+                    }
+
+
+                }
+
+                //InventoryManagment---------------------------------
+                if (String.valueOf(e.getKeyChar()).matches("[0-9]")){
+                    player.getInventory().setActiveSlot(Integer.valueOf(e.getKeyChar())-48);
+                    System.out.println(Integer.valueOf(e.getKeyChar()));
+                }
+
+
+
             }
+
+            //ConsoleInput--------------------------------
+            if (game.getactiveState().getClass() == ConsoleState.class) {
+                if (e.getKeyChar() != '\uFFFF' && e.getKeyCode() != KeyEvent.VK_DELETE && e.getKeyCode() != KeyEvent.VK_BACK_SPACE && e.getKeyCode() != KeyEvent.VK_ENTER) {
+                    gameConsole.appendInput(e.getKeyChar());
+
+                } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    gameConsole.send();
+                    game.deactivateConsole();
+                } else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                    gameConsole.deletelastKey();
+                }
+
+            } else if (game.getactiveState().getClass() == GameState.class) {
+                if (e.getKeyCode() == KeyEvent.VK_F8) {
+                    game.activateConsole();
+                }
+            }
+
 
         }
-
-        //ConsoleInput--------------------------------
-        if (game.getactiveState().getClass()==ConsoleState.class) {
-            if (e.getKeyChar() != '\uFFFF' && e.getKeyCode() != KeyEvent.VK_DELETE&& e.getKeyCode()!=KeyEvent.VK_BACK_SPACE&&e.getKeyCode() != KeyEvent.VK_ENTER){
-                gameConsole.appendInput(e.getKeyChar());
-
-            } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                gameConsole.send();
-                game.deactivateConsole();
-            }else if (e.getKeyCode()== KeyEvent.VK_BACK_SPACE){
-                gameConsole.deletelastKey();
-            }
-
-        }else if(game.getactiveState().getClass()== GameState.class){
-            if (e.getKeyCode()==KeyEvent.VK_F8){
-                game.activateConsole();
-            }
-        }
-
     }
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode()<=256){
-        keys[e.getKeyCode()] = false;
-    }}
+            keys[e.getKeyCode()] = false;
+        }
+    }
 }

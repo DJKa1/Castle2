@@ -27,18 +27,13 @@ public class CreatureHandler {
                 tempObject.drawHitbox(g);
             }
         }
-
     }
-
     public void addObject(Creature object) {
         this.creatures.add(object);
     }
-
     public void removeObject(Creature object) {
         this.creatures.remove(object);
     }
-
-
     public int getCreatureCount(){
         return creatures.size();
     }

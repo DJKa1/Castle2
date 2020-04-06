@@ -48,11 +48,9 @@ public class GameState extends State{
         creatureHandler=game.getCreatureHandler();
         texture = new Texture();
         f3Infopanel=new F3Infopanel(this);
-
-        //-----------------------------------------
+        //------------------------------------------------------------------
         creatureHandler.addObject(player);
         creatureHandler.addObject(new GreenSlime(3,7,creatureHandler));
-        //creatureHandler.addObject(new GreenSlime(1,6));
     }
     @Override
     public void tick() {
@@ -61,9 +59,7 @@ public class GameState extends State{
         map.tick();
         f3Infopanel.tick();
         Creature tempPlayer=null;
-        //System.out.println("Creatures: "+creatureHandler.creatures.size());
         for (int i = 0;i<creatureHandler.creatures.size();i++){
-            //System.out.println(creatureHandler.creatures.get(i).getName());
             if(creatureHandler.creatures.get(i).getId()== ID.Player) {
                 tempPlayer = creatureHandler.creatures.get(i);
             }
@@ -73,26 +69,28 @@ public class GameState extends State{
     }
     @Override
     public void render(Graphics g) {
-
         //Draw fixed
         Graphics2D gd2 = (Graphics2D) g;
         //Background
         g.setColor(new Color(47, 40, 58));
         g.fillRect(0, 0, Launcher.WIDTH, Launcher.HEIGHT);
 
-
-        //Camera show
-        //gd2.scale(camera.getSCALE(),camera.getSCALE());
-        gd2.translate(camera.getX(), camera.getY()); //Cam start
+        //Cam start-------------------------------------------------------
+        gd2.translate(camera.getX(), camera.getY());
 
         map.render(g);
         creatureHandler.render(g);
         projectileHandler.render(g);
-        gd2.translate(-camera.getX(), -camera.getY());//Cam end
 
-        if (KeyboardInput.f3_s){
+        gd2.translate(-camera.getX(), -camera.getY());
+        //Cam end--------------------------------------------------------------
+
+        if (KeyboardInput.f3_s) {
             f3Infopanel.render(g);
         }
         game.getGameConsole().renderLog(g);
+        player.getInventory().render(g);
+
     }
+
 }
