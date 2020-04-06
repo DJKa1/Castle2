@@ -3,7 +3,7 @@ import States.GameState;
 import entities.ID;
 import Handler.CreatureHandler;
 import main_pack.Game;
-import main_pack.ProjectileHandler;
+import Handler.ProjectileHandler;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;

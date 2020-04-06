@@ -3,6 +3,7 @@ import entities.creatures.Player;
 import items.Item;
 import items.testWeapon;
 import main_pack.KeyboardInput;
+import main_pack.MouseInput;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -10,10 +11,10 @@ import java.util.LinkedList;
 public class Inventory {
     private Hotbar hotbar;
     private Player owner;
-    public final int xpos=10,ypos=10,slotwidth=50,slotheight=50;
+    public final int xpos=10,ypos=60,slotwidth=200,slotheight=70;
     public LinkedList<Item> iventoryItems;
     public int activeSlot=1;
-    private int first=-1,last =first+9;
+    private int first=0,last =first+9;
 
 
 
@@ -39,20 +40,25 @@ public class Inventory {
 
 
     public void tick(){
+        first= MouseInput.mouseWheelPos;
+        last=first+9;
     }
 
     public void render(Graphics g) {
         if(KeyboardInput.e_s) {
             for (int i = 0; i < iventoryItems.size(); i++) {
-                if(first<i&&i<last) {
+                if(first<=i&&i<=last) {
                     Item tempItem = iventoryItems.get(i);
                     g.drawImage(tempItem.getImage(), xpos, ypos + ((i - first) * slotheight), null);
-                    g.setColor(Color.BLACK);
-                    g.drawRect(xpos, ypos + ((i - first) * slotheight), slotwidth, slotheight);
                 }
             }
+            //--------------------------
+            for (int i=0;i<last-first;i++){
+                g.setColor(Color.BLACK);
+                g.drawRect(xpos, ypos + i * slotheight, slotwidth, slotheight);
+            }
         }
-        hotbar.render(g);
+       hotbar.render(g);
     }
 
 
