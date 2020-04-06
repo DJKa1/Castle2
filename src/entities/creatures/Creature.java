@@ -3,7 +3,6 @@ import entities.Entity;
 import entities.projectile.Projectile;
 import main_pack.CreatureHandler;
 
-
 public abstract class Creature extends Entity {
     protected float hp;
     protected float movementRate;

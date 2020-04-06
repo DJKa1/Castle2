@@ -1,9 +1,7 @@
 package entities.projectile;
 import entities.ID;
-
 import entities.creatures.Creature;
 import main_pack.ProjectileHandler;
-
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
@@ -18,11 +16,9 @@ public class Plasmabolt extends Projectile {
         height= (float) 0.1;
         hitbox=new Rectangle2D.Double(x,y,width,height);
         projeticespeed = (float) 0.1;
-        baseDgm=1;
+        baseDgm=10;
         move.set(aimX,aimY);
         move.normalize();
-
-
     }
     @Override
     public void tick() {
@@ -54,8 +50,8 @@ public class Plasmabolt extends Projectile {
         Creature[] creatures=checkCollision_forAll(isHit);
             for (Creature k :creatures) {
                 if(k!=null){
-
                 k.hitbyProjectile(this);
+                projectileHandler.removeObject(this);
                 }
 
             }
