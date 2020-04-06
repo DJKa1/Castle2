@@ -110,7 +110,6 @@ public abstract class Entity {
         return hitbox;
     }
 
-
     //Collision------------------------------------------
 
     public Creature[] checkCollision_forAll( ID[] partner) {
