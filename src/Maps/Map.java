@@ -1,6 +1,5 @@
 package Maps;
 
-import Tiles.Texture;
 import Tiles.Tile;
 import main_pack.Game;
 import main_pack.KeyboardInput;

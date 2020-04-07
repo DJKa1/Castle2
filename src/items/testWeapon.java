@@ -1,6 +1,6 @@
 package items;
 import Inventory.Inventory;
-import Tiles.Texture;
+import graphics.Texture;
 import entities.creatures.Creature;
 import entities.projectile.Plasmabolt;
 import main_pack.MouseInput;

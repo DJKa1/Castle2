@@ -39,6 +39,9 @@ public class GameConsole {
         input.delete(0,input.length());
         input.append(str);
     }
+    public void clearInput() {
+        input.delete(0,input.length());
+    }
     public void send()  {
         String currentInput=input.toString();
         input.delete(0,input.length());
@@ -127,6 +130,10 @@ public class GameConsole {
         consoleColor=Color.GREEN;
         setInput("YOU NOW POSSES THE POWER OF THE INTERNET");
         send();
+    }
+
+    public void sysout(String msg) {
+        System.out.println(msg);
     }
 
 

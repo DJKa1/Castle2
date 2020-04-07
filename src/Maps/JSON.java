@@ -1,17 +1,13 @@
 package Maps;
 
 
-import Tiles.Texture;
 import Tiles.Tile;
 import main_pack.Game;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.awt.*;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;

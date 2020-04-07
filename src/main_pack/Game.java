@@ -4,7 +4,7 @@ import Handler.CreatureHandler;
 import Handler.ProjectileHandler;
 import Maps.Map;
 import States.*;
-import Tiles.Texture;
+import graphics.Texture;
 import entities.creatures.Camera;
 import entities.creatures.Player;
 import graphics.Window;
@@ -74,7 +74,7 @@ public class Game implements Runnable {
         gameState = new GameState(this);
         consoleState = new ConsoleState(this);
         menuState = new MenuState(this);
-        State.setState(gameState);
+        State.setState(menuState);
 
         //Input
         keyboardInput = new KeyboardInput(this);
@@ -122,6 +122,9 @@ public class Game implements Runnable {
 
     public GameConsole getGameConsole() {
         return gameConsole;
+    }
+    public Menu getMenu() {
+        return menu;
     }
 
     public void activateConsole() {

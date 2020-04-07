@@ -3,7 +3,7 @@ package States;
 import Handler.CreatureHandler;
 import Handler.ProjectileHandler;
 import Maps.Map;
-import Tiles.Texture;
+import graphics.Texture;
 import entities.ID;
 import entities.creatures.Camera;
 import entities.creatures.Creature;
