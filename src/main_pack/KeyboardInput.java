@@ -89,12 +89,19 @@ public class KeyboardInput implements KeyListener {
             if (game.getactiveState().getClass() == MenuState.class) {
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     State.setState(Game.gameState);
+                }else if(e.getKeyCode() == KeyEvent.VK_UP) {
+                    game.getMenu().moveMenuIndexUp();
+                }else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
+                    game.getMenu().moveMenuIndexDown();
+                }else if(e.getKeyCode()==KeyEvent.VK_ENTER) {
+                    game.getMenu().click();
+                    return;
+                }
             } else if (game.getactiveState().getClass() == GameState.class) {
                     if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                        System.out.println("Jo");
                         State.setState(Game.menuState);
+                        game.getMenu().setMenuIndex(0);
                     }
-                }
             }
 
             //ConsoleInput--------------------------------

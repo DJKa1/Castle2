@@ -3,45 +3,54 @@ package main_pack;
 import java.awt.*;
 
 public class Menu {
-    private Game game;
+    protected Game game;
     private KeyboardInput keyboardInput;
     private MouseInput mouseInput;
-    private int selectedIndex=0;
+    private int selectedIndex = 0;
 
     private double scale = 5;
+
+    private UI_Element[] ui_elements = new UI_Element[3];
 
 
     public Menu(Game game) {
         this.keyboardInput = game.getKeyboardInput();
         this.mouseInput = game.getMouseInput();
+        ui_elements[0] = new UI_Element(0,0,16,16,"CONTINUE",0);
+        ui_elements[1] = new UI_Element(0,2,16,16,"OPTIONS",2);
+        ui_elements[2] = new UI_Element(0,4,16,16,"EXIT",2);
     }
 
     public void renderMenu(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        g2d.translate(Launcher.WIDTH/2-(10*Game.UNITDIMENSION/2*scale),Launcher.HEIGHT/2-(6*Game.UNITDIMENSION/2*scale));
+        g2d.translate(Launcher.WIDTH / 2 - (10 * Game.UNITDIMENSION / 2 * scale), Launcher.HEIGHT / 2 - (6 * Game.UNITDIMENSION / 2 * scale));
         g2d.scale(scale, scale);
-        g.drawImage(Game.texture.goldenUIElements[36][0], 0, 0, null);
-        g.drawImage(Game.texture.goldenUIElements[36][1], 0, 2 * Game.UNITDIMENSION, null);
-        g.drawImage(Game.texture.goldenUIElements[36][2], 0, 4 * Game.UNITDIMENSION, null);
-
-        drawString(g,2,0,"CONTINUE",0);
-        drawString(g,2,2,"OPTIONS",1);
-        drawString(g,2,4,"EXIT",2);
+        for (int i = 0; i<ui_elements.length;i++) {
+            ui_elements[i].render(g);
+        }
         g2d.scale(1 / scale, 1 / scale);
-        g2d.translate(-Launcher.WIDTH/2-(10*Game.UNITDIMENSION/2*scale),-Launcher.HEIGHT/2-(4*Game.UNITDIMENSION/2*scale));
+        g2d.translate(-Launcher.WIDTH / 2 - (10 * Game.UNITDIMENSION / 2 * scale), -Launcher.HEIGHT / 2 - (4 * Game.UNITDIMENSION / 2 * scale));
     }
 
-    private void drawString(Graphics g,int x,int y,String string,int shade) {
-        int index = 0;
-        for (int i = 0;i<string.length();i++) {
-            char c = string.charAt(i);
-            int temp = (int) c;
-            int temp_integer = 64; //for upper case
-            if (temp <= 90 & temp >= 65) {
-                index = temp - temp_integer;
-                g.drawImage(Game.texture.goldenUIElements[index+9][shade],x*Game.UNITDIMENSION+i*Game.UNITDIMENSION,y*Game.UNITDIMENSION,null);
-            }
+    public void moveMenuIndexUp() {
+        if(selectedIndex>0) {
+            ui_elements[selectedIndex].setSelected(false);
+            selectedIndex--;
+            ui_elements[selectedIndex].setSelected(true);
         }
     }
+    public void moveMenuIndexDown() {
+        if(selectedIndex<2) {
+            ui_elements[selectedIndex].setSelected(false);
+            selectedIndex++;
+            ui_elements[selectedIndex].setSelected(true);
+        }
+    }
+    public void setMenuIndex(int index) {
+        selectedIndex = index;
+    }
 
+    public void click() {
+        ui_elements[selectedIndex].onClick();
+    }
 }
