@@ -2,6 +2,9 @@ package main_pack;
 
 
 
+import States.MenuState;
+import States.State;
+
 import java.awt.event.*;
 
 public class MouseInput implements MouseListener, MouseMotionListener , MouseWheelListener {
@@ -9,15 +12,17 @@ public class MouseInput implements MouseListener, MouseMotionListener , MouseWhe
     public static float mouseX,mouseY;
     public static boolean leftPressed,rightPressed;
     public static int mouseWheelPos;
-    public MouseInput(){
-
-
+    private Game game;
+    public MouseInput(Game game){
+        this.game = game;
     }
 
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-
+        if(mouseEvent.getButton()==MouseEvent.BUTTON1&& game.getactiveState().getClass()== MenuState.class) {
+            game.getMenu().onMouseClick(mouseEvent.getX(),mouseEvent.getY());
+        }
 
     }
 
@@ -25,7 +30,6 @@ public class MouseInput implements MouseListener, MouseMotionListener , MouseWhe
     public void mousePressed(MouseEvent mouseEvent) {
         if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
             leftPressed=true;
-
         }
 
     }
@@ -34,8 +38,6 @@ public class MouseInput implements MouseListener, MouseMotionListener , MouseWhe
     public void mouseReleased(MouseEvent mouseEvent) {
         if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
             leftPressed=false;
-
-
         }
 
     }

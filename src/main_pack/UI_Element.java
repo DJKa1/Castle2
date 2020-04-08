@@ -12,10 +12,11 @@ public class UI_Element{
     private boolean selected = false;
 
 
-    public UI_Element( int x, int y, int width, int height, String Content, int shade) {
-        box = new Rectangle(x * cellSize, y*cellSize, width, height);
+    public UI_Element( int x, int y, String Content, int shade) {
+        box = new Rectangle(x * cellSize, y*cellSize, (Content.length()+2)*cellSize, cellSize);
         this.shade = shade;
         this.content = Content;
+
     }
 
     public void render(Graphics g) {
@@ -63,5 +64,9 @@ public class UI_Element{
         }else {
             shade = 2;
         }
+    }
+
+    public Rectangle getBox() {
+        return box;
     }
 }

@@ -54,6 +54,7 @@ public class Game implements Runnable {
     //Init
 
     public void init() {
+
         texture = new Texture();
         camera = new Camera(0, 0);
 
@@ -78,12 +79,14 @@ public class Game implements Runnable {
 
         //Input
         keyboardInput = new KeyboardInput(this);
-        mouseInput = new MouseInput();
+        mouseInput = new MouseInput(this);
 
         window = new Window(title,width,height,this);
+        window.fullscreen();
         window.getCanvas().addMouseListener(mouseInput);
         window.getCanvas().addMouseMotionListener(mouseInput);
         window.getJFrame().addKeyListener(keyboardInput);
+
     }
 
     //Getters && Setters
