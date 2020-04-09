@@ -4,9 +4,9 @@ import Handler.CreatureHandler;
 import Handler.ProjectileHandler;
 import Maps.Map;
 import States.*;
-import graphics.Texture;
 import entities.creatures.Camera;
 import entities.creatures.Player;
+import graphics.Texture;
 import graphics.Window;
 
 import java.awt.*;
@@ -26,7 +26,7 @@ public class Game implements Runnable {
     private boolean running = false;
     private String title = "Castle";
     private int width, height;
-    public static State gameState, menuState, optionState, consoleState;
+    public static State gameState, menuState, optionState, consoleState,invenstoryState;
     private BufferStrategy bs;
     private Graphics g;
     private Window window;
@@ -75,7 +75,8 @@ public class Game implements Runnable {
         gameState = new GameState(this);
         consoleState = new ConsoleState(this);
         menuState = new MenuState(this);
-        State.setState(menuState);
+        invenstoryState=new  InventoryState(this);
+        State.setState(gameState);
 
         //Input
         keyboardInput = new KeyboardInput(this);

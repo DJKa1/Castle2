@@ -2,7 +2,6 @@ package Inventory;
 import entities.creatures.Player;
 import items.Item;
 import items.testWeapon;
-import main_pack.KeyboardInput;
 import main_pack.MouseInput;
 
 import java.awt.*;
@@ -12,17 +11,13 @@ public class Inventory {
     private Hotbar hotbar;
     private Player owner;
     public final int xpos=10,ypos=60,slotwidth=200,slotheight=70;
-    public LinkedList<Item> iventoryItems;
+    public LinkedList<Item> inventoryItems;
     public int activeSlot=1;
     private int first=0,last =first+9;
 
-
-
-
-
     public Inventory(Player owner){
         this.owner=owner;
-        iventoryItems=new LinkedList<>();
+        inventoryItems=new LinkedList<>();
         hotbar=new Hotbar(this);
     }
 
@@ -44,11 +39,15 @@ public class Inventory {
         last=first+9;
     }
 
+    public Hotbar getHotbar() {
+        return hotbar;
+    }
+
     public void render(Graphics g) {
-        if(KeyboardInput.e_s) {
-            for (int i = 0; i < iventoryItems.size(); i++) {
+
+            for (int i = 0; i < inventoryItems.size(); i++) {
                 if(first<=i&&i<=last) {
-                    Item tempItem = iventoryItems.get(i);
+                    Item tempItem = inventoryItems.get(i);
                     g.drawImage(tempItem.getImage(), xpos, ypos + ((i - first) * slotheight), null);
                 }
             }
@@ -57,32 +56,46 @@ public class Inventory {
                 g.setColor(Color.BLACK);
                 g.drawRect(xpos, ypos + i * slotheight, slotwidth, slotheight);
             }
-        }
+
        hotbar.render(g);
     }
-
-
-
-
-
 
     //ItemManagement------------------------------------------
     public void addItembyID(String id) {
         Item item=null;
         switch (id){
+            default:return;
             case "testWeapon": item=new testWeapon(this);
+
         }
         addItem(item);
     }
     public void addItem(Item item){
-        iventoryItems.add(item);
+        inventoryItems.add(item);
     }
     public Item getItem(int i){
-        if(i<iventoryItems.size()){
-            return iventoryItems.get(i);
+        if(i<inventoryItems.size()){
+            return inventoryItems.get(i);
         }else {
             return null;
         }
     }
+    public int getItemCount(){
+        return inventoryItems.size();
+    }
+
+    public void clearInventory(){
+        inventoryItems.clear();
+
+    }
+    public void switchPositions(int i1,int i2){
+        Item I1 =inventoryItems.get(i1);
+        Item I2=inventoryItems.get(i2);
+        inventoryItems.set(i1,I1);
+        inventoryItems.set(i2,I2);
+    }
+
+
+
 
 }

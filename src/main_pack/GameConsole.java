@@ -1,4 +1,8 @@
 package main_pack;
+import entities.creatures.GreenSlime;
+import entities.creatures.Player;
+import items.ItemID;
+
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -15,12 +19,14 @@ public class GameConsole {
     private Graphics g;
     private final Rectangle chatbox=new Rectangle(0,(Launcher.HEIGHT*8)/10,(Launcher.WIDTH*6)/10,Launcher.HEIGHT);
     private final int sx=(int) (chatbox.getX()+(chatbox.getWidth()/20)),sy=(int)(chatbox.getHeight()-(chatbox.getHeight()/20)),dy= (int) ((chatbox.getHeight()-chatbox.getY())/10);
+    private Player player;
 
     public GameConsole(Game game){
         this.game=game;
         keyboardInput=game.getKeyboardInput();
         vallidMethods=this.getClass().getDeclaredMethods();
         input=new StringBuilder();
+        player=game.getPlayer();
     }
 
     public Color getConsoleColor(){
@@ -110,14 +116,14 @@ public class GameConsole {
 
     //Commands--------------------------------------------------------------------
     public void getPlayerPosition(){
-        setInput("Player is at X:"+game.getPlayer().getX()+"and Y:"+ game.getPlayer().getY());
+        setInput("Player is at X:"+player.getX()+"and Y:"+ player.getY());
         send();
     }
 
     public void tp(String x, String y){
         try {
-            game.getPlayer().setX(Float.valueOf(x));
-            game.getPlayer().setY(Float.valueOf(y));
+            player.setX(Float.valueOf(x));
+            player.setY(Float.valueOf(y));
             setInput("/getPlayerPosition");
         }catch (IllegalArgumentException e){
             setInput("Arguments must be float float");
@@ -132,6 +138,33 @@ public class GameConsole {
         send();
     }
 
+    public void give(String id)  {
+        if (ItemID.containsElement(id)){
+            player.getInventory().addItembyID(id);
+            setInput(id + " added to Inventory");
+        }else{
+            setInput("No Valid Item Id");
+        }
+        send();
+    }
+    public void clear(){
+        setInput(String.valueOf(player.getInventory().getItemCount())+ " Items cleared");
+        player.getInventory().clearInventory();
+        send();
+    }
+
+    public void spawn(String id ,String xpos , String ypos){
+        try {
+            switch (id){
+                default:setInput("No valid MobID");
+                case "greenslime": game.getCreatureHandler().addObject(new GreenSlime(Float.valueOf(xpos),Float.valueOf(ypos),game.getCreatureHandler(),game.getProjectileHandler()));break;
+
+            }
+        }catch (IllegalArgumentException e){
+            setInput("Arguments must be String float float");
+        }
+        send();
+    }
     public void sysout(String msg) {
         System.out.println(msg);
     }

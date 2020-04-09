@@ -123,9 +123,36 @@ public class KeyboardInput implements KeyListener {
                     game.activateConsole();
                 }
             }
+
+            //InventoryState--------------------------------------
+            if (game.getactiveState().getClass() == InventoryState.class) {
+                if (String.valueOf(e.getKeyChar()).matches("[0-9]")){
+                }
+            }
+            //MenüState----------------------------------------------------
+
+            //StateManagment--------------------------------------------------
+            if(game.getactiveState().getClass() == GameState.class) {
+                if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+                    State.setState(Game.menuState);
+                }
+                if(e.getKeyCode()==KeyEvent.VK_E){
+                    State.setState(Game.invenstoryState);
+                }
+
+            }else if(game.getactiveState().getClass() == MenuState.class) {
+                if (e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+                    State.setState(Game.gameState);
+
+                }
+            }else if (game.getactiveState().getClass()== InventoryState.class){
+                if(e.getKeyCode()==KeyEvent.VK_E) {
+                    State.setState(Game.gameState);
+                }
+            }
+
         }
     }
-
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() <= 256) {

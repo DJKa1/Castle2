@@ -91,7 +91,7 @@ public class GameState extends State{
             f3Infopanel.render(g);
         }
         game.getGameConsole().renderLog(g);
-        player.getInventory().render(g);
+        player.getInventory().getHotbar().render(g);
 
     }
 

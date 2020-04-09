@@ -1,11 +1,13 @@
 package entities.creatures;
 import entities.Entity;
+import entities.ID;
 import entities.projectile.Projectile;
 import Handler.CreatureHandler;
 import main_pack.Game;
 import Handler.ProjectileHandler;
 
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 
 public abstract class Creature extends Entity {
     protected float hp;
@@ -14,6 +16,9 @@ public abstract class Creature extends Entity {
     protected float baseDmg;
     protected CreatureHandler creatureHandler;
     protected ProjectileHandler projectileHandler;
+    protected Ellipse2D targetingArea;
+    protected float targetingRange;
+    protected ID[] targetable;
 
     public Creature(float x,float y,CreatureHandler creatureHandler,ProjectileHandler projectileHandler){
         super(x,y);

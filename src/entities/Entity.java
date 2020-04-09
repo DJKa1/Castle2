@@ -95,6 +95,10 @@ public abstract class Entity {
         v *= Game.UNIT_SCALE;
         return (int) v;
     }
+    public int getPixelPosition(double v) {
+        v *= Game.UNIT_SCALE;
+        return (int) v;
+    }
 
     public void updateHitbox(float xOffset, float yOffset) {
         hitbox.setRect(x + xOffset, y + yOffset, width, height);

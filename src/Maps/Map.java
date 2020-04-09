@@ -42,8 +42,6 @@ public class Map {
                     if (Tiles[x][y][layer] != null) {
                         Rectangle2D temp = Tiles[x][y][layer].getHitbox();
                         g.drawImage(Tiles[x][y][layer].getImg(), x * Game.UNIT_SCALE, y * Game.UNIT_SCALE, Game.UNIT_SCALE, Game.UNIT_SCALE, null);
-
-
                     }
                 }
             }
