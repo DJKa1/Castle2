@@ -10,6 +10,7 @@ public class testWeapon extends Weapons {
 
     private int delay = 0;
 
+
     public testWeapon(Inventory inventory) {
         super(inventory);
         image= Texture.sprite[1];

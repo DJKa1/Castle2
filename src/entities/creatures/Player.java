@@ -96,7 +96,13 @@ public class Player extends Creature {
         trans.rotate(dir.getAngle(), getPixelPosition(x)+64,getPixelPosition(y)+ 64+8);
 
         g2d.setTransform(trans);
-        g2d.drawImage(Game.texture.sprite[26],getPixelPosition(x),getPixelPosition(y),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
+
+
+        if (Math.toDegrees(dir.getAngle())<=90&&Math.toDegrees(dir.getAngle())>-90) {
+            g2d.drawImage(Game.texture.sprite[26],getPixelPosition(x)+64,getPixelPosition(y),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
+        } else {
+            g2d.drawImage(Game.texture.sprite[27],getPixelPosition(x)+64,getPixelPosition(y),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
+        }
 
         g2d.setTransform(oldtrans);
     }
