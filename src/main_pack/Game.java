@@ -63,6 +63,8 @@ public class Game implements Runnable {
         creatureHandler = new CreatureHandler();
 
         player = new Player(1, 3, projectileHandler, creatureHandler);
+        camera.setX(-player.getPixelPosition(player.getX())+ Launcher.WIDTH/2 - (int)(UNIT_SCALE)/2);
+        camera.setY(-player.getPixelPosition(player.getY())+ Launcher.HEIGHT/2 - (int)(UNIT_SCALE)/2);
 
         //MapLoad----------------------------------------------------------------
         map = new Map("FirstLevel");

@@ -25,7 +25,7 @@ public class Window {
     }
 
     public void create_window() {
-        /*jfi = new JFrame(title);
+        jfi = new JFrame(title);
         jfi.setSize(width, height);
         jfi.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jfi.setResizable(false);
@@ -38,10 +38,11 @@ public class Window {
         cvs.setMinimumSize(dimension);
         cvs.setFocusable(false);
         jfi.add(cvs);
-        jfi.addMouseWheelListener(game.getMouseInput());*/
-
+        jfi.addMouseWheelListener(game.getMouseInput());
+        /*
         jfi = new JFrame(title);
         jfi.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //jfi.setSize(800,800);
         jfi.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jfi.setUndecorated(true);
         jfi.setResizable(false);
@@ -55,6 +56,7 @@ public class Window {
         cvs.setFocusable(false);
         jfi.add(cvs);
         jfi.addMouseWheelListener(game.getMouseInput());
+         */
     }
 
     public void fullscreen() {

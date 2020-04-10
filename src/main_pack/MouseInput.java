@@ -63,9 +63,8 @@ public class MouseInput implements MouseListener, MouseMotionListener , MouseWhe
 
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
-
-
-
+        mouseX=mouseEvent.getX()-Launcher.WIDTH/2;
+        mouseY=mouseEvent.getY()-Launcher.HEIGHT/2;
     }
 
     @Override

@@ -15,7 +15,7 @@ public class GreenSlime extends Creature {
         width= 1;
         height=1;
         baseDmg=1;
-        hp=100;
+        hp=10;
         maxHp = hp;
         hitbox=new Rectangle2D.Double(x,y,width,height);
         targetingArea= new Ellipse2D.Float();

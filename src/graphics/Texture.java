@@ -48,7 +48,7 @@ public class Texture {
         }
 
         for (int l = 0;l<3;l++) {
-            for (int i = 0;i< 64;i++) {
+            for (int i = 0;i< 60;i++) {
                 goldenUIElements[i][l] = UIELementsSheet.grabImage(i,l,16,16);
             }
         }

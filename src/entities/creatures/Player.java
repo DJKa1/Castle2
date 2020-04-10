@@ -10,6 +10,7 @@ import items.Item;
 import main_pack.*;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 public class Player extends Creature {
     protected Inventory inventory;
@@ -87,7 +88,17 @@ public class Player extends Creature {
     @Override
     public void render(Graphics g) {
         animation[animationIndex].drawAnimation(g, getPixelPosition(x), getPixelPosition(y), (Game.UNIT_SCALE));
+        Graphics2D g2d = (Graphics2D) g;
 
+        AffineTransform oldtrans = g2d.getTransform();
+        AffineTransform trans = g2d.getTransform();
+        Vector2D dir = new Vector2D(MouseInput.mouseX,MouseInput.mouseY);
+        trans.rotate(dir.getAngle(), getPixelPosition(x)+64,getPixelPosition(y)+ 64+8);
+
+        g2d.setTransform(trans);
+        g2d.drawImage(Game.texture.sprite[26],getPixelPosition(x),getPixelPosition(y),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
+
+        g2d.setTransform(oldtrans);
     }
 
 

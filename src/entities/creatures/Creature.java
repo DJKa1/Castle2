@@ -20,6 +20,8 @@ public abstract class Creature extends Entity {
     protected float targetingRange;
     protected ID[] targetable;
 
+    private Graphics g;
+
     public Creature(float x,float y,CreatureHandler creatureHandler,ProjectileHandler projectileHandler){
         super(x,y);
         this.creatureHandler=creatureHandler;
@@ -52,6 +54,8 @@ public abstract class Creature extends Entity {
         g.fillRect(getPixelPosition(x),getPixelPosition(y), (int) (width*Game.UNIT_SCALE),20);
         g.setColor(Color.RED);
         g.fillRect(getPixelPosition(x),getPixelPosition(y), (int) (hp/maxHp*width*Game.UNIT_SCALE),20);
+
+
     }
 
 }

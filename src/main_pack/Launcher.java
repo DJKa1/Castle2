@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class Launcher {
     static Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-    public static int WIDTH =dim.width, HEIGHT =dim.height;
+    public static int WIDTH =dim.width-200, HEIGHT =dim.height-200;
     public static String VERSION ="0.0.2";
     public static final boolean enablecheats=true;
 
@@ -13,7 +13,5 @@ public class Launcher {
 
         Game game = new Game (WIDTH, HEIGHT);
         game.start();
-
-
     }
 }
