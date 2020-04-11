@@ -58,7 +58,7 @@ public class Game implements Runnable {
     public void init() {
         //test
 
-        controllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
+        Controller[] controllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
         for (int i  = 0;i<controllers.length;i++) {
             if (controllers[i].getName()=="Wireless Controller") {
 
