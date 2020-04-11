@@ -38,11 +38,10 @@ public class Inventory {
     public void tick(){
         first= MouseInput.mouseWheelPos;
         last=first+9;
-
         for (int i = 0; i < inventoryItems.size(); i++) {
             if(first<=i&&i<=last) {
                 Item tempItem = inventoryItems.get(i);
-               tempItem.tick();
+                tempItem.tick();
             }
         }
     }
@@ -52,14 +51,19 @@ public class Inventory {
     }
 
     public void render(Graphics g) {
+        for (int i=0;i<last-first;i++){
+            g.setColor(Color.pink);
+            g.drawRect(xpos, ypos + i * slotheight, slotwidth, slotheight);
 
-            //--------------------------
-            for (int i=0;i<last-first;i++){
-                g.setColor(Color.BLACK);
-                g.drawRect(xpos, ypos + i * slotheight, slotwidth, slotheight);
+        }
+        for (int i = 0; i < inventoryItems.size(); i++) {
+            if(first<=i&&i<=last) {
+                Item tempItem = inventoryItems.get(i);
+                g.drawImage( tempItem.getImage(),xpos,ypos+ i * slotheight,null);
             }
+        }
 
-       hotbar.render(g);
+        hotbar.render(g);
     }
 
     //ItemManagement------------------------------------------

@@ -81,9 +81,25 @@ public class KeyboardInput implements KeyListener {
                 if (String.valueOf(e.getKeyChar()).matches("[0-9]")) {
                     player.getInventory().setActiveSlot(Integer.valueOf(e.getKeyChar()) - 49);
                 }
+
+
+                //StateSwitch-------------------------------
+                if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+                    game.getMenu().setMenuIndex(0);
+                    State.setState(Game.menuState);
+                }
+                else if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    State.setState((Game.consoleState));
+                }
+                else if(e.getKeyCode()==KeyEvent.VK_E){
+                    State.setState(Game.invenstoryState);
+                }
+
+                return;
             }
 
-            //Menustate
+
+            //Menustate-------------------------------------------------------
             if (game.getactiveState().getClass() == MenuState.class) {
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     State.setState(Game.gameState);
@@ -93,8 +109,14 @@ public class KeyboardInput implements KeyListener {
                     game.getMenu().moveMenuIndexDown();
                 }else if(e.getKeyCode()==KeyEvent.VK_ENTER) {
                     game.getMenu().click();
-                    return;
                 }
+
+                //StateSwitch---------------------------
+                if (e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+                    State.setState(Game.gameState);
+
+                }
+                return;
             }
 
             //ConsoleInput--------------------------------
@@ -110,39 +132,23 @@ public class KeyboardInput implements KeyListener {
                     gameConsole.clearInput();
                     game.deactivateConsole();
                 }
+                return;
             }
 
             //InventoryState--------------------------------------
             if (game.getactiveState().getClass() == InventoryState.class) {
                 if (String.valueOf(e.getKeyChar()).matches("[0-9]")){
                 }
-            }
-            //MenüState----------------------------------------------------
-
-            //StateManagment--------------------------------------------------
-            if(game.getactiveState().getClass() == GameState.class) {
-                if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
-                    game.getMenu().setMenuIndex(0);
-                    State.setState(Game.menuState);
-                }
-
-                if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                    State.setState((Game.consoleState));
-                }
-                if(e.getKeyCode()==KeyEvent.VK_E){
-                    State.setState(Game.invenstoryState);
-                }
-
-            }else if(game.getactiveState().getClass() == MenuState.class) {
-                if (e.getKeyCode()==KeyEvent.VK_ESCAPE) {
-                    //State.setState(Game.gameState);
-
-                }
-            }else if (game.getactiveState().getClass()== InventoryState.class){
+                //StateSwitch--------------------
                 if(e.getKeyCode()==KeyEvent.VK_E) {
                     State.setState(Game.gameState);
                 }
+
+
+                return;
             }
+
+
 
         }
     }

@@ -17,7 +17,7 @@ public class Plasmabolt extends Projectile {
         width= (float) 6/16;
         height= (float) 6/16;
         hitbox=new Rectangle2D.Double(x,y,width,height);
-        projeticespeed = (float) 0.01;
+        projeticespeed = (float) 0.25;
         baseDgm=1;
         move.set(aimX,aimY);
         move.normalize();
