@@ -8,6 +8,8 @@ import entities.creatures.Camera;
 import entities.creatures.Player;
 import graphics.Texture;
 import graphics.Window;
+import net.java.games.input.Controller;
+import net.java.games.input.ControllerEnvironment;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -41,19 +43,28 @@ public class Game implements Runnable {
     private Camera camera;
     private Map map;
 
+    public static Controller[] controllers;
+
 
     public Game(int width, int height) {
         this.width = width;
         this.height = height;
         this.start();
-
-
     }
 
 
     //Init
 
     public void init() {
+        //test
+
+        controllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
+        for (int i  = 0;i<controllers.length;i++) {
+            if (controllers[i].getName()=="Wireless Controller") {
+
+            }
+        }
+
 
         texture = new Texture();
         camera = new Camera(0, 0);
@@ -207,6 +218,7 @@ public class Game implements Runnable {
             State.getState().tick();
         }
         keyboardInput.tick();
+
 
     }
 

@@ -21,7 +21,7 @@ public class ProjectileHandler {
         for (int i = 0; i < projectile.size(); i++) {
             Projectile tempObject = projectile.get(i);
             tempObject.render(g);
-            tempObject.renderHitbox(g);
+            //tempObject.renderHitbox(g);
 
         }
     }
