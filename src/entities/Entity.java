@@ -8,13 +8,14 @@ import Handler.CreatureHandler;
 import main_pack.Game;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 public abstract class Entity {
     protected float x, y;
     protected ID id;
     protected float width, height;
-    protected Rectangle2D.Double hitbox;
+    protected Rectangle2D.Double hitbox=new Rectangle2D.Double();
     protected Vector2D move;
 
 
@@ -79,15 +80,19 @@ public abstract class Entity {
         return b ? 1 : 0;
     }
 
+    public Point2D getCenter(){
+        return new Point.Double(x+width/2,y+height/2);
+
+    }
     public Entity(float x, float y) {
         this.x = x;
         this.y = y;
+        move=new Vector2D(0,0);
 
     }
 
     public abstract void tick();
     public abstract void render(Graphics g);
-    public  abstract  void drawHitbox(Graphics g);
 
 
     //HitboxMethods-------------------------------

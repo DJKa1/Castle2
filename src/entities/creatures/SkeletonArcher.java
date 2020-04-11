@@ -20,8 +20,5 @@ public class SkeletonArcher extends Creature {
 
     }
 
-    @Override
-    public void drawHitbox(Graphics g) {
 
-    }
 }

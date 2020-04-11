@@ -58,6 +58,7 @@ public class KeyboardInput implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() <= 256) {
+            //GameState-------------------------------------
             if (game.getactiveState().getClass() == GameState.class) {
                 keys[e.getKeyCode()] = true;
 
@@ -109,11 +110,6 @@ public class KeyboardInput implements KeyListener {
                     gameConsole.clearInput();
                     game.deactivateConsole();
                 }
-
-            } else if (game.getactiveState().getClass() == GameState.class) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    game.activateConsole();
-                }
             }
 
             //InventoryState--------------------------------------
@@ -129,13 +125,17 @@ public class KeyboardInput implements KeyListener {
                     game.getMenu().setMenuIndex(0);
                     State.setState(Game.menuState);
                 }
+
+                if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                    State.setState((Game.consoleState));
+                }
                 if(e.getKeyCode()==KeyEvent.VK_E){
                     State.setState(Game.invenstoryState);
                 }
 
             }else if(game.getactiveState().getClass() == MenuState.class) {
                 if (e.getKeyCode()==KeyEvent.VK_ESCAPE) {
-                    State.setState(Game.gameState);
+                    //State.setState(Game.gameState);
 
                 }
             }else if (game.getactiveState().getClass()== InventoryState.class){

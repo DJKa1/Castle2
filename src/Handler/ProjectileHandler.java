@@ -21,9 +21,7 @@ public class ProjectileHandler {
         for (int i = 0; i < projectile.size(); i++) {
             Projectile tempObject = projectile.get(i);
             tempObject.render(g);
-            if (KeyboardInput.f3G){
-                tempObject.drawHitbox(g);
-            }
+
         }
     }
     public void addObject(Projectile object) {

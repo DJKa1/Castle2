@@ -21,22 +21,16 @@ public class Player extends Creature {
     private Animation idle;
     private Animation[] animation;
     private int animationIndex = 0;
-    private ID[] blockedby = {ID.Greenslime};
-    private Rectangle2D.Double movementhitbox;
+
 
     public Player(float x, float y, ProjectileHandler projectileHandler, CreatureHandler creatureHandler) {
         super(x, y,creatureHandler,projectileHandler);
         this.hp = 10;
-        move = new Vector2D(0, 0);
-        id = ID.Player;
+        maxHp=hp;
         width = (float)0.8;
         height = (float)0.8;
         movementRate = (float) 0.1;
         inventory = new Inventory(this);
-        hitbox=new Rectangle2D.Double(x,y,width,height);
-
-
-        movementhitbox=new Rectangle2D.Double(x,y+height,width,height/4);
 
         playerWalkLeft = new Animation(3, GameState.texture.sprite[8], GameState.texture.sprite[9], GameState.texture.sprite[10], GameState.texture.sprite[11], GameState.texture.sprite[12]);
         playerWalkRight = new Animation(3, GameState.texture.sprite[0], GameState.texture.sprite[1], GameState.texture.sprite[2], GameState.texture.sprite[3], GameState.texture.sprite[4]);
@@ -59,14 +53,6 @@ public class Player extends Creature {
         inventory.addItembyID("testWeapon");
         //---------------------------------------
     }
-
-    public void updateMovementhitbox(float xOffset, float yOffset){
-        movementhitbox.setRect(x+xOffset,y+height+yOffset,width,height/4);
-    }
-    public void normalizeMovementhitbox(){
-        movementhitbox.setRect(x,y+height,width,height/4);
-    }
-
     public Inventory getInventory(){
         return inventory;
     }
@@ -108,14 +94,7 @@ public class Player extends Creature {
     }
 
 
-    @Override
-    public void drawHitbox(Graphics g) {
-        g.setColor(Color.blue);
-        g.drawRect(getPixelPosition(x), getPixelPosition(y), getPixelPosition(width), getPixelPosition(height));
 
-        g.setColor(Color.lightGray);
-        g.drawRect(getPixelPosition(x),getPixelPosition(y+width),getPixelPosition(width),getPixelPosition(height/4));
-    }
 
 
 

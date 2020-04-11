@@ -26,7 +26,7 @@ public class CreatureHandler {
             Creature tempObject = creatures.get(i);
             tempObject.render(g);
             if (KeyboardInput.f3G){
-                tempObject.drawHitbox(g);
+                tempObject.renderHitbox(g);
             }
         }
     }

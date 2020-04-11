@@ -1,5 +1,4 @@
 package entities.projectile;
-
 import entities.ID;
 import entities.creatures.Creature;
 import Handler.ProjectileHandler;
@@ -10,55 +9,49 @@ import java.awt.geom.Rectangle2D;
 
 public class Plasmabolt extends Projectile {
 
-    public Plasmabolt(float x, float y, float aimX, float aimY, ProjectileHandler projectileHandler) {
-        super(x, y, projectileHandler);
+    public Plasmabolt(float x, float y, float aimX, float aimY,ProjectileHandler projectileHandler) {
+        super(x, y,projectileHandler);
         this.aimY = aimY;
         this.aimX = aimX;
-        isHit = new ID[]{ID.Greenslime};
-        width = (float) 6/16;
-        height = (float) 6/16;
-        hitbox = new Rectangle2D.Double(x, y, width, height);
-        projeticespeed = (float) 0.3;
-        baseDgm = 1;
-        move.set(aimX, aimY);
+        isHit= new ID[]{ID.GreenSlime};
+        width= (float) 0.1;
+        height= (float) 0.1;
+        hitbox=new Rectangle2D.Double(x,y,width,height);
+        projeticespeed = (float) 0.1;
+        baseDgm=1;
+        move.set(aimX,aimY);
         move.normalize();
     }
-
     @Override
     public void tick() {
-        speedX = (float) move.x * projeticespeed;
-        speedY = (float) move.y * projeticespeed;
-        x += speedX;
-        y += speedY;
+        speedX= (float) move.x*projeticespeed;
+        speedY = (float) move.y*projeticespeed;
+        x+=speedX;
+        y+=speedY;
         collision();
     }
-
     @Override
     public void render(Graphics g) {
         g.drawImage(Game.texture.sprite[18], (int) (getPixelPosition(x)-5*Game.SCALE), (int) (getPixelPosition(y)-5*Game.SCALE), Game.UNIT_SCALE, Game.UNIT_SCALE, null);
     }
 
-    @Override
-    public void drawHitbox(Graphics g) {
-        g.setColor(Color.red);
-        g.drawRect(getPixelPosition(x), getPixelPosition(y), getPixelPosition(width), getPixelPosition(height));
-    }
+
 
     public void collision() {
         //NoOffset---------------------------------------------------
         normalizeHitbox();
-        if (speedX > speedY) {
+        if(speedX>speedY){
             removeifSolid(speedX, 0);
-        } else {
+        }else {
             removeifSolid(0, speedY);
         }
-        Creature[] creatures = checkCollision_forAll(isHit);
-        for (Creature k : creatures) {
-            if (k != null) {
+        Creature[] creatures=checkCollision_forAll(isHit);
+            for (Creature k :creatures) {
+                if(k!=null){
                 k.hitbyProjectile(this);
                 projectileHandler.removeObject(this);
-            }
+                }
 
-        }
+            }
     }
 }
