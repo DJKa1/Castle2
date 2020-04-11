@@ -4,6 +4,8 @@ import entities.ID;
 import entities.Vector2D;
 import Handler.ProjectileHandler;
 
+import java.awt.*;
+
 public abstract class Projectile extends Entity {
     protected float aimX,aimY;
     protected float projeticespeed;
@@ -53,6 +55,11 @@ public abstract class Projectile extends Entity {
         if (collisionWithTiles(getTilesinDirection(ox, oy,hitbox),hitbox) != null) {
             projectileHandler.removeObject(this);
         }
+    }
+
+    public void renderHitbox(Graphics g){
+        g.setColor(Color.blue);
+        g.drawRect(getPixelPosition(x), getPixelPosition(y), getPixelPosition(width), getPixelPosition(height));
     }
 
 
