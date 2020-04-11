@@ -47,7 +47,7 @@ public class Player extends Creature {
 
         //Test------------------------------------
         inventory.addItembyID("testWeapon");
-        inventory.addItembyID("testWeapon");
+        inventory.addItembyID("shotgun");
         inventory.addItembyID("testWeapon");
         inventory.addItembyID("testWeapon");
         inventory.addItembyID("testWeapon");
@@ -85,7 +85,7 @@ public class Player extends Creature {
 
 
         if (Math.toDegrees(dir.getAngle())<=90&&Math.toDegrees(dir.getAngle())>-90) {
-            g2d.drawImage(Game.texture.sprite[26],getPixelPosition(x)+64,getPixelPosition(y),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
+            g2d.drawImage(inventory.inventoryItems.get(inventory.getActiveSlot()).getImage(),getPixelPosition(x)+64,getPixelPosition(y),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
         } else {
             g2d.drawImage(Game.texture.sprite[27],getPixelPosition(x)+64,getPixelPosition(y),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
         }

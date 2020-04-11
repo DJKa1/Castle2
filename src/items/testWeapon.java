@@ -13,8 +13,13 @@ public class testWeapon extends Weapons {
 
     public testWeapon(Inventory inventory) {
         super(inventory);
-        image= Texture.sprite[1];
+        image= Texture.sprite[26];
         user=inventory.getOwner();
+
+    }
+
+    @Override
+    public void tick() {
 
     }
 
@@ -30,9 +35,5 @@ public class testWeapon extends Weapons {
         }
     }
 
-    @Override
-    public void tick() {
-
-    }
 
 }

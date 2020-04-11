@@ -14,10 +14,10 @@ public class Plasmabolt extends Projectile {
         this.aimY = aimY;
         this.aimX = aimX;
         isHit= new ID[]{ID.GreenSlime};
-        width= (float) 0.1;
-        height= (float) 0.1;
+        width= (float) 6/16;
+        height= (float) 6/16;
         hitbox=new Rectangle2D.Double(x,y,width,height);
-        projeticespeed = (float) 0.1;
+        projeticespeed = (float) 0.01;
         baseDgm=1;
         move.set(aimX,aimY);
         move.normalize();

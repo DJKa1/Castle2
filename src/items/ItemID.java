@@ -1,7 +1,9 @@
 package items;
 
 public enum ItemID {
-    testWeapon;
+    testWeapon,
+    Shotgun;
+
 
 
     public static boolean containsElement(String eingabe) {

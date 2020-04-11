@@ -1,6 +1,7 @@
 package Inventory;
 import entities.creatures.Player;
 import items.Item;
+import items.Shotgun;
 import items.testWeapon;
 import main_pack.MouseInput;
 
@@ -52,12 +53,6 @@ public class Inventory {
 
     public void render(Graphics g) {
 
-            for (int i = 0; i < inventoryItems.size(); i++) {
-                if(first<=i&&i<=last) {
-                    Item tempItem = inventoryItems.get(i);
-                    g.drawImage(tempItem.getImage(), xpos, ypos + ((i - first) * slotheight), null);
-                }
-            }
             //--------------------------
             for (int i=0;i<last-first;i++){
                 g.setColor(Color.BLACK);
@@ -72,7 +67,8 @@ public class Inventory {
         Item item=null;
         switch (id){
             default:return;
-            case "testWeapon": item=new testWeapon(this);
+            case "testWeapon": item=new testWeapon(this);break;
+            case "shotgun": item=new Shotgun(this);break;
 
         }
         addItem(item);

@@ -14,7 +14,7 @@ public class Hotbar {
         for(int i =0;i<lenght;i++){
             if(i<inventory.inventoryItems.size()) {
                 Item tempItem = inventory.getItem(i);
-                g.drawImage(tempItem.getImage(),px+i*(slotWidth), py,null);
+                g.drawImage(tempItem.getImage(),px+i*(slotWidth), py,slotWidth,slotHeight,null);
             }
             g.setColor(borderColor);
             g.drawRect(px+i*(slotWidth-1),py,slotWidth,slotHeight);
