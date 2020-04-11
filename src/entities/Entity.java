@@ -1,5 +1,6 @@
 package entities;
 
+import ID_Lists.ID;
 import Maps.Map;
 import States.GameState;
 import Tiles.Tile;

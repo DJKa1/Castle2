@@ -1,5 +1,5 @@
 package entities.projectile;
-import entities.ID;
+import ID_Lists.ID;
 import entities.creatures.Creature;
 import Handler.ProjectileHandler;
 import main_pack.Game;

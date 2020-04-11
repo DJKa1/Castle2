@@ -4,7 +4,7 @@ import Handler.CreatureHandler;
 import Handler.ProjectileHandler;
 import Maps.Map;
 import graphics.Texture;
-import entities.ID;
+import ID_Lists.ID;
 import entities.creatures.Camera;
 import entities.creatures.Creature;
 import entities.creatures.GreenSlime;

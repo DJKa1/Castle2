@@ -1,8 +1,11 @@
 package main_pack;
+import ID_Lists.BuffID;
+import com.sun.jdi.IntegerValue;
 import entities.creatures.GreenSlime;
 import entities.creatures.Player;
-import items.ItemID;
+import ID_Lists.ItemID;
 
+import javax.print.DocFlavor;
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -147,6 +150,8 @@ public class GameConsole {
         }
         send();
     }
+
+
     public void clear(){
         setInput(String.valueOf(player.getInventory().getItemCount())+ " Items cleared");
         player.getInventory().clearInventory();
@@ -157,7 +162,7 @@ public class GameConsole {
         try {
             switch (id){
                 default:setInput("No valid MobID");
-                case "greenslime": game.getCreatureHandler().addObject(new GreenSlime(Float.valueOf(xpos),Float.valueOf(ypos),game.getCreatureHandler(),game.getProjectileHandler()));break;
+                case "GreenSlime": game.getCreatureHandler().addObject(new GreenSlime(Float.valueOf(xpos),Float.valueOf(ypos),game.getCreatureHandler(),game.getProjectileHandler()));break;
 
             }
         }catch (IllegalArgumentException e){
@@ -169,5 +174,17 @@ public class GameConsole {
         System.out.println(msg);
     }
 
-
+    public void giveEffect(String id ,String sec, String lvl){
+        try {
+            if (BuffID.containsElement(id)) {
+                player.addBuffbyID(id, Integer.valueOf(sec) * 60, Integer.valueOf(lvl));
+                setInput(String.format("%s Effect active for %d seconds at strength %d", id, Integer.valueOf(sec), Integer.valueOf(lvl)));
+            } else {
+                setInput("No Valid Effect Id");
+            }
+        }catch (Exception e){
+            setInput("Arguments must be String int int ");
+        }
+        send();
+    }
 }

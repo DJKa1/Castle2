@@ -1,9 +1,9 @@
 package entities.creatures;
+import Buffs.Poison;
 import Handler.CreatureHandler;
 import Handler.ProjectileHandler;
 import Inventory.Inventory;
 import States.GameState;
-import entities.ID;
 import entities.Vector2D;
 import graphics.Animation;
 import items.Item;

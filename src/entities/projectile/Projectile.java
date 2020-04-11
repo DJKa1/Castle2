@@ -1,6 +1,6 @@
 package entities.projectile;
 import entities.Entity;
-import entities.ID;
+import ID_Lists.ID;
 import entities.Vector2D;
 import Handler.ProjectileHandler;
 

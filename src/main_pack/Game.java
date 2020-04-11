@@ -21,6 +21,7 @@ public class Game implements Runnable {
     public final static double SCALE = 8;
     public final static int UNITDIMENSION = 16;
     public final static int UNIT_SCALE = 128;
+    public final static int TICKRATE=60;
     private Player player;
     private ProjectileHandler projectileHandler;
     private Thread thread;
@@ -179,7 +180,7 @@ public class Game implements Runnable {
     public void run() {
         init();
         long lastTime = System.nanoTime();
-        double amountOfTicks = 60.0;
+        double amountOfTicks = TICKRATE;
         double ns = 1000000000 / amountOfTicks;
         double delta = 0;
         long timer = System.currentTimeMillis();

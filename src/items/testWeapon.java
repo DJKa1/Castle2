@@ -1,28 +1,15 @@
 package items;
 import Inventory.Inventory;
 import graphics.Texture;
-import entities.creatures.Creature;
 import entities.projectile.Plasmabolt;
 import main_pack.MouseInput;
 
 public class testWeapon extends Weapons {
-    protected Creature user;
-
-    private int delay = 0;
-
-
     public testWeapon(Inventory inventory) {
         super(inventory);
         image= Texture.sprite[26];
-        user=inventory.getOwner();
-
+        cooldown=10;
     }
-
-    @Override
-    public void tick() {
-
-    }
-
     @Override
     public void use() {
         if (delay==0) {
@@ -34,6 +21,4 @@ public class testWeapon extends Weapons {
             delay = 0;
         }
     }
-
-
 }

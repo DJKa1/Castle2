@@ -12,25 +12,11 @@ import static main_pack.MouseInput.mouseX;
 import static main_pack.MouseInput.mouseY;
 
 public class Shotgun extends Weapons {
-    protected Creature user;
-
-    private int delay = 0;
-
-
     public Shotgun(Inventory inventory) {
         super(inventory);
         image = Texture.sprite[25];
         user = inventory.getOwner();
-
-    }
-
-    @Override
-    public void tick() {
-        if (delay < 60 && delay != 0) {
-            delay++;
-        } else {
-            delay = 0;
-        }
+        cooldown=60;
     }
 
     @Override

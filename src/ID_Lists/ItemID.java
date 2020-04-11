@@ -1,4 +1,4 @@
-package items;
+package ID_Lists;
 
 public enum ItemID {
     testWeapon,

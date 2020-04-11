@@ -1,6 +1,7 @@
 package entities.creatures;
+import Buffs.Poison;
 import States.GameState;
-import entities.ID;
+import ID_Lists.ID;
 import Handler.CreatureHandler;
 import main_pack.Game;
 import Handler.ProjectileHandler;
@@ -10,7 +11,6 @@ import java.awt.geom.Rectangle2D;
 public class GreenSlime extends Creature {
     public GreenSlime(float x, float y, CreatureHandler creatureHandler, ProjectileHandler projectileHandler) {
         super(x, y,creatureHandler,projectileHandler);
-
         width= 1;
         height=1;
         baseDmg=1;
@@ -21,12 +21,16 @@ public class GreenSlime extends Creature {
         movementRate= (float) 0.05;
         normalizeHitbox();
         normalizeMovementhitbox();
+
+        //test--------------------------------
+        //--------------------------------------
     }
     @Override
     public void tick() {
         removeifdead();
         updateTargetingArea();
         updateHitbox(0,0);
+        tickActiveBuffs();
 
         if(currentTarget==null){
             currentTarget=searchTarget();

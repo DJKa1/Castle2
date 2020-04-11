@@ -1,6 +1,8 @@
 package entities.creatures;
+import Buffs.Buff;
+import Buffs.Poison;
 import entities.Entity;
-import entities.ID;
+import ID_Lists.ID;
 import entities.projectile.Projectile;
 import Handler.CreatureHandler;
 import main_pack.Game;
@@ -9,6 +11,7 @@ import Handler.ProjectileHandler;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import java.util.LinkedList;
 
 public abstract class Creature extends Entity {
     protected float hp;
@@ -18,6 +21,7 @@ public abstract class Creature extends Entity {
     protected float baseDmg;
     protected CreatureHandler creatureHandler;
     protected ProjectileHandler projectileHandler;
+    protected LinkedList<Buff> activeBuffs;
 
     //Tageting-------------------
     protected Ellipse2D targetingArea;
@@ -40,12 +44,21 @@ public abstract class Creature extends Entity {
         hitable=new ID []{};
         movementhitbox=new Rectangle2D.Double();
         targetingArea=new Ellipse2D.Double();
+        activeBuffs=new LinkedList<>();
     }
 
     //Getter && Update------------------
     public ProjectileHandler getProjectileHandler() {
         return projectileHandler;
     }
+    public float getHp() {
+        return hp;
+    }
+
+    public float getMaxHp() {
+        return maxHp;
+    }
+
     public void updateMovementhitbox(float xOffset, float yOffset){
         movementhitbox.setRect(x+xOffset,y+height+yOffset,width,height/4);
     }
@@ -104,9 +117,33 @@ public abstract class Creature extends Entity {
     public void hitbyProjectile(Projectile p){
         hp-=p.caculateDmg();
     }
+    public void hitbyEffect(double v){
+        hp-=v;
+    }
     public void removeifdead(){
         if(hp<=0){
             creatureHandler.removeObject(this);
+        }
+    }
+
+
+    //EffectManagment---------------------
+    public void addBuff(Buff buff) {
+        this.activeBuffs.add(buff);
+    }
+    public void removeBuff(Buff buff) {
+        this.activeBuffs.remove(buff);
+    }
+
+    public void addBuffbyID(String id, int duration ,int lvl){
+        switch (id){
+            default:return;
+            case "Poison":addBuff(new Poison(this,duration,lvl));break;
+        }
+    }
+    public void tickActiveBuffs(){
+        for (int i = 0; i < activeBuffs.size(); i++) {
+            activeBuffs.get(i).tick();
         }
     }
 }
