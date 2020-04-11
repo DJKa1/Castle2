@@ -30,4 +30,9 @@ public class testWeapon extends Weapons {
         }
     }
 
+    @Override
+    public void tick() {
+
+    }
+
 }

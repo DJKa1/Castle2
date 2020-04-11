@@ -29,4 +29,6 @@ public abstract class Item {
     }
 
     public abstract void use();
+
+    public abstract void tick();
 }
