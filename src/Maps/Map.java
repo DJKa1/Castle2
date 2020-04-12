@@ -27,8 +27,8 @@ public class Map {
 
     }
 
-    public Tile getTilebyCords(int x, int y) {
-        return Tiles[x][y][1];
+    public Tile getTilebyCords(int x, int y,int layer) {
+        return Tiles[x][y][layer];
     }
 
     public void tick() {

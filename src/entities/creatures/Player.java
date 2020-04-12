@@ -48,9 +48,6 @@ public class Player extends Creature {
         //Test------------------------------------
         inventory.addItembyID("testWeapon");
         inventory.addItembyID("shotgun");
-        inventory.addItembyID("testWeapon");
-        inventory.addItembyID("testWeapon");
-        inventory.addItembyID("testWeapon");
         //---------------------------------------
     }
     public Inventory getInventory(){
