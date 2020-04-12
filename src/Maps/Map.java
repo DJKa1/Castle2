@@ -53,13 +53,15 @@ public class Map {
     }
 
     public void renderHitbox(Graphics g){
-        for (int y = 0; y < MapHeight; y++) {
-            for (int x = 0; x < MapWidth; x++) {
-                if (Tiles[x][y][1] != null) {
-                    Rectangle2D temp = Tiles[x][y][1].getHitbox();
-                    if (temp != null) {
-                        g.setColor(Color.pink);
-                        g.drawRect((int) (temp.getX() * Game.UNIT_SCALE), (int) (temp.getY() * Game.UNIT_SCALE), (int) (temp.getWidth() * Game.UNIT_SCALE), (int) (temp.getHeight() * Game.UNIT_SCALE));
+        for (int layer = 0; layer<3;layer++) {
+            for (int y = 0; y < MapHeight; y++) {
+                for (int x = 0; x < MapWidth; x++) {
+                    if (Tiles[x][y][layer] != null) {
+                        Rectangle2D temp = Tiles[x][y][layer].getHitbox();
+                        if (temp != null) {
+                            g.setColor(Color.pink);
+                            g.drawRect((int) (temp.getX() * Game.UNIT_SCALE), (int) (temp.getY() * Game.UNIT_SCALE), (int) (temp.getWidth() * Game.UNIT_SCALE), (int) (temp.getHeight() * Game.UNIT_SCALE));
+                        }
                     }
                 }
             }
