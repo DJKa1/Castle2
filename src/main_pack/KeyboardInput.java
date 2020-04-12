@@ -3,6 +3,8 @@ package main_pack;
 import States.*;
 import entities.creatures.Player;
 
+
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -14,6 +16,9 @@ public class KeyboardInput implements KeyListener {
     private Game game;
     private GameConsole gameConsole;
     private Player player;
+
+    public static boolean Keyboard = true;
+    public static float AxiesLX,AxiesLY;
 
 
     public KeyboardInput(Game game) {
@@ -39,6 +44,11 @@ public class KeyboardInput implements KeyListener {
         g = keys[KeyEvent.VK_G];
         enter = keys[KeyEvent.VK_ENTER];
 
+        if (Keyboard) {
+            AxiesLX = boolToInt(KeyboardInput.right) - boolToInt(KeyboardInput.left);
+            AxiesLY = boolToInt(KeyboardInput.down) - boolToInt(KeyboardInput.up);
+        }
+
         //KeySwitch----------------------------------
         f3_s = keySwitch[KeyEvent.VK_F3];
         t_s = keySwitch[KeyEvent.VK_T];
@@ -47,8 +57,6 @@ public class KeyboardInput implements KeyListener {
 
         //KeyF3--------------------------------------
         f3G = keyF3[KeyEvent.VK_G];
-
-
     }
 
     @Override
@@ -157,5 +165,16 @@ public class KeyboardInput implements KeyListener {
         if (e.getKeyCode() <= 256) {
             keys[e.getKeyCode()] = false;
         }
+    }
+
+    private int boolToInt(boolean b) {
+        return b ? 1 : 0;
+    }
+    private float deadzone(float data,float deadzone) {
+        float temp = Math.abs(data);
+        if(temp>deadzone) {
+            return data;
+        }
+        return 0;
     }
 }

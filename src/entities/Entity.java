@@ -77,9 +77,7 @@ public abstract class Entity {
     public void setHeight(float height) {
         this.height = height;
     }
-    public int boolToInt(boolean b) {
-        return b ? 1 : 0;
-    }
+
 
     public Point2D getCenter(){
         return new Point.Double(x+width/2,y+height/2);

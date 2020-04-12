@@ -8,8 +8,10 @@ import entities.creatures.Camera;
 import entities.creatures.Player;
 import graphics.Texture;
 import graphics.Window;
-import net.java.games.input.Controller;
-import net.java.games.input.ControllerEnvironment;
+import org.lwjgl.LWJGLException;
+import org.lwjgl.Sys;
+import org.lwjgl.input.Controller;
+import org.lwjgl.input.Controllers;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -21,7 +23,7 @@ public class Game implements Runnable {
     public final static double SCALE = 8;
     public final static int UNITDIMENSION = 16;
     public final static int UNIT_SCALE = 128;
-    public final static int TICKRATE=60;
+    public final static int TICKRATE = 60;
     private Player player;
     private ProjectileHandler projectileHandler;
     private Thread thread;
@@ -29,7 +31,7 @@ public class Game implements Runnable {
     private boolean running = false;
     private String title = "Castle";
     private int width, height;
-    public static State gameState, menuState, optionState, consoleState,invenstoryState;
+    public static State gameState, menuState, optionState, consoleState, invenstoryState;
     private BufferStrategy bs;
     private Graphics g;
     private Window window;
@@ -40,11 +42,10 @@ public class Game implements Runnable {
     private Menu menu;
 
     private MouseInput mouseInput;
+    private static ControllerInput controllerInput;
 
     private Camera camera;
     private Map map;
-
-    public static Controller[] controllers;
 
 
     public Game(int width, int height) {
@@ -57,15 +58,20 @@ public class Game implements Runnable {
     //Init
 
     public void init() {
-        //test
-
-        Controller[] controllers = ControllerEnvironment.getDefaultEnvironment().getControllers();
-        for (int i  = 0;i<controllers.length;i++) {
-            if (controllers[i].getName()=="Wireless Controller") {
-
+        //Controller
+        try {
+            Controllers.create();
+        } catch (LWJGLException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < Controllers.getControllerCount(); i++) {
+            Controller tempController = Controllers.getController(i);
+            if (tempController.getName().equalsIgnoreCase("Wireless Controller")) {
+                System.out.println("Controller found");
+                KeyboardInput.Keyboard = false;
+                controllerInput = new ControllerInput(this, tempController);
             }
         }
-
 
         texture = new Texture();
         camera = new Camera(0, 0);
@@ -75,8 +81,8 @@ public class Game implements Runnable {
         creatureHandler = new CreatureHandler();
 
         player = new Player(1, 3, projectileHandler, creatureHandler);
-        camera.setX(-player.getPixelPosition(player.getX())+ Launcher.WIDTH/2 - (int)(UNIT_SCALE)/2);
-        camera.setY(-player.getPixelPosition(player.getY())+ Launcher.HEIGHT/2 - (int)(UNIT_SCALE)/2);
+        camera.setX(-player.getPixelPosition(player.getX()) + Launcher.WIDTH / 2 - (int) (UNIT_SCALE) / 2);
+        camera.setY(-player.getPixelPosition(player.getY()) + Launcher.HEIGHT / 2 - (int) (UNIT_SCALE) / 2);
 
         //MapLoad----------------------------------------------------------------
         map = new Map("FirstLevel");
@@ -89,14 +95,14 @@ public class Game implements Runnable {
         gameState = new GameState(this);
         consoleState = new ConsoleState(this);
         menuState = new MenuState(this);
-        invenstoryState=new  InventoryState(this);
+        invenstoryState = new InventoryState(this);
         State.setState(gameState);
 
         //Input
         keyboardInput = new KeyboardInput(this);
         mouseInput = new MouseInput(this);
 
-        window = new Window(title,width,height,this);
+        window = new Window(title, width, height, this);
         window.fullscreen();
         window.getCanvas().addMouseListener(mouseInput);
         window.getCanvas().addMouseMotionListener(mouseInput);
@@ -138,9 +144,14 @@ public class Game implements Runnable {
         return mouseInput;
     }
 
+    public ControllerInput getControllerInput() {
+        return controllerInput;
+    }
+
     public GameConsole getGameConsole() {
         return gameConsole;
     }
+
     public Menu getMenu() {
         return menu;
     }
@@ -219,8 +230,9 @@ public class Game implements Runnable {
             State.getState().tick();
         }
         keyboardInput.tick();
-
-
+        if (controllerInput != null && !KeyboardInput.Keyboard) {
+            controllerInput.tick();
+        }
     }
 
     private void render() {

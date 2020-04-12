@@ -1,5 +1,4 @@
 package entities.creatures;
-import Buffs.Poison;
 import Handler.CreatureHandler;
 import Handler.ProjectileHandler;
 import Inventory.Inventory;
@@ -63,12 +62,19 @@ public class Player extends Creature {
         movement();
         inventory.tick();
         //------------------------------------------------------
-        if (MouseInput.leftPressed) {
-            Item item= inventory.getItem(inventory.getActiveSlot());
+        Item item= inventory.getItem(inventory.getActiveSlot());
+        if(KeyboardInput.Keyboard) {
+            if (MouseInput.leftPressed) {
+                if(item!=null){
+                    item.use();
+                }
+            }
+        }else if(ControllerInput.R1isPressed()) {
             if(item!=null){
                 item.use();
             }
         }
+
     }
 
     @Override
@@ -101,8 +107,8 @@ public class Player extends Creature {
 
     private void movement() {
 
-        move.x = boolToInt(KeyboardInput.right) - boolToInt(KeyboardInput.left);
-        move.y = boolToInt(KeyboardInput.down) - boolToInt(KeyboardInput.up);
+        move.x = KeyboardInput.AxiesLX;
+        move.y = KeyboardInput.AxiesLY;
 
         playAnimation(move.x, move.y);
 

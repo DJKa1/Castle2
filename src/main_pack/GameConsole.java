@@ -51,6 +51,13 @@ public class GameConsole {
     public void clearInput() {
         input.delete(0,input.length());
     }
+    public void outputToLog(String msg) {
+        for (int i =0; i<chatlog.length-1;i++){
+            int l =chatlog.length-1;
+            chatlog[l-i]=chatlog[l-1-i];
+        }
+        chatlog[0]= msg;
+    }
     public void send()  {
         String currentInput=input.toString();
         input.delete(0,input.length());

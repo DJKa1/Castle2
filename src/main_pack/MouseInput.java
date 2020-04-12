@@ -3,7 +3,7 @@ package main_pack;
 
 
 import States.MenuState;
-import States.State;
+
 
 import java.awt.event.*;
 
@@ -54,8 +54,10 @@ public class MouseInput implements MouseListener, MouseMotionListener , MouseWhe
 
     @Override
     public void mouseDragged(MouseEvent mouseEvent) {
-        mouseX=mouseEvent.getX()-Launcher.WIDTH/2;
-        mouseY=mouseEvent.getY()-Launcher.HEIGHT/2;
+        if (KeyboardInput.Keyboard) {
+            mouseX=mouseEvent.getX()-Launcher.WIDTH/2;
+            mouseY=mouseEvent.getY()-Launcher.HEIGHT/2;
+        }
 
         //System.out.println(mouseX+"  "+mouseY);
 
@@ -63,8 +65,10 @@ public class MouseInput implements MouseListener, MouseMotionListener , MouseWhe
 
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
-        mouseX=mouseEvent.getX()-Launcher.WIDTH/2;
-        mouseY=mouseEvent.getY()-Launcher.HEIGHT/2;
+        if (KeyboardInput.Keyboard) {
+            mouseX=mouseEvent.getX()-Launcher.WIDTH/2;
+            mouseY=mouseEvent.getY()-Launcher.HEIGHT/2;
+        }
     }
 
     @Override
