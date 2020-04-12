@@ -16,7 +16,7 @@ public class Poison extends Buff{
         init();
     }
 
-    public void init(){
+    private void init(){
         drainrate=(double)lvl/ Game.TICKRATE;
         tickdmg=(owner.getMaxHp()/100)*drainrate;
     }

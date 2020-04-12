@@ -1,9 +1,8 @@
 package ID_Lists;
 
-import Buffs.Buff;
-
 public enum BuffID {
-    Poison;
+    Poison,
+    iced;
 
     public static boolean containsElement(String eingabe) {
         for (BuffID t : BuffID.values()) {

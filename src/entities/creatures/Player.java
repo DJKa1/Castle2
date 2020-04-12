@@ -1,4 +1,5 @@
 package entities.creatures;
+import Buffs.Poison;
 import Handler.CreatureHandler;
 import Handler.ProjectileHandler;
 import Inventory.Inventory;
@@ -74,7 +75,6 @@ public class Player extends Creature {
                 item.use();
             }
         }
-
     }
 
     @Override

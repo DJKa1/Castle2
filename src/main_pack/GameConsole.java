@@ -25,7 +25,8 @@ public class GameConsole {
     private Player player;
 
     public GameConsole(Game game){
-        this.game=game;
+
+
         keyboardInput=game.getKeyboardInput();
         vallidMethods=this.getClass().getDeclaredMethods();
         input=new StringBuilder();

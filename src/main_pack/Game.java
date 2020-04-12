@@ -62,7 +62,6 @@ public class Game implements Runnable {
         try {
             Controllers.create();
         } catch (LWJGLException e) {
-            //e.printStackTrace();
         }
         for (int i = 0; i < Controllers.getControllerCount(); i++) {
             Controller tempController = Controllers.getController(i);

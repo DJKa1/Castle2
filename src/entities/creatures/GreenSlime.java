@@ -1,5 +1,4 @@
 package entities.creatures;
-import Buffs.Poison;
 import States.GameState;
 import ID_Lists.ID;
 import Handler.CreatureHandler;
@@ -23,6 +22,7 @@ public class GreenSlime extends Creature {
         normalizeMovementhitbox();
 
         //test--------------------------------
+
         //--------------------------------------
     }
     @Override

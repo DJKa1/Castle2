@@ -29,12 +29,14 @@ public abstract class Buff {
 
     public abstract void tick();
 
-    public void reduceDuration(){
+    public boolean reduceDuration(){
         if (duration<=0){
-            //remove
+           owner.removeBuff(this);
+           return true;
         }
         else {
             duration--;
+            return false;
         }
     }
 

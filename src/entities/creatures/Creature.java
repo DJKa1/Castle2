@@ -1,6 +1,7 @@
 package entities.creatures;
 import Buffs.Buff;
 import Buffs.Poison;
+import Buffs.iced;
 import entities.Entity;
 import ID_Lists.ID;
 import entities.projectile.Projectile;
@@ -11,6 +12,7 @@ import Handler.ProjectileHandler;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.RGBImageFilter;
 import java.util.LinkedList;
 
 public abstract class Creature extends Entity {
@@ -22,6 +24,7 @@ public abstract class Creature extends Entity {
     protected CreatureHandler creatureHandler;
     protected ProjectileHandler projectileHandler;
     protected LinkedList<Buff> activeBuffs;
+    protected RGBImageFilter colorMask;
 
     //Tageting-------------------
     protected Ellipse2D targetingArea;
@@ -57,6 +60,12 @@ public abstract class Creature extends Entity {
 
     public float getMaxHp() {
         return maxHp;
+    }
+
+    public float getMovementRate() {return movementRate; }
+
+    public void setMovementRate(float movementRate) {
+        this.movementRate = movementRate;
     }
 
     public void updateMovementhitbox(float xOffset, float yOffset){
@@ -139,6 +148,7 @@ public abstract class Creature extends Entity {
         switch (id){
             default:return;
             case "Poison":addBuff(new Poison(this,duration,lvl));break;
+            case "iced":addBuff(new iced(this,duration,lvl));
         }
     }
     public void tickActiveBuffs(){
