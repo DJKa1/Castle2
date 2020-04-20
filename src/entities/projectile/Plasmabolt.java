@@ -1,7 +1,5 @@
 package entities.projectile;
-
 import Handler.Effectshandler;
-import ID_Lists.ID;
 import entities.Knockback;
 import Handler.ProjectileHandler;
 import main_pack.Game;

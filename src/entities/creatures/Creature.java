@@ -12,8 +12,6 @@ import entities.projectile.Projectile;
 import Handler.CreatureHandler;
 import main_pack.Game;
 import Handler.ProjectileHandler;
-import main_pack.KeyboardInput;
-
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;

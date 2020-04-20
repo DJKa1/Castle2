@@ -6,7 +6,6 @@ import ID_Lists.ProjectileID;
 import Inventory.Inventory;
 import States.GameState;
 import entities.Vector2D;
-import entities.projectile.Projectile;
 import graphics.Animation;
 import items.Item;
 import main_pack.*;
@@ -25,7 +24,7 @@ public class Player extends Creature {
 
     public Player(float x, float y, ProjectileHandler projectileHandler, CreatureHandler creatureHandler, Effectshandler effectshandler) {
         super(x, y,creatureHandler,projectileHandler, effectshandler);
-        this.hp = 10;
+        this.hp = 600;
         maxHp=hp;
         manaCount=1000;
         width = (float)0.8;
@@ -145,8 +144,6 @@ public class Player extends Creature {
             animationIndex = 0;
         }
     }
-
-
 }
 
 
