@@ -1,5 +1,6 @@
 package entities.projectile;
 import ID_Lists.ID;
+import entities.Knockback;
 import entities.creatures.Creature;
 import Handler.ProjectileHandler;
 import main_pack.Game;
@@ -21,6 +22,7 @@ public class Plasmabolt extends Projectile {
         baseDgm=1;
         move.set(aimX,aimY);
         move.normalize();
+        knockback=new Knockback(move,30);
     }
     @Override
     public void tick() {
@@ -45,6 +47,7 @@ public class Plasmabolt extends Projectile {
             for (Creature k :creatures) {
                 if(k!=null){
                 k.hitbyProjectile(this);
+                k.setCurrentKnockback(knockback);
                 projectileHandler.removeObject(this);
                 }
 

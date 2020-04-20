@@ -154,7 +154,7 @@ public abstract class Creature extends Entity {
             creatureHandler.removeObject(this);
         }
     }
-    public void getMovementFromKB(){
+    public void getMovementFromKnockBack(){
         move.x=currentKnockback.move.x;
         move.y=currentKnockback.move.y;
         currentKnockback.tick();
@@ -186,7 +186,7 @@ public abstract class Creature extends Entity {
     }
 
     //Movement && Collision-------------------------
-    public void movement() {
+    protected void movement() {
         updateMovement();
         speedX = (float) (move.x * movementRate);
         speedY = (float) (move.y * movementRate);
@@ -201,8 +201,12 @@ public abstract class Creature extends Entity {
     }
 
     protected void updateMovement(){
-        move.x=0;
-        move.y=0;
+        if(currentKnockback==null){
+            move.x=0;
+            move.y=0;
+        }else {
+            getMovementFromKnockBack();
+        }
         move.normalize();
     }
 

@@ -28,14 +28,10 @@ public class GreenSlime extends Creature {
         updateHitbox(0,0);
         tickActiveBuffs();
 
-        if(currentTarget==null){
-            currentTarget=searchTarget();
-        }else {
-            movement();
-
+        if(currentTarget==null) {
+            currentTarget = searchTarget();
         }
-
-
+        movement();
     }
 
     @Override
@@ -46,9 +42,18 @@ public class GreenSlime extends Creature {
 
     @Override
     protected void updateMovement(){
-        move.x=currentTarget.getX()-x;
-        move.y=currentTarget.getY()-y;
+        if(currentKnockback==null){
+            if(currentTarget!=null){
+                move.x=currentTarget.getX()-x;
+                move.y=currentTarget.getY()-y;
+            }else {
+                move.x=0;
+                move.y=0;
+            }
+        }
+        else {
+            getMovementFromKnockBack();
+        }
         move.normalize();
-
     }
 }

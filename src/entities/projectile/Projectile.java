@@ -1,6 +1,7 @@
 package entities.projectile;
 import entities.Entity;
 import ID_Lists.ID;
+import entities.Knockback;
 import entities.Vector2D;
 import Handler.ProjectileHandler;
 import java.awt.*;
@@ -11,6 +12,7 @@ public abstract class Projectile extends Entity {
     protected ProjectileHandler projectileHandler;
     protected ID[] isHit;
     protected float baseDgm;
+    protected Knockback knockback;
 
     public float getBaseDgm() {
         return baseDgm;

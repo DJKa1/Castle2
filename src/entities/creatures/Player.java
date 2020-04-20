@@ -60,7 +60,6 @@ public class Player extends Creature {
         movement();
         inventory.tick();
 
-
         Item item= inventory.getItem(inventory.getActiveSlot());
         if(KeyboardInput.Keyboard) {
             if (MouseInput.leftPressed) {
@@ -98,8 +97,9 @@ public class Player extends Creature {
             move.x = KeyboardInput.AxiesLX;
             move.y = KeyboardInput.AxiesLY;
         }else {
-            getMovementFromKB();
+            getMovementFromKnockBack();
         }
+        move.normalize();
 
     }
 

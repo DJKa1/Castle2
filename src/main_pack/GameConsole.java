@@ -1,13 +1,10 @@
 package main_pack;
 import ID_Lists.BuffID;
-import com.sun.jdi.IntegerValue;
 import entities.Knockback;
 import entities.Vector2D;
 import entities.creatures.GreenSlime;
 import entities.creatures.Player;
 import ID_Lists.ItemID;
-
-import javax.print.DocFlavor;
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -199,7 +196,7 @@ public class GameConsole {
     }
 
     public void giveKnockback(String vx ,String vy , String t){
-        player.setCurrentKnockback(new Knockback(new Vector2D(Float.valueOf(vx),Float.valueOf(vy)),Integer.valueOf(t)));
+        player.setCurrentKnockback(new Knockback(new Vector2D(Float.valueOf(vx),Float.valueOf(vy)),Integer.valueOf(t)*60));
 
     }
 

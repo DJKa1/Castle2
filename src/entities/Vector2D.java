@@ -72,9 +72,11 @@ public class Vector2D {
     }
 
     public void normalize() {
-        double magnitude = getLength();
-        x /= magnitude;
-        y /= magnitude;
+        if (x==0&& y==0) { }else {
+            double magnitude = getLength();
+            x /= magnitude;
+            y /= magnitude;
+        }
     }
 
     public Vector2D getNormalized() {
