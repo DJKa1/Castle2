@@ -1,5 +1,6 @@
 package entities.creatures;
 import Handler.CreatureHandler;
+import Handler.Effectshandler;
 import Handler.ProjectileHandler;
 import Inventory.Inventory;
 import States.GameState;
@@ -20,8 +21,8 @@ public class Player extends Creature {
     private Animation[] animation;
     private int animationIndex = 0;
 
-    public Player(float x, float y, ProjectileHandler projectileHandler, CreatureHandler creatureHandler) {
-        super(x, y,creatureHandler,projectileHandler);
+    public Player(float x, float y, ProjectileHandler projectileHandler, CreatureHandler creatureHandler, Effectshandler effectshandler) {
+        super(x, y,creatureHandler,projectileHandler, effectshandler);
         this.hp = 10;
         maxHp=hp;
         manaCount=1000;

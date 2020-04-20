@@ -1,6 +1,7 @@
 package main_pack;
 
 import Handler.CreatureHandler;
+import Handler.Effectshandler;
 import Handler.ProjectileHandler;
 import Maps.Map;
 import States.*;
@@ -33,10 +34,11 @@ public class Game implements Runnable {
     private int width, height;
     public static State gameState, menuState, optionState, consoleState, invenstoryState;
     private BufferStrategy bs;
-    private Graphics g;
+    public static Graphics g;
     private Window window;
     private KeyboardInput keyboardInput;
     private CreatureHandler creatureHandler;
+    private Effectshandler effectshandler;
 
     private GameConsole gameConsole;
     private Menu menu;
@@ -78,8 +80,9 @@ public class Game implements Runnable {
         //Handler
         projectileHandler = new ProjectileHandler();
         creatureHandler = new CreatureHandler();
+        effectshandler = new Effectshandler();
 
-        player = new Player(1, 3, projectileHandler, creatureHandler);
+        player = new Player(1, 3, projectileHandler, creatureHandler, effectshandler);
         camera.setX(-player.getPixelPosition(player.getX()) + Launcher.WIDTH / 2 - (int) (UNIT_SCALE) / 2);
         camera.setY(-player.getPixelPosition(player.getY()) + Launcher.HEIGHT / 2 - (int) (UNIT_SCALE) / 2);
 
@@ -129,6 +132,10 @@ public class Game implements Runnable {
 
     public CreatureHandler getCreatureHandler() {
         return creatureHandler;
+    }
+
+    public Effectshandler getEffectshandler() {
+        return effectshandler;
     }
 
     public Camera getCamera() {

@@ -1,4 +1,6 @@
 package entities.creatures;
+import Effects.Effect;
+import Handler.Effectshandler;
 import States.GameState;
 import ID_Lists.ID;
 import Handler.CreatureHandler;
@@ -8,8 +10,8 @@ import java.awt.*;
 
 
 public class GreenSlime extends Creature {
-    public GreenSlime(float x, float y, CreatureHandler creatureHandler, ProjectileHandler projectileHandler) {
-        super(x, y,creatureHandler,projectileHandler);
+    public GreenSlime(float x, float y, CreatureHandler creatureHandler, ProjectileHandler projectileHandler, Effectshandler effectshandler) {
+        super(x, y,creatureHandler,projectileHandler, effectshandler);
         width= 1;
         height=1;
         baseDmg=1;

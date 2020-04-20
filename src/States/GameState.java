@@ -1,6 +1,7 @@
 package States;
 
 import Handler.CreatureHandler;
+import Handler.Effectshandler;
 import Handler.ProjectileHandler;
 import Maps.Map;
 import graphics.Texture;
@@ -18,6 +19,7 @@ import java.awt.*;
 public class GameState extends State{
     private CreatureHandler creatureHandler;
     private ProjectileHandler projectileHandler;
+    private Effectshandler effectshandler;
     private Player player;
     private F3Infopanel f3Infopanel;
     //-----------------------------
@@ -45,6 +47,7 @@ public class GameState extends State{
     public void init(){
         map=game.getMap();
         projectileHandler=game.getProjectileHandler();
+        effectshandler = game.getEffectshandler();
         player= game.getPlayer();
         camera = game.getCamera();
         creatureHandler=game.getCreatureHandler();
@@ -52,12 +55,13 @@ public class GameState extends State{
         f3Infopanel=new F3Infopanel(this);
         //------------------------------------------------------------------
         creatureHandler.addObject(player);
-        creatureHandler.addObject(new GreenSlime(3,7,creatureHandler,projectileHandler));
+        creatureHandler.addObject(new GreenSlime(3,7,creatureHandler,projectileHandler,effectshandler));
     }
     @Override
     public void tick() {
         creatureHandler.tick();
         projectileHandler.tick();
+        effectshandler.tick();
         map.tick();
         f3Infopanel.tick();
         Creature tempPlayer=null;
@@ -83,6 +87,7 @@ public class GameState extends State{
         map.render(g);
         creatureHandler.render(g);
         projectileHandler.render(g);
+        effectshandler.render(g);
 
         gd2.translate(-camera.getX(), -camera.getY());
         //Cam end--------------------------------------------------------------

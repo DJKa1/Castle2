@@ -169,7 +169,7 @@ public class GameConsole {
     public void spawn(String id ,String xpos , String ypos){
         try {
             switch (id){
-                case "greenslime": game.getCreatureHandler().addObject(new GreenSlime(Float.parseFloat(xpos),Float.parseFloat(ypos),game.getCreatureHandler(),game.getProjectileHandler()));break;
+                case "greenslime": game.getCreatureHandler().addObject(new GreenSlime(Float.parseFloat(xpos),Float.parseFloat(ypos),game.getCreatureHandler(),game.getProjectileHandler(),game.getEffectshandler()));break;
                 default:setInput("No valid MobID");
             }
         }catch (IllegalArgumentException e){

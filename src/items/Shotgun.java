@@ -29,17 +29,17 @@ public class Shotgun extends ShootingWeapons {
     }
 
     private void fire(){
-        user.getProjectileHandler().addObject(new Shotgunbolt(user.getX() + 0.5f, user.getY() + 0.5f, mouseX, mouseY, user.getProjectileHandler()));
+        user.getProjectileHandler().addObject(new Shotgunbolt(user.getX() + 0.5f, user.getY() + 0.5f, mouseX, mouseY, user.getProjectileHandler(),user.getEffectshandler()));
         Vector2D s = new Vector2D(mouseX, mouseY);
         double angle = s.getAngle() - Math.toRadians(9);
         s.x = Math.cos(angle);
         s.y = Math.sin(angle);
-        user.getProjectileHandler().addObject(new Shotgunbolt(user.getX() + 0.5f, user.getY() + 0.5f, (float) s.x, (float) s.y, user.getProjectileHandler()));
+        user.getProjectileHandler().addObject(new Shotgunbolt(user.getX() + 0.5f, user.getY() + 0.5f, (float) s.x, (float) s.y, user.getProjectileHandler(),user.getEffectshandler()));
         s = new Vector2D(mouseX, mouseY);
         angle = s.getAngle() - Math.toRadians(-9);
         s.x = Math.cos(angle);
         s.y = Math.sin(angle);
-        user.getProjectileHandler().addObject(new Shotgunbolt(user.getX() + 0.5f, user.getY() + 0.5f, (float) s.x, (float) s.y, user.getProjectileHandler()));
+        user.getProjectileHandler().addObject(new Shotgunbolt(user.getX() + 0.5f, user.getY() + 0.5f, (float) s.x, (float) s.y, user.getProjectileHandler(),user.getEffectshandler()));
         remainingMunition--;
 
     }

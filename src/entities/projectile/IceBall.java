@@ -1,4 +1,5 @@
 package entities.projectile;
+import Handler.Effectshandler;
 import Handler.ProjectileHandler;
 import ID_Lists.ID;
 import entities.Vector2D;
@@ -8,8 +9,8 @@ import java.awt.geom.Rectangle2D;
 public class IceBall extends Projectile {
     private int splitAmount=8;
 
-    public IceBall(float x, float y,float aimX ,float aimY,ProjectileHandler projectileHandler) {
-        super(x, y, projectileHandler);
+    public IceBall(float x, float y, float aimX , float aimY, ProjectileHandler projectileHandler, Effectshandler effectshandler) {
+        super(x, y, projectileHandler, effectshandler);
         this.aimY = aimY;
         this.aimX = aimX;
         isHit = new ID[]{ID.GreenSlime};
@@ -58,7 +59,7 @@ public class IceBall extends Projectile {
         double a;
         for (int i=0; i<amount;i++){
             a=2*Math.PI/amount*i;
-            projectileHandler.addObject(new IceShard(x,y,new Vector2D( Math.sin(a),Math.cos(a)),a,projectileHandler));
+            projectileHandler.addObject(new IceShard(x,y,new Vector2D( Math.sin(a),Math.cos(a)),a,projectileHandler,effectshandler));
         }
 
     }

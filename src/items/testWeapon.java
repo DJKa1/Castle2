@@ -13,7 +13,7 @@ public class testWeapon extends ShootingWeapons {
     @Override
     public void use() {
         if (delay==0) {
-            user.getProjectileHandler().addObject(new Plasmabolt(user.getX()+0.5f,user.getY()+0.5f, MouseInput.mouseX,MouseInput.mouseY,user.getProjectileHandler()));
+            user.getProjectileHandler().addObject(new Plasmabolt(user.getX()+0.5f,user.getY()+0.5f, MouseInput.mouseX,MouseInput.mouseY,user.getProjectileHandler(),user.getEffectshandler()));
         }
         if(delay<10) {
             delay++;

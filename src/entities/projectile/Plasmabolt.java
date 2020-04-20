@@ -1,4 +1,5 @@
 package entities.projectile;
+import Handler.Effectshandler;
 import ID_Lists.ID;
 import entities.Knockback;
 import Handler.ProjectileHandler;
@@ -6,8 +7,8 @@ import main_pack.Game;
 import java.awt.geom.Rectangle2D;
 public class Plasmabolt extends Projectile {
 
-    public Plasmabolt(float x, float y, float aimX, float aimY,ProjectileHandler projectileHandler) {
-        super(x, y,projectileHandler);
+    public Plasmabolt(float x, float y, float aimX, float aimY, ProjectileHandler projectileHandler, Effectshandler effectshandler) {
+        super(x, y,projectileHandler, effectshandler);
         this.aimY = aimY;
         this.aimX = aimX;
         isHit= new ID[]{ID.GreenSlime};
