@@ -21,7 +21,7 @@ public class IceShard extends Projectile {
         hitbox = new Rectangle2D.Double(x, y, width, height);
         projeticespeed = (float) 0.3;
         baseDgm = 2;
-        img = Game.texture.sprite[21];
+        img = Game.texture.sprite[22];
         move.set(v);
         move.normalize();
     }

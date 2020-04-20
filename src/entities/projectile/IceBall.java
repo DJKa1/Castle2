@@ -4,6 +4,8 @@ import Handler.ProjectileHandler;
 import ID_Lists.ID;
 import entities.Vector2D;
 import entities.creatures.Creature;
+import main_pack.Game;
+
 import java.awt.geom.Rectangle2D;
 
 public class IceBall extends Projectile {
@@ -16,10 +18,10 @@ public class IceBall extends Projectile {
         width = (float) 6/16;
         height = (float) 6/16;
         hitbox = new Rectangle2D.Double(x, y, width, height);
-        projeticespeed = (float) 0.2;
+        projeticespeed = (float) 0.1;
         baseDgm = 1;
-        img=null;
-        lifeTime=20;
+        img= Game.texture.sprite[21];
+        lifeTime=40;
         move.set(aimX, aimY);
         move.normalize();
     }
