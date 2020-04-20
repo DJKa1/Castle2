@@ -1,17 +1,11 @@
 package entities.projectile;
-
 import Handler.ProjectileHandler;
 import ID_Lists.ID;
 import entities.Vector2D;
 import entities.creatures.Creature;
-
-import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-
-
 public class IceBall extends Projectile {
-    private int lifeTime = 20;
     private int splitAmount=8;
 
     public IceBall(float x, float y,float aimX ,float aimY,ProjectileHandler projectileHandler) {
@@ -24,6 +18,8 @@ public class IceBall extends Projectile {
         hitbox = new Rectangle2D.Double(x, y, width, height);
         projeticespeed = (float) 0.2;
         baseDgm = 1;
+        img=null;
+        lifeTime=20;
         move.set(aimX, aimY);
         move.normalize();
 
@@ -45,13 +41,7 @@ public class IceBall extends Projectile {
     }
 
     @Override
-    public void render(Graphics g) {
-        g.setColor(Color.blue);
-        g.drawRect(getPixelPosition(x), getPixelPosition(y), getPixelPosition(width), getPixelPosition(height));
-
-    }
-
-    private void collision() {
+    protected void collision() {
         if(collisionWithTile()){
             projectileHandler.removeObject(this);
             split(splitAmount);
