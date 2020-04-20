@@ -96,10 +96,11 @@ public class Player extends Creature {
         if(currentKnockback==null) {
             move.x = KeyboardInput.AxiesLX;
             move.y = KeyboardInput.AxiesLY;
+            move.normalize();
         }else {
             getMovementFromKnockBack();
         }
-        move.normalize();
+
 
     }
 

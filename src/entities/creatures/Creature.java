@@ -9,7 +9,6 @@ import entities.projectile.Projectile;
 import Handler.CreatureHandler;
 import main_pack.Game;
 import Handler.ProjectileHandler;
-import main_pack.KeyboardInput;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -190,7 +189,6 @@ public abstract class Creature extends Entity {
         updateMovement();
         speedX = (float) (move.x * movementRate);
         speedY = (float) (move.y * movementRate);
-
         normalizeHitbox();
         normalizeMovementhitbox();
 
@@ -204,10 +202,11 @@ public abstract class Creature extends Entity {
         if(currentKnockback==null){
             move.x=0;
             move.y=0;
+            move.normalize();
         }else {
             getMovementFromKnockBack();
         }
-        move.normalize();
+
     }
 
     protected void collision(){
