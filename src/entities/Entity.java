@@ -136,6 +136,22 @@ public abstract class Entity {
         }
         return colliders;
     }
+    public Creature[] checkCollision_forAll(){
+        Creature []colliders=new Creature[16];
+        for (Creature k : CreatureHandler.creatures) {
+            int j=0;
+            if (k.getHitbox().intersects(hitbox)) {
+                if (j < colliders.length) {
+                    colliders[j] = k;
+                    j++;
+                }
+            }
+        }
+
+        return colliders;
+    }
+
+
 
     public Creature checkCollision_ifOneOf( ID[] partner) {
         for (Creature k : CreatureHandler.creatures) {

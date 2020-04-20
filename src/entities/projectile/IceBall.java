@@ -9,11 +9,10 @@ import java.awt.geom.Rectangle2D;
 public class IceBall extends Projectile {
     private int splitAmount=8;
 
-    public IceBall(float x, float y, float aimX , float aimY, ProjectileHandler projectileHandler, Effectshandler effectshandler) {
-        super(x, y, projectileHandler, effectshandler);
+    public IceBall(float x, float y,float aimX ,float aimY,ProjectileHandler projectileHandler,Effectshandler effectshandler) {
+        super(x, y, projectileHandler,effectshandler);
         this.aimY = aimY;
         this.aimX = aimX;
-        isHit = new ID[]{ID.GreenSlime};
         width = (float) 6/16;
         height = (float) 6/16;
         hitbox = new Rectangle2D.Double(x, y, width, height);
@@ -45,10 +44,10 @@ public class IceBall extends Projectile {
             projectileHandler.removeObject(this);
             split(splitAmount);
         }
-        Creature[] creatures = checkCollision_forAll(isHit);
-        for (Creature k : creatures) {
-            if (k != null) {
+        for (Creature k : checkCollision_forAll()) {
+            if(k!=null&&k.isHitby(id)){
                 k.hitbyProjectile(this);
+                k.setCurrentKnockback(knockback);
                 projectileHandler.removeObject(this);
             }
         }

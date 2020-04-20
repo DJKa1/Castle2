@@ -4,6 +4,7 @@ import Buffs.Buff;
 import Buffs.Poison;
 import Buffs.iced;
 import Handler.Effectshandler;
+import ID_Lists.ProjectileID;
 import entities.Entity;
 import ID_Lists.ID;
 import entities.Knockback;
@@ -41,21 +42,21 @@ public abstract class Creature extends Entity {
     //InteractionLists------------------
     protected ID[] targetable;
     protected ID[] blockedby;
-    protected ID[] hitable;
+    protected ProjectileID[] nothitby;
 
     //Constructor-----------------------
-    public Creature(float x, float y, CreatureHandler creatureHandler, ProjectileHandler projectileHandler, Effectshandler effectshandler) {
-        super(x, y);
-        id = ID.valueOf(this.getClass().getSimpleName());
-        this.creatureHandler = creatureHandler;
-        this.projectileHandler = projectileHandler;
+    public Creature(float x,float y,CreatureHandler creatureHandler,ProjectileHandler projectileHandler, Effectshandler effectshandler){
+        super(x,y);
+        id=ID.valueOf(this.getClass().getSimpleName());
+        this.creatureHandler=creatureHandler;
+        this.projectileHandler=projectileHandler;
         this.effectshandler = effectshandler;
-        targetable = new ID[]{};
-        blockedby = new ID[]{};
-        hitable = new ID[]{};
-        movementhitbox = new Rectangle2D.Double();
-        targetingArea = new Ellipse2D.Double();
-        activeBuffs = new LinkedList<>();
+        targetable=new ID []{};
+        blockedby=new ID[]{};
+        nothitby=new ProjectileID[]{};
+        movementhitbox=new Rectangle2D.Double();
+        targetingArea=new Ellipse2D.Double();
+        activeBuffs=new LinkedList<>();
     }
 
     //Getter && Update------------------
@@ -87,55 +88,51 @@ public abstract class Creature extends Entity {
         return currentKnockback;
     }
 
-    public void reduceMana(int v) {
-        manaCount -= v;
+    public void reduceMana(int v){
+        manaCount-=v;
     }
 
-    public float getMovementRate() {
-        return movementRate;
-    }
+    public float getMovementRate() {return movementRate; }
 
     public void setMovementRate(float movementRate) {
         this.movementRate = movementRate;
     }
 
-    public void updateMovementhitbox(float xOffset, float yOffset) {
-        movementhitbox.setRect(x + xOffset, y + height + yOffset, width, height / 4);
+    public void updateMovementhitbox(float xOffset, float yOffset){
+        movementhitbox.setRect(x+xOffset,y+height+yOffset,width,height/4);
+    }
+    public void normalizeMovementhitbox(){
+        movementhitbox.setRect(x,y+height,width,height/4);
     }
 
-    public void normalizeMovementhitbox() {
-        movementhitbox.setRect(x, y + height, width, height / 4);
-    }
-
-    public void updateTargetingArea() {
-        targetingArea.setFrameFromCenter(x + width / 2, y + height / 2, x + width / 2 - targetingRange, y + height / 2 - targetingRange);
+    public void updateTargetingArea(){
+        targetingArea.setFrameFromCenter(x+width/2,y+height/2,x+width/2-targetingRange,y+height/2-targetingRange);
     }
 
     //Render---------------------------------
     public void renderHealthbar(Graphics g) {
         g.setColor(Color.BLACK);
-        g.fillRect(getPixelPosition(x) - 5, getPixelPosition(y) - 5, (int) (width * Game.UNIT_SCALE) + 10, 30);
+        g.fillRect(getPixelPosition(x)-5,getPixelPosition(y)-5, (int) (width* Game.UNIT_SCALE)+10,30);
         g.setColor(Color.WHITE);
-        g.fillRect(getPixelPosition(x), getPixelPosition(y), (int) (width * Game.UNIT_SCALE), 20);
+        g.fillRect(getPixelPosition(x),getPixelPosition(y), (int) (width*Game.UNIT_SCALE),20);
         g.setColor(Color.RED);
-        g.fillRect(getPixelPosition(x), getPixelPosition(y), (int) (hp / maxHp * width * Game.UNIT_SCALE), 20);
+        g.fillRect(getPixelPosition(x),getPixelPosition(y), (int) (hp/maxHp*width*Game.UNIT_SCALE),20);
     }
-
-    public void renderHitbox(Graphics g) {
+    public void renderHitbox(Graphics g){
         g.setColor(Color.blue);
         g.drawRect(getPixelPosition(x), getPixelPosition(y), getPixelPosition(width), getPixelPosition(height));
         g.setColor(Color.lightGray);
-        g.drawRect(getPixelPosition(x), getPixelPosition(y + width), getPixelPosition(width), getPixelPosition(height / 4));
+        g.drawRect(getPixelPosition(x),getPixelPosition(y+width),getPixelPosition(width),getPixelPosition(height/4));
         g.setColor(Color.red);
-        g.drawOval(getPixelPosition(targetingArea.getX()), getPixelPosition(targetingArea.getY()), getPixelPosition(targetingArea.getWidth()), getPixelPosition(targetingArea.getWidth()));
+        g.drawOval(getPixelPosition(targetingArea.getX()),getPixelPosition(targetingArea.getY()),getPixelPosition(targetingArea.getWidth()),getPixelPosition(targetingArea.getWidth()));
     }
 
     //TargetingFunktions------------------------
-    public Creature searchTarget() {
-        for (Creature c : CreatureHandler.creatures) {
-            for (ID id : targetable) {
-                if (c.getId() == id) {
-                    if (isInRange(c)) {
+    public Creature searchTarget(){
+        for (Creature c:CreatureHandler.creatures){
+            for (ID id :targetable){
+                if (c.getId()==id){
+                    if(isInRange(c)){
                         return c;
                     }
                 }
@@ -144,8 +141,8 @@ public abstract class Creature extends Entity {
         return null;
     }
 
-    public boolean isInRange(Creature k) {
-        if (targetingArea.intersects(k.getHitbox())) {
+    public boolean isInRange (Creature k){
+        if (targetingArea.intersects(k.getHitbox())){
             return true;
         }
         return false;
@@ -153,30 +150,34 @@ public abstract class Creature extends Entity {
 
 
     //HitFunktions----------------------
-    public float caculateDmg() {
+    public float caculateDmg(){
         return baseDmg;
     }
-
-    public void hitbyProjectile(Projectile p) {
-        hp -= p.caculateDmg();
+    public void hitbyProjectile(Projectile p){
+        hp-=p.caculateDmg();
     }
-
-    public void hitbyEffect(double v) {
-        hp -= v;
+    public void hitbyEffect(double v){
+        hp-=v;
     }
-
-    public void removeifdead() {
-        if (hp <= 0) {
+    public boolean isHitby(ProjectileID id){
+        for (ProjectileID p :nothitby){
+            if (p==id){
+                return false;
+            }
+        }
+        return true;
+    }
+    public void removeifdead(){
+        if(hp<=0){
             creatureHandler.removeObject(this);
         }
     }
-
-    public void getMovementFromKnockBack() {
-        move.x = currentKnockback.move.x;
-        move.y = currentKnockback.move.y;
+    public void getMovementFromKnockBack(){
+        move.x=currentKnockback.move.x;
+        move.y=currentKnockback.move.y;
         currentKnockback.tick();
-        if (currentKnockback.getDuration() <= 0) {
-            currentKnockback = null;
+        if(currentKnockback.getDuration()<=0){
+            currentKnockback=null;
         }
     }
 
@@ -185,24 +186,18 @@ public abstract class Creature extends Entity {
     public void addBuff(Buff buff) {
         this.activeBuffs.add(buff);
     }
-
     public void removeBuff(Buff buff) {
         this.activeBuffs.remove(buff);
     }
 
-    public void addBuffbyID(String id, int duration, int lvl) {
-        switch (id) {
-            default:
-                return;
-            case "Poison":
-                addBuff(new Poison(this, duration, lvl));
-                break;
-            case "iced":
-                addBuff(new iced(this, duration, lvl));
+    public void addBuffbyID(String id, int duration ,int lvl){
+        switch (id){
+            default:return;
+            case "Poison":addBuff(new Poison(this,duration,lvl));break;
+            case "iced":addBuff(new iced(this,duration,lvl));
         }
     }
-
-    public void tickActiveBuffs() {
+    public void tickActiveBuffs(){
         for (int i = 0; i < activeBuffs.size(); i++) {
             activeBuffs.get(i).tick();
         }
@@ -213,7 +208,6 @@ public abstract class Creature extends Entity {
         updateMovement();
         speedX = (float) (move.x * movementRate);
         speedY = (float) (move.y * movementRate);
-
         normalizeHitbox();
         normalizeMovementhitbox();
 
@@ -223,32 +217,33 @@ public abstract class Creature extends Entity {
         x += speedX;
     }
 
-    protected void updateMovement() {
-        if (currentKnockback == null) {
-            move.x = 0;
-            move.y = 0;
-        } else {
+    protected void updateMovement(){
+        if(currentKnockback==null){
+            move.x=0;
+            move.y=0;
+            move.normalize();
+        }else {
             getMovementFromKnockBack();
         }
-        move.normalize();
+
     }
 
-    protected void collision() {
+    protected void collision(){
         //XOffset-----------------------------------------
         if (speedX != 0) {
             updateHitbox(speedX, 0);
-            updateMovementhitbox(speedX, 0);
+            updateMovementhitbox(speedX,0);
 
             Creature k = checkCollision_ifOneOf(blockedby);
-            if (k != null) {
+            if(k!=null){
                 float i = getFreeSpaceindirectionX(k.getHitbox());
                 if (i != -1) {
                     speedX = i;
                 }
             }
 
-            Rectangle2D.Double temp = collisionWithTiles(getTilesinDirection(speedX, 0, movementhitbox), movementhitbox);
-            if (temp != null) {
+            Rectangle2D.Double temp=collisionWithTiles(getTilesinDirection(speedX,0,movementhitbox),movementhitbox);
+            if (temp!=null) {
                 normalizeMovementhitbox();
                 float i = getFreeSpaceindirectionX(movementhitbox, temp);
                 if (i != -1) {
@@ -259,19 +254,19 @@ public abstract class Creature extends Entity {
         //YOffest---------------------------------------------
         if (speedY != 0) {
             updateHitbox(0, speedY);
-            updateMovementhitbox(0, speedY);
+            updateMovementhitbox(0,speedY);
 
-            Creature k = checkCollision_ifOneOf(blockedby);
-            if (k != null) {
+            Creature k = checkCollision_ifOneOf( blockedby);
+            if(k!=null){
                 float i = getFreeSpaceindirectionY(k.getHitbox());
                 if (i != -1) {
                     speedY = i;
                 }
             }
-            Rectangle2D.Double temp = collisionWithTiles(getTilesinDirection(0, speedY, movementhitbox), movementhitbox);
-            if (temp != null) {
+            Rectangle2D.Double temp=collisionWithTiles(getTilesinDirection(0,speedY,movementhitbox),movementhitbox);
+            if(temp!=null){
                 normalizeMovementhitbox();
-                float i = getFreeSpaceindirectionY(movementhitbox, temp);
+                float i = getFreeSpaceindirectionY(movementhitbox,temp);
                 if (i != -1) {
                     speedY = i;
                 }

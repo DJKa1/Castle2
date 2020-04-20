@@ -8,7 +8,6 @@ import main_pack.Game;
 import Handler.ProjectileHandler;
 import java.awt.*;
 
-
 public class GreenSlime extends Creature {
     public GreenSlime(float x, float y, CreatureHandler creatureHandler, ProjectileHandler projectileHandler, Effectshandler effectshandler) {
         super(x, y,creatureHandler,projectileHandler, effectshandler);

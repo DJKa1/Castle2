@@ -1,4 +1,5 @@
 package entities.projectile;
+
 import Handler.Effectshandler;
 import ID_Lists.ID;
 import entities.Knockback;
@@ -11,7 +12,6 @@ public class Plasmabolt extends Projectile {
         super(x, y,projectileHandler, effectshandler);
         this.aimY = aimY;
         this.aimX = aimX;
-        isHit= new ID[]{ID.GreenSlime};
         width= (float) 6/16;
         height= (float) 6/16;
         hitbox=new Rectangle2D.Double(x,y,width,height);

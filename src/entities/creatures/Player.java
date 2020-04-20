@@ -2,9 +2,11 @@ package entities.creatures;
 import Handler.CreatureHandler;
 import Handler.Effectshandler;
 import Handler.ProjectileHandler;
+import ID_Lists.ProjectileID;
 import Inventory.Inventory;
 import States.GameState;
 import entities.Vector2D;
+import entities.projectile.Projectile;
 import graphics.Animation;
 import items.Item;
 import main_pack.*;
@@ -30,6 +32,7 @@ public class Player extends Creature {
         height = (float)0.8;
         movementRate = (float) 0.1;
         inventory = new Inventory(this);
+        nothitby=new ProjectileID[]{ProjectileID.IceBall,ProjectileID.IceShard,ProjectileID.Plasmabolt,ProjectileID.Shotgunbolt};
 
         playerWalkLeft = new Animation(3, GameState.texture.sprite[8], GameState.texture.sprite[9], GameState.texture.sprite[10], GameState.texture.sprite[11], GameState.texture.sprite[12]);
         playerWalkRight = new Animation(3, GameState.texture.sprite[0], GameState.texture.sprite[1], GameState.texture.sprite[2], GameState.texture.sprite[3], GameState.texture.sprite[4]);

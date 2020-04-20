@@ -1,6 +1,8 @@
 package entities.projectile;
 import Effects.DmgIndicator;
+import Handler.CreatureHandler;
 import Handler.Effectshandler;
+import ID_Lists.ProjectileID;
 import entities.Entity;
 import ID_Lists.ID;
 import entities.Knockback;
@@ -22,10 +24,12 @@ public abstract class Projectile extends Entity {
     protected Knockback knockback;
     protected BufferedImage img;
     protected int lifeTime=0;
+    protected ProjectileID id;
 
     //Konstructor-------------------------------------------------
-    public Projectile(float x, float y, ProjectileHandler projectileHandler, Effectshandler effectshandler) {
+    public Projectile(float x, float y, ProjectileHandler projectileHandler,Effectshandler effectshandler) {
         super(x, y);
+        this.id=ProjectileID.valueOf(this.getClass().getSimpleName());
         this.projectileHandler = projectileHandler;
         this.effectshandler = effectshandler;
         move = new Vector2D(0, 0);
@@ -111,9 +115,8 @@ public abstract class Projectile extends Entity {
         if(collisionWithTile()){
             projectileHandler.removeObject(this);
         }
-        Creature[] creatures=checkCollision_forAll(isHit);
-        for (Creature k :creatures) {
-            if(k!=null){
+        for (Creature k : checkCollision_forAll()) {
+            if(k!=null&&k.isHitby(id)){
                 k.hitbyProjectile(this);
                 effectshandler.addObject(new DmgIndicator(x,y,getBaseDgm(),effectshandler));
                 k.setCurrentKnockback(knockback);

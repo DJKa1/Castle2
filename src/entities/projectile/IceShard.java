@@ -12,7 +12,6 @@ public class IceShard extends  Projectile {
     private double angle;
         public IceShard(float x, float y, Vector2D v, double angle, ProjectileHandler projectileHandler, Effectshandler effectshandler) {
         super(x, y, projectileHandler, effectshandler);
-        isHit = new ID[]{ID.GreenSlime};
         this.angle=Math.toDegrees(angle);
         width = (float) 2/16;
         height = (float) 2/16;

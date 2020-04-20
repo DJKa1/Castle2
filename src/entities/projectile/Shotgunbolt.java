@@ -12,7 +12,6 @@ public class Shotgunbolt extends Projectile {
         super(x, y, projectileHandler, effectshandler);
         this.aimY = aimY;
         this.aimX = aimX;
-        isHit = new ID[]{ID.GreenSlime};
         width = (float) 6 / 16;
         height = (float) 6 / 16;
         hitbox = new Rectangle2D.Double(x, y, width, height);
@@ -20,8 +19,8 @@ public class Shotgunbolt extends Projectile {
         baseDgm = 1;
         img = Game.texture.sprite[20];
         move.set(aimX, aimY);
-        knockback = new Knockback(move.getMultiplied(1),10);
         move.normalize();
+        knockback = new Knockback(move.getMultiplied(1),10);
     }
 }
 
