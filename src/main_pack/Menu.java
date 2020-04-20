@@ -72,8 +72,9 @@ public class Menu {
         Point point = new Point((int) ((mx - transX) / scale), (int) ((my - transY) / scale));
         for (int i = 0; i < ui_elements.length; i++) {
             if(ui_elements[i].getBox().contains(point)) {
-                ui_elements[i].onClick();
-
+                ui_elements[i].setSelected(true);
+            }else {
+                ui_elements[i].setSelected(false);
             }
         }
     }

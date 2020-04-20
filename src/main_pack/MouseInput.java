@@ -72,7 +72,7 @@ public class MouseInput implements MouseListener, MouseMotionListener , MouseWhe
                 mouseY=mouseEvent.getY()-Launcher.HEIGHT/2;
             }
         } if(game.getactiveState().getClass() == MenuState.class) {
-
+            game.getMenu().onMouseHover(mouseEvent.getX(),mouseEvent.getY());
         }
     }
 
