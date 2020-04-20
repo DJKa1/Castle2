@@ -1,16 +1,10 @@
 package entities.projectile;
-
 import Handler.ProjectileHandler;
 import ID_Lists.ID;
-import entities.creatures.Creature;
 import main_pack.Game;
-
-import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 public class Shotgunbolt extends Projectile {
-    private int lifeTime = 20;
-
     public Shotgunbolt(float x, float y, float aimX, float aimY, ProjectileHandler projectileHandler) {
         super(x, y, projectileHandler);
         this.aimY = aimY;

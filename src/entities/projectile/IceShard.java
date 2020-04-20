@@ -2,7 +2,9 @@ package entities.projectile;
 import Handler.ProjectileHandler;
 import ID_Lists.ID;
 import entities.Vector2D;
+import graphics.Texture;
 import main_pack.Game;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 public class IceShard extends  Projectile {
@@ -20,4 +22,13 @@ public class IceShard extends  Projectile {
         move.set(v);
         move.normalize();
     }
+
+    @Override
+    public void render(Graphics g) {
+       g.drawImage(Texture.rotate(img,angle),(getPixelPosition(x)),(getPixelPosition(y)), Game.UNIT_SCALE, Game.UNIT_SCALE, null);
+    }
+
+
+
+
 }

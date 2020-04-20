@@ -22,7 +22,6 @@ public class IceBall extends Projectile {
         lifeTime=20;
         move.set(aimX, aimY);
         move.normalize();
-
     }
 
     @Override
@@ -37,7 +36,6 @@ public class IceBall extends Projectile {
             projectileHandler.removeObject(this);
             split(splitAmount);
         }
-
     }
 
     @Override
