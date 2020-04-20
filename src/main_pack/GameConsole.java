@@ -195,7 +195,7 @@ public class GameConsole {
         send();
     }
 
-    public void giveKnockback(String vx ,String vy , String t){
+    public void giveKnockback(String vx ,String vy , String t, String strenght){
         player.setCurrentKnockback(new Knockback(new Vector2D(Float.valueOf(vx),Float.valueOf(vy)),Integer.valueOf(t)*60));
 
     }

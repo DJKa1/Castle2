@@ -60,8 +60,6 @@ public abstract class Projectile extends Entity {
         this.aimX = aimX;
     }
 
-
-
     //Tick && Render Funktions----------------------------------
     @Override
     public void tick(){

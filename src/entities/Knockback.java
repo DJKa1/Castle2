@@ -8,7 +8,6 @@ public class Knockback {
         this.duration=duration;
         this.move=v;
     }
-
     public void tick(){
         duration--;
     }

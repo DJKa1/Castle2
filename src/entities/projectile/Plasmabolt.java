@@ -20,6 +20,6 @@ public class Plasmabolt extends Projectile {
         img=Game.texture.sprite[18];
         move.set(aimX,aimY);
         move.normalize();
-        knockback=new Knockback(move,30);
+        knockback=new Knockback(move.getMultiplied(4),10);
     }
 }

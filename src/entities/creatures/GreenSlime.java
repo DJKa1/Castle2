@@ -52,10 +52,11 @@ public class GreenSlime extends Creature {
                 move.x=0;
                 move.y=0;
             }
+            move.normalize();
         }
         else {
             getMovementFromKnockBack();
         }
-        move.normalize();
+
     }
 }
