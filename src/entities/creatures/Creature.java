@@ -9,6 +9,7 @@ import entities.projectile.Projectile;
 import Handler.CreatureHandler;
 import main_pack.Game;
 import Handler.ProjectileHandler;
+import main_pack.KeyboardInput;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -181,6 +182,73 @@ public abstract class Creature extends Entity {
     public void tickActiveBuffs(){
         for (int i = 0; i < activeBuffs.size(); i++) {
             activeBuffs.get(i).tick();
+        }
+    }
+
+    //Movement && Collision-------------------------
+    public void movement() {
+        updateMovement();
+        speedX = (float) (move.x * movementRate);
+        speedY = (float) (move.y * movementRate);
+
+        normalizeHitbox();
+        normalizeMovementhitbox();
+
+        collision();
+
+        y += speedY;
+        x += speedX;
+    }
+
+    protected void updateMovement(){
+        move.x=0;
+        move.y=0;
+        move.normalize();
+    }
+
+    protected void collision(){
+        //XOffset-----------------------------------------
+        if (speedX != 0) {
+            updateHitbox(speedX, 0);
+            updateMovementhitbox(speedX,0);
+
+            Creature k = checkCollision_ifOneOf(blockedby);
+            if(k!=null){
+                float i = getFreeSpaceindirectionX(k.getHitbox());
+                if (i != -1) {
+                    speedX = i;
+                }
+            }
+
+            Rectangle2D.Double temp=collisionWithTiles(getTilesinDirection(speedX,0,movementhitbox),movementhitbox);
+            if (temp!=null) {
+                normalizeMovementhitbox();
+                float i = getFreeSpaceindirectionX(movementhitbox, temp);
+                if (i != -1) {
+                    speedX = i;
+                }
+            }
+        }
+        //YOffest---------------------------------------------
+        if (speedY != 0) {
+            updateHitbox(0, speedY);
+            updateMovementhitbox(0,speedY);
+
+            Creature k = checkCollision_ifOneOf( blockedby);
+            if(k!=null){
+                float i = getFreeSpaceindirectionY(k.getHitbox());
+                if (i != -1) {
+                    speedY = i;
+                }
+            }
+            Rectangle2D.Double temp=collisionWithTiles(getTilesinDirection(0,speedY,movementhitbox),movementhitbox);
+            if(temp!=null){
+                normalizeMovementhitbox();
+                float i = getFreeSpaceindirectionY(movementhitbox,temp);
+                if (i != -1) {
+                    speedY = i;
+                }
+            }
         }
     }
 }

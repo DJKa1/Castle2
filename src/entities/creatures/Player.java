@@ -9,7 +9,6 @@ import items.Item;
 import main_pack.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Rectangle2D;
 
 public class Player extends Creature {
     protected Inventory inventory;
@@ -60,7 +59,8 @@ public class Player extends Creature {
         tickActiveBuffs();
         movement();
         inventory.tick();
-        //------------------------------------------------------
+
+
         Item item= inventory.getItem(inventory.getActiveSlot());
         if(KeyboardInput.Keyboard) {
             if (MouseInput.leftPressed) {
@@ -84,100 +84,40 @@ public class Player extends Creature {
         AffineTransform trans = g2d.getTransform();
         Vector2D dir = new Vector2D(MouseInput.mouseX,MouseInput.mouseY);
         trans.rotate(dir.getAngle(), getPixelPosition(x)+64,getPixelPosition(y)+ 64+8);
-
         g2d.setTransform(trans);
 
-
-        //if (Math.toDegrees(dir.getAngle())<=90&&Math.toDegrees(dir.getAngle())>-90) {
         if(inventory.getItem(inventory.getActiveSlot())!=null){
             g2d.drawImage(inventory.getItem(inventory.getActiveSlot()).getImage(),getPixelPosition(x)+64,getPixelPosition(y),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
         }
-        /*}
-        else {
-            g2d.drawImage(Game.texture.sprite[27],getPixelPosition(x)+64,getPixelPosition(y),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
-        }*/
-
         g2d.setTransform(oldtrans);
     }
 
-
-
-
-
-
-    private void movement() {
+    @Override
+    public void updateMovement(){
         if(currentKnockback==null) {
             move.x = KeyboardInput.AxiesLX;
             move.y = KeyboardInput.AxiesLY;
         }else {
             getMovementFromKB();
         }
-        playAnimation(move.x, move.y);
 
+    }
+
+    @Override
+    public void movement() {
+        updateMovement();
+        playAnimation(move.x, move.y);
         speedX = (float) (move.x * movementRate);
         speedY = (float) (move.y * movementRate);
-
         normalizeHitbox();
         normalizeMovementhitbox();
-
         collision();
 
         y += speedY;
         x += speedX;
 
-
-
-
     }
 
-    private void collision() {
-        //XOffset-----------------------------------------
-        if (speedX != 0) {
-            updateHitbox(speedX, 0);
-            updateMovementhitbox(speedX,0);
-
-            Creature k = checkCollision_ifOneOf(blockedby);
-            if(k!=null){
-                float i = getFreeSpaceindirectionX(k.getHitbox());
-                if (i != -1) {
-                    speedX = i;
-                }
-            }
-
-            Rectangle2D.Double temp=collisionWithTiles(getTilesinDirection(speedX,0,movementhitbox),movementhitbox);
-            if (temp!=null) {
-                normalizeMovementhitbox();
-                float i = getFreeSpaceindirectionX(movementhitbox, temp);
-                if (i != -1) {
-                    speedX = i;
-                }
-            }
-        }
-
-
-        //YOffest---------------------------------------------
-        if (speedY != 0) {
-            updateHitbox(0, speedY);
-            updateMovementhitbox(0,speedY);
-
-            Creature k = checkCollision_ifOneOf( blockedby);
-            if(k!=null){
-                float i = getFreeSpaceindirectionY(k.getHitbox());
-                if (i != -1) {
-                    speedY = i;
-                }
-            }
-            Rectangle2D.Double temp=collisionWithTiles(getTilesinDirection(0,speedY,movementhitbox),movementhitbox);
-            if(temp!=null){
-                normalizeMovementhitbox();
-                float i = getFreeSpaceindirectionY(movementhitbox,temp);
-                if (i != -1) {
-                    speedY = i;
-                }
-            }
-        }
-
-    }
     public void playAnimation(double velX, double velY) {
         if (velY < 0) {
             playerWalkUp.runAnimation();
