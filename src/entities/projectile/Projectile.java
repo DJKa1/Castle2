@@ -1,4 +1,5 @@
 package entities.projectile;
+import Buffs.Buff;
 import Effects.DmgIndicator;
 import Handler.CreatureHandler;
 import Handler.Effectshandler;
@@ -25,6 +26,7 @@ public abstract class Projectile extends Entity {
     protected BufferedImage img;
     protected int lifeTime=0;
     protected ProjectileID id;
+    protected Buff buff = null;
 
     //Konstructor-------------------------------------------------
     public Projectile(float x, float y, ProjectileHandler projectileHandler,Effectshandler effectshandler) {
@@ -122,14 +124,10 @@ public abstract class Projectile extends Entity {
                 k.setCurrentKnockback(knockback);
                 projectileHandler.removeObject(this);
             }
-
         }
     }
 
-
-
-
-
-
-
+    public Buff giveBuff() {
+        return buff;
+    }
 }
