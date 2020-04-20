@@ -3,10 +3,8 @@ package Maps;
 import Tiles.Tile;
 import main_pack.Game;
 import main_pack.KeyboardInput;
-
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
-
 
 public class Map {
 

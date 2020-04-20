@@ -2,16 +2,19 @@ package entities.projectile;
 
 import Handler.ProjectileHandler;
 import ID_Lists.ID;
+import entities.Vector2D;
 import entities.creatures.Creature;
-import main_pack.Game;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-public class Shotgunbolt extends Projectile {
-    private int lifeTime = 20;
 
-    public Shotgunbolt(float x, float y, float aimX, float aimY, ProjectileHandler projectileHandler) {
+
+public class IceBall extends Projectile {
+    private int lifeTime = 20;
+    private int splitAmount=8;
+
+    public IceBall(float x, float y,float aimX ,float aimY,ProjectileHandler projectileHandler) {
         super(x, y, projectileHandler);
         this.aimY = aimY;
         this.aimX = aimX;
@@ -23,29 +26,35 @@ public class Shotgunbolt extends Projectile {
         baseDgm = 1;
         move.set(aimX, aimY);
         move.normalize();
+
     }
 
     @Override
     public void tick() {
-        speedX = (float) move.x * projeticespeed;
-        speedY = (float) move.y * projeticespeed;
-        x += speedX;
-        y += speedY;
+        speedX= (float) move.x*projeticespeed;
+        speedY = (float) move.y*projeticespeed;
+        x+=speedX;
+        y+=speedY;
         collision();
         lifeTime--;
         if(lifeTime<0) {
             projectileHandler.removeObject(this);
+            split(splitAmount);
         }
+
     }
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Game.texture.sprite[20], (int) (getPixelPosition(x)-5*Game.SCALE), (int) (getPixelPosition(y)-5*Game.SCALE), Game.UNIT_SCALE, Game.UNIT_SCALE, null);
+        g.setColor(Color.blue);
+        g.drawRect(getPixelPosition(x), getPixelPosition(y), getPixelPosition(width), getPixelPosition(height));
+
     }
 
-    private void collision(){
+    private void collision() {
         if(collisionWithTile()){
             projectileHandler.removeObject(this);
+            split(splitAmount);
         }
         Creature[] creatures = checkCollision_forAll(isHit);
         for (Creature k : creatures) {
@@ -53,10 +62,16 @@ public class Shotgunbolt extends Projectile {
                 k.hitbyProjectile(this);
                 projectileHandler.removeObject(this);
             }
-
         }
     }
 
+    private void split(int amount){
+        float x=(float)getCenter().getX(),y=(float)getCenter().getY();
+        double a;
+        for (int i=0; i<amount;i++){
+            a=2*Math.PI/amount*i;
+            projectileHandler.addObject(new IceShard(x,y,new Vector2D( Math.sin(a),Math.cos(a)),a,projectileHandler));
+        }
 
-
+    }
 }

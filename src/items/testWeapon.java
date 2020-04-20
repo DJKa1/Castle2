@@ -4,7 +4,7 @@ import graphics.Texture;
 import entities.projectile.Plasmabolt;
 import main_pack.MouseInput;
 
-public class testWeapon extends Weapons {
+public class testWeapon extends ShootingWeapons {
     public testWeapon(Inventory inventory) {
         super(inventory);
         image= Texture.sprite[26];

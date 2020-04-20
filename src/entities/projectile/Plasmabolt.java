@@ -37,13 +37,9 @@ public class Plasmabolt extends Projectile {
 
 
 
-    public void collision() {
-        //NoOffset---------------------------------------------------
-        normalizeHitbox();
-        if(speedX>speedY){
-            removeifSolid(speedX, 0);
-        }else {
-            removeifSolid(0, speedY);
+    private void collision() {
+        if(collisionWithTile()){
+            projectileHandler.removeObject(this);
         }
         Creature[] creatures=checkCollision_forAll(isHit);
             for (Creature k :creatures) {

@@ -1,6 +1,8 @@
 package main_pack;
 import ID_Lists.BuffID;
 import com.sun.jdi.IntegerValue;
+import entities.Knockback;
+import entities.Vector2D;
 import entities.creatures.GreenSlime;
 import entities.creatures.Player;
 import ID_Lists.ItemID;
@@ -25,8 +27,7 @@ public class GameConsole {
     private Player player;
 
     public GameConsole(Game game){
-
-
+        this.game=game;
         keyboardInput=game.getKeyboardInput();
         vallidMethods=this.getClass().getDeclaredMethods();
         input=new StringBuilder();
@@ -43,7 +44,9 @@ public class GameConsole {
         input=input.append(c);
     }
     public void deletelastKey(){
+        if(input.length()!=0){
         input.deleteCharAt(input.length()-1);
+        }
     }
     public void setInput(String str){
         input.delete(0,input.length());
@@ -169,9 +172,8 @@ public class GameConsole {
     public void spawn(String id ,String xpos , String ypos){
         try {
             switch (id){
+                case "greenslime": game.getCreatureHandler().addObject(new GreenSlime(Float.parseFloat(xpos),Float.parseFloat(ypos),game.getCreatureHandler(),game.getProjectileHandler()));break;
                 default:setInput("No valid MobID");
-                case "GreenSlime": game.getCreatureHandler().addObject(new GreenSlime(Float.valueOf(xpos),Float.valueOf(ypos),game.getCreatureHandler(),game.getProjectileHandler()));break;
-
             }
         }catch (IllegalArgumentException e){
             setInput("Arguments must be String float float");
@@ -194,5 +196,17 @@ public class GameConsole {
             setInput("Arguments must be String int int ");
         }
         send();
+    }
+
+    public void giveKnockback(String vx ,String vy , String t){
+        player.setCurrentKnockback(new Knockback(new Vector2D(Float.valueOf(vx),Float.valueOf(vy)),Integer.valueOf(t)));
+
+    }
+
+    public void help(){
+        for (Method m: vallidMethods){
+        setInput(m.getName());
+        send();
+    }
     }
 }

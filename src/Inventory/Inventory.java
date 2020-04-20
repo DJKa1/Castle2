@@ -1,5 +1,6 @@
 package Inventory;
 import entities.creatures.Player;
+import items.IceStorm;
 import items.Item;
 import items.Shotgun;
 import items.testWeapon;
@@ -73,7 +74,7 @@ public class Inventory {
             default:return;
             case "testWeapon": item=new testWeapon(this);break;
             case "shotgun": item=new Shotgun(this);break;
-
+            case "IceStorm":item=new IceStorm(this);break;
         }
         addItem(item);
     }

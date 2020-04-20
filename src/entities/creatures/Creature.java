@@ -4,6 +4,7 @@ import Buffs.Poison;
 import Buffs.iced;
 import entities.Entity;
 import ID_Lists.ID;
+import entities.Knockback;
 import entities.projectile.Projectile;
 import Handler.CreatureHandler;
 import main_pack.Game;
@@ -25,6 +26,8 @@ public abstract class Creature extends Entity {
     protected ProjectileHandler projectileHandler;
     protected LinkedList<Buff> activeBuffs;
     protected RGBImageFilter colorMask;
+    protected int manaCount;
+    protected Knockback currentKnockback;
 
     //Tageting-------------------
     protected Ellipse2D targetingArea;
@@ -60,6 +63,22 @@ public abstract class Creature extends Entity {
 
     public float getMaxHp() {
         return maxHp;
+    }
+
+    public int getManaCount() {
+        return manaCount;
+    }
+
+    public void setCurrentKnockback(Knockback currentKnockback) {
+        this.currentKnockback = currentKnockback;
+    }
+
+    public Knockback getCurrentKnockback() {
+        return currentKnockback;
+    }
+
+    public void reduceMana(int v){
+        manaCount-=v;
     }
 
     public float getMovementRate() {return movementRate; }
@@ -132,6 +151,14 @@ public abstract class Creature extends Entity {
     public void removeifdead(){
         if(hp<=0){
             creatureHandler.removeObject(this);
+        }
+    }
+    public void getMovementFromKB(){
+        move.x=currentKnockback.move.x;
+        move.y=currentKnockback.move.y;
+        currentKnockback.tick();
+        if(currentKnockback.getDuration()<=0){
+            currentKnockback=null;
         }
     }
 

@@ -2,6 +2,7 @@ package ID_Lists;
 
 public enum ItemID {
     testWeapon,
+    IceStorm,
     Shotgun;
 
 

@@ -80,7 +80,7 @@ public abstract class Entity {
 
 
     public Point2D getCenter(){
-        return new Point.Double(x+width/2,y+height/2);
+        return new Point.Float(x+width/2,y+height/2);
 
     }
     public Entity(float x, float y) {

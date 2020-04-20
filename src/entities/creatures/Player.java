@@ -1,5 +1,4 @@
 package entities.creatures;
-import Buffs.Poison;
 import Handler.CreatureHandler;
 import Handler.ProjectileHandler;
 import Inventory.Inventory;
@@ -8,10 +7,10 @@ import entities.Vector2D;
 import graphics.Animation;
 import items.Item;
 import main_pack.*;
-
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
+
 public class Player extends Creature {
     protected Inventory inventory;
     private Animation playerWalkRight;
@@ -22,11 +21,11 @@ public class Player extends Creature {
     private Animation[] animation;
     private int animationIndex = 0;
 
-
     public Player(float x, float y, ProjectileHandler projectileHandler, CreatureHandler creatureHandler) {
         super(x, y,creatureHandler,projectileHandler);
         this.hp = 10;
         maxHp=hp;
+        manaCount=1000;
         width = (float)0.8;
         height = (float)0.8;
         movementRate = (float) 0.1;
@@ -48,6 +47,7 @@ public class Player extends Creature {
         //Test------------------------------------
         inventory.addItembyID("testWeapon");
         inventory.addItembyID("shotgun");
+        inventory.addItembyID("IceStorm");
         //---------------------------------------
     }
     public Inventory getInventory(){
@@ -57,6 +57,7 @@ public class Player extends Creature {
 
     @Override
     public void tick() {
+        tickActiveBuffs();
         movement();
         inventory.tick();
         //------------------------------------------------------
@@ -88,7 +89,9 @@ public class Player extends Creature {
 
 
         //if (Math.toDegrees(dir.getAngle())<=90&&Math.toDegrees(dir.getAngle())>-90) {
-            g2d.drawImage(inventory.inventoryItems.get(inventory.getActiveSlot()).getImage(),getPixelPosition(x)+64,getPixelPosition(y),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
+        if(inventory.getItem(inventory.getActiveSlot())!=null){
+            g2d.drawImage(inventory.getItem(inventory.getActiveSlot()).getImage(),getPixelPosition(x)+64,getPixelPosition(y),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
+        }
         /*}
         else {
             g2d.drawImage(Game.texture.sprite[27],getPixelPosition(x)+64,getPixelPosition(y),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
@@ -103,10 +106,12 @@ public class Player extends Creature {
 
 
     private void movement() {
-
-        move.x = KeyboardInput.AxiesLX;
-        move.y = KeyboardInput.AxiesLY;
-
+        if(currentKnockback==null) {
+            move.x = KeyboardInput.AxiesLX;
+            move.y = KeyboardInput.AxiesLY;
+        }else {
+            getMovementFromKB();
+        }
         playAnimation(move.x, move.y);
 
         speedX = (float) (move.x * movementRate);

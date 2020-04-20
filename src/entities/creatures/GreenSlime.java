@@ -20,10 +20,6 @@ public class GreenSlime extends Creature {
         movementRate= (float) 0.05;
         normalizeHitbox();
         normalizeMovementhitbox();
-
-        //test--------------------------------
-
-        //--------------------------------------
     }
     @Override
     public void tick() {
