@@ -67,4 +67,14 @@ public class Menu {
             }
         }
     }
+
+    public void onMouseHover(int mx, int my) {
+        Point point = new Point((int) ((mx - transX) / scale), (int) ((my - transY) / scale));
+        for (int i = 0; i < ui_elements.length; i++) {
+            if(ui_elements[i].getBox().contains(point)) {
+                ui_elements[i].onClick();
+
+            }
+        }
+    }
 }

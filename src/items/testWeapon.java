@@ -8,7 +8,7 @@ public class testWeapon extends ShootingWeapons {
     public testWeapon(Inventory inventory) {
         super(inventory);
         image= Texture.sprite[26];
-        cooldown=10;
+        cooldown=2 ;
     }
     @Override
     public void use() {

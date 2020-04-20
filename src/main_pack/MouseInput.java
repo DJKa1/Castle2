@@ -2,6 +2,7 @@ package main_pack;
 
 
 
+import States.GameState;
 import States.MenuState;
 
 
@@ -65,9 +66,13 @@ public class MouseInput implements MouseListener, MouseMotionListener , MouseWhe
 
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
-        if (KeyboardInput.Keyboard) {
-            mouseX=mouseEvent.getX()-Launcher.WIDTH/2;
-            mouseY=mouseEvent.getY()-Launcher.HEIGHT/2;
+        if (game.getactiveState().getClass() == GameState.class) {
+            if (KeyboardInput.Keyboard) {
+                mouseX=mouseEvent.getX()-Launcher.WIDTH/2;
+                mouseY=mouseEvent.getY()-Launcher.HEIGHT/2;
+            }
+        } if(game.getactiveState().getClass() == MenuState.class) {
+
         }
     }
 

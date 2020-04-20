@@ -31,6 +31,7 @@ public class DmgIndicator extends Effect {
     public void render() {
         ((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,fade));
         drawString(g,x,y,Float.toString(dmg),0);
+        ((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1));
     }
 
     private void drawString(Graphics g, float x, float y, String string, int shade) {

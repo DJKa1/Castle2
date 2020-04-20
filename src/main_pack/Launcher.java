@@ -4,6 +4,7 @@ package main_pack;
 import java.awt.*;
 
 public class Launcher {
+    public static final boolean fullscreen = true;
     static Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
     public static int WIDTH =2048, HEIGHT =1024;
     //-------------------
@@ -11,7 +12,10 @@ public class Launcher {
     public static final boolean enablecheats=true;
 
     public static void main(String[] args) {
-
+        if(fullscreen) {
+            WIDTH = dim.width;
+            HEIGHT = dim.height;
+        }
         Game game = new Game (WIDTH, HEIGHT);
         game.start();
 
