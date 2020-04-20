@@ -20,7 +20,7 @@ public class Shotgunbolt extends Projectile {
         baseDgm = 1;
         img = Game.texture.sprite[20];
         move.set(aimX, aimY);
-        knockback = new Knockback(move.getMultiplied(10),10);
+        knockback = new Knockback(move.getMultiplied(1),10);
         move.normalize();
     }
 }

@@ -16,10 +16,10 @@ public class Plasmabolt extends Projectile {
         height= (float) 6/16;
         hitbox=new Rectangle2D.Double(x,y,width,height);
         projeticespeed = (float) 0.25;
-        baseDgm=1;
+        baseDgm=0.1f;
         img=Game.texture.sprite[18];
         move.set(aimX,aimY);
         move.normalize();
-        knockback=new Knockback(move.getMultiplied(4),10);
+        knockback=new Knockback(move.getMultiplied(1),10);
     }
 }
