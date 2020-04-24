@@ -1,6 +1,7 @@
 package Inventory;
 
 import entities.creatures.Player;
+import graphics.Animation;
 import graphics.Texture;
 import items.*;
 import main_pack.Launcher;
@@ -17,12 +18,15 @@ public class Inventory {
     public int activeSlot = 1;
     private int first = 0, last = first + 9;
 
+    private Animation animation;
+
     private double scale = 4;
 
     public Inventory(Player owner) {
         this.owner = owner;
         inventoryItems = new LinkedList<>();
         hotbar = new Hotbar(this);
+        animation = new Animation(3, Texture.Inventory[0][0], Texture.Inventory[1][0], Texture.Inventory[2][0], Texture.Inventory[3][0], Texture.Inventory[4][0], Texture.Inventory[5][0], Texture.Inventory[6][0], Texture.Inventory[7][0], Texture.Inventory[8][0], Texture.Inventory[9][0], Texture.Inventory[10][0], Texture.Inventory[11][0], Texture.Inventory[12][0], Texture.Inventory[13][0], Texture.Inventory[14][0], Texture.Inventory[15][0], Texture.Inventory[16][0], Texture.Inventory[17][0]);
     }
 
     public int getActiveSlot() {
@@ -39,6 +43,8 @@ public class Inventory {
 
 
     public void tick() {
+        animation.runAnimation();
+
         first = MouseInput.mouseWheelPos;
         last = first + 9;
         for (int i = 0; i < inventoryItems.size(); i++) {
@@ -55,62 +61,70 @@ public class Inventory {
 
     public void render(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        g2d.scale(scale,scale);
-        drawBorader(g2d,16,12);
-        g2d.scale(1/scale,1/scale);
+        g2d.scale(scale, scale);
+        drawBorader(g2d, 16, 12);
+        g2d.scale(1 / scale, 1 / scale);
         //hotbar.render(g);
     }
 
-    private void drawBorader(Graphics2D g,int width, int height) {
-        width-=1;
-        height-=1;
+    private void drawBorader(Graphics2D g, int width, int height) {
+        width -= 1;
+        height -= 1;
 
-        double transX = Launcher.WIDTH/2/scale- (width+1) /2*16;
-        double transY = Launcher.HEIGHT/2/scale- (height+1) /2*16;
+        double transX = Launcher.WIDTH / 2 / scale - (width + 1) / 2 * 16;
+        double transY = Launcher.HEIGHT / 2 / scale - (height + 1) / 2 * 16;
 
-        g.translate(transX,transY);
+        g.translate(transX, transY);
 
-        for (int w = 1;w<width;w++) {
-            for (int h = 1;h<height;h++) {
-                di(g,w,h,4,3);
+        for (int w = 1; w < width; w++) {
+            for (int h = 1; h < height; h++) {
+                di(g, w, h, 4, 3);
             }
         }
-        for (int w = 0; w<width;w++) {
-            for (int i  = 0; i<2;i++) {
-                di(g,w,i*height,4+i,1);
+        for (int w = 0; w < width; w++) {
+            for (int i = 0; i < 2; i++) {
+                di(g, w, i * height, 4 + i, 1);
             }
         }
-        for (int h = 0; h<height;h++) {
-            for (int i  = 0; i<2;i++) {
-                di(g,i*width,h,4+i,2);
+        for (int h = 0; h < height; h++) {
+            for (int i = 0; i < 2; i++) {
+                di(g, i * width, h, 4 + i, 2);
             }
         }
 
-        di(g,0,0,0,1);
-        di(g,1,0,1,1);
-        di(g,0,1,0,2);
-        di(g,1,1,1,2);
+        di(g, 0, 0, 0, 1);
+        di(g, 1, 0, 1, 1);
+        di(g, 0, 1, 0, 2);
+        di(g, 1, 1, 1, 2);
 
-        di(g,width-1,0,2,1);
-        di(g,width,0,3,1);
-        di(g,width-1,1,2,2);
-        di(g,width,1,3,2);
+        di(g, width - 1, 0, 2, 1);
+        di(g, width, 0, 3, 1);
+        di(g, width - 1, 1, 2, 2);
+        di(g, width, 1, 3, 2);
 
-        di(g,0,height-1,0,3);
-        di(g,1,height-1,1,3);
-        di(g,0,height,0,4);
-        di(g,1,height,1,4);
+        di(g, 0, height - 1, 0, 3);
+        di(g, 1, height - 1, 1, 3);
+        di(g, 0, height, 0, 4);
+        di(g, 1, height, 1, 4);
 
-        di(g,width-1,height-1,2,3);
-        di(g,width,height-1,3,3);
-        di(g,width-1,height,2,4);
-        di(g,width,height,3,4);
-        g.translate(-transX,-transY);
+        di(g, width - 1, height - 1, 2, 3);
+        di(g, width, height - 1, 3, 3);
+        di(g, width - 1, height, 2, 4);
+        di(g, width, height, 3, 4);
+
+        for (int yy = 2; yy < height-1; yy++) {
+            for (int xx = 2; xx < width-1; xx++) {
+                animation.drawAnimation(g, xx * 16, yy * 16);
+            }
+        }
+
+
+        g.translate(-transX, -transY);
 
     }
 
-    private void di(Graphics g,int x ,int y,int tx,int ty) {
-        g.drawImage(Texture.Inventory[tx][ty],x*16,y*16,null);
+    private void di(Graphics g, int x, int y, int tx, int ty) {
+        g.drawImage(Texture.Inventory[tx][ty], x * 16, y * 16, null);
     }
 
     //ItemManagement------------------------------------------

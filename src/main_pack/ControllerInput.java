@@ -4,6 +4,7 @@ package main_pack;
 import States.GameState;
 import States.MenuState;
 import States.State;
+import entities.Vector2D;
 import org.lwjgl.input.Controller;
 
 public class ControllerInput {
@@ -25,8 +26,14 @@ public class ControllerInput {
             KeyboardInput.AxiesLX = (float)getLeftAxisX();
             KeyboardInput.AxiesLY = (float)getLeftAxisY();
 
-            MouseInput.mouseX = (float)getRightAxisX();
-            MouseInput.mouseY = (float)getRightAxisY();
+
+            if ((float)getRightAxisX()!=0&&(float)getRightAxisY()!=0) {
+                Vector2D aim = new Vector2D((float)getRightAxisX(),(float)getRightAxisY());
+                aim.normalize();
+
+                MouseInput.mouseX = (float) aim.x;
+                MouseInput.mouseY = (float) aim.y;
+            }
 
             if (controller.isButtonPressed(9)) {
                 State.setState(Game.menuState);

@@ -14,7 +14,7 @@ public class Shotgun extends ShootingWeapons {
         super(inventory);
         image = Texture.sprite[25];
         user = inventory.getOwner();
-        cooldown = 60;
+        cooldown = 30;
         magazineSize = 6;
 
     }
@@ -43,7 +43,7 @@ public class Shotgun extends ShootingWeapons {
         s.y = Math.sin(angle);
         user.getProjectileHandler().addObject(new Shotgunbolt(user.getX() + 0.5f, user.getY() + 0.5f, (float) s.x, (float) s.y, user.getProjectileHandler(), user.getEffectshandler()));
         remainingMunition--;
-
+        user.setCurrentKnockback(new Knockback(s.getMultiplied(-2),20));
 
     }
 

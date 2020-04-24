@@ -4,7 +4,7 @@ import main_pack.Game;
 
 import javax.swing.*;
 import java.awt.*;
-
+import java.awt.Toolkit;
 import static main_pack.Launcher.fullscreen;
 
 public class Window {
