@@ -31,7 +31,7 @@ public class Player extends Creature {
         height = (float)0.8;
         movementRate = (float) 0.1;
         inventory = new Inventory(this);
-        nothitby=new ProjectileID[]{ProjectileID.IceBall,ProjectileID.IceShard,ProjectileID.Plasmabolt,ProjectileID.Shotgunbolt};
+        nothitby=new ProjectileID[]{ProjectileID.IceBall,ProjectileID.IceShard,ProjectileID.Plasmabolt,ProjectileID.Shotgunbolt,ProjectileID.Bounce};
 
         playerWalkLeft = new Animation(3, GameState.texture.sprite[8], GameState.texture.sprite[9], GameState.texture.sprite[10], GameState.texture.sprite[11], GameState.texture.sprite[12]);
         playerWalkRight = new Animation(3, GameState.texture.sprite[0], GameState.texture.sprite[1], GameState.texture.sprite[2], GameState.texture.sprite[3], GameState.texture.sprite[4]);
@@ -89,7 +89,6 @@ public class Player extends Creature {
         Vector2D dir = new Vector2D(MouseInput.mouseX,MouseInput.mouseY);
         trans.rotate(dir.getAngle(), getPixelPosition(x)+64,getPixelPosition(y)+ 64+8);
         g2d.setTransform(trans);
-
         if(inventory.getItem(inventory.getActiveSlot())!=null){
             g2d.drawImage(inventory.getItem(inventory.getActiveSlot()).getImage(),getPixelPosition(x)+64,getPixelPosition(y),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
         }
@@ -140,7 +139,7 @@ public class Player extends Creature {
             animationIndex = 2;
         }
         if (!(move.x == 0 || move.y == 0)) {
-            move.normalize();
+            //move.normalize();
         } else if (move.x == 0 && move.y == 0) {
             idle.runAnimation();
             animationIndex = 0;

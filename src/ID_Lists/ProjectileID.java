@@ -4,7 +4,8 @@ public enum ProjectileID {
     Shotgunbolt,
     IceBall,
     IceShard,
-    Plasmabolt;
+    Plasmabolt,
+    Bounce;
 
     public static boolean containsElement(String eingabe) {
         for (ID t : ID.values()) {

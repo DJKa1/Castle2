@@ -170,7 +170,8 @@ public abstract class Creature extends Entity {
             }
             hp -= getDmgAfterArmor(value);
             effectshandler.addObject(new DmgIndicator(x,y,getDmgAfterArmor(value),effectshandler));
-            hitCooldown= (int) (0.5*Game.TICKRATE);
+            //hitCooldown= (int) (0.1*Game.TICKRATE);
+            hitCooldown = 1;
             effectshandler.addObject(new HitAnimation(x,y,hitCooldown,effectshandler));
         }
     }

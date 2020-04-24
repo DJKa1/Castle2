@@ -20,6 +20,11 @@ public abstract class Weapons extends Item{
         }
     }
 
+    public int getDelay() {
+        return delay;
+    }
 
-
+    public int getCooldown() {
+        return cooldown;
+    }
 }

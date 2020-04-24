@@ -31,6 +31,7 @@ public abstract class Item {
     public BufferedImage getImage(){
         return image;
     }
+
     public abstract void tick();
 
     public abstract void use();
