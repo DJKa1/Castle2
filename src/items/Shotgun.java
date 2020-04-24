@@ -1,6 +1,7 @@
 package items;
 
 import Inventory.Inventory;
+import entities.Knockback;
 import entities.Vector2D;
 import entities.projectile.Shotgunbolt;
 import graphics.Texture;
@@ -42,6 +43,7 @@ public class Shotgun extends ShootingWeapons {
         s.y = Math.sin(angle);
         user.getProjectileHandler().addObject(new Shotgunbolt(user.getX() + 0.5f, user.getY() + 0.5f, (float) s.x, (float) s.y, user.getProjectileHandler(), user.getEffectshandler()));
         remainingMunition--;
+
 
     }
 

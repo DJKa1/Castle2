@@ -1,9 +1,6 @@
 package Inventory;
 import entities.creatures.Player;
-import items.IceStorm;
-import items.Item;
-import items.Shotgun;
-import items.testWeapon;
+import items.*;
 import main_pack.MouseInput;
 
 import java.awt.*;
@@ -75,6 +72,7 @@ public class Inventory {
             case "testWeapon": item=new testWeapon(this);break;
             case "shotgun": item=new Shotgun(this);break;
             case "IceStorm":item=new IceStorm(this);break;
+            case "AK47": item=new AK47(this);break;
         }
         addItem(item);
     }

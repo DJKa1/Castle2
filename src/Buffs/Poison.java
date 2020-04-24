@@ -34,8 +34,7 @@ public class Poison extends Buff{
     public void tick() {
         reduceDuration();
         if(counter==Game.TICKRATE){
-            owner.hitbyEffect(tickdmg*Game.TICKRATE);
-            owner.getEffectshandler().addObject(new DmgIndicator(owner.getX(),owner.getY(),round(tickdmg*Game.TICKRATE),owner.getEffectshandler()));
+            owner.hit(tickdmg*Game.TICKRATE,null);
             counter=0;
         }
         counter++;

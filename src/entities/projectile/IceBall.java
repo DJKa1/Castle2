@@ -48,8 +48,7 @@ public class IceBall extends Projectile {
         }
         for (Creature k : checkCollision_forAll()) {
             if(k!=null&&k.isHitby(id)){
-                k.hitbyProjectile(this);
-                k.setCurrentKnockback(knockback);
+                hitTarget(k);
                 projectileHandler.removeObject(this);
             }
         }

@@ -5,18 +5,18 @@ import Handler.Effectshandler;
 import main_pack.Game;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 
 public class DmgIndicator extends Effect {
-    private Effectshandler effectshandler;
+
     private float fade = 1;
     private float dmg;
 
     public DmgIndicator(float x, float y,float dmg, Effectshandler effectshandler) {
+        super(x,y,effectshandler);
         duration = 60;
-        this.effectshandler = effectshandler;
-        this.dmg = dmg;
-        this.x = x;
-        this.y = y;
+        this.dmg = roundatdigit(dmg,100);
+
     }
     @Override
     public void tick() {
@@ -49,4 +49,14 @@ public class DmgIndicator extends Effect {
             }
         }
     }
+
+
+    private float roundatdigit(float value,int digitUp10){
+        value= Math.round(value*digitUp10);
+        value/=digitUp10;
+        return value;
+    }
+
+
+
 }

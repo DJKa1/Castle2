@@ -19,20 +19,9 @@ public class GreenSlime extends Creature {
         targetingRange=3;
         targetable=new ID[]{ID.Player};
         movementRate= (float) 0.05;
+        armorValue=15;
         normalizeHitbox();
         normalizeMovementhitbox();
-    }
-    @Override
-    public void tick() {
-        removeifdead();
-        updateTargetingArea();
-        updateHitbox(0,0);
-        tickActiveBuffs();
-
-        if(currentTarget==null) {
-            currentTarget = searchTarget();
-        }
-        movement();
     }
 
     @Override

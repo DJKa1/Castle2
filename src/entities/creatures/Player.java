@@ -50,6 +50,7 @@ public class Player extends Creature {
         inventory.addItembyID("testWeapon");
         inventory.addItembyID("shotgun");
         inventory.addItembyID("IceStorm");
+        inventory.addItembyID("AK47");
         //---------------------------------------
     }
     public Inventory getInventory(){
@@ -59,6 +60,7 @@ public class Player extends Creature {
 
     @Override
     public void tick() {
+        hitCooldown--;
         tickActiveBuffs();
         movement();
         inventory.tick();

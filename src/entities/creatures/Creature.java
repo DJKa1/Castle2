@@ -3,12 +3,13 @@ package entities.creatures;
 import Buffs.Buff;
 import Buffs.Poison;
 import Buffs.iced;
+import Effects.DmgIndicator;
+import Effects.HitAnimation;
 import Handler.Effectshandler;
 import ID_Lists.ProjectileID;
 import entities.Entity;
 import ID_Lists.ID;
 import entities.Knockback;
-import entities.projectile.Projectile;
 import Handler.CreatureHandler;
 import main_pack.Game;
 import Handler.ProjectileHandler;
@@ -31,6 +32,8 @@ public abstract class Creature extends Entity {
     protected RGBImageFilter colorMask;
     protected int manaCount;
     protected Knockback currentKnockback;
+    protected int hitCooldown;
+    protected double armorValue;
 
     //Tageting-------------------
     protected Ellipse2D targetingArea;
@@ -107,7 +110,7 @@ public abstract class Creature extends Entity {
         targetingArea.setFrameFromCenter(x+width/2,y+height/2,x+width/2-targetingRange,y+height/2-targetingRange);
     }
 
-    //Render---------------------------------
+    //Render && Tick---------------------------------
     public void renderHealthbar(Graphics g) {
         g.setColor(Color.BLACK);
         g.fillRect(getPixelPosition(x)-5,getPixelPosition(y)-5, (int) (width* Game.UNIT_SCALE)+10,30);
@@ -123,6 +126,18 @@ public abstract class Creature extends Entity {
         g.drawRect(getPixelPosition(x),getPixelPosition(y+width),getPixelPosition(width),getPixelPosition(height/4));
         g.setColor(Color.red);
         g.drawOval(getPixelPosition(targetingArea.getX()),getPixelPosition(targetingArea.getY()),getPixelPosition(targetingArea.getWidth()),getPixelPosition(targetingArea.getWidth()));
+    }
+
+    @Override
+    public void tick(){
+        hitCooldown--;
+        tickActiveBuffs();
+        movement();
+        removeifdead();
+        updateTargetingArea();
+        if(currentTarget==null) {
+            currentTarget = searchTarget();
+        }
     }
 
     //TargetingFunktions------------------------
@@ -148,15 +163,23 @@ public abstract class Creature extends Entity {
 
 
     //HitFunktions----------------------
-    public float caculateDmg(){
-        return baseDmg;
+    public void hit(float value, Buff buff) {
+        if (hitCooldown <= 0) {
+            if (buff != null) {
+                addBuff(buff);
+            }
+            hp -= getDmgAfterArmor(value);
+            effectshandler.addObject(new DmgIndicator(x,y,getDmgAfterArmor(value),effectshandler));
+            hitCooldown= (int) (0.5*Game.TICKRATE);
+            effectshandler.addObject(new HitAnimation(x,y,hitCooldown,effectshandler));
+        }
     }
-    public void hitbyProjectile(Projectile p){
-        hp-=p.caculateDmg();
+
+    private float getDmgAfterArmor(float f){
+        final double ARMORMULTIPLIER=0.95;
+        return (float) (f*( Math.pow(ARMORMULTIPLIER,armorValue)));
     }
-    public void hitbyEffect(double v){
-        hp-=v;
-    }
+
     public boolean isHitby(ProjectileID id){
         for (ProjectileID p :nothitby){
             if (p==id){
@@ -208,9 +231,7 @@ public abstract class Creature extends Entity {
         speedY = (float) (move.y * movementRate);
         normalizeHitbox();
         normalizeMovementhitbox();
-
         collision();
-
         y += speedY;
         x += speedX;
     }

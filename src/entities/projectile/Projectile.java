@@ -119,12 +119,15 @@ public abstract class Projectile extends Entity {
         }
         for (Creature k : checkCollision_forAll()) {
             if(k!=null&&k.isHitby(id)){
-                k.hitbyProjectile(this);
-                effectshandler.addObject(new DmgIndicator(x,y,getBaseDgm(),effectshandler));
-                k.setCurrentKnockback(knockback);
+                hitTarget(k);
                 projectileHandler.removeObject(this);
             }
         }
+    }
+
+    protected void hitTarget(Creature k){
+        k.hit(baseDgm,null);
+        k.setCurrentKnockback(knockback);
     }
 
     public Buff giveBuff() {
