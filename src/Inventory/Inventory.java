@@ -22,6 +22,9 @@ public class Inventory {
 
     private Animation animation;
 
+    private int prevIndex = 0;
+    private Item prevItem = null;
+
     private double scale = 4;
     private double transX = Launcher.WIDTH / 2 / scale - (width + 1) / 2 * 16;
     private double transY = Launcher.HEIGHT / 2 / scale - (height + 1) / 2 * 16;
@@ -91,6 +94,8 @@ public class Inventory {
             //System.out.println(" X: "+point.x+" Y: "+point.y);
             int index = point.y*(width-4)+point.x;
             Item tempItem = inventoryItems[index];
+            prevIndex = index;
+            prevItem = tempItem;
             inventoryItems[index] = null;
             return tempItem;
         }
@@ -103,12 +108,12 @@ public class Inventory {
         Rectangle bounds = new Rectangle(0,0,width-4,height-4);
         if(bounds.contains(point)) {
             int index = point.y*(width-4)+point.x;
-            addItem(MouseInput.holdItem,index);
-            System.out.println("Dropped "+index);
+            switchPositionsByDrag(prevIndex,index);
         }else {
             addItem(MouseInput.holdItem);
         }
     }
+
 
     private void renderHotbar(Graphics2D g) {
         for (int y = 0;y<inventoryItems.length/12d;y++) {
@@ -231,11 +236,11 @@ public class Inventory {
         }
     }
 
-    public void switchPositions(int i1, int i2) {
-        Item I1 = inventoryItems[i1];
+    public void switchPositionsByDrag(int i1, int i2) {
+        Item I1 = prevItem;
         Item I2 = inventoryItems[i2];
-        //inventoryItems.set(i1, I1);
-        //inventoryItems.set(i2, I2);
+        inventoryItems[i1] = I2;
+        inventoryItems[i2] = I1;
     }
 
 
