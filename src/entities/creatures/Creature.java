@@ -7,6 +7,8 @@ import Effects.DmgIndicator;
 import Effects.HitAnimation;
 import Handler.Effectshandler;
 import ID_Lists.ProjectileID;
+import Maps.Map;
+import Pathfinding.Node;
 import entities.Entity;
 import ID_Lists.ID;
 import entities.Knockback;
@@ -15,9 +17,12 @@ import main_pack.Game;
 import Handler.ProjectileHandler;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.RGBImageFilter;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public abstract class Creature extends Entity {
     protected float hp;
@@ -34,11 +39,14 @@ public abstract class Creature extends Entity {
     protected Knockback currentKnockback;
     protected int hitCooldown;
     protected double armorValue;
+    protected Game game;
+    protected Map map;
+    protected List<Node> nextMoves;
 
     //Tageting-------------------
     protected Ellipse2D targetingArea;
     protected Creature currentTarget;
-    protected float targetingRange;
+    protected float targetingRange,followingMultiplier;
 
     //InteractionLists------------------
     protected ID[] targetable;
@@ -46,18 +54,25 @@ public abstract class Creature extends Entity {
     protected ProjectileID[] nothitby;
 
     //Constructor-----------------------
-    public Creature(float x,float y,CreatureHandler creatureHandler,ProjectileHandler projectileHandler, Effectshandler effectshandler){
+    public Creature(float x,float y,Game game){
         super(x,y);
         id=ID.valueOf(this.getClass().getSimpleName());
-        this.creatureHandler=creatureHandler;
-        this.projectileHandler=projectileHandler;
-        this.effectshandler = effectshandler;
+        this.game=game;
+        this.creatureHandler=game.getCreatureHandler();
+        this.projectileHandler=game.getProjectileHandler();
+        this.effectshandler = game.getEffectshandler();
+        this.map=game.getMap();
         targetable=new ID []{};
         blockedby=new ID[]{};
         nothitby=new ProjectileID[]{};
         movementhitbox=new Rectangle2D.Double();
         targetingArea=new Ellipse2D.Double();
         activeBuffs=new LinkedList<>();
+        nextMoves=new ArrayList<>();
+
+        //baseValues------------------------
+        followingMultiplier=1;
+
     }
 
     //Getter && Update------------------
@@ -100,14 +115,27 @@ public abstract class Creature extends Entity {
     }
 
     public void updateMovementhitbox(float xOffset, float yOffset){
-        movementhitbox.setRect(x+xOffset,y+height+yOffset,width,height/4);
+        movementhitbox.setRect(x+xOffset+width/8,y+height+yOffset,width-width/8,height/4);
+    }
+    public Point2D.Float getCenterFromMovementHitbox(){
+        return new Point2D.Float((float)movementhitbox.getCenterX(),(float)movementhitbox.getCenterY());
     }
     public void normalizeMovementhitbox(){
-        movementhitbox.setRect(x,y+height,width,height/4);
+        movementhitbox.setRect(x+width/8,y+height,width-width/8,height/4);
     }
 
     public void updateTargetingArea(){
         targetingArea.setFrameFromCenter(x+width/2,y+height/2,x+width/2-targetingRange,y+height/2-targetingRange);
+    }
+
+    public void setCurrentTarget(Creature k){
+            currentTarget = k;
+    }
+
+    public void sysoutMoves(){
+        for (int i= 0 ;i<nextMoves.size();i++){
+            System.out.println(nextMoves.get(i));
+        }
     }
 
     //Render && Tick---------------------------------
@@ -128,6 +156,17 @@ public abstract class Creature extends Entity {
         g.drawOval(getPixelPosition(targetingArea.getX()),getPixelPosition(targetingArea.getY()),getPixelPosition(targetingArea.getWidth()),getPixelPosition(targetingArea.getWidth()));
     }
 
+    public void renderPath(Graphics g){
+        Graphics2D g2d=(Graphics2D) g;
+        g2d.setColor(Color.YELLOW);
+        g2d.setStroke(new BasicStroke(10));
+        for (int i=1; i< nextMoves.size();i++){
+
+            g2d.drawLine(nextMoves.get(i-1).getX()*Game.UNIT_SCALE,nextMoves.get(i-1).getY()*Game.UNIT_SCALE,nextMoves.get(i).getX()*Game.UNIT_SCALE,nextMoves.get(i).getY()*Game.UNIT_SCALE);
+        }
+        g2d.setStroke(new BasicStroke());
+    }
+
     @Override
     public void tick(){
         hitCooldown--;
@@ -135,93 +174,12 @@ public abstract class Creature extends Entity {
         movement();
         removeifdead();
         updateTargetingArea();
+
         if(currentTarget==null) {
-            currentTarget = searchTarget();
-        }
-    }
+            setCurrentTarget(searchTarget());
+        }else {
+            updateTarget();
 
-    //TargetingFunktions------------------------
-    public Creature searchTarget(){
-        for (Creature c:CreatureHandler.creatures){
-            for (ID id :targetable){
-                if (c.getId()==id){
-                    if(isInRange(c)){
-                        return c;
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
-    public boolean isInRange (Creature k){
-        if (targetingArea.intersects(k.getHitbox())){
-            return true;
-        }
-        return false;
-    }
-
-
-    //HitFunktions----------------------
-    public void hit(float value, Buff buff) {
-        if (hitCooldown <= 0) {
-            if (buff != null) {
-                addBuff(buff);
-            }
-            hp -= getDmgAfterArmor(value);
-            effectshandler.addObject(new DmgIndicator(x,y,getDmgAfterArmor(value),effectshandler));
-            //hitCooldown= (int) (0.1*Game.TICKRATE);
-            hitCooldown = 1;
-            effectshandler.addObject(new HitAnimation(x,y,hitCooldown,effectshandler));
-        }
-    }
-
-    private float getDmgAfterArmor(float f){
-        final double ARMORMULTIPLIER=0.95;
-        return (float) (f*( Math.pow(ARMORMULTIPLIER,armorValue)));
-    }
-
-    public boolean isHitby(ProjectileID id){
-        for (ProjectileID p :nothitby){
-            if (p==id){
-                return false;
-            }
-        }
-        return true;
-    }
-    public void removeifdead(){
-        if(hp<=0){
-            creatureHandler.removeObject(this);
-        }
-    }
-    public void getMovementFromKnockBack(){
-        move.x=currentKnockback.move.x;
-        move.y=currentKnockback.move.y;
-        currentKnockback.tick();
-        if(currentKnockback.getDuration()<=0){
-            currentKnockback=null;
-        }
-    }
-
-
-    //EffectManagment---------------------
-    public void addBuff(Buff buff) {
-        this.activeBuffs.add(buff);
-    }
-    public void removeBuff(Buff buff) {
-        this.activeBuffs.remove(buff);
-    }
-
-    public void addBuffbyID(String id, int duration ,int lvl){
-        switch (id){
-            default:return;
-            case "Poison":addBuff(new Poison(this,duration,lvl));break;
-            case "iced":addBuff(new iced(this,duration,lvl));
-        }
-    }
-    public void tickActiveBuffs(){
-        for (int i = 0; i < activeBuffs.size(); i++) {
-            activeBuffs.get(i).tick();
         }
     }
 
@@ -239,14 +197,76 @@ public abstract class Creature extends Entity {
 
     protected void updateMovement(){
         if(currentKnockback==null){
-            move.x=0;
-            move.y=0;
+            if(!nextMoves.isEmpty()) {
+                move.x = (nextMoves.get(0).getX() + 0.5f) - getCenterFromMovementHitbox().getX();
+                move.y = (nextMoves.get(0).getY() + 0.5f) - getCenterFromMovementHitbox().getY();
+                checkifTargetReached();
+            }else {
+                getMoves();
+                move.x=0;
+                move.y=0;
+            }
             move.normalize();
         }else {
             getMovementFromKnockBack();
         }
 
     }
+    protected void getMoves(){
+        if(currentTarget!=null){
+            nextMoves=map.getPath(getCenterFromMovementHitbox(),currentTarget.getCenterFromMovementHitbox());
+        }
+    }
+
+    public void getMovementFromKnockBack(){
+        move.x=currentKnockback.move.x;
+        move.y=currentKnockback.move.y;
+        currentKnockback.tick();
+        if(currentKnockback.getDuration()<=0){
+            currentKnockback=null;
+        }
+    }
+
+    protected void checkifTargetReached(){
+        if (Math.floor(getCenterFromMovementHitbox().getX())==nextMoves.get(0).getX()&&Math.floor(getCenterFromMovementHitbox().getY())==nextMoves.get(0).getY()){
+            nextMoves.remove(0);
+        }
+
+    }
+
+    //TargetingFunktions------------------------
+
+    protected void updateTarget(){
+        if(!checkifNear(currentTarget)){
+            currentTarget=null;
+        }
+    }
+
+    protected Creature searchTarget(){
+        for (Creature c:CreatureHandler.creatures){
+            for (ID id :targetable){
+                if (c.getId()==id){
+                    if(isInRange(c)){
+                        return c;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    public boolean isInRange (Creature k){
+        if (targetingArea.intersects(k.getHitbox())){
+            return true;
+        }
+        return false;
+    }
+    protected boolean checkifNear(Creature k){
+        if(k.getCenterFromMovementHitbox().distance(getCenterFromMovementHitbox())<(targetingRange*followingMultiplier)){
+            return true;
+        }
+        return false;
+    }
+
 
     protected void collision(){
         //XOffset-----------------------------------------
@@ -293,4 +313,60 @@ public abstract class Creature extends Entity {
             }
         }
     }
+
+
+    //HitFunktions----------------------------------------
+    public void hit(float value, Buff buff) {
+        if (hitCooldown <= 0) {
+            if (buff != null) {
+                addBuff(buff);
+            }
+            hp -= getDmgAfterArmor(value);
+            effectshandler.addObject(new DmgIndicator(x,y,getDmgAfterArmor(value),effectshandler));
+            //hitCooldown= (int) (0.1*Game.TICKRATE);
+            hitCooldown = 1;
+            effectshandler.addObject(new HitAnimation(x,y,hitCooldown,effectshandler));
+        }
+    }
+
+    private float getDmgAfterArmor(float f){
+        final double ARMORMULTIPLIER=0.95;
+        return (float) (f*( Math.pow(ARMORMULTIPLIER,armorValue)));
+    }
+
+    public boolean isHitby(ProjectileID id){
+        for (ProjectileID p :nothitby){
+            if (p==id){
+                return false;
+            }
+        }
+        return true;
+    }
+    public void removeifdead(){
+        if(hp<=0){
+            creatureHandler.removeObject(this);
+        }
+    }
+
+    //EffectManagment---------------------
+    public void addBuff(Buff buff) {
+        this.activeBuffs.add(buff);
+    }
+    public void removeBuff(Buff buff) {
+        this.activeBuffs.remove(buff);
+    }
+
+    public void addBuffbyID(String id, int duration ,int lvl){
+        switch (id){
+            default:return;
+            case "Poison":addBuff(new Poison(this,duration,lvl));break;
+            case "iced":addBuff(new iced(this,duration,lvl));
+        }
+    }
+    public void tickActiveBuffs(){
+        for (int i = 0; i < activeBuffs.size(); i++) {
+            activeBuffs.get(i).tick();
+        }
+    }
+
 }

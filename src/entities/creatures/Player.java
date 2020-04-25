@@ -22,8 +22,8 @@ public class Player extends Creature {
     private Animation[] animation;
     private int animationIndex = 0;
 
-    public Player(float x, float y, ProjectileHandler projectileHandler, CreatureHandler creatureHandler, Effectshandler effectshandler) {
-        super(x, y,creatureHandler,projectileHandler, effectshandler);
+    public Player(float x, float y, Game game) {
+        super(x, y,game);
         this.hp = 600;
         maxHp=hp;
         manaCount=1000;

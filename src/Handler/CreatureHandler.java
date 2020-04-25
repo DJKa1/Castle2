@@ -27,6 +27,7 @@ public class CreatureHandler {
             tempObject.render(g);
             if (KeyboardInput.f3G){
                 tempObject.renderHitbox(g);
+                tempObject.renderPath(g );
             }
         }
     }

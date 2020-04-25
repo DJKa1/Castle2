@@ -9,8 +9,8 @@ import Handler.ProjectileHandler;
 import java.awt.*;
 
 public class GreenSlime extends Creature {
-    public GreenSlime(float x, float y, CreatureHandler creatureHandler, ProjectileHandler projectileHandler, Effectshandler effectshandler) {
-        super(x, y,creatureHandler,projectileHandler, effectshandler);
+    public GreenSlime(float x, float y, Game game) {
+        super(x, y,game);
         width= 1;
         height=1;
         baseDmg=1;
@@ -20,6 +20,7 @@ public class GreenSlime extends Creature {
         targetable=new ID[]{ID.Player};
         movementRate= (float) 0.05;
         armorValue=15;
+        followingMultiplier=2;
         normalizeHitbox();
         normalizeMovementhitbox();
     }
@@ -30,21 +31,4 @@ public class GreenSlime extends Creature {
         renderHealthbar(g);
     }
 
-    @Override
-    protected void updateMovement(){
-        if(currentKnockback==null){
-            if(currentTarget!=null){
-                move.x=currentTarget.getX()-x;
-                move.y=currentTarget.getY()-y;
-            }else {
-                move.x=0;
-                move.y=0;
-            }
-            move.normalize();
-        }
-        else {
-            getMovementFromKnockBack();
-        }
-
-    }
 }
