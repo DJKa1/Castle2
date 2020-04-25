@@ -1,4 +1,5 @@
 package entities.creatures;
+
 import Handler.CreatureHandler;
 import Handler.Effectshandler;
 import Handler.ProjectileHandler;
@@ -9,6 +10,7 @@ import entities.Vector2D;
 import graphics.Animation;
 import items.Item;
 import main_pack.*;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
@@ -23,15 +25,15 @@ public class Player extends Creature {
     private int animationIndex = 0;
 
     public Player(float x, float y, Game game) {
-        super(x, y,game);
+        super(x, y, game);
         this.hp = 600;
-        maxHp=hp;
-        manaCount=1000;
-        width = (float)0.8;
-        height = (float)0.8;
+        maxHp = hp;
+        manaCount = 1000;
+        width = (float) 0.8;
+        height = (float) 0.8;
         movementRate = (float) 0.1;
         inventory = new Inventory(this);
-        nothitby=new ProjectileID[]{ProjectileID.IceBall,ProjectileID.IceShard,ProjectileID.Plasmabolt,ProjectileID.Shotgunbolt,ProjectileID.Bounce};
+        nothitby = new ProjectileID[]{ProjectileID.IceBall, ProjectileID.IceShard, ProjectileID.Plasmabolt, ProjectileID.Shotgunbolt, ProjectileID.Bounce};
 
         playerWalkLeft = new Animation(3, GameState.texture.sprite[8], GameState.texture.sprite[9], GameState.texture.sprite[10], GameState.texture.sprite[11], GameState.texture.sprite[12]);
         playerWalkRight = new Animation(3, GameState.texture.sprite[0], GameState.texture.sprite[1], GameState.texture.sprite[2], GameState.texture.sprite[3], GameState.texture.sprite[4]);
@@ -53,7 +55,8 @@ public class Player extends Creature {
         inventory.addItembyID("AK47");
         //---------------------------------------
     }
-    public Inventory getInventory(){
+
+    public Inventory getInventory() {
         return inventory;
     }
 
@@ -65,15 +68,15 @@ public class Player extends Creature {
         movement();
         inventory.tick();
 
-        Item item= inventory.getItem(inventory.getActiveSlot());
-        if(KeyboardInput.Keyboard) {
+        Item item = inventory.getItem(inventory.getActiveSlot());
+        if (KeyboardInput.Keyboard) {
             if (MouseInput.leftPressed) {
-                if(item!=null){
+                if (item != null) {
                     item.use();
                 }
             }
-        }else if(ControllerInput.R1isPressed()) {
-            if(item!=null){
+        } else if (ControllerInput.R1isPressed()) {
+            if (item != null) {
                 item.use();
             }
         }
@@ -86,22 +89,22 @@ public class Player extends Creature {
 
         AffineTransform oldtrans = g2d.getTransform();
         AffineTransform trans = g2d.getTransform();
-        Vector2D dir = new Vector2D(MouseInput.mouseX,MouseInput.mouseY);
-        trans.rotate(dir.getAngle(), getPixelPosition(x)+64,getPixelPosition(y)+ 64+8);
+        Vector2D dir = new Vector2D(MouseInput.mouseX, MouseInput.mouseY);
+        trans.rotate(dir.getAngle(), getPixelPosition(x) + 64, getPixelPosition(y) + 64 + 8);
         g2d.setTransform(trans);
-        if(inventory.getItem(inventory.getActiveSlot())!=null){
-            g2d.drawImage(inventory.getItem(inventory.getActiveSlot()).getImage(),getPixelPosition(x)+64,getPixelPosition(y),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
+        if (inventory.getItem(inventory.getActiveSlot()) != null) {
+            g2d.drawImage(inventory.getItem(inventory.getActiveSlot()).getImage(), getPixelPosition(x) + 64, getPixelPosition(y), Game.UNIT_SCALE, Game.UNIT_SCALE, null);
         }
         g2d.setTransform(oldtrans);
     }
 
     @Override
-    public void updateMovement(){
-        if(currentKnockback==null) {
+    public void updateMovement() {
+        if (currentKnockback == null) {
             move.x = KeyboardInput.AxiesLX;
             move.y = KeyboardInput.AxiesLY;
             move.normalize();
-        }else {
+        } else {
             getMovementFromKnockBack();
         }
 

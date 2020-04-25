@@ -65,6 +65,7 @@ public class GameState extends State{
         effectshandler.tick();
         map.tick();
         f3Infopanel.tick();
+
         Creature tempPlayer=null;
         for (int i = 0;i<creatureHandler.creatures.size();i++){
             if(creatureHandler.creatures.get(i).getId()== ID.Player) {

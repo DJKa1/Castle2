@@ -14,17 +14,22 @@ public class Inventory {
     private Hotbar hotbar;
     private Player owner;
     public final int xpos = 10, ypos = 60, slotwidth = 200, slotheight = 70;
-    public LinkedList<Item> inventoryItems;
+    public Item[] inventoryItems;
     public int activeSlot = 1;
     private int first = 0, last = first + 9;
+
+    private final int width = 16,height = 12;
 
     private Animation animation;
 
     private double scale = 4;
+    private double transX = Launcher.WIDTH / 2 / scale - (width + 1) / 2 * 16;
+    private double transY = Launcher.HEIGHT / 2 / scale - (height + 1) / 2 * 16;
 
     public Inventory(Player owner) {
         this.owner = owner;
-        inventoryItems = new LinkedList<>();
+        inventoryItems = new Item[12*8];
+        clearInventory();
         hotbar = new Hotbar(this);
         animation = new Animation(3, Texture.Inventory[0][0], Texture.Inventory[1][0], Texture.Inventory[2][0], Texture.Inventory[3][0], Texture.Inventory[4][0], Texture.Inventory[5][0], Texture.Inventory[6][0], Texture.Inventory[7][0], Texture.Inventory[8][0], Texture.Inventory[9][0], Texture.Inventory[10][0], Texture.Inventory[11][0], Texture.Inventory[12][0], Texture.Inventory[13][0], Texture.Inventory[14][0], Texture.Inventory[15][0], Texture.Inventory[16][0], Texture.Inventory[17][0]);
     }
@@ -47,9 +52,9 @@ public class Inventory {
 
         first = MouseInput.mouseWheelPos;
         last = first + 9;
-        for (int i = 0; i < inventoryItems.size(); i++) {
-            if (first <= i && i <= last) {
-                Item tempItem = inventoryItems.get(i);
+        for (int i = 0; i < inventoryItems.length; i++) {
+            if (first <= i && i <= last && inventoryItems[i]!=null) {
+                Item tempItem = inventoryItems[i];
                 tempItem.tick();
             }
         }
@@ -61,20 +66,65 @@ public class Inventory {
 
     public void render(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
+
         g2d.scale(scale, scale);
-        drawBorader(g2d, 16, 12);
+        g2d.translate(transX, transY);
+
+        drawBorader(g2d, width, height);
+        renderHotbar(g2d);
+
+        g2d.translate(-transX, -transY);
+
+        if (MouseInput.holdItem!=null) {
+            g.drawImage(MouseInput.holdItem.getImage(),(int)(MouseInput.mouseX/scale)-8,(int) (MouseInput.mouseY/scale)-8,null);
+        }
         g2d.scale(1 / scale, 1 / scale);
-        //hotbar.render(g);
+
+
+
+    }
+
+    public Item grabItem(int mouseX, int mouseY) {
+        Point point = new Point((int)((mouseX - transX*scale) / scale / 16)-2,(int)((mouseY - transY*scale) / scale / 16)-2);
+        Rectangle bounds = new Rectangle(0,0,width-4,height-4);
+        if(bounds.contains(point)) {
+            //System.out.println(" X: "+point.x+" Y: "+point.y);
+            int index = point.y*(width-4)+point.x;
+            Item tempItem = inventoryItems[index];
+            inventoryItems[index] = null;
+            return tempItem;
+        }
+
+        return null;
+    }
+
+    public void putItem(int mouseX, int mouseY) {
+        Point point = new Point((int)((mouseX - transX*scale) / scale / 16)-2,(int)((mouseY - transY*scale) / scale / 16)-2);
+        Rectangle bounds = new Rectangle(0,0,width-4,height-4);
+        if(bounds.contains(point)) {
+            int index = point.y*(width-4)+point.x;
+            addItem(MouseInput.holdItem,index);
+            System.out.println("Dropped "+index);
+        }else {
+            addItem(MouseInput.holdItem);
+        }
+    }
+
+    private void renderHotbar(Graphics2D g) {
+        for (int y = 0;y<inventoryItems.length/12d;y++) {
+            for (int i = 0; i < width-4; i++) {
+                if (inventoryItems[y*(width-4)+i]!=null) {
+                    g.rotate(Math.toRadians(-45),(i+2) * 16+8, y* 16+2*16+8);
+                    g.drawImage(inventoryItems[y*(width-4)+i].getImage(), (i+2) * 16, y* 16+2*16, null);
+                    g.rotate(Math.toRadians(45),(i+2) * 16+8, y* 16+2*16+8);
+                }
+            }
+        }
     }
 
     private void drawBorader(Graphics2D g, int width, int height) {
         width -= 1;
         height -= 1;
-
-        double transX = Launcher.WIDTH / 2 / scale - (width + 1) / 2 * 16;
-        double transY = Launcher.HEIGHT / 2 / scale - (height + 1) / 2 * 16;
-
-        g.translate(transX, transY);
 
         for (int w = 1; w < width; w++) {
             for (int h = 1; h < height; h++) {
@@ -112,15 +162,16 @@ public class Inventory {
         di(g, width - 1, height, 2, 4);
         di(g, width, height, 3, 4);
 
-        for (int yy = 2; yy < height-1; yy++) {
-            for (int xx = 2; xx < width-1; xx++) {
-                animation.drawAnimation(g, xx * 16, yy * 16);
+        for (int yy = 4; yy < height - 1; yy++) {
+            for (int xx = 2; xx < width - 1; xx++) {
+                //animation.drawAnimation(g, xx * 16, yy * 16);
+                di(g, xx, yy, 0, 0);
             }
         }
 
-
-        g.translate(-transX, -transY);
-
+        for (int i = 0; i < 9; i++) {
+            animation.drawAnimation(g, (i + 2) * 16, 2 * 16);
+        }
     }
 
     private void di(Graphics g, int x, int y, int tx, int ty) {
@@ -149,32 +200,42 @@ public class Inventory {
         addItem(item);
     }
 
+    public void addItem(Item item, int index) {
+        inventoryItems[index] = item;
+    }
+
     public void addItem(Item item) {
-        inventoryItems.add(item);
+        for (int i = 0; i < inventoryItems.length; i++) {
+            if (inventoryItems[i] == null) {
+                inventoryItems[i] = item;
+                break;
+            }
+        }
     }
 
     public Item getItem(int i) {
-        if (i < inventoryItems.size()) {
-            return inventoryItems.get(i);
+        if (i < inventoryItems.length) {
+            return inventoryItems[i];
         } else {
             return null;
         }
     }
 
     public int getItemCount() {
-        return inventoryItems.size();
+        return inventoryItems.length;
     }
 
     public void clearInventory() {
-        inventoryItems.clear();
-
+        for (int i = 0; i<inventoryItems.length;i++) {
+            inventoryItems[i] = null;
+        }
     }
 
     public void switchPositions(int i1, int i2) {
-        Item I1 = inventoryItems.get(i1);
-        Item I2 = inventoryItems.get(i2);
-        inventoryItems.set(i1, I1);
-        inventoryItems.set(i2, I2);
+        Item I1 = inventoryItems[i1];
+        Item I2 = inventoryItems[i2];
+        //inventoryItems.set(i1, I1);
+        //inventoryItems.set(i2, I2);
     }
 
 

@@ -12,9 +12,11 @@ public class Hotbar {
     }
     public void render(Graphics g){
         for(int i =0;i<lenght;i++){
-            if(i<inventory.inventoryItems.size()) {
-                Item tempItem = inventory.getItem(i);
-                g.drawImage(tempItem.getImage(),px+i*(slotWidth), py,slotWidth,slotHeight,null);
+            if(i<inventory.inventoryItems.length) {
+                if (inventory.getItem(i)!=null) {
+                    Item tempItem = inventory.getItem(i);
+                    g.drawImage(tempItem.getImage(),px+i*(slotWidth), py,slotWidth,slotHeight,null);
+                }
             }
             g.setColor(borderColor);
             g.drawRect(px+i*(slotWidth-1),py,slotWidth,slotHeight);
