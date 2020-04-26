@@ -19,7 +19,7 @@ public class GreenSlime extends Creature {
         targetingRange=3;
         targetable=new ID[]{ID.Player};
         movementRate= (float) 0.05;
-        armorValue=15;
+        armorValue=7;
         followingMultiplier=2;
         normalizeHitbox();
         normalizeMovementhitbox();

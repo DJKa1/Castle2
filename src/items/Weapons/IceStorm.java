@@ -1,4 +1,4 @@
-package items;
+package items.Weapons;
 
 import Inventory.Inventory;
 import entities.projectile.IceBall;

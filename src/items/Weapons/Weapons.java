@@ -1,14 +1,21 @@
-package items;
+package items.Weapons;
 
 import Inventory.Inventory;
 
-public abstract class Weapons extends Item{
+public abstract class Weapons extends Item {
     protected double baseDamage;
     protected int delay=0;
     protected int cooldown;
+
     public Weapons(Inventory inventory) {
         super(inventory);
         cooldown=0;
+    }
+
+    public Weapons(Inventory inventory,String quality){
+        super(inventory);
+
+
     }
 
     @Override

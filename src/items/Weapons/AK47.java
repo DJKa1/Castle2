@@ -1,11 +1,8 @@
-package items;
+package items.Weapons;
 
-import ID_Lists.ItemID;
 import Inventory.Inventory;
 import entities.projectile.Shotgunbolt;
 import graphics.Texture;
-
-import java.awt.image.BufferedImage;
 
 
 import static main_pack.MouseInput.mouseX;

@@ -1,4 +1,4 @@
-package items;
+package items.Weapons;
 import ID_Lists.ItemID;
 import Inventory.Inventory;
 import entities.creatures.Creature;

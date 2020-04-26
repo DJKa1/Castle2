@@ -1,10 +1,11 @@
-package items;
+package items.Weapons;
 
 import Inventory.Inventory;
 import entities.Knockback;
 import entities.Vector2D;
 import entities.projectile.Shotgunbolt;
 import graphics.Texture;
+import items.Weapons.ShootingWeapons;
 
 import static main_pack.MouseInput.mouseX;
 import static main_pack.MouseInput.mouseY;

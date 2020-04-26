@@ -1,6 +1,7 @@
-package items;
+package items.Weapons;
 
 import Inventory.Inventory;
+import items.Weapons.Weapons;
 
 
 public abstract class ShootingWeapons extends Weapons {

@@ -16,7 +16,7 @@ public class Shotgunbolt extends Projectile {
         height = (float) 6 / 16;
         hitbox = new Rectangle2D.Double(x, y, width, height);
         projeticespeed = (float) 0.2;
-        baseDgm = 1;
+        baseDgm = 5;
         img = Game.texture.sprite[20];
         move.set(aimX, aimY);
         move.normalize();

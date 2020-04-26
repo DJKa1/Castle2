@@ -1,8 +1,8 @@
-package items;
+package items.Weapons;
 import Inventory.Inventory;
-import entities.Knockback;
 import graphics.Texture;
 import entities.projectile.Plasmabolt;
+import items.Weapons.ShootingWeapons;
 import main_pack.MouseInput;
 
 public class testWeapon extends ShootingWeapons {

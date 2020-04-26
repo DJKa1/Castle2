@@ -5,10 +5,9 @@ package main_pack;
 import States.GameState;
 import States.InventoryState;
 import States.MenuState;
-import items.Item;
+import Item;
 
 
-import java.awt.*;
 import java.awt.event.*;
 
 public class MouseInput implements MouseListener, MouseMotionListener , MouseWheelListener {

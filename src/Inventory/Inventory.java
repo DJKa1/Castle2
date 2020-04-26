@@ -3,12 +3,13 @@ package Inventory;
 import entities.creatures.Player;
 import graphics.Animation;
 import graphics.Texture;
-import items.*;
+import items.Weapons.IceStorm;
+import items.Weapons.Shotgun;
+import items.Weapons.testWeapon;
 import main_pack.Launcher;
 import main_pack.MouseInput;
 
 import java.awt.*;
-import java.util.LinkedList;
 
 public class Inventory {
     private Hotbar hotbar;

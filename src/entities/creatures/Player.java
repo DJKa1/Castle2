@@ -1,14 +1,11 @@
 package entities.creatures;
 
-import Handler.CreatureHandler;
-import Handler.Effectshandler;
-import Handler.ProjectileHandler;
 import ID_Lists.ProjectileID;
 import Inventory.Inventory;
 import States.GameState;
 import entities.Vector2D;
 import graphics.Animation;
-import items.Item;
+import Item;
 import main_pack.*;
 
 import java.awt.*;
