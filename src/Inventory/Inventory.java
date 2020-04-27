@@ -6,6 +6,7 @@ import graphics.Animation;
 import graphics.Texture;
 import items.Item;
 import items.Munition.SniperAmmo;
+import items.Quality.Extraordinary;
 import items.Weapons.IceStorm;
 import items.Weapons.Shotgun;
 import items.Weapons.Weapons;
@@ -205,13 +206,13 @@ public class Inventory {
             default:
                 return;
             case "testWeapon":
-                item = new testWeapon();
+                item = new testWeapon(new Extraordinary());
                 break;
             case "shotgun":
-                item = new Shotgun();
+                item = new Shotgun(null);
                 break;
             case "IceStorm":
-                item = new IceStorm();
+                item = new IceStorm(null);
                 break;
 
             case "SniperAmmo":

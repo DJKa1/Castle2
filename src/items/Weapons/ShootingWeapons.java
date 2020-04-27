@@ -4,6 +4,7 @@ import ID_Lists.ItemID;
 import Inventory.Inventory;
 import entities.creatures.Creature;
 import items.Item;
+import items.Quality.Quality;
 import items.Weapons.Weapons;
 
 
@@ -12,8 +13,8 @@ public abstract class ShootingWeapons extends Weapons {
     protected int magazineSize,remainingMunition;
     protected ItemID ammo;
 
-    public ShootingWeapons( ) {
-        super();
+    public ShootingWeapons( Quality quality) {
+        super(quality);
     }
 
 

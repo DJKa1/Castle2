@@ -1,7 +1,11 @@
 package ID_Lists;
 
 public enum QualityID {
-    Primitiv;
+    Primitiv,
+    Ramshackle,
+    Fine,
+    Outstanding,
+    Extraordinary;
 
 
     public static boolean containsElement(String eingabe) {

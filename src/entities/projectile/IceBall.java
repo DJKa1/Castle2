@@ -20,7 +20,6 @@ public class IceBall extends Projectile {
         height = (float) 6/16;
         hitbox = new Rectangle2D.Double(x, y, width, height);
         projeticespeed = (float) 0.1;
-        baseDgm = 1;
         img= Game.texture.sprite[21];
         lifeTime=40;
         move.set(aimX, aimY);

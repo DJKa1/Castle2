@@ -4,14 +4,15 @@ import Inventory.Inventory;
 import entities.creatures.Creature;
 import entities.projectile.IceBall;
 import graphics.Texture;
+import items.Quality.Quality;
 
 import static main_pack.MouseInput.mouseX;
 import static main_pack.MouseInput.mouseY;
 
 public class IceStorm extends MagicWeapons {
 
-    public IceStorm(  ) {
-        super();
+    public IceStorm(Quality quality) {
+        super(quality);
         image= Texture.sprite[28];
         manacost=10;
         cooldown=60;

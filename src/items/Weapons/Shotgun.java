@@ -9,6 +9,7 @@ import entities.creatures.Creature;
 import entities.creatures.Player;
 import entities.projectile.Shotgunbolt;
 import graphics.Texture;
+import items.Quality.Quality;
 import items.Weapons.ShootingWeapons;
 
 import javax.swing.*;
@@ -17,13 +18,13 @@ import static main_pack.MouseInput.mouseX;
 import static main_pack.MouseInput.mouseY;
 
 public class Shotgun extends ShootingWeapons {
-    public Shotgun() {
-        super();
+    public Shotgun(Quality quality) {
+        super(quality);
         image = Texture.sprite[25];
         cooldown = 30;
         magazineSize = 6;
         ammo= ItemID.SniperAmmo;
-
+        baseDamage=5;
     }
 
     @Override

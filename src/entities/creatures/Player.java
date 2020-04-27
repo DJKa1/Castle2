@@ -8,6 +8,8 @@ import graphics.Animation;
 
 
 import items.Item;
+import items.Quality.Outstanding;
+import items.Weapons.Shotgun;
 import main_pack.*;
 
 import java.awt.*;
@@ -49,7 +51,7 @@ public class Player extends Creature {
 
         //Test------------------------------------
         inventory.addItembyID("testWeapon");
-        inventory.addItembyID("shotgun");
+        inventory.addItem(new Shotgun(new Outstanding()));
         inventory.addItembyID("IceStorm");
         inventory.addItembyID("AK47");
         for(int i =0 ; i<6;i++){

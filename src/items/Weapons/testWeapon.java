@@ -3,12 +3,13 @@ import Inventory.Inventory;
 import entities.creatures.Creature;
 import graphics.Texture;
 import entities.projectile.Plasmabolt;
+import items.Quality.Quality;
 import items.Weapons.ShootingWeapons;
 import main_pack.MouseInput;
 
 public class testWeapon extends ShootingWeapons {
-    public testWeapon( ) {
-        super();
+    public testWeapon(Quality quality) {
+        super(quality);
         image= Texture.sprite[26];
         cooldown=2 ;
     }

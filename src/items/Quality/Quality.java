@@ -27,7 +27,7 @@ public abstract class Quality {
     }
 
     protected float rollDmg(){
-        return r.nextFloat()*(maxD-minD)+minD;
+        return (r.nextFloat()*(maxD-minD))+minD;
     }
 
     public float getDmg() {

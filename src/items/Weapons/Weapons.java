@@ -1,5 +1,4 @@
 package items.Weapons;
-import Inventory.Inventory;
 import items.Item;
 import items.Quality.Primitiv;
 import items.Quality.Quality;
@@ -10,18 +9,19 @@ public abstract class Weapons extends Item {
     protected int cooldown;
     protected Quality quality;
 
-
-    public Weapons() {
+    public Weapons(Quality quality){
         super();
         cooldown=0;
-        this.quality=new Primitiv();
-        initValues();
+        baseDamage=1;
+        if(quality==null){
+
+            this.quality=new Primitiv();
+
+        }else {
+            this.quality=quality;
+        }
     }
 
-
-    protected void initValues(){
-        baseDamage=baseDamage*quality.getDmg();
-    }
 
     @Override
     public void tick() {
@@ -40,8 +40,8 @@ public abstract class Weapons extends Item {
         return cooldown;
     }
 
-    public float getBaseDmg(){
-        return baseDamage;
+    public float getDmg(){
+        return baseDamage*quality.getDmg();
     }
 
     public float getBaseDamage() {

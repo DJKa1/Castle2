@@ -22,7 +22,6 @@ public abstract class Projectile extends Entity {
     protected ProjectileHandler projectileHandler;
     protected Effectshandler effectshandler;
     protected ID[] isHit;
-    protected float baseDgm;
     protected Knockback knockback;
     protected BufferedImage img;
     protected int lifeTime=0;
@@ -37,17 +36,10 @@ public abstract class Projectile extends Entity {
         this.projectileHandler = projectileHandler;
         this.effectshandler = effectshandler;
         this.weapon=weapon;
-        baseDgm*=weapon.getBaseDmg();
         move = new Vector2D(0, 0);
     }
 
     //Getter && Setter--------------------------------------------------------
-    public float getBaseDgm() {
-        return baseDgm;
-    }
-    public float caculateDmg() {
-        return baseDgm;
-    }
     public float getProjeticespeed() {
         return projeticespeed;
     }
@@ -130,7 +122,7 @@ public abstract class Projectile extends Entity {
     }
 
     protected void hitTarget(Creature k){
-        k.hit(baseDgm,null);
+        k.hit(weapon.getDmg(),null);
         k.setCurrentKnockback(knockback);
     }
 
