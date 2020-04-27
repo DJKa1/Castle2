@@ -5,7 +5,8 @@ package main_pack;
 import States.GameState;
 import States.InventoryState;
 import States.MenuState;
-import Item;
+
+import items.Item;
 
 
 import java.awt.event.*;

@@ -1,10 +1,14 @@
 package Inventory;
 
-import entities.creatures.Player;
+import ID_Lists.ItemID;
+import entities.creatures.Creature;
 import graphics.Animation;
 import graphics.Texture;
+import items.Item;
+import items.Munition.SniperAmmo;
 import items.Weapons.IceStorm;
 import items.Weapons.Shotgun;
+import items.Weapons.Weapons;
 import items.Weapons.testWeapon;
 import main_pack.Launcher;
 import main_pack.MouseInput;
@@ -13,7 +17,7 @@ import java.awt.*;
 
 public class Inventory {
     private Hotbar hotbar;
-    private Player owner;
+    private Creature owner;
     public final int xpos = 10, ypos = 60, slotwidth = 200, slotheight = 70;
     public Item[] inventoryItems;
     public int activeSlot = 1;
@@ -30,7 +34,7 @@ public class Inventory {
     private double transX = Launcher.WIDTH / 2 / scale - (width + 1) / 2 * 16;
     private double transY = Launcher.HEIGHT / 2 / scale - (height + 1) / 2 * 16;
 
-    public Inventory(Player owner) {
+    public Inventory(Creature owner) {
         this.owner = owner;
         inventoryItems = new Item[12*8];
         clearInventory();
@@ -46,7 +50,7 @@ public class Inventory {
         this.activeSlot = n;
     }
 
-    public Player getOwner() {
+    public Creature getOwner() {
         return owner;
     }
 
@@ -120,9 +124,19 @@ public class Inventory {
         for (int y = 0;y<inventoryItems.length/12d;y++) {
             for (int i = 0; i < width-4; i++) {
                 if (inventoryItems[y*(width-4)+i]!=null) {
+                    if(Weapons.class.isAssignableFrom(inventoryItems[y*(width-4)+i].getClass())){
+                        Weapons w = (Weapons) inventoryItems[y*(width-4)+i];
+                        g.setColor(w.getQuality().getColor());
+                        g.drawRect((i+2) * 16, y* 16+2*16,12,12);
+                    }
+
                     g.rotate(Math.toRadians(-45),(i+2) * 16+8, y* 16+2*16+8);
                     g.drawImage(inventoryItems[y*(width-4)+i].getImage(), (i+2) * 16, y* 16+2*16, null);
                     g.rotate(Math.toRadians(45),(i+2) * 16+8, y* 16+2*16+8);
+                    if(inventoryItems[y*(width-4)+i].getAmount()>1){
+                        g.drawString(String.valueOf(inventoryItems[y*(width-4)+i].getAmount()),(i+2) * 16+8, y* 16+2*16+8);
+
+                    }
                 }
             }
         }
@@ -199,8 +213,9 @@ public class Inventory {
             case "IceStorm":
                 item = new IceStorm(this);
                 break;
-            case "AK47":
-                item = new AK47(this);
+
+            case "SniperAmmo":
+                item = new SniperAmmo(this);
                 break;
         }
         addItem(item);
@@ -212,7 +227,12 @@ public class Inventory {
 
     public void addItem(Item item) {
         for (int i = 0; i < inventoryItems.length; i++) {
-            if (inventoryItems[i] == null) {
+            if (inventoryItems[i] != null) {
+                if (inventoryItems[i].getId() == item.getId()&& inventoryItems[i].getAmount()<inventoryItems[i].getStackSize()) {
+                    inventoryItems[i].addAmount();
+                    break;
+                }
+            }else {
                 inventoryItems[i] = item;
                 break;
             }
@@ -226,6 +246,32 @@ public class Inventory {
             return null;
         }
     }
+
+    public Item getItembyId(ItemID id){
+        for (Item item : inventoryItems) {
+            if (item != null) {
+                if (item.getId() == id) {
+                    return item;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void removeItem(int i){
+        inventoryItems[i]=null;
+    }
+
+    public int getIndex(Item item){
+        for (int i=0 ;i < inventoryItems.length;i++) {
+            if(inventoryItems[i]==item){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
 
     public int getItemCount() {
         return inventoryItems.length;

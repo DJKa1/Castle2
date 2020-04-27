@@ -4,6 +4,7 @@ import Handler.ProjectileHandler;
 import ID_Lists.ID;
 import entities.Vector2D;
 import entities.creatures.Creature;
+import items.Weapons.Weapons;
 import main_pack.Game;
 
 import java.awt.geom.Rectangle2D;
@@ -11,8 +12,8 @@ import java.awt.geom.Rectangle2D;
 public class IceBall extends Projectile {
     private int splitAmount=8;
 
-    public IceBall(float x, float y,float aimX ,float aimY,ProjectileHandler projectileHandler,Effectshandler effectshandler) {
-        super(x, y, projectileHandler,effectshandler);
+    public IceBall(float x, float y, float aimX , float aimY, ProjectileHandler projectileHandler, Effectshandler effectshandler, Weapons weapons) {
+        super(x, y, projectileHandler,effectshandler,weapons);
         this.aimY = aimY;
         this.aimX = aimX;
         width = (float) 6/16;
@@ -59,7 +60,7 @@ public class IceBall extends Projectile {
         double a;
         for (int i=0; i<amount;i++){
             a=2*Math.PI/amount*i;
-            projectileHandler.addObject(new IceShard(x,y,new Vector2D( Math.sin(a),Math.cos(a)),a,projectileHandler,effectshandler));
+            projectileHandler.addObject(new IceShard(x,y,new Vector2D( Math.sin(a),Math.cos(a)),a,projectileHandler,effectshandler,weapon));
         }
 
     }

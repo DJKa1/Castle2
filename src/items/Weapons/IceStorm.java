@@ -1,6 +1,7 @@
 package items.Weapons;
 
 import Inventory.Inventory;
+import entities.creatures.Creature;
 import entities.projectile.IceBall;
 import graphics.Texture;
 
@@ -11,13 +12,14 @@ public class IceStorm extends MagicWeapons {
 
     public IceStorm(Inventory inventory) {
         super(inventory);
-        image= Texture.sprite[25];
+        image= Texture.sprite[28];
         manacost=10;
         cooldown=60;
     }
 
+
     @Override
     public void fire() {
-        user.getProjectileHandler().addObject(new IceBall(user.getX()+0.5f,user.getY()+0.5f,mouseX,mouseY,user.getProjectileHandler(),user.getEffectshandler()));
+        user.getProjectileHandler().addObject(new IceBall(user.getX()+0.5f,user.getY()+0.5f,mouseX,mouseY,user.getProjectileHandler(),user.getEffectshandler(),this));
     }
 }

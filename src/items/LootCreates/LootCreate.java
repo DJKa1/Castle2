@@ -1,9 +1,9 @@
 package items.LootCreates;
 
 import Inventory.Inventory;
-import Item;
+import items.Item;
 
-public class LootCreate extends Item {
+public abstract class LootCreate extends Item {
 
     public LootCreate(Inventory inventory){
         super(inventory);

@@ -2,6 +2,7 @@ package main_pack;
 import ID_Lists.BuffID;
 import entities.Knockback;
 import entities.Vector2D;
+import entities.creatures.Dúath_láma;
 import entities.creatures.GreenSlime;
 import entities.creatures.Player;
 import ID_Lists.ItemID;
@@ -170,6 +171,7 @@ public class GameConsole {
         try {
             switch (id){
                 case "greenslime": game.getCreatureHandler().addObject(new GreenSlime(Float.parseFloat(xpos),Float.parseFloat(ypos),game));break;
+                case "Dúath_láma": game.getCreatureHandler().addObject(new Dúath_láma(Float.parseFloat(xpos),Float.parseFloat(ypos),game));break;
                 default:setInput("No valid MobID");
             }
         }catch (IllegalArgumentException e){

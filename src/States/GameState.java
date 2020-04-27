@@ -4,12 +4,9 @@ import Handler.CreatureHandler;
 import Handler.Effectshandler;
 import Handler.ProjectileHandler;
 import Maps.Map;
+import entities.creatures.*;
 import graphics.Texture;
 import ID_Lists.ID;
-import entities.creatures.Camera;
-import entities.creatures.Creature;
-import entities.creatures.GreenSlime;
-import entities.creatures.Player;
 import graphics.F3Infopanel;
 import main_pack.*;
 
@@ -56,6 +53,7 @@ public class GameState extends State{
         //------------------------------------------------------------------
         creatureHandler.addObject(player);
         creatureHandler.addObject(new GreenSlime(3,7,game));
+        creatureHandler.addObject(new Dúath_láma(10,3,game));
 
     }
     @Override

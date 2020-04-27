@@ -5,7 +5,9 @@ import Inventory.Inventory;
 import States.GameState;
 import entities.Vector2D;
 import graphics.Animation;
-import Item;
+
+
+import items.Item;
 import main_pack.*;
 
 import java.awt.*;
@@ -50,6 +52,9 @@ public class Player extends Creature {
         inventory.addItembyID("shotgun");
         inventory.addItembyID("IceStorm");
         inventory.addItembyID("AK47");
+        for(int i =0 ; i<6;i++){
+            inventory.addItembyID("SniperAmmo");
+        }
         //---------------------------------------
     }
 
@@ -64,7 +69,6 @@ public class Player extends Creature {
         tickActiveBuffs();
         movement();
         inventory.tick();
-
         Item item = inventory.getItem(inventory.getActiveSlot());
         if (KeyboardInput.Keyboard) {
             if (MouseInput.leftPressed) {

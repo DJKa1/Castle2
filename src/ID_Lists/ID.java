@@ -5,7 +5,8 @@ package ID_Lists;
 public enum ID {
     //Creatures
     Player(),
-    GreenSlime();
+    GreenSlime(),
+    Dúath_láma();
 
 
 

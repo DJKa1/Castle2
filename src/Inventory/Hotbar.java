@@ -1,5 +1,7 @@
 package Inventory;
-import Item;
+
+import items.Item;
+
 import java.awt.*;
 
 public class Hotbar {

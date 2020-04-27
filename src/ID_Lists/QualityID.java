@@ -1,16 +1,11 @@
 package ID_Lists;
 
-public enum ItemID {
-    testWeapon,
-    IceStorm,
-    Shotgun,
-    SniperAmmo,
-    EchoStaff;
-
+public enum QualityID {
+    Primitiv;
 
 
     public static boolean containsElement(String eingabe) {
-        for (ItemID t : ItemID.values()) {
+        for (QualityID t : QualityID.values()) {
             if (t.toString().toLowerCase().contains(eingabe.toLowerCase())) {
                 return true;
             }

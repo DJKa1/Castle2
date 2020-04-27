@@ -2,12 +2,13 @@ package entities.projectile;
 import Handler.Effectshandler;
 import entities.Knockback;
 import Handler.ProjectileHandler;
+import items.Weapons.Weapons;
 import main_pack.Game;
 import java.awt.geom.Rectangle2D;
 public class Plasmabolt extends Projectile {
 
-    public Plasmabolt(float x, float y, float aimX, float aimY, ProjectileHandler projectileHandler, Effectshandler effectshandler) {
-        super(x, y,projectileHandler, effectshandler);
+    public Plasmabolt(float x, float y, float aimX, float aimY, ProjectileHandler projectileHandler, Effectshandler effectshandler, Weapons weapons) {
+        super(x, y,projectileHandler, effectshandler,weapons);
         this.aimY = aimY;
         this.aimX = aimX;
         width= (float) 6/16;

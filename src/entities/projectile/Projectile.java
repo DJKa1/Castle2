@@ -10,6 +10,7 @@ import entities.Knockback;
 import entities.Vector2D;
 import Handler.ProjectileHandler;
 import entities.creatures.Creature;
+import items.Weapons.Weapons;
 import main_pack.Game;
 
 import java.awt.*;
@@ -27,13 +28,16 @@ public abstract class Projectile extends Entity {
     protected int lifeTime=0;
     protected ProjectileID id;
     protected Buff buff = null;
+    protected Weapons weapon;
 
     //Konstructor-------------------------------------------------
-    public Projectile(float x, float y, ProjectileHandler projectileHandler,Effectshandler effectshandler) {
+    public Projectile(float x, float y, ProjectileHandler projectileHandler, Effectshandler effectshandler, Weapons weapon) {
         super(x, y);
         this.id=ProjectileID.valueOf(this.getClass().getSimpleName());
         this.projectileHandler = projectileHandler;
         this.effectshandler = effectshandler;
+        this.weapon=weapon;
+        baseDgm*=weapon.getBaseDmg();
         move = new Vector2D(0, 0);
     }
 
