@@ -10,8 +10,8 @@ import static main_pack.MouseInput.mouseY;
 
 public class IceStorm extends MagicWeapons {
 
-    public IceStorm(Inventory inventory) {
-        super(inventory);
+    public IceStorm( ) {
+        super();
         image= Texture.sprite[28];
         manacost=10;
         cooldown=60;

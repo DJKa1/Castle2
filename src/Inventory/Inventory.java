@@ -205,17 +205,17 @@ public class Inventory {
             default:
                 return;
             case "testWeapon":
-                item = new testWeapon(this);
+                item = new testWeapon();
                 break;
             case "shotgun":
-                item = new Shotgun(this);
+                item = new Shotgun();
                 break;
             case "IceStorm":
-                item = new IceStorm(this);
+                item = new IceStorm();
                 break;
 
             case "SniperAmmo":
-                item = new SniperAmmo(this);
+                item = new SniperAmmo();
                 break;
         }
         addItem(item);

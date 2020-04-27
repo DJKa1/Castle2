@@ -12,10 +12,9 @@ import static main_pack.MouseInput.mouseX;
 import static main_pack.MouseInput.mouseY;
 
 public class Shotgun extends ShootingWeapons {
-    public Shotgun(Inventory inventory) {
-        super(inventory);
+    public Shotgun() {
+        super();
         image = Texture.sprite[25];
-        user = inventory.getOwner();
         cooldown = 30;
         magazineSize = 6;
         ammo= ItemID.SniperAmmo;

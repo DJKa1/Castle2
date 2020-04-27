@@ -5,8 +5,8 @@ import graphics.Texture;
 
 
 public class EchoStaff extends MagicWeapons {
-    public EchoStaff(Inventory inventory) {
-        super(inventory);
+    public EchoStaff() {
+        super();
         image= Texture.sprite[29];
     }
 

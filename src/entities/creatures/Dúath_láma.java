@@ -16,8 +16,6 @@ import java.awt.geom.AffineTransform;
 
 public class Dúath_láma extends Creature{
     private Weapons weapon;
-    private Inventory inv;
-
 
     public Dúath_láma(float x, float y, Game game) {
         super(x, y, game);
@@ -30,8 +28,7 @@ public class Dúath_láma extends Creature{
         movementRate= (float) 0.05;
         armorValue=1;
         followingMultiplier=2;
-        inv=new Inventory(this);
-        weapon=new EchoStaff(inv);
+        weapon=new EchoStaff();
         normalizeHitbox();
         normalizeMovementhitbox();
 

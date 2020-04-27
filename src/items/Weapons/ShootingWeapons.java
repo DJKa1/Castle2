@@ -11,13 +11,14 @@ public abstract class ShootingWeapons extends Weapons {
     protected int magazineSize,remainingMunition;
     protected ItemID ammo;
 
-    public ShootingWeapons(Inventory inventory) {
-        super(inventory);
+    public ShootingWeapons( ) {
+        super();
     }
 
 
     public void reload(){
-        Item item=inventory.getItembyId(ammo);
+        /*
+        Item item=user.inventory.getItembyId(ammo);
         if(item!=null){
             int i=inventory.getIndex(item);
             if(item.getAmount()>magazineSize-remainingMunition){
@@ -29,5 +30,7 @@ public abstract class ShootingWeapons extends Weapons {
                 inventory.removeItem(i);
             }
         }
+
+         */
     }
 }

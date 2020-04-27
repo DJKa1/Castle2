@@ -10,14 +10,11 @@ public abstract class Item {
     protected ItemID id;
     protected int stackSize,amount;
     protected BufferedImage image;
-    protected Inventory inventory;
     protected Creature user;
 
 
-    public Item(Inventory inventory){
+    public Item(){
         this.id=ItemID.valueOf(this.getClass().getSimpleName());
-        this.inventory=inventory;
-        user=inventory.getOwner();
         stackSize=1;
         amount=1;
     }

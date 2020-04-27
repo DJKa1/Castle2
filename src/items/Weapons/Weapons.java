@@ -11,18 +11,13 @@ public abstract class Weapons extends Item {
     protected Quality quality;
 
 
-    public Weapons(Inventory inventory) {
-        super(inventory);
+    public Weapons() {
+        super();
         cooldown=0;
         this.quality=new Primitiv();
         initValues();
     }
 
-    public Weapons(Inventory inventory,Quality quality){
-        super(inventory);
-        this.quality=quality;
-        initValues();
-    }
 
     protected void initValues(){
         baseDamage=baseDamage*quality.getDmg();

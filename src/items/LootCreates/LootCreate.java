@@ -5,8 +5,8 @@ import items.Item;
 
 public abstract class LootCreate extends Item {
 
-    public LootCreate(Inventory inventory){
-        super(inventory);
+    public LootCreate( ){
+        super();
 
     }
 

@@ -6,8 +6,8 @@ import items.Weapons.ShootingWeapons;
 import main_pack.MouseInput;
 
 public class testWeapon extends ShootingWeapons {
-    public testWeapon(Inventory inventory) {
-        super(inventory);
+    public testWeapon( ) {
+        super();
         image= Texture.sprite[26];
         cooldown=2 ;
     }

@@ -7,8 +7,8 @@ import items.Weapons.Weapons;
 public abstract class MagicWeapons extends Weapons {
     protected int manacost;
 
-    public MagicWeapons(Inventory inventory) {
-        super(inventory);
+    public MagicWeapons( ) {
+        super();
     }
 
     public abstract void fire();

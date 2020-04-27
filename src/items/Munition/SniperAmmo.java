@@ -7,8 +7,8 @@ import items.Item;
 public class SniperAmmo extends Item {
 
 
-    public SniperAmmo(Inventory inventory){
-        super(inventory);
+    public SniperAmmo( ){
+        super();
         image= Texture.sprite[18];
         stackSize=100;
 
