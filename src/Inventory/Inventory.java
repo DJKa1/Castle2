@@ -39,7 +39,7 @@ public class Inventory {
 
     public Inventory(Creature owner) {
         this.owner = owner;
-        slots = new Slot[12 * 8];
+        slots = new Slot[12 * 8 - 15];
         init_slots();
         clearInventory();
         hotbar = new Hotbar(this);
@@ -70,10 +70,6 @@ public class Inventory {
         }
     }
 
-    public Hotbar getHotbar() {
-        return hotbar;
-    }
-
     public void render(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
 
@@ -90,6 +86,10 @@ public class Inventory {
             g.drawImage(MouseInput.holdItem.getImage(), (int) (MouseInput.mouseX) - 32, (int) (MouseInput.mouseY) - 32, Game.UNIT_SCALE / 2, Game.UNIT_SCALE / 2, null);
         }
 
+    }
+
+    public Hotbar getHotbar() {
+        return hotbar;
     }
 
     public Item grabItem(int mouseX, int mouseY) {
@@ -109,20 +109,36 @@ public class Inventory {
             if (slots[i].inBounds(mouseX, mouseY)) {
                 if (slots[i].item == null) {
                     slots[i].item = item;
+                    clearIdentifyer();
+                    return;
                 } else {
                     for (int e = 0; e < slots.length; e++) {
                         if (slots[e].getIdentifyer().equals("last")) {
                             Item tempItem = item;
                             slots[e].item = slots[i].item;
                             slots[i].item = tempItem;
+                            clearIdentifyer();
+                            return;
                         }
                     }
                 }
             }
-
         }
-        for (int a = 0;a<slots.length;a++) {
-            slots[a].setIdentifyer("null");
+
+        for (int e = 0; e < slots.length; e++) {
+            if (slots[e].getIdentifyer().equals("last")) {
+                slots[e].item = item;
+                break;
+            }
+        }
+        clearIdentifyer();
+
+    }
+    private void clearIdentifyer() {
+        for (int a = 0; a < slots.length; a++) {
+            if (slots[a].getIdentifyer().equals("last")) {
+                slots[a].setIdentifyer("null");
+            }
         }
     }
 
@@ -273,12 +289,16 @@ public class Inventory {
     }
 
     public void init_slots() {
-        for (int yy = 0; yy < 8; yy++) {
+        int index = 0;
+        for (int i = 0; i < 9; i++) {
+            slots[index] = new Slot(new Rectangle((int) (i * Game.UNIT_SCALE / 2 + transX * scale + 64 * 2), (int) (transY * scale + 64 * 2), Game.UNIT_SCALE / 2, Game.UNIT_SCALE / 2));
+            index++;
+        }
+        for (int yy = 2; yy < 8; yy++) {
             for (int xx = 0; xx < 12; xx++) {
-                slots[yy * 12 + xx] = new Slot(new Rectangle((int) (xx * Game.UNIT_SCALE / 2 + transX * scale + 64 * 2), (int) (yy * Game.UNIT_SCALE / 2 + transY * scale + 64 * 2), Game.UNIT_SCALE / 2, Game.UNIT_SCALE / 2));
+                slots[index] = new Slot(new Rectangle((int) (xx * Game.UNIT_SCALE / 2 + transX * scale + 64 * 2), (int) (yy * Game.UNIT_SCALE / 2 + transY * scale + 64 * 2), Game.UNIT_SCALE / 2, Game.UNIT_SCALE / 2));
+                index++;
             }
         }
     }
-
-
 }
