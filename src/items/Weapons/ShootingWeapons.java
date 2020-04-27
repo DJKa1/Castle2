@@ -21,7 +21,7 @@ public abstract class ShootingWeapons extends Weapons {
     public void reload(Inventory inventory){
         Item item=inventory.getItembyId(ammo);
         if(item!=null){
-            int i=inventory.getIndex(item);
+            int i=inventory.getByIndex(item);
             if(item.getAmount()>magazineSize-remainingMunition){
                 item.reduceAmount(magazineSize-remainingMunition);
                 remainingMunition=magazineSize;

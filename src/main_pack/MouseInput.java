@@ -2,6 +2,7 @@ package main_pack;
 
 
 
+import Inventory.Slot;
 import States.GameState;
 import States.InventoryState;
 import States.MenuState;
@@ -19,6 +20,7 @@ public class MouseInput implements MouseListener, MouseMotionListener , MouseWhe
     private Game game;
 
     public static Item holdItem = null;
+    public static Slot lastSlot = null;
 
     public MouseInput(Game game){
         this.game = game;
@@ -43,11 +45,7 @@ public class MouseInput implements MouseListener, MouseMotionListener , MouseWhe
             mouseX = mouseEvent.getX();
             mouseY = mouseEvent.getY();
             Item tempItem = game.getPlayer().getInventory().grabItem(mouseEvent.getX(),mouseEvent.getY());
-            if (tempItem != null) {
-
-                holdItem = tempItem;
-            }
-
+            holdItem = tempItem;
         }
 
     }
@@ -61,7 +59,7 @@ public class MouseInput implements MouseListener, MouseMotionListener , MouseWhe
             }
         } else if(game.getactiveState().getClass()== InventoryState.class) {
             if (holdItem != null) {
-                game.getPlayer().getInventory().putItem(mouseEvent.getX(),mouseEvent.getY());
+                game.getPlayer().getInventory().putItem(holdItem,mouseEvent.getX(),mouseEvent.getY());
                 holdItem = null;
             }
 

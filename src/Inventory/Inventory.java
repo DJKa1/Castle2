@@ -11,6 +11,7 @@ import items.Weapons.IceStorm;
 import items.Weapons.Shotgun;
 import items.Weapons.Weapons;
 import items.Weapons.testWeapon;
+import main_pack.Game;
 import main_pack.Launcher;
 import main_pack.MouseInput;
 
@@ -20,11 +21,12 @@ public class Inventory {
     private Hotbar hotbar;
     private Creature owner;
     public final int xpos = 10, ypos = 60, slotwidth = 200, slotheight = 70;
-    public Item[] inventoryItems;
+    public Slot[] slots;
+    //private Item holdItem = null;
     public int activeSlot = 1;
     private int first = 0, last = first + 9;
 
-    private final int width = 16,height = 12;
+    private final int width = 16, height = 12;
 
     private Animation animation;
 
@@ -37,7 +39,8 @@ public class Inventory {
 
     public Inventory(Creature owner) {
         this.owner = owner;
-        inventoryItems = new Item[12*8];
+        slots = new Slot[12 * 8];
+        init_slots();
         clearInventory();
         hotbar = new Hotbar(this);
         animation = new Animation(3, Texture.Inventory[0][0], Texture.Inventory[1][0], Texture.Inventory[2][0], Texture.Inventory[3][0], Texture.Inventory[4][0], Texture.Inventory[5][0], Texture.Inventory[6][0], Texture.Inventory[7][0], Texture.Inventory[8][0], Texture.Inventory[9][0], Texture.Inventory[10][0], Texture.Inventory[11][0], Texture.Inventory[12][0], Texture.Inventory[13][0], Texture.Inventory[14][0], Texture.Inventory[15][0], Texture.Inventory[16][0], Texture.Inventory[17][0]);
@@ -59,11 +62,9 @@ public class Inventory {
     public void tick() {
         animation.runAnimation();
 
-        first = MouseInput.mouseWheelPos;
-        last = first + 9;
-        for (int i = 0; i < inventoryItems.length; i++) {
-            if (first <= i && i <= last && inventoryItems[i]!=null) {
-                Item tempItem = inventoryItems[i];
+        for (int i = 0; i < slots.length; i++) {
+            if (slots[i].item != null) {
+                Item tempItem = slots[i].item;
                 tempItem.tick();
             }
         }
@@ -78,68 +79,50 @@ public class Inventory {
 
         g2d.scale(scale, scale);
         g2d.translate(transX, transY);
-
         drawBorader(g2d, width, height);
-        renderHotbar(g2d);
-
         g2d.translate(-transX, -transY);
-
-        if (MouseInput.holdItem!=null) {
-            g.drawImage(MouseInput.holdItem.getImage(),(int)(MouseInput.mouseX/scale)-8,(int) (MouseInput.mouseY/scale)-8,null);
-        }
         g2d.scale(1 / scale, 1 / scale);
 
-
+        for (int i = 0; i < slots.length; i++) {
+            slots[i].render(g2d);
+        }
+        if (MouseInput.holdItem != null) {
+            g.drawImage(MouseInput.holdItem.getImage(), (int) (MouseInput.mouseX) - 32, (int) (MouseInput.mouseY) - 32, Game.UNIT_SCALE / 2, Game.UNIT_SCALE / 2, null);
+        }
 
     }
 
     public Item grabItem(int mouseX, int mouseY) {
-        Point point = new Point((int)((mouseX - transX*scale) / scale / 16)-2,(int)((mouseY - transY*scale) / scale / 16)-2);
-        Rectangle bounds = new Rectangle(0,0,width-4,height-4);
-        if(bounds.contains(point)) {
-            //System.out.println(" X: "+point.x+" Y: "+point.y);
-            int index = point.y*(width-4)+point.x;
-            Item tempItem = inventoryItems[index];
-            prevIndex = index;
-            prevItem = tempItem;
-            inventoryItems[index] = null;
-            return tempItem;
+        for (int i = 0; i < slots.length; i++) {
+            if (slots[i].inBounds(mouseX, mouseY)) {
+                Item tempItem = slots[i].item;
+                slots[i].item = null;
+                slots[i].setIdentifyer("last");
+                return tempItem;
+            }
         }
-
         return null;
     }
 
-    public void putItem(int mouseX, int mouseY) {
-        Point point = new Point((int)((mouseX - transX*scale) / scale / 16)-2,(int)((mouseY - transY*scale) / scale / 16)-2);
-        Rectangle bounds = new Rectangle(0,0,width-4,height-4);
-        if(bounds.contains(point)) {
-            int index = point.y*(width-4)+point.x;
-            switchPositionsByDrag(prevIndex,index);
-        }else {
-            addItem(MouseInput.holdItem);
-        }
-    }
-
-
-    private void renderHotbar(Graphics2D g) {
-        for (int y = 0;y<inventoryItems.length/12d;y++) {
-            for (int i = 0; i < width-4; i++) {
-                if (inventoryItems[y*(width-4)+i]!=null) {
-                    if(Weapons.class.isAssignableFrom(inventoryItems[y*(width-4)+i].getClass())){
-                        Weapons w = (Weapons) inventoryItems[y*(width-4)+i];
-                        g.setColor(w.getQuality().getColor());
-                        g.drawRect((i+2) * 16, y* 16+2*16,12,12);
-                    }
-
-                    g.rotate(Math.toRadians(-45),(i+2) * 16+8, y* 16+2*16+8);
-                    g.drawImage(inventoryItems[y*(width-4)+i].getImage(), (i+2) * 16, y* 16+2*16, null);
-                    g.rotate(Math.toRadians(45),(i+2) * 16+8, y* 16+2*16+8);
-                    if(inventoryItems[y*(width-4)+i].getAmount()>1){
-                        g.drawString(String.valueOf(inventoryItems[y*(width-4)+i].getAmount()),(i+2) * 16+8, y* 16+2*16+8);
-
+    public void putItem(Item item, int mouseX, int mouseY) {
+        for (int i = 0; i < slots.length; i++) {
+            if (slots[i].inBounds(mouseX, mouseY)) {
+                if (slots[i].item == null) {
+                    slots[i].item = item;
+                } else {
+                    for (int e = 0; e < slots.length; e++) {
+                        if (slots[e].getIdentifyer().equals("last")) {
+                            Item tempItem = item;
+                            slots[e].item = slots[i].item;
+                            slots[i].item = tempItem;
+                        }
                     }
                 }
             }
+
+        }
+        for (int a = 0;a<slots.length;a++) {
+            slots[a].setIdentifyer("null");
         }
     }
 
@@ -183,12 +166,6 @@ public class Inventory {
         di(g, width - 1, height, 2, 4);
         di(g, width, height, 3, 4);
 
-        for (int yy = 4; yy < height - 1; yy++) {
-            for (int xx = 2; xx < width - 1; xx++) {
-                //animation.drawAnimation(g, xx * 16, yy * 16);
-                di(g, xx, yy, 0, 0);
-            }
-        }
 
         for (int i = 0; i < 9; i++) {
             animation.drawAnimation(g, (i + 2) * 16, 2 * 16);
@@ -200,6 +177,12 @@ public class Inventory {
     }
 
     //ItemManagement------------------------------------------
+    public void switch_Items(Slot slot0, Slot slot1) {
+        Item item0 = slot0.item;
+        slot0.item = slot1.item;
+        slot1.item = item0;
+    }
+
     public void addItembyID(String id) {
         Item item = null;
         switch (id) {
@@ -223,49 +206,49 @@ public class Inventory {
     }
 
     public void addItem(Item item, int index) {
-        inventoryItems[index] = item;
+        slots[index].item = item;
     }
 
     public void addItem(Item item) {
-        for (int i = 0; i < inventoryItems.length; i++) {
-            if (inventoryItems[i] != null) {
-                if (inventoryItems[i].getId() == item.getId()&& inventoryItems[i].getAmount()<inventoryItems[i].getStackSize()) {
-                    inventoryItems[i].addAmount();
+        for (int i = 0; i < slots.length; i++) {
+            if (slots[i].item != null) {
+                if (slots[i].item.getId() == item.getId() && slots[i].item.getAmount() < slots[i].item.getStackSize()) {
+                    slots[i].item.addAmount();
                     break;
                 }
-            }else {
-                inventoryItems[i] = item;
+            } else {
+                slots[i].item = item;
                 break;
             }
         }
     }
 
     public Item getItem(int i) {
-        if (i < inventoryItems.length) {
-            return inventoryItems[i];
+        if (i < slots.length) {
+            return slots[i].item;
         } else {
             return null;
         }
     }
 
-    public Item getItembyId(ItemID id){
-        for (Item item : inventoryItems) {
-            if (item != null) {
-                if (item.getId() == id) {
-                    return item;
+    public Item getItembyId(ItemID id) {
+        for (int i = 0; i < slots.length; i++) {
+            if (slots[i].item != null) {
+                if (slots[i].item.getId() == id) {
+                    return slots[i].item;
                 }
             }
         }
         return null;
     }
 
-    public void removeItem(int i){
-        inventoryItems[i]=null;
+    public void removeItem(int i) {
+        slots[i].item = null;
     }
 
-    public int getIndex(Item item){
-        for (int i=0 ;i < inventoryItems.length;i++) {
-            if(inventoryItems[i]==item){
+    public int getByIndex(Item item) {
+        for (int i = 0; i < slots.length; i++) {
+            if (slots[i].item == item) {
                 return i;
             }
         }
@@ -273,22 +256,28 @@ public class Inventory {
     }
 
 
-
     public int getItemCount() {
-        return inventoryItems.length;
+        int count = 0;
+        for (int i = 0; i < slots.length; i++) {
+            if (slots[i].item != null) {
+                count++;
+            }
+        }
+        return count;
     }
 
     public void clearInventory() {
-        for (int i = 0; i<inventoryItems.length;i++) {
-            inventoryItems[i] = null;
+        for (int i = 0; i < slots.length; i++) {
+            slots[i].item = null;
         }
     }
 
-    public void switchPositionsByDrag(int i1, int i2) {
-        Item I1 = prevItem;
-        Item I2 = inventoryItems[i2];
-        inventoryItems[i1] = I2;
-        inventoryItems[i2] = I1;
+    public void init_slots() {
+        for (int yy = 0; yy < 8; yy++) {
+            for (int xx = 0; xx < 12; xx++) {
+                slots[yy * 12 + xx] = new Slot(new Rectangle((int) (xx * Game.UNIT_SCALE / 2 + transX * scale + 64 * 2), (int) (yy * Game.UNIT_SCALE / 2 + transY * scale + 64 * 2), Game.UNIT_SCALE / 2, Game.UNIT_SCALE / 2));
+            }
+        }
     }
 
 

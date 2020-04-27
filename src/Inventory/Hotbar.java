@@ -14,7 +14,7 @@ public class Hotbar {
     }
     public void render(Graphics g){
         for(int i =0;i<lenght;i++){
-            if(i<inventory.inventoryItems.length) {
+            if(i<inventory.slots.length) {
                 if (inventory.getItem(i)!=null) {
                     Item tempItem = inventory.getItem(i);
                     g.drawImage(tempItem.getImage(),px+i*(slotWidth), py,slotWidth,slotHeight,null);
