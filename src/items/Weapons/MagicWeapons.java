@@ -11,12 +11,12 @@ public abstract class MagicWeapons extends Weapons {
         super();
     }
 
-    public abstract void fire();
+    public abstract void fire(Creature user);
 
     @Override
-    public void use() {
+    public void use(Creature user) {
         if (delay==0&&user.getManaCount()>manacost){
-            fire();
+            fire(user);
             delay++;
             user.reduceMana(manacost);
         }

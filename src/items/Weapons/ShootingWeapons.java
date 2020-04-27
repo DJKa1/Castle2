@@ -2,6 +2,7 @@ package items.Weapons;
 
 import ID_Lists.ItemID;
 import Inventory.Inventory;
+import entities.creatures.Creature;
 import items.Item;
 import items.Weapons.Weapons;
 
@@ -16,9 +17,8 @@ public abstract class ShootingWeapons extends Weapons {
     }
 
 
-    public void reload(){
-        /*
-        Item item=user.inventory.getItembyId(ammo);
+    public void reload(Inventory inventory){
+        Item item=inventory.getItembyId(ammo);
         if(item!=null){
             int i=inventory.getIndex(item);
             if(item.getAmount()>magazineSize-remainingMunition){
@@ -31,6 +31,6 @@ public abstract class ShootingWeapons extends Weapons {
             }
         }
 
-         */
+
     }
 }

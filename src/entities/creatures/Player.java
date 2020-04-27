@@ -73,12 +73,12 @@ public class Player extends Creature {
         if (KeyboardInput.Keyboard) {
             if (MouseInput.leftPressed) {
                 if (item != null) {
-                    item.use();
+                    item.use(this);
                 }
             }
         } else if (ControllerInput.R1isPressed()) {
             if (item != null) {
-                item.use();
+                item.use(this);
             }
         }
     }

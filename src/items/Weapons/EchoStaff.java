@@ -1,6 +1,7 @@
 package items.Weapons;
 
 import Inventory.Inventory;
+import entities.creatures.Creature;
 import graphics.Texture;
 
 
@@ -11,7 +12,9 @@ public class EchoStaff extends MagicWeapons {
     }
 
     @Override
-    public void fire() {
+    public void fire(Creature user) {
 
     }
+
+
 }

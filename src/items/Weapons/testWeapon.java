@@ -1,5 +1,6 @@
 package items.Weapons;
 import Inventory.Inventory;
+import entities.creatures.Creature;
 import graphics.Texture;
 import entities.projectile.Plasmabolt;
 import items.Weapons.ShootingWeapons;
@@ -12,7 +13,7 @@ public class testWeapon extends ShootingWeapons {
         cooldown=2 ;
     }
     @Override
-    public void use() {
+    public void use(Creature user) {
         if (delay==0) {
             user.getProjectileHandler().addObject(new Plasmabolt(user.getX()+0.5f,user.getY()+0.5f, MouseInput.mouseX,MouseInput.mouseY,user.getProjectileHandler(),user.getEffectshandler(),this));
         }

@@ -1,6 +1,7 @@
 package items.Munition;
 
 import Inventory.Inventory;
+import entities.creatures.Creature;
 import graphics.Texture;
 import items.Item;
 
@@ -20,7 +21,8 @@ public class SniperAmmo extends Item {
     }
 
     @Override
-    public void use() {
+    public void use(Creature user) {
 
     }
+
 }

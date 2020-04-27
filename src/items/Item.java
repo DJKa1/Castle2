@@ -10,19 +10,12 @@ public abstract class Item {
     protected ItemID id;
     protected int stackSize,amount;
     protected BufferedImage image;
-    protected Creature user;
-
-
+    
     public Item(){
         this.id=ItemID.valueOf(this.getClass().getSimpleName());
         stackSize=1;
         amount=1;
     }
-
-
-
-
-
 
     public ItemID getId() {
         return id;
@@ -52,6 +45,6 @@ public abstract class Item {
 
     public abstract void tick();
 
-    public abstract void use();
+    public abstract void use(Creature user);
 
 }

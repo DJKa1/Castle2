@@ -1,6 +1,7 @@
 package items.LootCreates;
 
 import Inventory.Inventory;
+import entities.creatures.Creature;
 import items.Item;
 
 public abstract class LootCreate extends Item {
@@ -16,7 +17,7 @@ public abstract class LootCreate extends Item {
     }
 
     @Override
-    public void use() {
+    public void use(Creature user) {
 
     }
 }

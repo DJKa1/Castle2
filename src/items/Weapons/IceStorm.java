@@ -10,7 +10,7 @@ import static main_pack.MouseInput.mouseY;
 
 public class IceStorm extends MagicWeapons {
 
-    public IceStorm( ) {
+    public IceStorm(  ) {
         super();
         image= Texture.sprite[28];
         manacost=10;
@@ -19,7 +19,7 @@ public class IceStorm extends MagicWeapons {
 
 
     @Override
-    public void fire() {
+    public void fire(Creature user) {
         user.getProjectileHandler().addObject(new IceBall(user.getX()+0.5f,user.getY()+0.5f,mouseX,mouseY,user.getProjectileHandler(),user.getEffectshandler(),this));
     }
 }
