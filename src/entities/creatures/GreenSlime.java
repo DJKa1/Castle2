@@ -1,11 +1,7 @@
 package entities.creatures;
-import Effects.Effect;
-import Handler.Effectshandler;
 import States.GameState;
 import ID_Lists.ID;
-import Handler.CreatureHandler;
 import main_pack.Game;
-import Handler.ProjectileHandler;
 import java.awt.*;
 
 public class GreenSlime extends Creature {

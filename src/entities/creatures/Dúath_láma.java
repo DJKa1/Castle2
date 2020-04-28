@@ -4,7 +4,9 @@ import ID_Lists.ID;
 import Inventory.Inventory;
 import States.GameState;
 
+import items.Quality.Outstanding;
 import items.Quality.Primitiv;
+import items.Weapons.Shotgun;
 import items.Weapons.Weapons;
 import items.Weapons.testWeapon;
 import main_pack.Game;
@@ -26,7 +28,7 @@ public class Dúath_láma extends Creature{
         movementRate= (float) 0.05;
         armorValue=1;
         followingMultiplier=2;
-        weapon=new testWeapon(new Primitiv());
+        weapon=new Shotgun(new Outstanding());
         normalizeHitbox();
         normalizeMovementhitbox();
     }
@@ -41,6 +43,14 @@ public class Dúath_láma extends Creature{
     public void tick() {
         super.tick();
         weapon.tick();
+    }
+
+    public Weapons getWeapon() {
+        return weapon;
+    }
+
+    public void setWeapon(Weapons weapon) {
+        this.weapon = weapon;
     }
 
     @Override

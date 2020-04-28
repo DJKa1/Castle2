@@ -10,10 +10,14 @@ import graphics.Camera;
 import graphics.Texture;
 import ID_Lists.ID;
 import graphics.F3Infopanel;
+import items.Quality.Outstanding;
+import items.Quality.Primitiv;
+import items.Weapons.testWeapon;
 import main_pack.*;
 
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 public class GameState extends State{
     private CreatureHandler creatureHandler;
@@ -55,9 +59,25 @@ public class GameState extends State{
         texture = new Texture();
         f3Infopanel=new F3Infopanel(this);
         //------------------------------------------------------------------
+
         creatureHandler.addObject(player);
-        creatureHandler.addObject(new GreenSlime(3,7,game));
-        creatureHandler.addObject(new Dúath_láma(10,3,game));
+        Dúath_láma g =new Dúath_láma(10,3,game);
+        creatureHandler.addObject(g);
+
+
+        Dúath_láma c=new Dúath_láma(7,12,game);
+        creatureHandler.addObject(c);
+
+
+        /*
+        for ( int i= 0 ; i< 50 ; i++){
+            Creature c= new GreenSlime((int)(Math.random()*14),(int)(Math.random()*14),game);
+            creatureHandler.addObject(c);
+            c.setCurrentTarget(g);
+        }
+
+         */
+
 
     }
     @Override
