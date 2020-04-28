@@ -34,6 +34,9 @@ public class Map {
         pathfinder.setInitialNode(new Node((int)Math.floor(start.getX()),(int)Math.floor(start.getY())));
         pathfinder.setFinalNode(new Node((int)Math.floor(end.getX()),(int)Math.floor(end.getY())));
         return pathfinder.findPath();
+
+
+
     }
 
 

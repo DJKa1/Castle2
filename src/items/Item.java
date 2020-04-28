@@ -20,6 +20,7 @@ public abstract class Item {
         attributes = new ArrayList<>();
         stackSize=1;
         amount=1;
+        attributes.add(String.valueOf(id));
     }
 
     public ItemID getId() {

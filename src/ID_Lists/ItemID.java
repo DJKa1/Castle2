@@ -2,10 +2,12 @@ package ID_Lists;
 
 public enum ItemID {
     testWeapon,
+    HealPotion,
     IceStorm,
     Shotgun,
     SniperAmmo,
-    EchoStaff;
+    EchoStaff,
+    OutstandingLootCreate;
 
 
 

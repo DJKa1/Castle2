@@ -2,6 +2,7 @@ package Inventory;
 
 import ID_Lists.ItemID;
 import entities.creatures.Creature;
+import entities.creatures.Player;
 import graphics.Animation;
 import graphics.Texture;
 import items.Item;
@@ -258,17 +259,28 @@ public class Inventory {
     }
 
     public void addItem(Item item) {
-        for (int i = 0; i < slots.length; i++) {
-            if (slots[i].item != null) {
-                if (slots[i].item.getId() == item.getId() && slots[i].item.getAmount() < slots[i].item.getStackSize()) {
-                    slots[i].item.addAmount();
+        if (item != null) {
+            for (int i = 0; i < slots.length; i++) {
+                if (slots[i].item != null) {
+                    if (slots[i].item.getId() == item.getId() && slots[i].item.getAmount() < slots[i].item.getStackSize()) {
+                        slots[i].item.addAmount();
+                        break;
+                    }
+                } else {
+                    slots[i].item = item;
                     break;
                 }
-            } else {
-                slots[i].item = item;
-                break;
             }
         }
+    }
+
+    public void addItems(Item[] items){
+        if(items!=null){
+            for (Item item: items){
+                addItem(item);
+            }
+        }
+
     }
 
     public Item getItem(int i) {
@@ -291,7 +303,16 @@ public class Inventory {
     }
 
     public void removeItem(int i) {
+        if(slots[i].item.getAmount()>1){
+            slots[i].item.reduceAmount(1);
+        }else {
         slots[i].item = null;
+
+        }
+    }
+
+    public void removeItem(Item item){
+        removeItem(getByIndex(item));
     }
 
     public int getByIndex(Item item) {

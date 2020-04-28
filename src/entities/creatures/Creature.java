@@ -4,8 +4,10 @@ import Buffs.Buff;
 import Buffs.Poison;
 import Buffs.iced;
 import Effects.DmgIndicator;
+import Effects.HealIndicator;
 import Effects.HitAnimation;
 import Handler.Effectshandler;
+import ID_Lists.BuffID;
 import ID_Lists.ProjectileID;
 import Maps.Map;
 import Pathfinding.Node;
@@ -154,6 +156,22 @@ public abstract class Creature extends Entity {
         }
     }
 
+    public void setHp(float hp) {
+        this.hp = hp;
+    }
+
+    public void heal(float amount){
+        hp+=amount;
+        if(hp>maxHp){
+            hp=maxHp;
+        }
+        effectshandler.addObject(new HealIndicator(x,y,amount,effectshandler));
+    }
+
+    public void setMaxHp(float maxHp) {
+        this.maxHp = maxHp;
+    }
+
     //Render && Tick---------------------------------
     public void renderHealthbar(Graphics g) {
         g.setColor(Color.BLACK);
@@ -231,7 +249,11 @@ public abstract class Creature extends Entity {
     protected void getMoves(){
         if(currentTarget!=null){
             nextMoves=map.getPath(getCenterFromMovementHitbox(),currentTarget.getCenterFromMovementHitbox());
+            if(nextMoves.isEmpty()){
+                nextMoves=map.getPath(getCenter(),currentTarget.getCenter());
+            }
         }
+
     }
 
     public void getMovementFromKnockBack(){
@@ -392,6 +414,16 @@ public abstract class Creature extends Entity {
             case "Poison":addBuff(new Poison(this,duration,lvl));break;
             case "iced":addBuff(new iced(this,duration,lvl));
         }
+    }
+
+    public boolean hasBuff(BuffID id){
+        for (Buff buff: activeBuffs){
+            if (buff.getBuffID()==id){
+                return true;
+            }
+        }
+        return false;
+
     }
     public void tickActiveBuffs(){
         for (int i = 0; i < activeBuffs.size(); i++) {

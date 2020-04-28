@@ -27,7 +27,9 @@ public abstract class Buff {
         this.lvl=lvl;
     }
 
-    public abstract void tick();
+    public void tick(){
+        reduceDuration();
+    }
 
     public boolean reduceDuration(){
         if (duration<=0){

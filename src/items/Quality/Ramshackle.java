@@ -10,6 +10,6 @@ public class Ramshackle extends Quality {
         color= Color.GREEN;
         minD=1;
         maxD=1.4f;
-        dmg=rollDmg();
+
     }
 }

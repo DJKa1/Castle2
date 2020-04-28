@@ -27,8 +27,8 @@ public class Dúath_láma extends Creature{
         maxHp = hp;
         movementRate= (float) 0.05;
         armorValue=1;
-        followingMultiplier=2;
-        weapon=new Shotgun(new Outstanding());
+        followingMultiplier=4;
+        weapon=new testWeapon(new Outstanding());
         normalizeHitbox();
         normalizeMovementhitbox();
     }

@@ -6,9 +6,9 @@ public class Fine extends Quality {
 
     public Fine(){
         super();
-        color= Color.WHITE;
+        color= Color.BLUE;
         minD=1.4f;
         maxD=1.8f;
-        dmg=rollDmg();
+
     }
 }

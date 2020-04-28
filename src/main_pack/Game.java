@@ -3,12 +3,17 @@ package main_pack;
 import Handler.CreatureHandler;
 import Handler.Effectshandler;
 import Handler.ProjectileHandler;
+import ID_Lists.ItemID;
 import Maps.Map;
 import States.*;
 import graphics.Camera;
 import entities.creatures.Player;
 import graphics.Texture;
 import graphics.Window;
+import items.Item;
+import items.LootTable;
+import items.Munition.SniperAmmo;
+import items.Quality.*;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Controller;
 import org.lwjgl.input.Controllers;
@@ -38,15 +43,14 @@ public class Game implements Runnable {
     private KeyboardInput keyboardInput;
     private CreatureHandler creatureHandler;
     private Effectshandler effectshandler;
-
     private GameConsole gameConsole;
     private Menu menu;
-
     private MouseInput mouseInput;
     private static ControllerInput controllerInput;
-
     private Camera camera;
     private Map map;
+
+    public static LootTable standartLootTable;
 
 
     public Game(int width, int height) {
@@ -81,6 +85,8 @@ public class Game implements Runnable {
         creatureHandler = new CreatureHandler();
         effectshandler = new Effectshandler();
 
+
+        initLootTables();
         player = new Player(1, 3, this);
         camera.setX(-player.getPixelPosition(player.getX()) + Launcher.WIDTH / 2 - (int) (UNIT_SCALE) / 2);
         camera.setY(-player.getPixelPosition(player.getY()) + Launcher.HEIGHT / 2 - (int) (UNIT_SCALE) / 2);
@@ -109,6 +115,19 @@ public class Game implements Runnable {
         window.getCanvas().addMouseMotionListener(mouseInput);
         window.getJFrame().addKeyListener(keyboardInput);
 
+
+
+
+    }
+
+    private void initLootTables(){
+        standartLootTable=new LootTable();
+        standartLootTable.setBaseDrop(new Item[]{new SniperAmmo(),new SniperAmmo()});
+        standartLootTable.addItem(ItemID.Shotgun,new Primitiv(),100);
+        standartLootTable.addItem(ItemID.Shotgun,new Ramshackle(),90);
+        standartLootTable.addItem(ItemID.Shotgun,new Fine(),60);
+        standartLootTable.addItem(ItemID.Shotgun,new Extraordinary(),20);
+        standartLootTable.addItem(ItemID.Shotgun,new Outstanding(),10);
     }
 
     //Getters && Setters

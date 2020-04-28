@@ -2,6 +2,7 @@ package ID_Lists;
 
 public enum BuffID {
     Poison,
+    HealCoolDown,
     iced;
 
     public static boolean containsElement(String eingabe) {

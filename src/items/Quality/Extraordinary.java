@@ -10,6 +10,5 @@ public class Extraordinary extends  Quality {
         color= Color.cyan;
         minD=1.7f;
         maxD=2.5f;
-        dmg=rollDmg();
     }
 }

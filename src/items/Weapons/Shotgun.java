@@ -20,6 +20,7 @@ public class Shotgun extends ShootingWeapons {
         ammo= ItemID.SniperAmmo;
         baseDamage=5;
 
+
     }
 
     @Override

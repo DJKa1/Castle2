@@ -8,6 +8,8 @@ import graphics.Animation;
 
 
 import items.Item;
+import items.LootCreates.OutstandingLootCreate;
+import items.Potions.HealPotion;
 import items.Quality.Outstanding;
 import items.Weapons.Shotgun;
 import main_pack.*;
@@ -58,8 +60,12 @@ public class Player extends Creature {
         inventory.addItembyID("AK47");
         for(int i =0 ; i<70;i++){
             inventory.addItembyID("SniperAmmo");
-            inventory.addItem(new Shotgun(new Outstanding()));
+            inventory.addItem(new HealPotion(1));
+            inventory.addItem(new OutstandingLootCreate());
         }
+
+
+
         //---------------------------------------
     }
 

@@ -69,7 +69,7 @@ public class Sound {
     public static void playSound(final String soundEffect) {
         switch (soundEffect) {
             case "Shotgun": playSfx(new File("./rsc/Audio/Shotgun.wav"));break;
-            case "Shotgun_Reload": System.out.println("jo");playSfx(new File("./rsc/Audio/PumpShotgunReload.wav"));break;
+            case "Shotgun_Reload": ;playSfx(new File("./rsc/Audio/PumpShotgunReload.wav"));break;
         }
     }
 }
