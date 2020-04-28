@@ -95,7 +95,7 @@ public class Player extends Creature {
     @Override
     public void render(Graphics g) {
         animation[animationIndex].drawAnimation(g, getPixelPosition(x), getPixelPosition(y), (Game.UNIT_SCALE));
-        renderHealthbar(g);
+
         Graphics2D g2d = (Graphics2D) g;
 
         AffineTransform oldtrans = g2d.getTransform();

@@ -9,6 +9,7 @@ import entities.creatures.Player;
 import entities.projectile.Shotgunbolt;
 import graphics.Texture;
 import items.Quality.Quality;
+import Sound.Sound;
 
 public class Shotgun extends ShootingWeapons {
     public Shotgun(Quality quality) {
@@ -31,6 +32,8 @@ public class Shotgun extends ShootingWeapons {
             if(user.getId()== ID.Player){
                 Player p= (Player) user;
                 reload(p.getInventory());
+                Sound.playSound("Shotgun_Reload");
+
             }else {
                 remainingMunition=magazineSize;
             }
@@ -42,6 +45,7 @@ public class Shotgun extends ShootingWeapons {
 
 
     private void fire(Creature user) {
+        Sound.playSound("Shotgun");
         user.getProjectileHandler().addObject(new Shotgunbolt(user.getX() + 0.5f, user.getY() + 0.5f, user.getAimX(), user.getAimY(), user.getProjectileHandler(), user.getEffectshandler(),this));
         Vector2D s = new Vector2D(user.getAimX(), user.getAimY());
         double angle = s.getAngle() - Math.toRadians(9);
