@@ -128,6 +128,15 @@ public class Game implements Runnable {
         standartLootTable.addItem(ItemID.Shotgun,new Fine(),60);
         standartLootTable.addItem(ItemID.Shotgun,new Extraordinary(),20);
         standartLootTable.addItem(ItemID.Shotgun,new Outstanding(),10);
+
+        standartLootTable.addItem(ItemID.SniperAmmo,12,60);
+        standartLootTable.addItem(ItemID.SniperAmmo,30,20);
+        standartLootTable.addItem(ItemID.SniperAmmo,100,10);
+
+        standartLootTable.addItem(ItemID.ShotgunAmmo,12,60);
+        standartLootTable.addItem(ItemID.ShotgunAmmo,30,20);
+        standartLootTable.addItem(ItemID.ShotgunAmmo,100,10);
+
     }
 
     //Getters && Setters

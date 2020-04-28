@@ -1,20 +1,17 @@
 package items.Munition;
 
-import Inventory.Inventory;
 import entities.creatures.Creature;
 import graphics.Texture;
 import items.Item;
 
-public class SniperAmmo extends Item {
 
 
-    public SniperAmmo( ){
+public class ShotgunAmmo extends Item {
+    public ShotgunAmmo(){
         super();
-        image= Texture.sprite[34];
+        image= Texture.sprite[33];
         stackSize=100;
-
     }
-
     @Override
     public void tick() {
 
@@ -24,5 +21,4 @@ public class SniperAmmo extends Item {
     public void use(Creature user) {
 
     }
-
 }

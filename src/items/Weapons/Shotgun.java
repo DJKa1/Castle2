@@ -17,35 +17,17 @@ public class Shotgun extends ShootingWeapons {
         image = Texture.sprite[25];
         cooldown = 30;
         magazineSize = 6;
-        ammo= ItemID.SniperAmmo;
+        ammo= ItemID.ShotgunAmmo;
         baseDamage=5;
 
 
     }
 
+
+
+
     @Override
-    public void use(Creature user) {
-        super.use(user);
-        if (delay == 0 && remainingMunition > 0) {
-            fire(user);
-            delay++;
-        } else if (delay == 0) {
-            if(user.getId()== ID.Player){
-                Player p= (Player) user;
-                reload(p.getInventory());
-                Sound.playSound("Shotgun_Reload");
-
-            }else {
-                remainingMunition=magazineSize;
-            }
-            delay++;
-        }
-
-    }
-
-
-
-    private void fire(Creature user) {
+    protected void fire(Creature user) {
         Sound.playSound("Shotgun");
         user.getProjectileHandler().addObject(new Shotgunbolt(user.getX() + 0.5f, user.getY() + 0.5f, user.getAimX(), user.getAimY(), user.getProjectileHandler(), user.getEffectshandler(),this));
         Vector2D s = new Vector2D(user.getAimX(), user.getAimY());
@@ -61,6 +43,11 @@ public class Shotgun extends ShootingWeapons {
         remainingMunition--;
         user.setCurrentKnockback(new Knockback(s.getMultiplied(-2),20));
 
+    }
+
+    @Override
+    protected void playReloadSound() {
+        Sound.playSound("Shotgun_Reload");
     }
 
 

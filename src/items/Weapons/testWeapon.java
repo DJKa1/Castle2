@@ -26,4 +26,14 @@ public class testWeapon extends ShootingWeapons {
 
     }
 
+    @Override
+    protected void fire(Creature k) {
+
+    }
+
+    @Override
+    protected void playReloadSound() {
+
+    }
+
 }

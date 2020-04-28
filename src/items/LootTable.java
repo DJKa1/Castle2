@@ -1,6 +1,8 @@
 package items;
 
 import ID_Lists.ItemID;
+import items.Munition.ShotgunAmmo;
+import items.Munition.SniperAmmo;
 import items.Quality.*;
 import items.Weapons.Shotgun;
 
@@ -63,7 +65,13 @@ public class LootTable {
         table[3].add(1);
     }
 
-    public void addItem(ItemID id ,Quality quality,int rarity,int amount){
+    public void addItem(ItemID id ,int amount,int rarity) {
+        table[0].add(id);
+        table[1].add(null);
+        table[2].add(rarity);
+        table[3].add(amount);
+    }
+    public void addItem(ItemID id ,Quality quality,int amount,int rarity){
         table[0].add(id);
         table[1].add(quality);
         table[2].add(rarity);
@@ -73,6 +81,8 @@ public class LootTable {
         switch (id){
             default:return null;
             case Shotgun:return new Shotgun(quality);
+            case SniperAmmo:return new SniperAmmo();
+            case ShotgunAmmo:return new ShotgunAmmo();
         }
     }
 }

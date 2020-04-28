@@ -6,6 +6,7 @@ public enum ItemID {
     IceStorm,
     Shotgun,
     SniperAmmo,
+    ShotgunAmmo,
     EchoStaff,
     OutstandingLootCreate;
 
