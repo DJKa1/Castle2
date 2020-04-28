@@ -55,5 +55,9 @@ public class Slot {
         this.item = item;
     }
 
+    public void deleteItem() {
+        item=null;
+    }
+
 
 }

@@ -54,8 +54,9 @@ public class Player extends Creature {
         inventory.addItem(new Shotgun(new Outstanding()));
         inventory.addItembyID("IceStorm");
         inventory.addItembyID("AK47");
-        for(int i =0 ; i<6;i++){
+        for(int i =0 ; i<10;i++){
             inventory.addItembyID("SniperAmmo");
+            inventory.addItem(new Shotgun(new Outstanding()));
         }
         //---------------------------------------
     }

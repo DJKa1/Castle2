@@ -159,6 +159,15 @@ public class Inventory {
         }
     }
 
+    public void deleteItem(float mx, float my) {
+        for (int i = 0;i<slots.length;i++) {
+            if(slots[i].inBounds(mx,my)) {
+                slots[i].deleteItem();
+                return;
+            }
+        }
+    }
+
     private void drawBorader(Graphics2D g, int width, int height) {
         width -= 1;
         height -= 1;
