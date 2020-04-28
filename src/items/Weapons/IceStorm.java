@@ -16,9 +16,12 @@ public class IceStorm extends MagicWeapons {
         cooldown=60;
     }
 
-
-    @Override
-    public void fire(Creature user) {
-        user.getProjectileHandler().addObject(new IceBall(user.getX()+0.5f,user.getY()+0.5f,user.getAimX(), user.getAimY(),user.getProjectileHandler(),user.getEffectshandler(),this));
+    public void use(){
+        super.use(user);
+        if (delay==0&&user.getManaCount()>manacost){
+            user.getProjectileHandler().addObject(new IceBall(user.getX()+0.5f,user.getY()+0.5f,user.getAimX(), user.getAimY(),user.getProjectileHandler(),user.getEffectshandler(),this));
+            delay++;
+            user.reduceMana(manacost);
+        }
     }
 }

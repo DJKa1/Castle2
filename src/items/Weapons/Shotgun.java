@@ -23,6 +23,7 @@ public class Shotgun extends ShootingWeapons {
 
     @Override
     public void use(Creature user) {
+        super.use(user);
         if (delay == 0 && remainingMunition > 0) {
             fire(user);
             delay++;
@@ -37,6 +38,8 @@ public class Shotgun extends ShootingWeapons {
         }
 
     }
+
+
 
     private void fire(Creature user) {
         user.getProjectileHandler().addObject(new Shotgunbolt(user.getX() + 0.5f, user.getY() + 0.5f, user.getAimX(), user.getAimY(), user.getProjectileHandler(), user.getEffectshandler(),this));

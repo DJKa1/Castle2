@@ -14,6 +14,7 @@ public class testWeapon extends ShootingWeapons {
     }
     @Override
     public void use(Creature user) {
+        super.use(user);
         if (delay==0) {
             user.getProjectileHandler().addObject(new Plasmabolt(user.getX()+0.5f,user.getY()+0.5f, user.getAimX(), user.getAimY(),user.getProjectileHandler(),user.getEffectshandler(),this));
         }

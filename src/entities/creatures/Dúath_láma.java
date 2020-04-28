@@ -30,12 +30,18 @@ public class Dúath_láma extends Creature{
         weapon=new Shotgun(new Primitiv());
         normalizeHitbox();
         normalizeMovementhitbox();
-
     }
 
     @Override
     protected void attack() {
         weapon.use(this);
+
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        weapon.tick();
     }
 
     @Override

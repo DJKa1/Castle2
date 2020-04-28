@@ -14,10 +14,6 @@ public class EchoStaff extends MagicWeapons {
         //attributes.add(Float.toString(quality.getDmg()));
     }
 
-    @Override
-    public void fire(Creature user) {
-
-    }
 
 
 }

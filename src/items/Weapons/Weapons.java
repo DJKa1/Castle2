@@ -36,6 +36,11 @@ public abstract class Weapons extends Item {
         }
     }
 
+    @Override
+    public void use(Creature k){
+        user=k;
+    }
+
     public int getDelay() {
         return delay;
     }

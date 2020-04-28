@@ -48,7 +48,7 @@ public class MouseInput implements MouseListener, MouseMotionListener , MouseWhe
                 mouseY = mouseEvent.getY();
                 Item tempItem = game.getPlayer().getInventory().grabItem(mouseEvent.getX(),mouseEvent.getY());
                 holdItem = tempItem;
-            }else if (mouseEvent.getButton()==MouseEvent.BUTTON2) {
+            }else if (mouseEvent.getButton()==MouseEvent.BUTTON3) {
                 game.getPlayer().getInventory().deleteItem(mouseX,mouseY);
             }
         }

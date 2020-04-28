@@ -253,8 +253,8 @@ public abstract class Creature extends Entity {
     //TargetingFunktions------------------------
 
     protected void updateTarget(){
-        aimX=currentTarget.x;
-        aimY=currentTarget.y;
+        aimX=currentTarget.x-x;
+        aimY=currentTarget.y-y;
 
         if(isInRange(currentTarget)){
             attack();

@@ -37,7 +37,6 @@ public class Player extends Creature {
         height = (float) 0.8;
         movementRate = (float) 0.1;
         inventory = new Inventory(this);
-        nothitby = new ProjectileID[]{ProjectileID.IceBall, ProjectileID.IceShard, ProjectileID.Plasmabolt, ProjectileID.Shotgunbolt, ProjectileID.Bounce};
 
         playerWalkLeft = new Animation(3, GameState.texture.sprite[8], GameState.texture.sprite[9], GameState.texture.sprite[10], GameState.texture.sprite[11], GameState.texture.sprite[12]);
         playerWalkRight = new Animation(3, GameState.texture.sprite[0], GameState.texture.sprite[1], GameState.texture.sprite[2], GameState.texture.sprite[3], GameState.texture.sprite[4]);
@@ -57,7 +56,7 @@ public class Player extends Creature {
         inventory.addItem(new Shotgun(new Outstanding()));
         inventory.addItembyID("IceStorm");
         inventory.addItembyID("AK47");
-        for(int i =0 ; i<10;i++){
+        for(int i =0 ; i<70;i++){
             inventory.addItembyID("SniperAmmo");
             inventory.addItem(new Shotgun(new Outstanding()));
         }
