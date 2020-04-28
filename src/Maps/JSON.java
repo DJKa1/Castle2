@@ -1,6 +1,7 @@
 package Maps;
 
 
+import Tiles.DoorTile;
 import Tiles.Tile;
 import main_pack.Game;
 import org.json.JSONArray;
@@ -84,7 +85,12 @@ public class JSON {
             JSONObject t = null;
             for (int i = 1; i < level.length(); i++) {
                 t = level.getJSONObject(i);
-                Tile tile = new Tile(t.getInt("X"), t.getInt("Y"),Game.texture.tiles[t.getInt("imgX")][t.getInt("imgY")],false);
+                Tile tile;
+                switch (t.getString("id")) {
+                    case "door": tile = new DoorTile(t.getInt("X"), t.getInt("Y"),Game.texture.tiles[t.getInt("imgX")][t.getInt("imgY")],false);break;
+                    default: tile = new Tile(t.getInt("X"), t.getInt("Y"),Game.texture.tiles[t.getInt("imgX")][t.getInt("imgY")],false);break;
+                }
+
                 if(t.has("ox")){
                     tile.setSolid(true);
                     tile.setHitbox(new Rectangle2D.Double(t.getDouble("X")+t.getDouble("ox")/16d,t.getDouble("Y")+t.getDouble("oy")/16d,t.getDouble("width")/16d,t.getDouble("height")/16d));
