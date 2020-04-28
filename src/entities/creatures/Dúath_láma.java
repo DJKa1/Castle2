@@ -5,9 +5,8 @@ import Inventory.Inventory;
 import States.GameState;
 
 import items.Quality.Primitiv;
-
-import items.Weapons.Shotgun;
 import items.Weapons.Weapons;
+import items.Weapons.testWeapon;
 import main_pack.Game;
 
 import java.awt.*;
@@ -27,7 +26,7 @@ public class Dúath_láma extends Creature{
         movementRate= (float) 0.05;
         armorValue=1;
         followingMultiplier=2;
-        weapon=new Shotgun(new Primitiv());
+        weapon=new testWeapon(new Primitiv());
         normalizeHitbox();
         normalizeMovementhitbox();
     }
