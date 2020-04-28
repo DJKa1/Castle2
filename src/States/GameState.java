@@ -4,6 +4,7 @@ import Handler.CreatureHandler;
 import Handler.Effectshandler;
 import Handler.ProjectileHandler;
 import Maps.Map;
+import PlayerGui.PlayerGUI;
 import entities.creatures.*;
 import graphics.Camera;
 import graphics.Texture;
@@ -19,6 +20,7 @@ public class GameState extends State{
     private ProjectileHandler projectileHandler;
     private Effectshandler effectshandler;
     private Player player;
+    private PlayerGUI playerGUI;
     private F3Infopanel f3Infopanel;
     //-----------------------------
     //noch static access
@@ -47,6 +49,7 @@ public class GameState extends State{
         projectileHandler=game.getProjectileHandler();
         effectshandler = game.getEffectshandler();
         player= game.getPlayer();
+        playerGUI = new PlayerGUI(player);
         camera = game.getCamera();
         creatureHandler=game.getCreatureHandler();
         texture = new Texture();
@@ -97,7 +100,8 @@ public class GameState extends State{
             f3Infopanel.render(g);
         }
         game.getGameConsole().renderLog(g);
-        player.getInventory().getHotbar().render(g);
+        player.getInventory().getHotbar().render(gd2);
+        playerGUI.render(g);
 
     }
 

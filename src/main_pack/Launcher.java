@@ -18,6 +18,6 @@ public class Launcher {
         }
         Game game = new Game (WIDTH, HEIGHT);
         game.start();
-
+        Sound.init();
     }
 }
