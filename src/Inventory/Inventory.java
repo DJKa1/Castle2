@@ -40,7 +40,7 @@ public class Inventory {
 
     public Inventory(Creature owner) {
         this.owner = owner;
-        slots = new Slot[12 * 8 - 15];
+        slots = new Slot[12 * 8 - 15+4];
         init_slots();
         clearInventory();
         hotbar = new Hotbar(this);
@@ -253,7 +253,7 @@ public class Inventory {
         addItem(item);
     }
 
-    public void addItem(Item item, int index) {
+    public void setItem(Item item, int index) {
         slots[index].item = item;
     }
 
@@ -329,6 +329,13 @@ public class Inventory {
         for (int yy = 2; yy < 8; yy++) {
             for (int xx = 0; xx < 12; xx++) {
                 slots[index] = new Slot(new Rectangle((int) (xx * Game.UNIT_SCALE / 2 + transX * scale + 64 * 2), (int) (yy * Game.UNIT_SCALE / 2 + transY * scale + 64 * 2), Game.UNIT_SCALE / 2, Game.UNIT_SCALE / 2));
+                index++;
+            }
+        }
+        for (int yy = 0; yy < 2; yy++) {
+            for (int xx = 10; xx < 12; xx++) {
+                slots[index] = new Slot(new Rectangle((int) (xx * Game.UNIT_SCALE / 2 + transX * scale + 64 * 2), (int) (yy * Game.UNIT_SCALE / 2 + transY * scale + 64 * 2), Game.UNIT_SCALE / 2, Game.UNIT_SCALE / 2));
+                slots[index].setIdentifyer("armor");
                 index++;
             }
         }
