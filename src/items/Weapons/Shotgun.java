@@ -32,6 +32,8 @@ public class Shotgun extends ShootingWeapons {
             if(user.getId()== ID.Player){
                 Player p= (Player) user;
                 reload(p.getInventory());
+                Sound.playSound("Shotgun_Reload");
+
             }else {
                 remainingMunition=magazineSize;
             }

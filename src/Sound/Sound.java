@@ -6,11 +6,13 @@ import java.io.*;
 
 public class Sound {
 
-    public static void playSfx(final InputStream fileStream) {
+    public static void playSfx(final File initialFile) {
         ActivityManager.getInstance().submit(new Runnable() {
             @Override
             public void run() {
                 try {
+                    InputStream fileStream = new FileInputStream(initialFile);
+
                     BufferedInputStream bufferedStream = new BufferedInputStream(fileStream);
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(bufferedStream);
 
@@ -22,6 +24,9 @@ public class Sound {
 
                     sourceLine = (SourceDataLine) AudioSystem.getLine(info);
                     sourceLine.open(audioFormat);
+
+                    FloatControl gainControl = (FloatControl) sourceLine.getControl(FloatControl.Type.MASTER_GAIN);
+                    gainControl.setValue(-20);
 
                     if (sourceLine == null) {
                         return;
@@ -47,7 +52,7 @@ public class Sound {
                     audioInputStream.close();
 
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 } catch (UnsupportedAudioFileException e) {
                     //e.printStackTrace();
                 } catch (LineUnavailableException e) {
@@ -60,18 +65,11 @@ public class Sound {
             }
         });
     }
+
     public static void playSound(final String soundEffect) {
         switch (soundEffect) {
-            case "Shotgun":
-                File initialFile = new File("./rsc/Audio/Shotgun.wav");
-                try {
-                    InputStream targetStream = new FileInputStream(initialFile);
-                    playSfx(targetStream);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-
-                break;
+            case "Shotgun": playSfx(new File("./rsc/Audio/Shotgun.wav"));break;
+            case "Shotgun_Reload": System.out.println("jo");playSfx(new File("./rsc/Audio/PumpShotgunReload.wav"));break;
         }
     }
 }
