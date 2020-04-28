@@ -5,6 +5,7 @@ import Handler.Effectshandler;
 import Handler.ProjectileHandler;
 import Maps.Map;
 import entities.creatures.*;
+import graphics.Camera;
 import graphics.Texture;
 import ID_Lists.ID;
 import graphics.F3Infopanel;

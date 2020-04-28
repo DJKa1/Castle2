@@ -1,10 +1,8 @@
 package items.Weapons;
-import Inventory.Inventory;
 import entities.creatures.Creature;
 import graphics.Texture;
 import entities.projectile.Plasmabolt;
 import items.Quality.Quality;
-import items.Weapons.ShootingWeapons;
 import main_pack.MouseInput;
 
 public class testWeapon extends ShootingWeapons {
@@ -12,6 +10,8 @@ public class testWeapon extends ShootingWeapons {
         super(quality);
         image= Texture.sprite[26];
         cooldown=2 ;
+        attributes.add(quality.getId().toString());
+        attributes.add(Math.round(quality.getDmg()*100)+"%");
     }
     @Override
     public void use(Creature user) {
@@ -25,4 +25,5 @@ public class testWeapon extends ShootingWeapons {
         }
 
     }
+
 }

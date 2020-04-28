@@ -16,6 +16,9 @@ public class IceStorm extends MagicWeapons {
         image= Texture.sprite[28];
         manacost=10;
         cooldown=60;
+
+        //attributes.add(quality.getId().toString());
+        //attributes.add(Float.toString(quality.getDmg()));
     }
 
 

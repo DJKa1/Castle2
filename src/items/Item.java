@@ -4,15 +4,18 @@ import Inventory.Inventory;
 import entities.creatures.Creature;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public abstract class Item {
 
     protected ItemID id;
     protected int stackSize,amount;
+    protected ArrayList<String> attributes;
     protected BufferedImage image;
     
     public Item(){
         this.id=ItemID.valueOf(this.getClass().getSimpleName());
+        attributes = new ArrayList<>();
         stackSize=1;
         amount=1;
     }
@@ -47,4 +50,13 @@ public abstract class Item {
 
     public abstract void use(Creature user);
 
+    public ArrayList<String> getAttributes() {
+        return attributes;
+    }
+    public void addAttribute(String attribute) {
+        attributes.add(attribute);
+    }
+    public void removeAttribute(String attribute) {
+        attributes.remove(attribute);
+    }
 }

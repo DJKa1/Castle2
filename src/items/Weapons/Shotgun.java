@@ -25,6 +25,9 @@ public class Shotgun extends ShootingWeapons {
         magazineSize = 6;
         ammo= ItemID.SniperAmmo;
         baseDamage=5;
+
+        attributes.add(quality.getId().toString());
+        attributes.add(Math.round(quality.getDmg()*100)+"%");
     }
 
     @Override

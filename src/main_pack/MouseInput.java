@@ -2,6 +2,7 @@ package main_pack;
 
 
 
+import Inventory.Inventory;
 import Inventory.Slot;
 import States.GameState;
 import States.InventoryState;
@@ -42,10 +43,12 @@ public class MouseInput implements MouseListener, MouseMotionListener , MouseWhe
                 leftPressed = true;
             }
         } else if(game.getactiveState().getClass()== InventoryState.class) {
-            mouseX = mouseEvent.getX();
-            mouseY = mouseEvent.getY();
-            Item tempItem = game.getPlayer().getInventory().grabItem(mouseEvent.getX(),mouseEvent.getY());
-            holdItem = tempItem;
+            if (mouseEvent.getButton()==MouseEvent.BUTTON1) {
+                mouseX = mouseEvent.getX();
+                mouseY = mouseEvent.getY();
+                Item tempItem = game.getPlayer().getInventory().grabItem(mouseEvent.getX(),mouseEvent.getY());
+                holdItem = tempItem;
+            }
         }
 
     }
@@ -58,9 +61,11 @@ public class MouseInput implements MouseListener, MouseMotionListener , MouseWhe
                 leftPressed = false;
             }
         } else if(game.getactiveState().getClass()== InventoryState.class) {
-            if (holdItem != null) {
-                game.getPlayer().getInventory().putItem(holdItem,mouseEvent.getX(),mouseEvent.getY());
-                holdItem = null;
+            if (mouseEvent.getButton()==MouseEvent.BUTTON1) {
+                if (holdItem != null) {
+                    game.getPlayer().getInventory().putItem(holdItem,mouseEvent.getX(),mouseEvent.getY());
+                    holdItem = null;
+                }
             }
 
         }
@@ -100,8 +105,11 @@ public class MouseInput implements MouseListener, MouseMotionListener , MouseWhe
                 mouseX=mouseEvent.getX()-Launcher.WIDTH/2;
                 mouseY=mouseEvent.getY()-Launcher.HEIGHT/2;
             }
-        } if(game.getactiveState().getClass() == MenuState.class) {
+        } else if(game.getactiveState().getClass() == MenuState.class) {
             game.getMenu().onMouseHover(mouseEvent.getX(),mouseEvent.getY());
+        } else if(game.getactiveState().getClass()== InventoryState.class) {
+            mouseX=mouseEvent.getX();
+            mouseY=mouseEvent.getY();
         }
     }
 

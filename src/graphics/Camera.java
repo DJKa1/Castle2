@@ -1,5 +1,6 @@
-package entities.creatures;
+package graphics;
 
+import entities.creatures.Creature;
 import main_pack.Launcher;
 
 import static main_pack.Game.*;

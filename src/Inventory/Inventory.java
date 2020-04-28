@@ -82,6 +82,23 @@ public class Inventory {
         for (int i = 0; i < slots.length; i++) {
             slots[i].render(g2d);
         }
+        for (int i = 0; i < slots.length; i++) {
+            if (slots[i].item != null) {
+                if (slots[i].inBounds(MouseInput.mouseX, MouseInput.mouseY)) {
+                    if (slots[i].item.getAttributes().size() > 0) {
+                        g.drawImage(Texture.Inventory[6][1], slots[i].bounds.x + slots[i].bounds.width, slots[i].bounds.y, 64, 64, null);
+                        g.drawImage(Texture.Inventory[7][1], slots[i].bounds.x + slots[i].bounds.width * 2, slots[i].bounds.y, 64, 64, null);
+                        g.drawImage(Texture.Inventory[6][2], slots[i].bounds.x + slots[i].bounds.width, slots[i].bounds.y + slots[i].bounds.height, 64, 64, null);
+                        g.drawImage(Texture.Inventory[7][2], slots[i].bounds.x + slots[i].bounds.width * 2, slots[i].bounds.y + slots[i].bounds.height, 64, 64, null);
+                        g.setColor(Color.RED);
+                        for (int e = 0;e<slots[i].item.getAttributes().size();e++) {
+                            g.drawString(slots[i].item.getAttributes().get(e), slots[i].bounds.x + slots[i].bounds.width + 8, slots[i].bounds.y+24+30*e);
+                        }
+                    }
+                }
+
+            }
+        }
         if (MouseInput.holdItem != null) {
             g.drawImage(MouseInput.holdItem.getImage(), (int) (MouseInput.mouseX) - 32, (int) (MouseInput.mouseY) - 32, Game.UNIT_SCALE / 2, Game.UNIT_SCALE / 2, null);
         }
@@ -132,8 +149,8 @@ public class Inventory {
             }
         }
         clearIdentifyer();
-
     }
+
     private void clearIdentifyer() {
         for (int a = 0; a < slots.length; a++) {
             if (slots[a].getIdentifyer().equals("last")) {

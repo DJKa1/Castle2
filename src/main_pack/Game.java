@@ -5,12 +5,11 @@ import Handler.Effectshandler;
 import Handler.ProjectileHandler;
 import Maps.Map;
 import States.*;
-import entities.creatures.Camera;
+import graphics.Camera;
 import entities.creatures.Player;
 import graphics.Texture;
 import graphics.Window;
 import org.lwjgl.LWJGLException;
-import org.lwjgl.Sys;
 import org.lwjgl.input.Controller;
 import org.lwjgl.input.Controllers;
 

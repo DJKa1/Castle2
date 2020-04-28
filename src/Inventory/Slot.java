@@ -2,6 +2,7 @@ package Inventory;
 
 import graphics.Texture;
 import items.Item;
+import main_pack.MouseInput;
 
 import java.awt.*;
 
@@ -9,7 +10,6 @@ public class Slot {
 
     public Rectangle bounds;
     public Item item;
-
     private String identifyer = "null";
 
 
@@ -24,10 +24,11 @@ public class Slot {
             g.drawImage(item.getImage(),bounds.x,bounds.y, bounds.width,bounds.height,null);
             g.rotate(Math.toRadians(45),bounds.x+bounds.width/2d, bounds.y+bounds.height/2);
         }
-        if(identifyer.equals("last")) {
+
+        /*if(identifyer.equals("last")) {
             g.setColor(Color.RED);
             g.fillRect(bounds.x,bounds.y,4,4);
-        }
+        }*/
     }
 
     public void tick() {
@@ -42,7 +43,7 @@ public class Slot {
         return identifyer;
     }
 
-    public boolean inBounds(int mx, int my) {
+    public boolean inBounds(float mx, float my) {
         return bounds.contains(mx,my);
     }
 
