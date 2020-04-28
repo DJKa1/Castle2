@@ -19,10 +19,10 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.RGBImageFilter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
 
 public abstract class Creature extends Entity {
     protected float hp;
@@ -34,7 +34,6 @@ public abstract class Creature extends Entity {
     protected ProjectileHandler projectileHandler;
     protected Effectshandler effectshandler;
     protected LinkedList<Buff> activeBuffs;
-    protected RGBImageFilter colorMask;
     protected int manaCount;
     protected Knockback currentKnockback;
     protected int hitCooldown;
@@ -42,6 +41,7 @@ public abstract class Creature extends Entity {
     protected Game game;
     protected Map map;
     protected List<Node> nextMoves;
+    protected float aimX,aimY;
 
     //Tageting-------------------
     protected Ellipse2D targetingArea;
@@ -106,6 +106,22 @@ public abstract class Creature extends Entity {
 
     public void reduceMana(int v){
         manaCount-=v;
+    }
+
+    public float getAimX() {
+        return aimX;
+    }
+
+    public void setAimX(float aimX) {
+        this.aimX = aimX;
+    }
+
+    public float getAimY() {
+        return aimY;
+    }
+
+    public void setAimY(float aimY) {
+        this.aimY = aimY;
     }
 
     public float getMovementRate() {return movementRate; }
@@ -237,9 +253,17 @@ public abstract class Creature extends Entity {
     //TargetingFunktions------------------------
 
     protected void updateTarget(){
+        aimX=currentTarget.x;
+        aimY=currentTarget.y;
+
+        if(isInRange(currentTarget)){
+            attack();
+
+        }
         if(!checkifNear(currentTarget)){
             currentTarget=null;
         }
+
     }
 
     protected Creature searchTarget(){
@@ -254,6 +278,10 @@ public abstract class Creature extends Entity {
         }
         return null;
     }
+
+    protected void attack(){
+
+    }
     public boolean isInRange (Creature k){
         if (targetingArea.intersects(k.getHitbox())){
             return true;
@@ -266,6 +294,8 @@ public abstract class Creature extends Entity {
         }
         return false;
     }
+
+
 
 
     protected void collision(){

@@ -114,7 +114,7 @@ public abstract class Projectile extends Entity {
             projectileHandler.removeObject(this);
         }
         for (Creature k : checkCollision_forAll()) {
-            if(k!=null&&k.isHitby(id)){
+            if(k!=null&&k.isHitby(id)&&k!=weapon.getUser()){
                 hitTarget(k);
                 projectileHandler.removeObject(this);
             }

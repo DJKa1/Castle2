@@ -6,17 +6,18 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 public class Tile {
-    private int x,y;
-    private Rectangle2D.Double hitbox;
-    private String tile;
-    private boolean isSolid;
-    private BufferedImage img;
+    protected int x,y;
+    protected Rectangle2D.Double hitbox;
+    protected boolean isSolid;
+    protected boolean interactable;
+    protected BufferedImage img;
 
-    public Tile(int x, int y,BufferedImage img, boolean isSolid){
+    public Tile(int x, int y, BufferedImage img, boolean isSolid){
         this.x = x;
         this.y = y;
         this.img = img;
         this.isSolid = isSolid;
+        interactable=false;
     }
     public boolean isSolid() {
         return isSolid;
@@ -34,9 +35,19 @@ public class Tile {
         this.hitbox = hitbox;
     }
 
+    public boolean isInteractable() {
+        return interactable;
+    }
+
+    public void setInteractable(boolean interactable) {
+        this.interactable = interactable;
+    }
+
+
     public void tick() {
 
     }
+
 
     public void render(Graphics g, int x, int y) {
         g.drawImage(img,x,y,null);

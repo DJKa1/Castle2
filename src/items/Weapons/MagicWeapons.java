@@ -1,9 +1,8 @@
 package items.Weapons;
 
-import Inventory.Inventory;
 import entities.creatures.Creature;
 import items.Quality.Quality;
-import items.Weapons.Weapons;
+
 
 public abstract class MagicWeapons extends Weapons {
     protected int manacost;

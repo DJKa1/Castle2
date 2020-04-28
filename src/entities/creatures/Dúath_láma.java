@@ -3,14 +3,12 @@ package entities.creatures;
 import ID_Lists.ID;
 import Inventory.Inventory;
 import States.GameState;
-import entities.Vector2D;
+
 import items.Quality.Primitiv;
-import items.Weapons.EchoStaff;
-import items.Weapons.IceStorm;
+
 import items.Weapons.Shotgun;
 import items.Weapons.Weapons;
 import main_pack.Game;
-import main_pack.MouseInput;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -33,6 +31,11 @@ public class Dúath_láma extends Creature{
         normalizeHitbox();
         normalizeMovementhitbox();
 
+    }
+
+    @Override
+    protected void attack() {
+        weapon.use(this);
     }
 
     @Override
