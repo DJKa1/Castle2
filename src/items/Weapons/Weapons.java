@@ -1,4 +1,5 @@
 package items.Weapons;
+import entities.creatures.Creature;
 import items.Item;
 import items.Quality.Primitiv;
 import items.Quality.Quality;
@@ -7,6 +8,8 @@ public abstract class Weapons extends Item {
     protected float baseDamage;
     protected int delay=0;
     protected int cooldown;
+    protected Creature user;
+
 
     public Weapons(Quality quality){
         super();
@@ -47,6 +50,10 @@ public abstract class Weapons extends Item {
 
     public float getBaseDamage() {
         return baseDamage;
+    }
+
+    public Creature getUser(){
+        return user;
     }
 
     public Quality getQuality() {

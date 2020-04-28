@@ -7,7 +7,7 @@ public class Outstanding extends Quality {
 
     public Outstanding(){
         super();
-        color= Color.RED;
+        color= Color.getHSBColor(212,175,55);
         minD=2.2f;
         maxD=3.0f;
         dmg=rollDmg();

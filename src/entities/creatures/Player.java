@@ -15,6 +15,9 @@ import main_pack.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
+import static main_pack.MouseInput.mouseX;
+import static main_pack.MouseInput.mouseY;
+
 public class Player extends Creature {
     protected Inventory inventory;
     private Animation playerWalkRight;
@@ -84,11 +87,16 @@ public class Player extends Creature {
                 item.use(this);
             }
         }
+
+        aimX=mouseX;
+        aimY=mouseY;
     }
+
 
     @Override
     public void render(Graphics g) {
         animation[animationIndex].drawAnimation(g, getPixelPosition(x), getPixelPosition(y), (Game.UNIT_SCALE));
+        renderHealthbar(g);
         Graphics2D g2d = (Graphics2D) g;
 
         AffineTransform oldtrans = g2d.getTransform();
@@ -100,6 +108,14 @@ public class Player extends Creature {
             g2d.drawImage(inventory.getItem(inventory.getActiveSlot()).getImage(), getPixelPosition(x) + 64, getPixelPosition(y), Game.UNIT_SCALE, Game.UNIT_SCALE, null);
         }
         g2d.setTransform(oldtrans);
+
+
+    }
+
+    @Override
+    public void renderHealthbar(Graphics g) {
+        g.setColor(Color.red);
+        g.drawString(String.valueOf(hp),Launcher.WIDTH-100,100);
     }
 
     @Override
