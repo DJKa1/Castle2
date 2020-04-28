@@ -7,19 +7,20 @@ public abstract class Weapons extends Item {
     protected float baseDamage;
     protected int delay=0;
     protected int cooldown;
-    protected Quality quality;
 
     public Weapons(Quality quality){
         super();
-        cooldown=0;
-        baseDamage=1;
         if(quality==null){
-
             this.quality=new Primitiv();
-
         }else {
             this.quality=quality;
         }
+        cooldown=0;
+        baseDamage=1;
+
+        attributes.add(quality.getId().toString());
+        attributes.add(Math.round(quality.getDmg()*100)+"%");
+
     }
 
 

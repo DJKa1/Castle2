@@ -10,8 +10,6 @@ public class testWeapon extends ShootingWeapons {
         super(quality);
         image= Texture.sprite[26];
         cooldown=2 ;
-        attributes.add(quality.getId().toString());
-        attributes.add(Math.round(quality.getDmg()*100)+"%");
     }
     @Override
     public void use(Creature user) {

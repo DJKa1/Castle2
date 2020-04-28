@@ -7,6 +7,7 @@ import graphics.Texture;
 import items.Item;
 import items.Munition.SniperAmmo;
 import items.Quality.Extraordinary;
+import items.Quality.Primitiv;
 import items.Weapons.IceStorm;
 import items.Weapons.Shotgun;
 import items.Weapons.Weapons;
@@ -84,13 +85,18 @@ public class Inventory {
         }
         for (int i = 0; i < slots.length; i++) {
             if (slots[i].item != null) {
+                if(slots[i].item.getQuality()!=null){
+                    g.setColor( slots[i].item.getQuality().getColor());
+                }
+                else {
+                    g.setColor(Color.white);
+                }
                 if (slots[i].inBounds(MouseInput.mouseX, MouseInput.mouseY)) {
                     if (slots[i].item.getAttributes().size() > 0) {
                         g.drawImage(Texture.Inventory[6][1], slots[i].bounds.x + slots[i].bounds.width, slots[i].bounds.y, 64, 64, null);
                         g.drawImage(Texture.Inventory[7][1], slots[i].bounds.x + slots[i].bounds.width * 2, slots[i].bounds.y, 64, 64, null);
                         g.drawImage(Texture.Inventory[6][2], slots[i].bounds.x + slots[i].bounds.width, slots[i].bounds.y + slots[i].bounds.height, 64, 64, null);
                         g.drawImage(Texture.Inventory[7][2], slots[i].bounds.x + slots[i].bounds.width * 2, slots[i].bounds.y + slots[i].bounds.height, 64, 64, null);
-                        g.setColor(Color.RED);
                         for (int e = 0;e<slots[i].item.getAttributes().size();e++) {
                             g.drawString(slots[i].item.getAttributes().get(e), slots[i].bounds.x + slots[i].bounds.width + 8, slots[i].bounds.y+24+30*e);
                         }
@@ -234,10 +240,10 @@ public class Inventory {
                 item = new testWeapon(new Extraordinary());
                 break;
             case "shotgun":
-                item = new Shotgun(null);
+                item = new Shotgun(new Primitiv());
                 break;
             case "IceStorm":
-                item = new IceStorm(null);
+                item = new IceStorm(new Primitiv());
                 break;
 
             case "SniperAmmo":

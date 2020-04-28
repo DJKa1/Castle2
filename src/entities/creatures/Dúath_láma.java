@@ -4,6 +4,7 @@ import ID_Lists.ID;
 import Inventory.Inventory;
 import States.GameState;
 import entities.Vector2D;
+import items.Quality.Primitiv;
 import items.Weapons.EchoStaff;
 import items.Weapons.IceStorm;
 import items.Weapons.Shotgun;
@@ -28,7 +29,7 @@ public class Dúath_láma extends Creature{
         movementRate= (float) 0.05;
         armorValue=1;
         followingMultiplier=2;
-        weapon=new EchoStaff(null);
+        weapon=new Shotgun(new Primitiv());
         normalizeHitbox();
         normalizeMovementhitbox();
 

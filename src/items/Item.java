@@ -2,6 +2,7 @@ package items;
 import ID_Lists.ItemID;
 import Inventory.Inventory;
 import entities.creatures.Creature;
+import items.Quality.Quality;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public abstract class Item {
     protected int stackSize,amount;
     protected ArrayList<String> attributes;
     protected BufferedImage image;
+    protected Quality quality;
     
     public Item(){
         this.id=ItemID.valueOf(this.getClass().getSimpleName());
@@ -44,6 +46,10 @@ public abstract class Item {
 
     public BufferedImage getImage(){
         return image;
+    }
+
+    public Quality getQuality(){
+        return quality;
     }
 
     public abstract void tick();
