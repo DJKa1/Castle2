@@ -9,7 +9,7 @@ import entities.creatures.Player;
 import entities.projectile.Shotgunbolt;
 import graphics.Texture;
 import items.Quality.Quality;
-import main_pack.Sound;
+import Sound.Sound;
 
 public class Shotgun extends ShootingWeapons {
     public Shotgun(Quality quality) {
@@ -43,7 +43,7 @@ public class Shotgun extends ShootingWeapons {
 
 
     private void fire(Creature user) {
-        Sound.play();
+        Sound.playSound("Shotgun");
         user.getProjectileHandler().addObject(new Shotgunbolt(user.getX() + 0.5f, user.getY() + 0.5f, user.getAimX(), user.getAimY(), user.getProjectileHandler(), user.getEffectshandler(),this));
         Vector2D s = new Vector2D(user.getAimX(), user.getAimY());
         double angle = s.getAngle() - Math.toRadians(9);
