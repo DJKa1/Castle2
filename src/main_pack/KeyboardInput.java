@@ -98,7 +98,7 @@ public class KeyboardInput implements KeyListener {
                     State.setState(Game.menuState);
                 } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     State.setState((Game.consoleState));
-                } else if (e.getKeyCode() == KeyEvent.VK_I) {
+                } else if (e.getKeyCode() == KeyEvent.VK_E) {
                     State.setState(Game.invenstoryState);
                 }
 
@@ -147,16 +147,20 @@ public class KeyboardInput implements KeyListener {
                 if (String.valueOf(e.getKeyChar()).matches("[0-9]")) {
                 }
                 //StateSwitch--------------------
-                if (e.getKeyCode() == KeyEvent.VK_I) {
-                    State.setState(Game.gameState);
-                } else if (e.getKeyCode() == KeyEvent.VK_E) {
+                if (e.getKeyCode() == KeyEvent.VK_E) {
                     Inventory inventory = game.getPlayer().getInventory();
-                    for (int i = 0;i<inventory.slots.length;i++) {
-                        if(inventory.slots[i].item!=null&&inventory.slots[i].inBounds(MouseInput.mouseX,MouseInput.mouseY)) {
-                            if (inventory.slots[i].item.isUseableInInventory()) {
+                    boolean on = false;
+                    for (int i = 0; i < inventory.slots.length; i++) {
+                        if (inventory.slots[i].inBounds(MouseInput.mouseX, MouseInput.mouseY)&& inventory.slots[i].item != null) {
+                            if (inventory.slots[i].item.isUseableInInventory() ) {
                                 inventory.slots[i].item.use(game.getPlayer());
+                                on=true;
                             }
                         }
+
+                    }
+                    if (!on) {
+                        State.setState(Game.gameState);
                     }
                 }
 
