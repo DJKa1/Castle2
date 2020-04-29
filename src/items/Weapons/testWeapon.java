@@ -15,7 +15,7 @@ public class testWeapon extends ShootingWeapons {
     }
     @Override
     public void use(Creature user) {
-        super.use(user);
+        this.user=user;
         if (delay==0) {
             Sound.playSound("Shotgun");
             user.getProjectileHandler().addObject(new Plasmabolt(user.getX()+0.5f,user.getY()+0.5f, user.getAimX(), user.getAimY(),user.getProjectileHandler(),user.getEffectshandler(),this));
@@ -30,7 +30,7 @@ public class testWeapon extends ShootingWeapons {
 
     @Override
     protected void fire(Creature k) {
-
+        user.getProjectileHandler().addObject(new Plasmabolt(user.getX(),user.getY(),user.getAimX(),user.getAimY(),user.getProjectileHandler(),user.getEffectshandler(),this));
     }
 
     @Override

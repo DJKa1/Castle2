@@ -43,6 +43,7 @@ public class LootTable {
         if(minRarity<maxRarity){
             maxRarity=minRarity;
         }
+
         maxRarity += Math.random()*(minRarity-maxRarity);
 
         ArrayList<Integer>vallid=getChoices(minRarity,maxRarity);
