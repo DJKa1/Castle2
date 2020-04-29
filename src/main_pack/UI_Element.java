@@ -45,6 +45,7 @@ public class UI_Element{
     public void onClick() {
         switch (content) {
             case "CONTINUE":setToGameMode();break;
+            case "OPTIONS":break;
             case "EXIT":System.exit(0);break;
         }
 

@@ -14,6 +14,7 @@ public abstract class LootCreate extends Item {
     public LootCreate( ){
         super();
         lootTable=Game.standartLootTable;
+        isUseableInInventory = true;
     }
     @Override
     public void tick() {

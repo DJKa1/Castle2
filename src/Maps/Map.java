@@ -2,7 +2,9 @@ package Maps;
 
 import Pathfinding.AStar;
 import Pathfinding.Node;
+import Tiles.SlotMachine;
 import Tiles.Tile;
+import graphics.Texture;
 import main_pack.Game;
 import main_pack.KeyboardInput;
 import java.awt.*;
@@ -22,6 +24,7 @@ public class Map {
 
     public Map(String LevelName) {
         Tiles = JSON.loadMapJson(LevelName);
+        //Tiles[3][3][2] = new SlotMachine(3,3, Texture.SlotMachine[0],true);
         loadMap();
         createPathfinding(Tiles);
     }

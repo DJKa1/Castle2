@@ -14,6 +14,7 @@ public abstract class Item {
     protected ArrayList<String> attributes;
     protected BufferedImage image;
     protected Quality quality;
+    protected boolean isUseableInInventory = false;
     
     public Item(){
         this.id=ItemID.valueOf(this.getClass().getSimpleName());
@@ -56,6 +57,10 @@ public abstract class Item {
     public abstract void tick();
 
     public abstract void use(Creature user);
+
+    public boolean isUseableInInventory() {
+        return isUseableInInventory;
+    }
 
     public ArrayList<String> getAttributes() {
         return attributes;

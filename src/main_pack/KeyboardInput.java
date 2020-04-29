@@ -1,8 +1,9 @@
 package main_pack;
 
+import Inventory.Inventory;
 import States.*;
 import entities.creatures.Player;
-
+import items.Weapons.Weapons;
 
 
 import java.awt.event.KeyEvent;
@@ -18,7 +19,7 @@ public class KeyboardInput implements KeyListener {
     private Player player;
 
     public static boolean Keyboard = true;
-    public static float AxiesLX,AxiesLY;
+    public static float AxiesLX, AxiesLY;
 
 
     public KeyboardInput(Game game) {
@@ -92,14 +93,12 @@ public class KeyboardInput implements KeyListener {
 
 
                 //StateSwitch-------------------------------
-                if(e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     game.getMenu().setMenuIndex(0);
                     State.setState(Game.menuState);
-                }
-                else if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     State.setState((Game.consoleState));
-                }
-                else if(e.getKeyCode()==KeyEvent.VK_E){
+                } else if (e.getKeyCode() == KeyEvent.VK_I) {
                     State.setState(Game.invenstoryState);
                 }
 
@@ -111,16 +110,16 @@ public class KeyboardInput implements KeyListener {
             if (game.getactiveState().getClass() == MenuState.class) {
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     State.setState(Game.gameState);
-                }else if(e.getKeyCode() == KeyEvent.VK_UP) {
+                } else if (e.getKeyCode() == KeyEvent.VK_UP) {
                     game.getMenu().moveMenuIndexUp();
-                }else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
+                } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
                     game.getMenu().moveMenuIndexDown();
-                }else if(e.getKeyCode()==KeyEvent.VK_ENTER) {
+                } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     game.getMenu().click();
                 }
 
                 //StateSwitch---------------------------
-                if (e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     State.setState(Game.gameState);
 
                 }
@@ -145,11 +144,20 @@ public class KeyboardInput implements KeyListener {
 
             //InventoryState--------------------------------------
             if (game.getactiveState().getClass() == InventoryState.class) {
-                if (String.valueOf(e.getKeyChar()).matches("[0-9]")){
+                if (String.valueOf(e.getKeyChar()).matches("[0-9]")) {
                 }
                 //StateSwitch--------------------
-                if(e.getKeyCode()==KeyEvent.VK_E) {
+                if (e.getKeyCode() == KeyEvent.VK_I) {
                     State.setState(Game.gameState);
+                } else if (e.getKeyCode() == KeyEvent.VK_E) {
+                    Inventory inventory = game.getPlayer().getInventory();
+                    for (int i = 0;i<inventory.slots.length;i++) {
+                        if(inventory.slots[i].item!=null&&inventory.slots[i].inBounds(MouseInput.mouseX,MouseInput.mouseY)) {
+                            if (inventory.slots[i].item.isUseableInInventory()) {
+                                inventory.slots[i].item.use(game.getPlayer());
+                            }
+                        }
+                    }
                 }
 
 
@@ -157,9 +165,9 @@ public class KeyboardInput implements KeyListener {
             }
 
 
-
         }
     }
+
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() <= 256) {
@@ -170,9 +178,10 @@ public class KeyboardInput implements KeyListener {
     private int boolToInt(boolean b) {
         return b ? 1 : 0;
     }
-    private float deadzone(float data,float deadzone) {
+
+    private float deadzone(float data, float deadzone) {
         float temp = Math.abs(data);
-        if(temp>deadzone) {
+        if (temp > deadzone) {
             return data;
         }
         return 0;

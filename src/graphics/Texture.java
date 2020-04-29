@@ -9,14 +9,15 @@ import java.awt.image.BufferedImage;
 
 public class Texture {
 
-    SpriteSheet tileSheet, ts, UIELementsSheet, Inventorysheet;
-    BufferedImage tile_sheet, UI_Elements_Scource, inventorysource;
+    SpriteSheet tileSheet, ts, UIELementsSheet, Inventorysheet, SlotMachineSheet;
+    BufferedImage tile_sheet, UI_Elements_Scource, inventorysource, slotMachinesc;
 
     public static BufferedImage[] sprite = new BufferedImage[1024];
     public static BufferedImage[][] tiles = new BufferedImage[24][10];
     public static BufferedImage[][] goldenUIElements = new BufferedImage[64][3];
     public static BufferedImage[][] greenUIElements = new BufferedImage[64][3];
     public static BufferedImage[][] Inventory = new BufferedImage[64][64];
+    public static BufferedImage[] SlotMachine = new BufferedImage[12];
 
 
     public Texture() {
@@ -30,6 +31,7 @@ public class Texture {
             sprite_Sheet = loader.LoadImage("./rsc/Assets/SpriteSheet.png");
             UI_Elements_Scource = loader.LoadImage("./rsc/Assets/UIElements.png");
             inventorysource = loader.LoadImage("./rsc/Assets/Inventory.png");
+            slotMachinesc = loader.LoadImage("./rsc/Assets/SlotMachine.png");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -38,6 +40,7 @@ public class Texture {
         tileSheet = new SpriteSheet(tile_sheet);
         UIELementsSheet = new SpriteSheet(UI_Elements_Scource);
         Inventorysheet = new SpriteSheet(inventorysource);
+        SlotMachineSheet = new SpriteSheet(slotMachinesc);
 
         getTextures();
 
@@ -48,7 +51,6 @@ public class Texture {
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
                 sprite[in] = ts.grabImage(x, y, 16, 16);
-
                 in++;
             }
         }
@@ -73,6 +75,9 @@ public class Texture {
             for (int xx = 0; xx < 64; xx++) {
                 Inventory[xx][yy] = Inventorysheet.grabImage(xx,yy,16,16);
             }
+        }
+        for (int i = 0;i<12;i++) {
+            SlotMachine[i] = SlotMachineSheet.grabImage(i,0,32,32);
         }
     }
 

@@ -5,6 +5,7 @@ import java.io.*;
 
 
 public class Sound {
+    public static int Volume=50;
 
     public static void playSfx(final File initialFile) {
         ActivityManager.getInstance().submit(new Runnable() {
@@ -26,7 +27,7 @@ public class Sound {
                     sourceLine.open(audioFormat);
 
                     FloatControl gainControl = (FloatControl) sourceLine.getControl(FloatControl.Type.MASTER_GAIN);
-                    gainControl.setValue(-20);
+                    gainControl.setValue(-70+Volume);
 
                     if (sourceLine == null) {
                         return;
@@ -67,9 +68,11 @@ public class Sound {
     }
 
     public static void playSound(final String soundEffect) {
-        switch (soundEffect) {
-            case "Shotgun": playSfx(new File("./rsc/Audio/Shotgun.wav"));break;
-            case "Shotgun_Reload": ;playSfx(new File("./rsc/Audio/PumpShotgunReload.wav"));break;
+        if (Volume>0) {
+            switch (soundEffect) {
+                case "Shotgun": playSfx(new File("./rsc/Audio/Shotgun.wav"));break;
+                case "Shotgun_Reload": playSfx(new File("./rsc/Audio/PumpShotgunReload.wav"));break;
+            }
         }
     }
 }
