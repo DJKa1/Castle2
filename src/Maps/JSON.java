@@ -1,6 +1,7 @@
 package Maps;
 
 
+import Tiles.Chest;
 import Tiles.DoorTile;
 import Tiles.Tile;
 import main_pack.Game;
@@ -88,6 +89,7 @@ public class JSON {
                 Tile tile;
                 switch (t.getString("id")) {
                     case "door": tile = new DoorTile(t.getInt("X"), t.getInt("Y"),Game.texture.tiles[t.getInt("imgX")][t.getInt("imgY")],false);break;
+                    case "chest": tile = new Chest(t.getInt("X"), t.getInt("Y"),Game.texture.tiles[t.getInt("imgX")][t.getInt("imgY")],false);break;
                     default: tile = new Tile(t.getInt("X"), t.getInt("Y"),Game.texture.tiles[t.getInt("imgX")][t.getInt("imgY")],false);break;
                 }
 

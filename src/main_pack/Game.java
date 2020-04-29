@@ -29,27 +29,31 @@ public class Game implements Runnable {
     public final static int UNITDIMENSION = 16;
     public final static int UNIT_SCALE = 128;
     public final static int TICKRATE = 60;
-    private Player player;
-    private ProjectileHandler projectileHandler;
-    private Thread thread;
-    public static Texture texture;
     private boolean running = false;
+    private Thread thread;
     private String title = "Castle";
     private int width, height;
-    public static State gameState, menuState, optionState, consoleState, invenstoryState;
-    private BufferStrategy bs;
-    public static Graphics g;
-    private Window window;
-    private KeyboardInput keyboardInput;
+    //Handler
+    private ProjectileHandler projectileHandler;
     private CreatureHandler creatureHandler;
     private Effectshandler effectshandler;
+    //Input
+    private MouseInput mouseInput;
+    private KeyboardInput keyboardInput;
+    private static ControllerInput controllerInput;
+    //States
+    public static State gameState, menuState, optionState, consoleState, invenstoryState,objectiveInventoryState;
+    //Graphics
+    public static Texture texture;
+    private BufferStrategy bs;
+    private Window window;
+    public static Graphics g;
+    //GameStuff
+    private Player player;
     private GameConsole gameConsole;
     private Menu menu;
-    private MouseInput mouseInput;
-    private static ControllerInput controllerInput;
     private Camera camera;
     private Map map;
-
     public static LootTable standartLootTable;
 
 
@@ -76,7 +80,7 @@ public class Game implements Runnable {
                 controllerInput = new ControllerInput(this, tempController);
             }
         }
-
+        //Graphics
         texture = new Texture();
         camera = new Camera(0, 0);
 
@@ -85,14 +89,14 @@ public class Game implements Runnable {
         creatureHandler = new CreatureHandler();
         effectshandler = new Effectshandler();
 
+        //MapLoad----------------------------------------------------------------
+        map = new Map("FirstLevel");
 
         initLootTables();
         player = new Player(1, 3, this);
         camera.setX(-player.getPixelPosition(player.getX()) + Launcher.WIDTH / 2 - (int) (UNIT_SCALE) / 2);
         camera.setY(-player.getPixelPosition(player.getY()) + Launcher.HEIGHT / 2 - (int) (UNIT_SCALE) / 2);
 
-        //MapLoad----------------------------------------------------------------
-        map = new Map("FirstLevel");
 
         //GameState Classes
         gameConsole = new GameConsole(this);
@@ -103,21 +107,19 @@ public class Game implements Runnable {
         consoleState = new ConsoleState(this);
         menuState = new MenuState(this);
         invenstoryState = new InventoryState(this);
+        objectiveInventoryState = new ObjectInventoryState(this);
         State.setState(gameState);
 
         //Input
         keyboardInput = new KeyboardInput(this);
         mouseInput = new MouseInput(this);
 
+        //Window
         window = new Window(title, width, height, this);
         window.fullscreen();
         window.getCanvas().addMouseListener(mouseInput);
         window.getCanvas().addMouseMotionListener(mouseInput);
         window.getJFrame().addKeyListener(keyboardInput);
-
-
-
-
     }
 
     private void initLootTables(){
@@ -253,7 +255,6 @@ public class Game implements Runnable {
             }
         }
         stop();
-
     }
 
 

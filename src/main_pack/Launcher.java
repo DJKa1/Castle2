@@ -10,12 +10,14 @@ public class Launcher {
     public static String VERSION ="0.0.5";
     public static final boolean enablecheats=true;
 
+    public static Game game = new Game (WIDTH, HEIGHT);
+
     public static void main(String[] args) {
         if(fullscreen) {
             WIDTH = dim.width;
             HEIGHT = dim.height;
         }
-        Game game = new Game (WIDTH, HEIGHT);
+
         game.start();
     }
 }

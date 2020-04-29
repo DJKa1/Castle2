@@ -3,6 +3,8 @@ package entities.creatures;
 import ID_Lists.ProjectileID;
 import Inventory.Inventory;
 import States.GameState;
+import Tiles.Chest;
+import Tiles.Tile;
 import entities.Vector2D;
 import graphics.Animation;
 
@@ -93,8 +95,27 @@ public class Player extends Creature {
             }
         }
 
+        if(KeyboardInput.f) {
+            getSurroundInterActs();
+        }
+
         aimX=mouseX;
         aimY=mouseY;
+    }
+    private void getSurroundInterActs() {
+        for (int layer = 0;layer<2;layer++) {
+            for (int yy = -1;yy<2;yy++) {
+                for (int xx=-1;xx<2;xx++) {
+                    if (map.getTilebyCords((int) Math.floor(x+xx), (int) Math.floor(y+yy),layer)!=null) {
+                        Tile tempTile = map.getTilebyCords((int) Math.floor(x+xx), (int) Math.floor(y+yy),layer);
+
+                        if(tempTile.getClass() == Chest.class) {
+                            ((Chest) tempTile).interact();
+                        }
+                    }
+                }
+            }
+        }
     }
 
 

@@ -11,7 +11,7 @@ import java.awt.event.KeyListener;
 
 public class KeyboardInput implements KeyListener {
     protected boolean[] keySwitch, keyF3, keys;
-    public static boolean up, left, right, down, jump, esc, e, f3, g, enter;
+    public static boolean up, left, right, down, jump, esc, e, f3, g, enter,f;
     public static boolean f3_s, t_s, e_s;
     public static boolean f3G;
     private Game game;
@@ -43,6 +43,7 @@ public class KeyboardInput implements KeyListener {
         e = keys[KeyEvent.VK_E];
         f3 = keys[KeyEvent.VK_F3];
         g = keys[KeyEvent.VK_G];
+        f = keys[KeyEvent.VK_F];
         enter = keys[KeyEvent.VK_ENTER];
 
         if (Keyboard) {
