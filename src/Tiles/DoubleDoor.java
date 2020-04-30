@@ -25,7 +25,7 @@ public class DoubleDoor extends Tile {
         Graphics g = result.getGraphics();
         for(int yy = 0;yy<2;yy++){
             for (int xx = 0;xx<3;xx++) {
-                g.drawImage(Texture.tiles[xx][yy+8], x+xx*16, y+yy*16, null);
+                g.drawImage(Texture.tiles[xx][yy+8], (x), (y), 16,16,null);
             }
         }
         img = result;
