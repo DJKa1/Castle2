@@ -97,14 +97,15 @@ public class JSON {
                         tile = new Chest(t.getInt("X"), t.getInt("Y"), Texture.tiles[t.getInt("imgX")][t.getInt("imgY")], false);
                         break;
                     case "doubledoor":
-                        tile = new DoubleDoor(t.getInt("X"), t.getInt("Y"), Texture.tiles[t.getInt("imgX")][t.getInt("imgY")], false);
+                        tile = new DoubleDoor(t.getInt("X"), t.getInt("Y"), Texture.tiles[t.getInt("imgX")][t.getInt("imgY")], true);
+                        tile.setHitbox(new Rectangle2D.Double(t.getDouble("X") + t.getDouble("ox") / 16d, t.getDouble("Y") + t.getDouble("oy") / 16d, t.getDouble("width") / 16d, t.getDouble("height") / 16d));
                         for (int yy = 0;yy<2;yy++) {
                             for (int xx = 0;xx<3;xx++) {
-                                if (xx!=0&&yy!=0) {
+                                //if (xx!=0 && yy!=0) {
                                     Tile tempTile= new Tile(t.getInt("X")+xx,t.getInt("Y")+yy,Texture.tiles[t.getInt("imgX")+xx][t.getInt("imgY")+yy],true);
                                     tempTile.setHitbox(tile.getHitbox());
                                     map[t.getInt("X")+xx][t.getInt("Y")+yy][t.getInt("layer")] = tempTile;
-                                }
+                                //}
                             }
                         }
                         break;
