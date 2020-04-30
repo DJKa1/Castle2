@@ -299,10 +299,7 @@ public abstract class Entity {
     }
 
     public boolean isInMap(){
-        if (Map.BORDER.contains(hitbox)){
-            return true;
-        }
-        return false;
+        return Map.BORDER.contains(hitbox);
     }
 
     public boolean isTileSolid(int x, int y,int layer){

@@ -32,10 +32,10 @@ public class CreatureHandler {
         }
     }
     public void addObject(Creature object) {
-        this.creatures.add(object);
+        creatures.add(object);
     }
     public void removeObject(Creature object) {
-        this.creatures.remove(object);
+        creatures.remove(object);
     }
     public int getCreatureCount(){
         return creatures.size();

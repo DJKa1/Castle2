@@ -20,7 +20,6 @@ public class HealPotion extends Potion{
             user.addBuff(new HealCoolDown(user,600));
             super.use(user);
         }
-      ;
 
     }
 }

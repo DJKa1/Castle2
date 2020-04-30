@@ -162,7 +162,7 @@ public class GameConsole {
 
 
     public void clear(){
-        setInput(String.valueOf(player.getInventory().getItemCount())+ " Items cleared");
+        setInput(player.getInventory().getItemCount() + " Items cleared");
         player.getInventory().clearInventory();
         send();
     }

@@ -4,11 +4,13 @@ import ID_Lists.ProjectileID;
 import Inventory.Inventory;
 import States.GameState;
 import Tiles.Chest;
+import Tiles.DoubleDoor;
 import Tiles.Tile;
 import entities.Vector2D;
 import graphics.Animation;
 
 
+import graphics.Texture;
 import items.Item;
 import items.LootCreates.OutstandingLootCreate;
 import items.Potions.HealPotion;
@@ -42,11 +44,11 @@ public class Player extends Creature {
         movementRate = (float) 0.1;
         inventory = new Inventory(this);
 
-        playerWalkLeft = new Animation(3, GameState.texture.sprite[8], GameState.texture.sprite[9], GameState.texture.sprite[10], GameState.texture.sprite[11], GameState.texture.sprite[12]);
-        playerWalkRight = new Animation(3, GameState.texture.sprite[0], GameState.texture.sprite[1], GameState.texture.sprite[2], GameState.texture.sprite[3], GameState.texture.sprite[4]);
-        playerWalkUp = new Animation(3, GameState.texture.sprite[0], GameState.texture.sprite[1], GameState.texture.sprite[2], GameState.texture.sprite[3], GameState.texture.sprite[4]);
-        playerWalkDown = new Animation(3, GameState.texture.sprite[0], GameState.texture.sprite[1], GameState.texture.sprite[2], GameState.texture.sprite[3], GameState.texture.sprite[4]);
-        idle = new Animation(10, GameState.texture.sprite[0], GameState.texture.sprite[5]);
+        playerWalkLeft = new Animation(3, Texture.sprite[8], Texture.sprite[9], Texture.sprite[10], Texture.sprite[11], Texture.sprite[12]);
+        playerWalkRight = new Animation(3, Texture.sprite[0], Texture.sprite[1], Texture.sprite[2], Texture.sprite[3], Texture.sprite[4]);
+        playerWalkUp = new Animation(3, Texture.sprite[0], Texture.sprite[1], Texture.sprite[2], Texture.sprite[3], Texture.sprite[4]);
+        playerWalkDown = new Animation(3, Texture.sprite[0], Texture.sprite[1], Texture.sprite[2], Texture.sprite[3], Texture.sprite[4]);
+        idle = new Animation(10, Texture.sprite[0], Texture.sprite[5]);
 
         animation = new Animation[5];
         animation[0] = idle;
@@ -60,12 +62,11 @@ public class Player extends Creature {
         inventory.addItem(new Shotgun(new Outstanding()));
         inventory.addItembyID("IceStorm");
         inventory.addItembyID("AK47");
-        for(int i =0 ; i<70;i++){
+        for (int i = 0; i < 70; i++) {
             inventory.addItembyID("SniperAmmo");
             inventory.addItem(new HealPotion(1));
             inventory.addItem(new OutstandingLootCreate());
         }
-
 
 
         //---------------------------------------
@@ -95,22 +96,26 @@ public class Player extends Creature {
             }
         }
 
-        if(KeyboardInput.f) {
+        if (KeyboardInput.f) {
             getSurroundInterActs();
         }
 
-        aimX=mouseX;
-        aimY=mouseY;
+        aimX = mouseX;
+        aimY = mouseY;
     }
-    private void getSurroundInterActs() {
-        for (int layer = 0;layer<2;layer++) {
-            for (int yy = -1;yy<2;yy++) {
-                for (int xx=-1;xx<2;xx++) {
-                    if (map.getTilebyCords((int) Math.floor(x+xx), (int) Math.floor(y+yy),layer)!=null) {
-                        Tile tempTile = map.getTilebyCords((int) Math.floor(x+xx), (int) Math.floor(y+yy),layer);
 
-                        if(tempTile.getClass() == Chest.class) {
-                            ((Chest) tempTile).interact();
+    private void getSurroundInterActs() {
+        for (int layer = 0; layer < 2; layer++) {
+            for (int yy = -1; yy < 2; yy++) {
+                for (int xx = -1; xx < 2; xx++) {
+                    if ((int) Math.floor(x + xx) >= 0 && (int) Math.floor(y + yy) >= 0) {
+                        if (map.getTilebyCords((int) Math.floor(x + xx), (int) Math.floor(y + yy), layer) != null) {
+                            Tile tempTile = map.getTilebyCords((int) Math.floor(x + xx), (int) Math.floor(y + yy), layer);
+                            if (tempTile.getClass() == Chest.class) {
+                                ((Chest) tempTile).interact();
+                            } else if (tempTile.getClass() == DoubleDoor.class) {
+                                ((DoubleDoor) tempTile).open();
+                            }
                         }
                     }
                 }
@@ -141,7 +146,7 @@ public class Player extends Creature {
     @Override
     public void renderHealthbar(Graphics g) {
         g.setColor(Color.red);
-        g.drawString(String.valueOf(hp),Launcher.WIDTH-100,100);
+        g.drawString(String.valueOf(hp), Launcher.WIDTH - 100, 100);
     }
 
     @Override

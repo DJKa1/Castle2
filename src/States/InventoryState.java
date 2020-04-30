@@ -19,12 +19,12 @@ public class InventoryState extends State {
 
     @Override
     public void tick() {
-        game.gameState.tick();
+        Game.gameState.tick();
     }
 
     @Override
     public void render(Graphics g) {
-        game.gameState.render(g);
+        Game.gameState.render(g);
         inventory.render(g);
     }
 }

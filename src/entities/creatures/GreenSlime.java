@@ -1,6 +1,7 @@
 package entities.creatures;
 import States.GameState;
 import ID_Lists.ID;
+import graphics.Texture;
 import main_pack.Game;
 import java.awt.*;
 
@@ -23,7 +24,7 @@ public class GreenSlime extends Creature {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(GameState.texture.sprite[43],getPixelPosition(x),getPixelPosition(y),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
+        g.drawImage(Texture.sprite[43],getPixelPosition(x),getPixelPosition(y),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
         renderHealthbar(g);
     }
 

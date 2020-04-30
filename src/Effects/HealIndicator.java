@@ -1,6 +1,7 @@
 package Effects;
 
 import Handler.Effectshandler;
+import graphics.Texture;
 import main_pack.Game;
 
 import java.awt.*;
@@ -37,11 +38,11 @@ public class HealIndicator extends Effect {
             string.toUpperCase();
             for (int i = 0; i < string.length(); i++) {
                 char c = string.charAt(i);
-                int temp = (int) c;
+                int temp = c;
                 int temp_integer = 32; //for upper case
                 if (temp <= 90 & temp >= 32) {
                     index = temp - temp_integer;
-                    g.drawImage(Game.texture.greenUIElements[index][shade], getPixelPosition(x) + i * 32, getPixelPosition(y),32,32, null);
+                    g.drawImage(Texture.greenUIElements[index][shade], getPixelPosition(x) + i * 32, getPixelPosition(y),32,32, null);
                 } else {
                     System.out.println("No supported char");
                 }

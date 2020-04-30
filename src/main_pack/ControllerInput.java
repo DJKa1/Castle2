@@ -16,7 +16,7 @@ public class ControllerInput {
 
     public ControllerInput(Game game, Controller controller) {
         this.game = game;
-        this.controller = controller;
+        ControllerInput.controller = controller;
         buttonsState = new boolean[controller.getButtonCount() + 4];
     }
 
@@ -49,11 +49,7 @@ public class ControllerInput {
         //update buttonstate array
         for (int i = 0; i < controller.getButtonCount() - 4; i++) {
             if (i < controller.getButtonCount() - 4) {
-                if (controller.isButtonPressed(i)) {
-                    buttonsState[i] = true;
-                } else {
-                    buttonsState[i] = false;
-                }
+                buttonsState[i] = controller.isButtonPressed(i);
             }
         }
         buttonsState[14] = PoVUp();
@@ -66,57 +62,43 @@ public class ControllerInput {
     }
 
     public boolean clicked(int buttonindex) {
-        if (controller.isButtonPressed(buttonindex) && buttonsState[buttonindex] == false) {
-            return true;
-        }
-        return false;
+        return controller.isButtonPressed(buttonindex) && buttonsState[buttonindex] == false;
     }
 
     public boolean clickedPoV(boolean button, int buttonindex) {
-        if (button && buttonsState[buttonindex] == false) {
-            return true;
-        }
-        return false;
+        return button && buttonsState[buttonindex] == false;
     }
 
     public boolean PoVUp() {
-        if (controller.getPovY() == -1) {
-            return true;
-        } else return false;
+        return controller.getPovY() == -1;
     }
 
     public boolean PoVDown() {
-        if (controller.getPovY() == 1) {
-            return true;
-        } else return false;
+        return controller.getPovY() == 1;
     }
 
     public boolean PoVRight() {
-        if (controller.getPovX() == 1) {
-            return true;
-        } else return false;
+        return controller.getPovX() == 1;
     }
 
     public boolean PoVLeft() {
-        if (controller.getPovX() == -1) {
-            return true;
-        } else return false;
+        return controller.getPovX() == -1;
     }
 
     public double getLeftAxisX() {
-        return (double) controller.getAxisValue(3);
+        return controller.getAxisValue(3);
     }
 
     public double getLeftAxisY() {
-        return (double) controller.getAxisValue(2);
+        return controller.getAxisValue(2);
     }
 
     public double getRightAxisX() {
-        return (double) controller.getAxisValue(1);
+        return controller.getAxisValue(1);
     }
 
     public double getRightAxisY() {
-        return (double) controller.getAxisValue(0);
+        return controller.getAxisValue(0);
     }
 
     public double getR2() {

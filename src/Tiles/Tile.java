@@ -1,8 +1,5 @@
 package Tiles;
 
-
-import main_pack.Game;
-
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;

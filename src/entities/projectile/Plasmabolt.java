@@ -2,6 +2,7 @@ package entities.projectile;
 import Handler.Effectshandler;
 import entities.Knockback;
 import Handler.ProjectileHandler;
+import graphics.Texture;
 import items.Weapons.Weapons;
 import main_pack.Game;
 import java.awt.geom.Rectangle2D;
@@ -15,7 +16,7 @@ public class Plasmabolt extends Projectile {
         height= (float) 6/16;
         hitbox=new Rectangle2D.Double(x,y,width,height);
         projeticespeed = (float) 0.25;
-        img=Game.texture.sprite[18];
+        img= Texture.sprite[18];
         move.set(aimX,aimY);
         move.normalize();
         knockback=new Knockback(move.getMultiplied(6),10);

@@ -4,6 +4,7 @@ import ID_Lists.ID;
 import Inventory.Inventory;
 import States.GameState;
 
+import graphics.Texture;
 import items.Quality.Outstanding;
 import items.Quality.Primitiv;
 import items.Weapons.Shotgun;
@@ -55,10 +56,10 @@ public class Dúath_láma extends Creature{
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(GameState.texture.sprite[30],getPixelPosition(getCenter().getX()-1),getPixelPosition(getCenter().getY()-1),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
-        g.drawImage(GameState.texture.sprite[31],getPixelPosition(getCenter().getX()),getPixelPosition(getCenter().getY()-1),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
-        g.drawImage(GameState.texture.sprite[38],getPixelPosition(getCenter().getX()-1),getPixelPosition(getCenter().getY()),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
-        g.drawImage(GameState.texture.sprite[39],getPixelPosition(getCenter().getX()),getPixelPosition(getCenter().getY()),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
+        g.drawImage(Texture.sprite[30],getPixelPosition(getCenter().getX()-1),getPixelPosition(getCenter().getY()-1),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
+        g.drawImage(Texture.sprite[31],getPixelPosition(getCenter().getX()),getPixelPosition(getCenter().getY()-1),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
+        g.drawImage(Texture.sprite[38],getPixelPosition(getCenter().getX()-1),getPixelPosition(getCenter().getY()),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
+        g.drawImage(Texture.sprite[39],getPixelPosition(getCenter().getX()),getPixelPosition(getCenter().getY()),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
         renderHealthbar(g);
 
         Graphics2D g2d = (Graphics2D) g;

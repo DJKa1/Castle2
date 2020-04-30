@@ -29,10 +29,10 @@ public class Effectshandler {
         }
     }
     public void addObject(Effect object) {
-        this.effects.add(object);
+        effects.add(object);
     }
     public void removeObject(Effect object) {
-        this.effects.remove(object);
+        effects.remove(object);
     }
     public int getCreatureCount(){
         return effects.size();

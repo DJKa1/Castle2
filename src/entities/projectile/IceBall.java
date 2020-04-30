@@ -4,6 +4,7 @@ import Handler.ProjectileHandler;
 import ID_Lists.ID;
 import entities.Vector2D;
 import entities.creatures.Creature;
+import graphics.Texture;
 import items.Weapons.Weapons;
 import main_pack.Game;
 
@@ -20,7 +21,7 @@ public class IceBall extends Projectile {
         height = (float) 6/16;
         hitbox = new Rectangle2D.Double(x, y, width, height);
         projeticespeed = (float) 0.1;
-        img= Game.texture.sprite[21];
+        img= Texture.sprite[21];
         lifeTime=40;
         move.set(aimX, aimY);
         move.normalize();

@@ -305,16 +305,10 @@ public abstract class Creature extends Entity {
 
     }
     public boolean isInRange (Creature k){
-        if (targetingArea.intersects(k.getHitbox())){
-            return true;
-        }
-        return false;
+        return targetingArea.intersects(k.getHitbox());
     }
     protected boolean checkifNear(Creature k){
-        if(k.getCenterFromMovementHitbox().distance(getCenterFromMovementHitbox())<(targetingRange*followingMultiplier)){
-            return true;
-        }
-        return false;
+        return k.getCenterFromMovementHitbox().distance(getCenterFromMovementHitbox()) < (targetingRange * followingMultiplier);
     }
 
 

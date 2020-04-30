@@ -89,24 +89,16 @@ public abstract class Projectile extends Entity {
 
     //Collision---------------------------------------------
     public boolean isSolid(float ox, float oy) {
-        if (collisionWithTiles(getTilesinDirection(ox, oy, hitbox), hitbox) != null) {
-            return true;
-        }
-        return false;
+        return collisionWithTiles(getTilesinDirection(ox, oy, hitbox), hitbox) != null;
     }
 
     public boolean collisionWithTile() {
         normalizeHitbox();
         if (speedX > speedY) {
-            if (isSolid(speedX, 0)) {
-                return true;
-            }
+            return isSolid(speedX, 0);
         } else {
-            if (isSolid(0, speedY)) {
-                return true;
-            }
+            return isSolid(0, speedY);
         }
-        return false;
     }
 
     protected void collision(){

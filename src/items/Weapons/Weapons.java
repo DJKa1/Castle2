@@ -18,6 +18,7 @@ public abstract class Weapons extends Item {
         }else {
             this.quality=quality;
         }
+        assert quality != null;
         quality.rollDmg();
         cooldown=0;
         baseDamage=1;

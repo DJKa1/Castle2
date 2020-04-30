@@ -3,7 +3,9 @@ package Maps;
 
 import Tiles.Chest;
 import Tiles.DoorTile;
+import Tiles.DoubleDoor;
 import Tiles.Tile;
+import graphics.Texture;
 import main_pack.Game;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,11 +22,11 @@ import java.util.Iterator;
 
 public class JSON {
     //public static File conficFile = new File("C:\\Users\\Pete Louis Benz\\Documents\\LevelEditor\\config\\config.json");
-    public  static File saveMapFile = new File("rsc/Worlds/map.json");
+    public static File saveMapFile = new File("rsc/Worlds/map.json");
 
     public static ArrayList<String> getLevelNames() {
         try {
-            String speicher = new String(Files.readAllBytes(Paths.get(saveMapFile.toURI())), StandardCharsets.UTF_8);
+            String speicher = Files.readString(Paths.get(saveMapFile.toURI()));
             JSONObject all = new JSONObject(speicher);
 
             Iterator<String> keys = all.keys();
@@ -41,9 +43,9 @@ public class JSON {
         return null;
     }
 
-    public  static boolean exsists(String key) {
+    public static boolean exsists(String key) {
         try {
-            String speicher = new String((Files.readAllBytes(Paths.get(saveMapFile.toURI()))), StandardCharsets.UTF_8);
+            String speicher = Files.readString(Paths.get(saveMapFile.toURI()));
             JSONObject all = new JSONObject(speicher);
 
             return all.has(key);
@@ -55,7 +57,7 @@ public class JSON {
 
     public static int getGridSize(String level, boolean x) {
         try {
-            String speicher = new String(Files.readAllBytes(Paths.get(saveMapFile.toURI())), StandardCharsets.UTF_8);
+            String speicher = Files.readString(Paths.get(saveMapFile.toURI()));
             JSONObject all = new JSONObject(speicher);
             if (x) {
                 return all.getJSONArray(level).getJSONObject(0).getInt("MapWidth");
@@ -71,7 +73,7 @@ public class JSON {
 
     public static Tile[][][] loadMapJson(String levelname) {
         try {
-            String jsonString = new String(Files.readAllBytes(Paths.get(saveMapFile.toURI())), StandardCharsets.UTF_8);
+            String jsonString = Files.readString(Paths.get(saveMapFile.toURI()));
             JSONObject all = new JSONObject(jsonString);
             JSONArray level = all.getJSONArray(levelname);
             //FirstObject stores Width and Height
@@ -88,27 +90,35 @@ public class JSON {
                 t = level.getJSONObject(i);
                 Tile tile;
                 switch (t.getString("id")) {
-                    case "door": tile = new DoorTile(t.getInt("X"), t.getInt("Y"),Game.texture.tiles[t.getInt("imgX")][t.getInt("imgY")],false);break;
-                    case "chest": tile = new Chest(t.getInt("X"), t.getInt("Y"),Game.texture.tiles[t.getInt("imgX")][t.getInt("imgY")],false);break;
-                    default: tile = new Tile(t.getInt("X"), t.getInt("Y"),Game.texture.tiles[t.getInt("imgX")][t.getInt("imgY")],false);break;
+                    case "door":
+                        tile = new DoorTile(t.getInt("X"), t.getInt("Y"), Texture.tiles[t.getInt("imgX")][t.getInt("imgY")], false);
+                        break;
+                    case "chest":
+                        tile = new Chest(t.getInt("X"), t.getInt("Y"), Texture.tiles[t.getInt("imgX")][t.getInt("imgY")], false);
+                        break;
+                    case "doubledoor":
+                        tile = new DoubleDoor(t.getInt("X"), t.getInt("Y"), Texture.tiles[t.getInt("imgX")][t.getInt("imgY")], false);
+                        break;
+                    default:
+                        tile = new Tile(t.getInt("X"), t.getInt("Y"), Texture.tiles[t.getInt("imgX")][t.getInt("imgY")], false);
+                        break;
                 }
 
-                if(t.has("ox")){
+                if (t.has("ox")) {
                     tile.setSolid(true);
-                    tile.setHitbox(new Rectangle2D.Double(t.getDouble("X")+t.getDouble("ox")/16d,t.getDouble("Y")+t.getDouble("oy")/16d,t.getDouble("width")/16d,t.getDouble("height")/16d));
+                    tile.setHitbox(new Rectangle2D.Double(t.getDouble("X") + t.getDouble("ox") / 16d, t.getDouble("Y") + t.getDouble("oy") / 16d, t.getDouble("width") / 16d, t.getDouble("height") / 16d));
+                }
+                if (tile.getClass() == DoubleDoor.class) {
+                    ((DoubleDoor) tile).init();
                 }
                 map[t.getInt("X")][t.getInt("Y")][t.getInt("layer")] = tile;
-
             }
-
             return map;
-
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
-
 
     /*public static void SaveMapJSON(Tile[][][] map, String levelName) {
         try {

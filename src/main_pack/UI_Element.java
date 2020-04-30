@@ -1,6 +1,7 @@
 package main_pack;
 
 import States.State;
+import graphics.Texture;
 
 import java.awt.*;
 
@@ -20,7 +21,7 @@ public class UI_Element{
     }
 
     public void render(Graphics g) {
-        g.drawImage(Game.texture.goldenUIElements[59][shade], box.x, box.y, null);
+        g.drawImage(Texture.goldenUIElements[59][shade], box.x, box.y, null);
         drawString(g, 2, 0, content, shade);
     }
 
@@ -31,11 +32,11 @@ public class UI_Element{
         string.toUpperCase();
         for (int i = 0; i < string.length(); i++) {
             char c = string.charAt(i);
-            int temp = (int) c;
+            int temp = c;
             int temp_integer = 32; //for upper case
             if (temp <= 90 & temp >= 32) {
                 index = temp - temp_integer;
-                g.drawImage(Game.texture.goldenUIElements[index][shade], x*cellSize + i * cellSize, y, null);
+                g.drawImage(Texture.goldenUIElements[index][shade], x*cellSize + i * cellSize, y, null);
             } else {
                 System.out.println("No supported char");
             }

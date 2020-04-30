@@ -72,19 +72,11 @@ public class KeyboardInput implements KeyListener {
             if (game.getactiveState().getClass() == GameState.class) {
                 keys[e.getKeyCode()] = true;
 
-                if (keySwitch[e.getKeyCode()]) {
-                    keySwitch[e.getKeyCode()] = false;
-                } else {
-                    keySwitch[e.getKeyCode()] = true;
-                }
+                keySwitch[e.getKeyCode()] = !keySwitch[e.getKeyCode()];
 
                 //F3-Funktions--------------------------------
                 if (f3) {
-                    if (keyF3[e.getKeyCode()]) {
-                        keyF3[e.getKeyCode()] = false;
-                    } else {
-                        keyF3[e.getKeyCode()] = true;
-                    }
+                    keyF3[e.getKeyCode()] = !keyF3[e.getKeyCode()];
                 }
 
                 //InventoryManagment---------------------------------
@@ -166,7 +158,6 @@ public class KeyboardInput implements KeyListener {
                 }
 
 
-                return;
             }
 
 

@@ -29,10 +29,10 @@ public class ProjectileHandler {
         }
     }
     public void addObject(Projectile object) {
-        this.projectile.add(object);
+        projectile.add(object);
     }
     public void removeObject(Projectile object) {
-        this.projectile.remove(object);
+        projectile.remove(object);
     }
     public int getProjectileCount(){
         return projectile.size();

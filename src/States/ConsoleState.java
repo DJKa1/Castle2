@@ -25,13 +25,13 @@ public class ConsoleState extends  State{
 
     @Override
     public void tick() {
-        game.gameState.tick();
+        Game.gameState.tick();
 
     }
 
     @Override
     public void render(Graphics g) {
-        game.gameState.render(g);
+        Game.gameState.render(g);
         gameConsole.render(g);
         gameConsole.renderLog(g);
     }

@@ -87,9 +87,9 @@ public class GameState extends State{
         f3Infopanel.tick();
 
         Creature tempPlayer=null;
-        for (int i = 0;i<creatureHandler.creatures.size();i++){
-            if(creatureHandler.creatures.get(i).getId()== ID.Player) {
-                tempPlayer = creatureHandler.creatures.get(i);
+        for (int i = 0; i< CreatureHandler.creatures.size(); i++){
+            if(CreatureHandler.creatures.get(i).getId()== ID.Player) {
+                tempPlayer = CreatureHandler.creatures.get(i);
             }
         }
 
