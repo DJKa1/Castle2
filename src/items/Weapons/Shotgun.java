@@ -29,17 +29,17 @@ public class Shotgun extends ShootingWeapons {
     @Override
     protected void fire(Creature user) {
         Sound.playSound("Shotgun");
-        user.getProjectileHandler().addObject(new Shotgunbolt(user.getX() + 0.5f, user.getY() + 0.5f, user.getAimX(), user.getAimY(), user.getProjectileHandler(), user.getEffectshandler(),this));
+        user.getProjectileHandler().addObject(new Shotgunbolt((float) user.getCenter().getX(), (float) user.getCenter().getY(), user.getAimX(), user.getAimY(), user.getProjectileHandler(), user.getEffectshandler(),this));
         Vector2D s = new Vector2D(user.getAimX(), user.getAimY());
         double angle = s.getAngle() - Math.toRadians(9);
         s.x = Math.cos(angle);
         s.y = Math.sin(angle);
-        user.getProjectileHandler().addObject(new Shotgunbolt(user.getX() + 0.5f, user.getY() + 0.5f, (float) s.x, (float) s.y, user.getProjectileHandler(), user.getEffectshandler(),this));
+        user.getProjectileHandler().addObject(new Shotgunbolt((float) user.getCenter().getX(), (float) user.getCenter().getY(), (float) s.x, (float) s.y, user.getProjectileHandler(), user.getEffectshandler(),this));
         s = new Vector2D(user.getAimX(), user.getAimY());
         angle = s.getAngle() - Math.toRadians(-9);
         s.x = Math.cos(angle);
         s.y = Math.sin(angle);
-        user.getProjectileHandler().addObject(new Shotgunbolt(user.getX() + 0.5f, user.getY() + 0.5f, (float) s.x, (float) s.y, user.getProjectileHandler(), user.getEffectshandler(),this));
+        user.getProjectileHandler().addObject(new Shotgunbolt((float) user.getCenter().getX(), (float) user.getCenter().getY(), (float) s.x, (float) s.y, user.getProjectileHandler(), user.getEffectshandler(),this));
         remainingMunition--;
         user.setCurrentKnockback(new Knockback(s.getMultiplied(-2),20));
 

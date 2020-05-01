@@ -5,7 +5,8 @@ import entities.creatures.Creature;
 import entities.creatures.Player;
 import items.Item;
 import items.LootTable;
-import main_pack.Game;
+import items.LootTableList;
+
 
 public abstract class LootCreate extends Item {
     protected int maxRarity,minRarity;
@@ -13,7 +14,7 @@ public abstract class LootCreate extends Item {
 
     public LootCreate( ){
         super();
-        lootTable=Game.standartLootTable;
+        lootTable= LootTableList.standartLootTable;
         isUseableInInventory = true;
     }
     @Override

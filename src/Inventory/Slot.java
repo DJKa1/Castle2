@@ -10,17 +10,19 @@ public class Slot {
 
     public Rectangle bounds;
     public Item item;
-    private String identifyer = "null";
+    protected String identifyer = "null";
+    protected Class itemType;
 
 
     public Slot(Rectangle bounds) {
         this.bounds = bounds;
+        itemType=Item.class;
     }
 
     public void render(Graphics2D g) {
-        switch (identifyer)  {
-            case "null" : g.drawImage(Texture.Inventory[0][0],bounds.x,bounds.y, bounds.width,bounds.height,null);break;
-            case "armor": g.drawImage(Texture.Inventory[6][0],bounds.x,bounds.y, bounds.width,bounds.height,null);break;
+        switch (itemType.getSimpleName())  {
+            case "Item" : g.drawImage(Texture.Inventory[0][0],bounds.x,bounds.y, bounds.width,bounds.height,null);break;
+            case "Armor": g.drawImage(Texture.Inventory[6][0],bounds.x,bounds.y, bounds.width,bounds.height,null);break;
             default:g.drawImage(Texture.Inventory[0][0],bounds.x,bounds.y, bounds.width,bounds.height,null);break;
         }
 
@@ -48,6 +50,13 @@ public class Slot {
 
     }
 
+    public boolean isPuttable(Item item){
+        if(itemType.isAssignableFrom(item.getClass())){
+            return true;
+        }
+        return false;
+    }
+
     public void setIdentifyer(String identifyer) {
         this.identifyer = identifyer;
     }
@@ -72,5 +81,11 @@ public class Slot {
         item=null;
     }
 
+    public Class getItemType() {
+        return itemType;
+    }
 
+    public void setItemType(Class itemType) {
+        this.itemType = itemType;
+    }
 }

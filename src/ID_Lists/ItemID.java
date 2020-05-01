@@ -7,7 +7,11 @@ public enum ItemID {
     Shotgun,
     SniperAmmo,
     ShotgunAmmo,
+    FabricatedSniper,
     EchoStaff,
+    Boots,
+    Helmet,
+    ChestPlate,
     OutstandingLootCreate;
 
 

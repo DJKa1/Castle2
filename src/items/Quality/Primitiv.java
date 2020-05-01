@@ -9,6 +9,8 @@ public class Primitiv extends Quality{
         color= Color.WHITE;
         minD=1;
         maxD=1;
+        minA=1;
+        maxA=1;
 
     }
 

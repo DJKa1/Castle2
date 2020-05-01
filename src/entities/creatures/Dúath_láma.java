@@ -22,13 +22,13 @@ public class Dúath_láma extends Creature{
         super(x, y, game);
         width=1;
         height=1.6f;
-        targetingRange=10;
+        targetingRange=5;
         targetable=new ID[]{ID.Player};
         hp=100;
         maxHp = hp;
         movementRate= (float) 0.05;
         armorValue=1;
-        followingMultiplier=4;
+        followingMultiplier=3;
         weapon=new Shotgun(new Primitiv());
         normalizeHitbox();
         normalizeMovementhitbox();

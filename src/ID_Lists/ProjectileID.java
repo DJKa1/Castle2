@@ -5,6 +5,7 @@ public enum ProjectileID {
     IceBall,
     IceShard,
     Plasmabolt,
+    SniperBullet,
     Bounce;
 
     public static boolean containsElement(String eingabe) {

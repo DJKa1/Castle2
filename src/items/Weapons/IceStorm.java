@@ -1,6 +1,5 @@
 package items.Weapons;
 
-import Inventory.Inventory;
 import entities.creatures.Creature;
 import entities.projectile.IceBall;
 import graphics.Texture;
@@ -16,12 +15,11 @@ public class IceStorm extends MagicWeapons {
         cooldown=60;
     }
 
-    public void use(){
-        super.use(user);
-        if (delay==0&&user.getManaCount()>manacost){
+    @Override
+    protected void fire(Creature user) {
             user.getProjectileHandler().addObject(new IceBall(user.getX()+0.5f,user.getY()+0.5f,user.getAimX(), user.getAimY(),user.getProjectileHandler(),user.getEffectshandler(),this));
-            delay++;
-            user.reduceMana(manacost);
         }
     }
-}
+
+
+

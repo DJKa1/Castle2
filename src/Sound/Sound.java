@@ -5,7 +5,7 @@ import java.io.*;
 
 
 public class Sound {
-    public static int Volume=20;
+    public static int Volume=40;
 
     public static void playSfx(final File initialFile) {
         ActivityManager.getInstance().submit(() -> {
@@ -70,6 +70,7 @@ public class Sound {
             switch (soundEffect) {
                 case "Shotgun": playSfx(new File("./rsc/Audio/Shotgun.wav"));break;
                 case "Shotgun_Reload": playSfx(new File("./rsc/Audio/PumpShotgunReload.wav"));break;
+                case "Sniper": playSfx(new File("./rsc/Audio/Sniper.wav"));break;
             }
         }
     }

@@ -25,7 +25,7 @@ public abstract class ShootingWeapons extends Weapons {
         super.use(user);
         if (delay == 0 && remainingMunition > 0) {
             fire(user);
-            delay++;
+            delay=cooldown;
         } else if (delay == 0) {
             if(user.getId()== ID.Player){
                 Player p= (Player) user;
@@ -35,12 +35,11 @@ public abstract class ShootingWeapons extends Weapons {
             }else {
                 remainingMunition=magazineSize;
             }
-            delay++;
+            delay=cooldown;
         }
 
     }
 
-    protected abstract void fire(Creature k);
 
     protected abstract void playReloadSound();
 

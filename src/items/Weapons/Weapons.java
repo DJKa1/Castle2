@@ -31,10 +31,8 @@ public abstract class Weapons extends Item {
 
     @Override
     public void tick() {
-        if (delay < cooldown && delay != 0) {
-            delay++;
-        } else {
-            delay = 0;
+        if (delay >0) {
+            delay--;
         }
     }
 
@@ -42,6 +40,8 @@ public abstract class Weapons extends Item {
     public void use(Creature k){
         user=k;
     }
+
+    protected abstract void fire(Creature user);
 
     public int getDelay() {
         return delay;

@@ -1,8 +1,7 @@
 package entities.creatures;
 
-import ID_Lists.ProjectileID;
+import Buffs.Poison;
 import Inventory.Inventory;
-import States.GameState;
 import Tiles.Chest;
 import Tiles.DoubleDoor;
 import Tiles.Tile;
@@ -11,10 +10,13 @@ import graphics.Animation;
 
 
 import graphics.Texture;
+import items.Armor.Boots;
 import items.Item;
 import items.LootCreates.OutstandingLootCreate;
 import items.Potions.HealPotion;
 import items.Quality.Outstanding;
+import items.Quality.Primitiv;
+import items.Weapons.FabricatedSniper;
 import items.Weapons.Shotgun;
 import main_pack.*;
 
@@ -38,7 +40,7 @@ public class Player extends Creature {
         super(x, y, game);
         this.hp = 600;
         maxHp = hp;
-        manaCount = 1000;
+        manaCount = 200;
         width = (float) 0.8;
         height = (float) 0.8;
         movementRate = (float) 0.1;
@@ -62,11 +64,21 @@ public class Player extends Creature {
         inventory.addItem(new Shotgun(new Outstanding()));
         inventory.addItembyID("IceStorm");
         inventory.addItembyID("AK47");
+        FabricatedSniper fabi = new FabricatedSniper(new Outstanding());
+        fabi.getQuality().setDmg(4.5f);
+        fabi.addAttribute("OFFSET :"+ (int)(fabi.getQuality().getDmg()*100) + "%");
+        inventory.addItem(fabi);
+        inventory.addItem(new Boots(new Primitiv()));
         for (int i = 0; i < 70; i++) {
             inventory.addItembyID("SniperAmmo");
             inventory.addItem(new HealPotion(1));
             inventory.addItem(new OutstandingLootCreate());
+
+
         }
+        addBuff(new Poison(this,300,10));
+        addBuff(new Poison(this,300,10));
+
 
 
         //---------------------------------------
@@ -75,14 +87,13 @@ public class Player extends Creature {
     public Inventory getInventory() {
         return inventory;
     }
-
-
     @Override
     public void tick() {
         hitCooldown--;
         tickActiveBuffs();
         movement();
         inventory.tick();
+        armorValue=inventory.getArmorValue();
         Item item = inventory.getItem(inventory.getActiveSlot());
         if (KeyboardInput.Keyboard) {
             if (MouseInput.leftPressed) {
@@ -102,6 +113,8 @@ public class Player extends Creature {
 
         aimX = mouseX;
         aimY = mouseY;
+
+
     }
 
     private void getSurroundInterActs() {

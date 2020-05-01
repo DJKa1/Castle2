@@ -5,6 +5,7 @@ import entities.creatures.Creature;
 import entities.creatures.Player;
 import graphics.Animation;
 import graphics.Texture;
+import items.Armor.Armor;
 import items.Item;
 import items.Munition.SniperAmmo;
 import items.Quality.Extraordinary;
@@ -58,6 +59,17 @@ public class Inventory {
 
     public Creature getOwner() {
         return owner;
+    }
+
+    public double getArmorValue(){
+        double f=0;
+        for (Slot s : slots){
+            if(s.getItemType()==Armor.class&& s.getItem()!=null){
+                Armor a= (Armor) s.getItem();
+                f+=a.getArmorValue();
+            }
+        }
+        return f;
     }
 
 
@@ -134,16 +146,21 @@ public class Inventory {
         for (int i = 0; i < slots.length; i++) {
             if (slots[i].inBounds(mouseX, mouseY)) {
                 if (slots[i].item == null) {
-                    slots[i].item = item;
-                    clearIdentifyer();
+                    if(slots[i].isPuttable(item)) {
+                        slots[i].item = item;
+                        clearIdentifyer();
+                    }
                 } else {
                     for (int e = 0; e < slots.length; e++) {
                         if (slots[e].getIdentifyer().equals("last")) {
-                            Item tempItem = item;
-                            slots[e].item = slots[i].item;
-                            slots[i].item = tempItem;
-                            clearIdentifyer();
+                            if(slots[i].isPuttable(item)) {
+                                Item tempItem = item;
+                                slots[e].item = slots[i].item;
+                                slots[i].item = tempItem;
+                                clearIdentifyer();
+                            }
                         }
+
                     }
                 }
             }
@@ -250,6 +267,7 @@ public class Inventory {
             case "SniperAmmo":
                 item = new SniperAmmo();
                 break;
+
         }
         addItem(item);
     }
@@ -355,8 +373,7 @@ public class Inventory {
         }
         for (int yy = 0; yy < 2; yy++) {
             for (int xx = 10; xx < 12; xx++) {
-                slots[index] = new Slot(new Rectangle((int) (xx * Game.UNIT_SCALE / 2 + transX * scale + 64 * 2), (int) (yy * Game.UNIT_SCALE / 2 + transY * scale + 64 * 2), Game.UNIT_SCALE / 2, Game.UNIT_SCALE / 2));
-                slots[index].setIdentifyer("armor");
+                slots[index] = new ArmorSlot(new Rectangle((int) (xx * Game.UNIT_SCALE / 2 + transX * scale + 64 * 2), (int) (yy * Game.UNIT_SCALE / 2 + transY * scale + 64 * 2), Game.UNIT_SCALE / 2, Game.UNIT_SCALE / 2));
                 index++;
             }
         }

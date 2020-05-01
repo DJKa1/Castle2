@@ -46,8 +46,6 @@ public class Tile {
     public void tick() {
 
     }
-
-
     public void render(Graphics g, int x, int y) {
         g.drawImage(img,x,y,null);
     }

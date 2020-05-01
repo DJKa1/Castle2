@@ -9,6 +9,9 @@ public class Fine extends Quality {
         color= Color.BLUE;
         minD=1.4f;
         maxD=1.8f;
+        minA=1.4f;
+        maxA=1.8f;
+
 
     }
 }

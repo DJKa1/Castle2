@@ -12,6 +12,7 @@ import graphics.Texture;
 import graphics.Window;
 import items.Item;
 import items.LootTable;
+import items.LootTableList;
 import items.Munition.SniperAmmo;
 import items.Quality.*;
 import org.lwjgl.LWJGLException;
@@ -54,7 +55,7 @@ public class Game implements Runnable {
     private Menu menu;
     private Camera camera;
     private Map map;
-    public static LootTable standartLootTable;
+    private LootTableList lootTableList;
 
 
     public Game(int width, int height) {
@@ -91,8 +92,8 @@ public class Game implements Runnable {
 
         //MapLoad----------------------------------------------------------------
         map = new Map("FirstLevel");
+        lootTableList=new LootTableList();
 
-        initLootTables();
         player = new Player(1, 3, this);
         camera.setX(-player.getPixelPosition(player.getX()) + Launcher.WIDTH / 2 - UNIT_SCALE / 2);
         camera.setY(-player.getPixelPosition(player.getY()) + Launcher.HEIGHT / 2 - UNIT_SCALE / 2);
@@ -122,24 +123,7 @@ public class Game implements Runnable {
         window.getJFrame().addKeyListener(keyboardInput);
     }
 
-    private void initLootTables(){
-        standartLootTable=new LootTable();
-        standartLootTable.setBaseDrop(new Item[]{new SniperAmmo(),new SniperAmmo()});
-        standartLootTable.addItem(ItemID.Shotgun,new Primitiv(),100);
-        standartLootTable.addItem(ItemID.Shotgun,new Ramshackle(),90);
-        standartLootTable.addItem(ItemID.Shotgun,new Fine(),60);
-        standartLootTable.addItem(ItemID.Shotgun,new Extraordinary(),20);
-        standartLootTable.addItem(ItemID.Shotgun,new Outstanding(),10);
 
-        standartLootTable.addItem(ItemID.SniperAmmo,12,60);
-        standartLootTable.addItem(ItemID.SniperAmmo,30,20);
-        standartLootTable.addItem(ItemID.SniperAmmo,100,10);
-
-        standartLootTable.addItem(ItemID.ShotgunAmmo,12,60);
-        standartLootTable.addItem(ItemID.ShotgunAmmo,30,20);
-        standartLootTable.addItem(ItemID.ShotgunAmmo,100,10);
-
-    }
 
     //Getters && Setters
 

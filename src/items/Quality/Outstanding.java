@@ -10,6 +10,9 @@ public class Outstanding extends Quality {
         color= Color.getHSBColor(212,175,55);
         minD=2.2f;
         maxD=3.0f;
+        minA=2.2f;
+        maxA=3.0f;
 
     }
+
 }

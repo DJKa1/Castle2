@@ -17,7 +17,7 @@ public class testWeapon extends ShootingWeapons {
     public void use(Creature user) {
         this.user=user;
         if (delay==0) {
-            Sound.playSound("Shotgun");
+            //Sound.playSound("Shotgun");
             user.getProjectileHandler().addObject(new Plasmabolt(user.getX()+0.5f,user.getY()+0.5f, user.getAimX(), user.getAimY(),user.getProjectileHandler(),user.getEffectshandler(),this));
         }
         if(delay<10) {

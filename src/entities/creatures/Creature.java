@@ -146,6 +146,10 @@ public abstract class Creature extends Entity {
         targetingArea.setFrameFromCenter(x+width/2,y+height/2,x+width/2-targetingRange,y+height/2-targetingRange);
     }
 
+    public LinkedList<Buff> getActiveBuffs() {
+        return activeBuffs;
+    }
+
     public void setCurrentTarget(Creature k){
             currentTarget = k;
     }
