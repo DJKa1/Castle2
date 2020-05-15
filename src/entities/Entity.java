@@ -94,15 +94,17 @@ public abstract class Entity {
     public abstract void render(Graphics g);
 
 
+    public int getPixelPosition(float v){
+        return (int)(v*128);
+    }
+
+    protected int getPixelPosition(double v){
+        return (int)(v*128);
+    }
+
+
     //HitboxMethods-------------------------------
-    public int getPixelPosition(float v) {
-        v *= Game.UNIT_SCALE;
-        return (int) v;
-    }
-    public int getPixelPosition(double v) {
-        v *= Game.UNIT_SCALE;
-        return (int) v;
-    }
+
 
     public void updateHitbox(float xOffset, float yOffset) {
         hitbox.setRect(x + xOffset, y + yOffset, width, height);

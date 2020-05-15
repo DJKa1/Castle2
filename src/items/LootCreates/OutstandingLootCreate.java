@@ -8,6 +8,7 @@ public class OutstandingLootCreate extends LootCreate {
         super();
         maxRarity=1;
         minRarity=30;
+        dropAmount=5;
         image= Texture.sprite[43];
         attributes.add("Press E");
         attributes.add("to open");

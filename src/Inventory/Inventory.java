@@ -19,6 +19,7 @@ import main_pack.Launcher;
 import main_pack.MouseInput;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Inventory {
     private Hotbar hotbar;
@@ -99,7 +100,7 @@ public class Inventory {
         for (int i = 0; i < slots.length; i++) {
             if (slots[i].item != null) {
                 if(slots[i].item.getQuality()!=null){
-                    g.setColor( slots[i].item.getQuality().getColor());
+                    g.setColor(slots[i].item.getQuality().getColor());
                 }
                 else {
                     g.setColor(Color.white);
@@ -298,7 +299,13 @@ public class Inventory {
                 addItem(item);
             }
         }
+    }
 
+
+    public void addItems(ArrayList<Item> items){
+            for (Item item: items){
+                addItem(item);
+        }
     }
 
     public Item getItem(int i) {

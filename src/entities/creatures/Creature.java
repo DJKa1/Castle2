@@ -9,12 +9,15 @@ import Effects.HitAnimation;
 import Handler.Effectshandler;
 import ID_Lists.BuffID;
 import ID_Lists.ProjectileID;
+import Inventory.Inventory;
 import Maps.Map;
 import Pathfinding.Node;
 import entities.Entity;
 import ID_Lists.ID;
 import entities.Knockback;
 import Handler.CreatureHandler;
+import items.Item;
+import items.LootTable;
 import main_pack.Game;
 import Handler.ProjectileHandler;
 import java.awt.*;
@@ -44,6 +47,7 @@ public abstract class Creature extends Entity {
     protected Map map;
     protected List<Node> nextMoves;
     protected float aimX,aimY;
+    protected LootTable dropList;
 
     //Tageting-------------------
     protected Ellipse2D targetingArea;
@@ -396,6 +400,10 @@ public abstract class Creature extends Entity {
         if(hp<=0){
             creatureHandler.removeObject(this);
         }
+    }
+
+    public void dropItems(Inventory inventory){
+        inventory.addItems(dropList.dropItem(1,100));
     }
 
     //EffectManagment---------------------

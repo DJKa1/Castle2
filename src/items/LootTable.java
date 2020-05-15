@@ -9,23 +9,24 @@ import items.Weapons.FabricatedSniper;
 import items.Weapons.Shotgun;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class LootTable {
     private ArrayList[] table;
-    private Item[] baseDrop;
+    private ArrayList<Item> baseDrops;
 
     public LootTable(){
         table= new ArrayList[]{new ArrayList<ItemID>(),new ArrayList<Quality>(),new ArrayList<Integer>(), new ArrayList<Integer>()};
-        baseDrop=null;
+        baseDrops=new ArrayList<>();
     }
 
-    public Item[] getBaseDrop() {
-        return baseDrop;
+    public ArrayList<Item> getBaseDrop() {
+        return baseDrops;
     }
 
-    public void setBaseDrop(Item[] baseDrop) {
-        this.baseDrop = baseDrop;
+    public void setBaseDrop(ArrayList<Item> baseDrops) {
+        this.baseDrops = baseDrops;
     }
 
     private ArrayList<Integer> getChoices(int minRarity, int maxRarity){
@@ -38,25 +39,48 @@ public class LootTable {
         return vallid;
 
     }
-    public Item[] dropItem(int maxRarity, int minRarity){
+    public ArrayList dropItem(int maxRarity, int minRarity,int amount){
+        ArrayList<Item> drops = new ArrayList();
         if(minRarity>100){
             minRarity=100;
         }
         if(minRarity<maxRarity){
             maxRarity=minRarity;
         }
-
-        maxRarity += Math.random()*(minRarity-maxRarity);
-
-        ArrayList<Integer>vallid=getChoices(minRarity,maxRarity);
-        if(vallid.isEmpty()){
-           return baseDrop;
+        for (int j =0;j<amount;j++) {
+            int tempmaxRarity = (int) (maxRarity + Math.random() * (minRarity - maxRarity));
+            ArrayList<Integer> vallid = getChoices(minRarity, tempmaxRarity);
+            int index = (int) (Math.random() * (vallid.size()));
+            if(!vallid.isEmpty()) {
+                for (int i = 0; i < (int) table[3].get(vallid.get(index)); i++) {
+                    drops.add(createItembyID((ItemID) table[0].get(vallid.get(index)), (Quality) table[1].get(vallid.get(index))));
+                }
+            }
         }
+        if(drops.isEmpty()){
+            return baseDrops;
+        }
+        return drops;
+    }
 
-        int index= (int)(Math.random()*(vallid.size()));
-        Item[] drops=new Item[(int)table[3].get(vallid.get(index))];
-        for (int i=0 ;i<(int)table[3].get(vallid.get(index));i++){
-             drops[i]=createItembyID((ItemID)table[0].get(vallid.get(index)),(Quality)table[1].get(vallid.get(index)));
+    public ArrayList dropItem(int maxRarity, int minRarity){
+        ArrayList<Item> drops = new ArrayList();
+        if(minRarity>100){
+            minRarity=100;
+        }
+        if(minRarity<maxRarity){
+            maxRarity=minRarity;
+        }
+            int tempmaxRarity = (int) (maxRarity + Math.random() * (minRarity - maxRarity));
+            ArrayList<Integer> vallid = getChoices(minRarity, tempmaxRarity);
+            int index = (int) (Math.random() * (vallid.size()));
+        if(!vallid.isEmpty()) {
+            for (int i = 0; i < (int) table[3].get(vallid.get(index)); i++) {
+                drops.add(createItembyID((ItemID) table[0].get(vallid.get(index)), (Quality) table[1].get(vallid.get(index))));
+            }
+        }
+        if(drops.isEmpty()){
+            return baseDrops;
         }
         return drops;
     }

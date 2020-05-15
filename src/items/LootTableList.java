@@ -1,8 +1,8 @@
 package items;
-
 import ID_Lists.ItemID;
-import items.Munition.SniperAmmo;
 import items.Quality.*;
+
+import java.util.ArrayList;
 
 public class LootTableList {
     public static LootTable standartLootTable;
@@ -15,7 +15,7 @@ public class LootTableList {
 
     private void initLootTables(){
         standartLootTable=new LootTable();
-        standartLootTable.setBaseDrop(new Item[]{new SniperAmmo(),new SniperAmmo()});
+        standartLootTable.setBaseDrop(new ArrayList<Item>());
         standartLootTable.addItem(ItemID.Shotgun,new Primitiv(),100);
         standartLootTable.addItem(ItemID.Shotgun,new Ramshackle(),90);
         standartLootTable.addItem(ItemID.Shotgun,new Fine(),60);
