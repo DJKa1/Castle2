@@ -17,7 +17,7 @@ public class Map {
 
     public static Rectangle BORDER;
 
-    protected int MapWidth = 16, MapHeight = 16;
+    protected int MapWidth = 64, MapHeight = 64;
     protected Tile[][][] Tiles;
     private AStar pathfinder;
     private int[][]solidTiles;

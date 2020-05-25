@@ -91,7 +91,7 @@ public class Game implements Runnable {
         effectshandler = new Effectshandler();
 
         //MapLoad----------------------------------------------------------------
-        map = new Map("FirstLevel");
+        map = new Map("WaveMap");
         lootTableList=new LootTableList();
 
         player = new Player(1, 3, this);

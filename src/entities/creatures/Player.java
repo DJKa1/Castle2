@@ -69,7 +69,7 @@ public class Player extends Creature {
         fabi.addAttribute("OFFSET :"+ (int)(fabi.getQuality().getDmg()*100) + "%");
         inventory.addItem(fabi);
         inventory.addItem(new Boots(new Primitiv()));
-        for (int i = 0; i < 70; i++) {
+        for (int i = 0; i < 20; i++) {
             inventory.addItembyID("SniperAmmo");
             inventory.addItem(new HealPotion(1));
             inventory.addItem(new OutstandingLootCreate());

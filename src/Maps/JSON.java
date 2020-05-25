@@ -82,7 +82,7 @@ public class JSON {
             int height = dim.getInt("MapHeight");
 
 
-            Tile[][][] map = new Tile[16][16][3];
+            Tile[][][] map = new Tile[width][height][3];
 
 
             JSONObject t = null;
