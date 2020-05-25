@@ -5,7 +5,7 @@ import java.io.*;
 
 
 public class Sound {
-    public static int Volume=40;
+    public static int Volume=50;
 
     public static void playSfx(final File initialFile) {
         ActivityManager.getInstance().submit(() -> {

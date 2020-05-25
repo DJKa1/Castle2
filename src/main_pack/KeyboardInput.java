@@ -82,6 +82,7 @@ public class KeyboardInput implements KeyListener {
                 //InventoryManagment---------------------------------
                 if (String.valueOf(e.getKeyChar()).matches("[0-9]")) {
                     player.getInventory().setActiveSlot(Integer.valueOf(e.getKeyChar()) - 49);
+                    game.getMouseInput().mouseWheelPos = Integer.valueOf(e.getKeyChar()) - 49;
                 }
 
 

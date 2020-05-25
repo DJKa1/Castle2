@@ -3,6 +3,7 @@ package entities.creatures;
 import Buffs.Buff;
 import Buffs.Poison;
 import Buffs.iced;
+import Effects.DeathEffect;
 import Effects.DmgIndicator;
 import Effects.HealIndicator;
 import Effects.HitAnimation;
@@ -398,6 +399,7 @@ public abstract class Creature extends Entity {
     }
     public void removeifdead(){
         if(hp<=0){
+            effectshandler.addObject(new DeathEffect(x,y,effectshandler));
             creatureHandler.removeObject(this);
         }
     }

@@ -14,12 +14,13 @@ public class SniperBullet extends Projectile {
 
         this.aimY = aimY;
         this.aimX = aimX;
-        width= (float) 3/16;
-        height= (float) 3/16;
+        width= (float) 2/16;
+        height= (float) 2/16;
         hitbox=new Rectangle2D.Double(x,y,width,height);
-        projeticespeed = (float) 0.25;
+        projeticespeed = (float) 0.5;
         move.set(aimX,aimY);
         move.normalize();
         knockback=new Knockback(move.getMultiplied(6),10);
+        img = Texture.sprite[29];
     }
 }

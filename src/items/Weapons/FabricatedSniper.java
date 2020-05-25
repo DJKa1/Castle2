@@ -7,6 +7,7 @@ import entities.Vector2D;
 import entities.creatures.Creature;
 import entities.projectile.Shotgunbolt;
 import entities.projectile.SniperBullet;
+import graphics.Texture;
 import items.Quality.Quality;
 
 public class FabricatedSniper  extends  ShootingWeapons{
@@ -14,7 +15,7 @@ public class FabricatedSniper  extends  ShootingWeapons{
 
     public FabricatedSniper(Quality quality) {
         super(quality);
-        image=null;
+        image= Texture.sprite[35];
         cooldown=40;
         magazineSize=10;
         ammo= ItemID.SniperAmmo;

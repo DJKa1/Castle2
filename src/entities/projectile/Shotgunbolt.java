@@ -22,6 +22,7 @@ public class Shotgunbolt extends Projectile {
         move.set(aimX, aimY);
         move.normalize();
         knockback = new Knockback(move.getMultiplied(1),10);
+        lifeTime = 50;
     }
 }
 

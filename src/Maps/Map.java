@@ -38,8 +38,6 @@ public class Map {
         pathfinder.setFinalNode(new Node((int)Math.floor(end.getX()),(int)Math.floor(end.getY())));
         return pathfinder.findPath();
 
-
-
     }
 
 

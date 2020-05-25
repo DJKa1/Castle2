@@ -1,15 +1,11 @@
 package entities.creatures;
 
 import ID_Lists.ID;
-import Inventory.Inventory;
-import States.GameState;
 
 import graphics.Texture;
-import items.Quality.Outstanding;
 import items.Quality.Primitiv;
 import items.Weapons.Shotgun;
 import items.Weapons.Weapons;
-import items.Weapons.testWeapon;
 import main_pack.Game;
 
 import java.awt.*;

@@ -1,8 +1,5 @@
 package main_pack;
 
-
-
-import Inventory.Inventory;
 import Inventory.Slot;
 import States.GameState;
 import States.InventoryState;
@@ -120,7 +117,9 @@ public class MouseInput implements MouseListener, MouseMotionListener , MouseWhe
         mouseWheelPos+=mouseWheelEvent.getWheelRotation();
         if (mouseWheelPos<0){
             mouseWheelPos=0;
+        } else if(mouseWheelPos>9) {
+            mouseWheelPos=9;
         }
-
+        game.getPlayer().getInventory().setActiveSlot(mouseWheelPos);
     }
 }
