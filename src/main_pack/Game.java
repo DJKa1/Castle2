@@ -94,7 +94,7 @@ public class Game implements Runnable {
         map = new Map("WaveMap");
         lootTableList=new LootTableList();
 
-        player = new Player(1, 3, this);
+        player = new Player(32, 32, this);
         camera.setX(-player.getPixelPosition(player.getX()) + Launcher.WIDTH / 2 - UNIT_SCALE / 2);
         camera.setY(-player.getPixelPosition(player.getY()) + Launcher.HEIGHT / 2 - UNIT_SCALE / 2);
 

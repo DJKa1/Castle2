@@ -5,19 +5,16 @@ import Handler.Effectshandler;
 import Handler.ProjectileHandler;
 import Maps.Map;
 import PlayerGui.PlayerGUI;
+import entities.creatures.Spawner;
 import entities.creatures.*;
 import graphics.Camera;
 import graphics.Texture;
 import ID_Lists.ID;
 import graphics.F3Infopanel;
-import items.Quality.Outstanding;
-import items.Quality.Primitiv;
-import items.Weapons.testWeapon;
 import main_pack.*;
 
 
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 
 public class GameState extends State{
     private CreatureHandler creatureHandler;
@@ -60,14 +57,15 @@ public class GameState extends State{
         f3Infopanel=new F3Infopanel(this);
         //------------------------------------------------------------------
 
+        creatureHandler.addObject(new Spawner(1,2,game));
+        creatureHandler.addObject(new Slotmachine(36,36,game));
         creatureHandler.addObject(player);
+        /*
         Dúath_láma g =new Dúath_láma(10,3,game);
         creatureHandler.addObject(g);
-        Dúath_láma c=new Dúath_láma(5,8,game);
+        Dúath_láma c=new Dúath_láma(15,12,game);
         creatureHandler.addObject(c);
 
-
-        /*
         for ( int i= 0 ; i< 50 ; i++){
             Creature c= new GreenSlime((int)(Math.random()*14),(int)(Math.random()*14),game);
             creatureHandler.addObject(c);
