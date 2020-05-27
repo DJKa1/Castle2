@@ -26,6 +26,8 @@ public class GameState extends State{
     //-----------------------------
     //noch static access
     public static Map map;
+
+
     //------------------------------
     private Camera camera;
     public static Texture texture;
@@ -57,7 +59,7 @@ public class GameState extends State{
         f3Infopanel=new F3Infopanel(this);
         //------------------------------------------------------------------
 
-        creatureHandler.addObject(new Spawner(1,2,game));
+        creatureHandler.addObject(new Spawner(30,30,game));
         creatureHandler.addObject(new Slotmachine(36,36,game));
         creatureHandler.addObject(player);
         /*

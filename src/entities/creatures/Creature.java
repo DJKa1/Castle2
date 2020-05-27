@@ -352,6 +352,7 @@ public abstract class Creature extends Entity {
             updateMovementhitbox(0,speedY);
 
             Creature k = checkCollision_ifOneOf( blockedby);
+
             if(k!=null){
                 float i = getFreeSpaceindirectionY(k.getHitbox());
                 if (i != -1) {

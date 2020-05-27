@@ -7,6 +7,7 @@ import java.awt.*;
 
 public class Spawner extends Creature {
     int delay = 0;
+    float spawnRange=2;
 
     public Spawner(float x, float y, Game game) {
         super(x, y, game);
@@ -15,7 +16,7 @@ public class Spawner extends Creature {
     @Override
     public void tick() {
         if(delay>60) {
-            //game.getCreatureHandler().addObject(new GreenSlime(x,y,game));
+            game.getCreatureHandler().addObject(new GreenSlime(x+getRandomSpred(),y+getRandomSpred(),game));
             delay = 0;
         }
         delay++;
@@ -28,5 +29,9 @@ public class Spawner extends Creature {
                 g.drawImage(Texture.tiles[xx+10][yy],getPixelPosition(x)+xx*128,getPixelPosition(y)+yy*128,128,128,null);
             }
         }
+    }
+
+    private float getRandomSpred(){
+        return (float) (Math.random()*spawnRange*2-spawnRange);
     }
 }

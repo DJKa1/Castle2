@@ -125,12 +125,14 @@ public abstract class Entity {
         Creature []colliders=new Creature[16];
         for (Creature k : CreatureHandler.creatures) {
             int j=0;
-            for ( int i=0 ; i<partner.length;i++) {
-                if (k.getId() == partner[i]) {
-                    if (k.getHitbox().intersects(hitbox)) {
-                        if (j < colliders.length) {
-                            colliders[j] = k;
-                            j++;
+            if (k!=this) {
+                for (int i = 0; i < partner.length; i++) {
+                    if (k.getId() == partner[i]) {
+                        if (k.getHitbox().intersects(hitbox)) {
+                            if (j < colliders.length) {
+                                colliders[j] = k;
+                                j++;
+                            }
                         }
                     }
                 }
@@ -141,11 +143,13 @@ public abstract class Entity {
     public Creature[] checkCollision_forAll(){
         Creature []colliders=new Creature[16];
         for (Creature k : CreatureHandler.creatures) {
-            int j=0;
-            if (k.getHitbox().intersects(hitbox)) {
-                if (j < colliders.length) {
-                    colliders[j] = k;
-                    j++;
+            if (k != this) {
+                int j = 0;
+                if (k.getHitbox().intersects(hitbox)) {
+                    if (j < colliders.length) {
+                        colliders[j] = k;
+                        j++;
+                    }
                 }
             }
         }
