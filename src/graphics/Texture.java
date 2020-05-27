@@ -17,7 +17,7 @@ public class Texture {
     public static BufferedImage[][] goldenUIElements = new BufferedImage[64][3];
     public static BufferedImage[][] greenUIElements = new BufferedImage[64][3];
     public static BufferedImage[][] Inventory = new BufferedImage[64][64];
-    public static BufferedImage[] SlotMachine = new BufferedImage[12];
+    public static BufferedImage[] SlotMachine = new BufferedImage[13];
 
 
     public Texture() {
@@ -76,7 +76,7 @@ public class Texture {
                 Inventory[xx][yy] = Inventorysheet.grabImage(xx,yy,16,16);
             }
         }
-        for (int i = 0;i<12;i++) {
+        for (int i = 0;i<13;i++) {
             SlotMachine[i] = SlotMachineSheet.grabImage(i,0,32,32);
         }
     }
