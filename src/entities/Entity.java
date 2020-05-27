@@ -157,11 +157,13 @@ public abstract class Entity {
 
     public Creature checkCollision_ifOneOf( ID[] partner) {
         for (Creature k : CreatureHandler.creatures) {
-            for ( int i=0 ; i<partner.length;i++){
-                if(k.getId()==partner[i]) {
-                    if (k.getHitbox().intersects(hitbox)) {
-                        return k;
+            if (k!=this) {
+                for (int i = 0; i < partner.length; i++) {
+                    if (k.getId() == partner[i]) {
+                        if (k.getHitbox().intersects(hitbox)) {
+                            return k;
 
+                        }
                     }
                 }
             }

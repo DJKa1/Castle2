@@ -70,7 +70,7 @@ public abstract class Creature extends Entity {
         this.effectshandler = game.getEffectshandler();
         this.map=game.getMap();
         targetable=new ID []{};
-        blockedby=new ID[]{};
+        blockedby=ID.values();
         nothitby=new ProjectileID[]{};
         movementhitbox=new Rectangle2D.Double();
         targetingArea=new Ellipse2D.Double();

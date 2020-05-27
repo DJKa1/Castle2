@@ -63,7 +63,7 @@ public class GameState extends State{
         creatureHandler.addObject(player);
         Dúath_láma g =new Dúath_láma(10,3,game);
         creatureHandler.addObject(g);
-        Dúath_láma c=new Dúath_láma(7,12,game);
+        Dúath_láma c=new Dúath_láma(5,8,game);
         creatureHandler.addObject(c);
 
 

@@ -1,6 +1,9 @@
 package ID_Lists;
 
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public enum ID {
     //Creatures
@@ -18,5 +21,15 @@ public enum ID {
             }
         }
         return false;
+    }
+
+    public static ID[] getValues(ID exept){
+        LinkedList<ID> l = new LinkedList<>();
+        for (ID t : ID.values()) {
+            if (t!= exept){
+                l.add(t);
+            }
+        }
+        return null;
     }
 }
