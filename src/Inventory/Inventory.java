@@ -7,6 +7,7 @@ import graphics.Animation;
 import graphics.Texture;
 import items.Armor.Armor;
 import items.Item;
+import items.Munition.ShotgunAmmo;
 import items.Munition.SniperAmmo;
 import items.Quality.Extraordinary;
 import items.Quality.Primitiv;
@@ -267,6 +268,9 @@ public class Inventory {
 
             case "SniperAmmo":
                 item = new SniperAmmo();
+                break;
+            case "ShotgunAmmo":
+                item = new ShotgunAmmo();
                 break;
 
         }

@@ -71,6 +71,7 @@ public class Player extends Creature {
         inventory.addItem(new Boots(new Primitiv()));
         for (int i = 0; i < 20; i++) {
             inventory.addItembyID("SniperAmmo");
+            inventory.addItembyID("ShotgunAmmo");
             inventory.addItem(new HealPotion(1));
             inventory.addItem(new OutstandingLootCreate());
 
@@ -78,8 +79,6 @@ public class Player extends Creature {
         }
         addBuff(new Poison(this,300,10));
         addBuff(new Poison(this,300,10));
-
-
 
         //---------------------------------------
     }
