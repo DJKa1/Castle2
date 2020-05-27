@@ -16,7 +16,7 @@ public class FabricatedSniper  extends  ShootingWeapons{
     public FabricatedSniper(Quality quality) {
         super(quality);
         image= Texture.sprite[35];
-        cooldown=40;
+        cooldown=60;
         magazineSize=10;
         ammo= ItemID.SniperAmmo;
         baseDamage=12;

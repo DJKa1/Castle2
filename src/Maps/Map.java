@@ -2,9 +2,7 @@ package Maps;
 
 import Pathfinding.AStar;
 import Pathfinding.Node;
-import Tiles.SlotMachine;
 import Tiles.Tile;
-import graphics.Texture;
 import main_pack.Game;
 import main_pack.KeyboardInput;
 import java.awt.*;

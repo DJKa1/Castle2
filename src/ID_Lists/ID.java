@@ -6,7 +6,9 @@ public enum ID {
     //Creatures
     Player(),
     GreenSlime(),
-    Dúath_láma();
+    Dúath_láma(),
+    Spawner(),
+    Slotmachine();
 
 
 

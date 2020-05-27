@@ -18,6 +18,7 @@ public class SniperBullet extends Projectile {
         height= (float) 2/16;
         hitbox=new Rectangle2D.Double(x,y,width,height);
         projeticespeed = (float) 0.5;
+
         move.set(aimX,aimY);
         move.normalize();
         knockback=new Knockback(move.getMultiplied(6),10);
