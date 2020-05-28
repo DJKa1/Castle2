@@ -20,6 +20,7 @@ public class Texture {
     public static BufferedImage[] SlotMachine = new BufferedImage[13];
 
 
+
     public Texture() {
 
         BufferedImageLoader loader = new BufferedImageLoader();

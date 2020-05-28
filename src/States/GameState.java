@@ -6,6 +6,7 @@ import Handler.ProjectileHandler;
 import Maps.Map;
 import PlayerGui.PlayerGUI;
 import entities.creatures.*;
+import entities.creatures.shop.Shop;
 import entities.creatures.slotmachine.Slotmachine;
 import graphics.Camera;
 import graphics.Texture;
@@ -60,6 +61,7 @@ public class GameState extends State{
         //------------------------------------------------------------------
 
         //creatureHandler.addObject(new Spawner(30,30,game));
+        creatureHandler.addObject(new Shop(36,30,game));
         creatureHandler.addObject(new Slotmachine(36,36,game));
         creatureHandler.addObject(player);
         /*

@@ -11,7 +11,8 @@ public enum ID {
     GreenSlime(),
     Dúath_láma(),
     Spawner(),
-    Slotmachine();
+    Slotmachine(),
+    Shop();
 
 
 
