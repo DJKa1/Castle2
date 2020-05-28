@@ -95,7 +95,7 @@ public class Player extends Creature {
         armorValue=inventory.getArmorValue();
         Item item = inventory.getItem(inventory.getActiveSlot());
         if (KeyboardInput.Keyboard) {
-            if (MouseInput.leftPressed) {
+            if (MouseInput.leftPressed&&!MouseInput.interact) {
                 if (item != null) {
                     item.use(this);
                 }

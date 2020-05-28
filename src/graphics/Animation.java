@@ -61,6 +61,9 @@ public class Animation {
 
     public void setCount(int count) {
         this.count = count;
+        if(count ==0) {
+            currentImg = images[0];
+        }
     }
 
     public BufferedImage[] getImages() {

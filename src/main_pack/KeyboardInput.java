@@ -3,23 +3,21 @@ package main_pack;
 import Inventory.Inventory;
 import States.*;
 import entities.creatures.Player;
-import items.Weapons.Weapons;
-
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyboardInput implements KeyListener {
-    protected boolean[] keySwitch, keyF3, keys;
-    public static boolean up, left, right, down, jump, esc, e, f3, g, enter,f,x;
+    public static boolean up, left, right, down, jump, esc, e, f3, g, enter, f, x;
+    public static boolean impX, prevPressedX;
     public static boolean f3_s, t_s, e_s;
     public static boolean f3G;
+    public static boolean Keyboard = true;
+    public static float AxiesLX, AxiesLY;
+    protected boolean[] keySwitch, keyF3, keys;
     private Game game;
     private GameConsole gameConsole;
     private Player player;
-
-    public static boolean Keyboard = true;
-    public static float AxiesLX, AxiesLY;
 
 
     public KeyboardInput(Game game) {
@@ -46,6 +44,20 @@ public class KeyboardInput implements KeyListener {
         f = keys[KeyEvent.VK_F];
         enter = keys[KeyEvent.VK_ENTER];
         x = keys[KeyEvent.VK_X];
+
+        //Impkeys
+        impX = false;
+        if (!x) {
+            prevPressedX = false;
+        }
+        if (!prevPressedX) {
+            if (x) {
+                impX = true;
+
+                prevPressedX = true;
+            }
+        }
+
 
         if (Keyboard) {
             AxiesLX = boolToInt(KeyboardInput.right) - boolToInt(KeyboardInput.left);
@@ -146,10 +158,10 @@ public class KeyboardInput implements KeyListener {
                     Inventory inventory = game.getPlayer().getInventory();
                     boolean on = false;
                     for (int i = 0; i < inventory.slots.length; i++) {
-                        if (inventory.slots[i].inBounds(MouseInput.mouseX, MouseInput.mouseY)&& inventory.slots[i].item != null) {
-                            if (inventory.slots[i].item.isUseableInInventory() ) {
+                        if (inventory.slots[i].inBounds(MouseInput.mouseX, MouseInput.mouseY) && inventory.slots[i].item != null) {
+                            if (inventory.slots[i].item.isUseableInInventory()) {
                                 inventory.slots[i].item.use(game.getPlayer());
-                                on=true;
+                                on = true;
                             }
                         }
 

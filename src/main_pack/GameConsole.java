@@ -171,7 +171,7 @@ public class GameConsole {
         try {
             switch (id){
                 case "greenslime": game.getCreatureHandler().addObject(new GreenSlime(Float.parseFloat(xpos),Float.parseFloat(ypos),game));break;
-                case "Dúath_láma": game.getCreatureHandler().addObject(new Dúath_láma(Float.parseFloat(xpos),Float.parseFloat(ypos),game));break;
+                case "priest": game.getCreatureHandler().addObject(new Dúath_láma(Float.parseFloat(xpos),Float.parseFloat(ypos),game));break;
                 default:setInput("No valid MobID");
             }
         }catch (IllegalArgumentException e){

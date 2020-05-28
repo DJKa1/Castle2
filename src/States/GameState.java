@@ -61,8 +61,8 @@ public class GameState extends State{
         //------------------------------------------------------------------
 
         //creatureHandler.addObject(new Spawner(30,30,game));
-        creatureHandler.addObject(new Shop(36,30,game));
-        creatureHandler.addObject(new Slotmachine(36,36,game));
+        creatureHandler.addObject(new Shop(24,30,game));
+        creatureHandler.addObject(new Slotmachine(36,31,game));
         creatureHandler.addObject(player);
         /*
         Dúath_láma g =new Dúath_láma(10,3,game);

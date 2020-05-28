@@ -13,8 +13,10 @@ import java.awt.event.*;
 public class MouseInput implements MouseListener, MouseMotionListener , MouseWheelListener {
 
     public static float mouseX,mouseY;
+    public static int mxWorld,myWorld;
     public static boolean leftPressed,rightPressed;
     public static int mouseWheelPos;
+    public static boolean interact = false;
     private Game game;
 
     public static Item holdItem = null;
@@ -99,6 +101,8 @@ public class MouseInput implements MouseListener, MouseMotionListener , MouseWhe
 
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
+        mxWorld = (int) (mouseEvent.getX()-game.getCamera().getX());
+        myWorld = (int) (mouseEvent.getY()-game.getCamera().getY());
         if (game.getactiveState().getClass() == GameState.class) {
             if (KeyboardInput.Keyboard) {
                 mouseX=mouseEvent.getX()-Launcher.WIDTH/2;
