@@ -115,7 +115,7 @@ public class Shop extends Creature {
                     String str = items.get(index).getAttributes().get(i);
                     int NameWidth = g.getFontMetrics().stringWidth(str);
                     g.setColor(Color.WHITE);
-                    g.drawString(str,getPixelPosition(x+4)-NameWidth/2,getPixelPosition(y+2.1)+30*i);
+                    g.drawString(str,getPixelPosition(x+4)-NameWidth/2,getPixelPosition(y+2.2)+30*i);
                 }
             }
         } else {
