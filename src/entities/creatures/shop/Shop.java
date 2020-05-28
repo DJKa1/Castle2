@@ -6,10 +6,13 @@ import graphics.Texture;
 import items.Item;
 import items.LootCreates.LootCreate;
 import items.LootCreates.OutstandingLootCreate;
+import items.Potions.HealPotion;
 import items.Quality.Outstanding;
 import items.Quality.Primitiv;
 import items.Weapons.FabricatedSniper;
+import items.Weapons.IceStorm;
 import items.Weapons.Shotgun;
+import items.Weapons.testWeapon;
 import main_pack.Game;
 import main_pack.KeyboardInput;
 import main_pack.MouseInput;
@@ -20,11 +23,11 @@ import java.util.ArrayList;
 public class Shop extends Creature {
     private Animation merchant;
     private Animation upperbanner,lowerbanner,cupperbanner,clowerbanner;
+    private int bannerindex = 0,cbannerindex = 30;
     private boolean nearby = false;
     private ShopButton left,right;
     private ArrayList<Item> items = new ArrayList<>();
     private int index;
-    private int bannerindex = 0,cbannerindex = 30;
     public Shop(float x, float y, Game game) {
         super(x, y, game);
         merchant = new Animation(20,Texture.Inventory[23][0],Texture.Inventory[24][0],Texture.Inventory[25][0]);
@@ -35,9 +38,12 @@ public class Shop extends Creature {
         left = new ShopButton(getPixelPosition(x+1),getPixelPosition(y+2.5),1);
         right = new ShopButton(getPixelPosition(x+3),getPixelPosition(y+2.5),2);
         items.add(null);
+        items.add(new HealPotion(1));
         items.add(new OutstandingLootCreate());
-        items.add(new Shotgun(new Outstanding()));
+        items.add(new Shotgun(new Primitiv()));
         items.add(new FabricatedSniper(new Primitiv()));
+        items.add(new IceStorm(new Primitiv()));
+        items.add(new testWeapon(new Primitiv()));
     }
     public void tick() {
         double dx = Math.sqrt(Math.pow(game.getPlayer().getCenter().getX()-(x+2.5), 2) + Math.pow(game.getPlayer().getCenter().getY() -(y+4), 2));
@@ -104,6 +110,14 @@ public class Shop extends Creature {
             lowerbanner.drawAnimation(g,getPixelPosition(x+3.5),getPixelPosition(y+3),128);
             left.render(g);
             right.render(g);
+            if(bannerindex>=30) {
+               for (int i = 0; i< items.get(index).getAttributes().size();i++) {
+                    String str = items.get(index).getAttributes().get(i);
+                    int NameWidth = g.getFontMetrics().stringWidth(str);
+                    g.setColor(Color.WHITE);
+                    g.drawString(str,getPixelPosition(x+4)-NameWidth/2,getPixelPosition(y+2.1)+30*i);
+                }
+            }
         } else {
             cupperbanner.drawAnimation(g,getPixelPosition(x+3.5),getPixelPosition(y+2),128);
             clowerbanner.drawAnimation(g,getPixelPosition(x+3.5),getPixelPosition(y+3),128);
