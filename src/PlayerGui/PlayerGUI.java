@@ -21,6 +21,7 @@ public class PlayerGUI {
         renderBuffs(g);
     }
 
+
     private void renderHealthbar(Graphics g) {
 
         g.setColor(Color.BLACK);

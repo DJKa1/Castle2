@@ -17,7 +17,7 @@ public class Slotmachine extends Creature {
     private boolean nearby;
     private String lastResult = "";
     private int timeoutafterroll = 0;
-
+    private int cost = 10;
 
     public Slotmachine(float x, float y, Game game) {
         super(x, y, game);
@@ -60,7 +60,7 @@ public class Slotmachine extends Creature {
             double dx = Math.sqrt(Math.pow(game.getPlayer().getX() + 0.5 - (x + 1.5), 2) + Math.pow(game.getPlayer().getY() + 0.5 - (y + 3), 2));
             if (dx < 1) {
                 nearby = true;
-                if (KeyboardInput.x && !running) {
+                if (KeyboardInput.x && !running&&game.getPlayer().getInventory().getMoneyCount()>cost) {
                     roll();
                 }
             } else {
@@ -70,6 +70,7 @@ public class Slotmachine extends Creature {
     }
 
     private void roll() {
+        game.getPlayer().getInventory().money-=cost;
         lastResult = "";
         running = true;
         rolling = true;
@@ -102,6 +103,7 @@ public class Slotmachine extends Creature {
         }
         if(c==2) {
             System.out.println("won");
+            game.getPlayer().getInventory().addMoney(100);
         }
         rolling = false;
         /*

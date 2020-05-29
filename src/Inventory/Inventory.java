@@ -2,19 +2,19 @@ package Inventory;
 
 import ID_Lists.ItemID;
 import entities.creatures.Creature;
-import entities.creatures.Player;
-import entities.creatures.slotmachine.Symbol;
 import graphics.Animation;
 import graphics.Texture;
 import items.Armor.Armor;
 import items.Item;
+import items.LootCreates.OutstandingLootCreate;
 import items.Munition.ShotgunAmmo;
 import items.Munition.SniperAmmo;
+import items.Potions.HealPotion;
 import items.Quality.Extraordinary;
 import items.Quality.Primitiv;
+import items.Weapons.FabricatedSniper;
 import items.Weapons.IceStorm;
 import items.Weapons.Shotgun;
-import items.Weapons.Weapons;
 import items.Weapons.testWeapon;
 import main_pack.Game;
 import main_pack.Launcher;
@@ -24,18 +24,15 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Inventory {
-    private Hotbar hotbar;
-    private Creature owner;
     public final int xpos = 10, ypos = 60, slotwidth = 200, slotheight = 70;
+    private final int width = 16, height = 12;
     public Slot[] slots;
-    private double money=0;
     //private Item holdItem = null;
     public int activeSlot = 1;
+    private Hotbar hotbar;
+    private Creature owner;
+    public int money = 10000;
     private int first = 0, last = first + 9;
-
-    private final int width = 16, height = 12;
-
-
     private Animation animation;
 
     private int prevIndex = 0;
@@ -47,7 +44,7 @@ public class Inventory {
 
     public Inventory(Creature owner) {
         this.owner = owner;
-        slots = new Slot[12 * 8 - 15+4];
+        slots = new Slot[12 * 8 - 15 + 4];
         init_slots();
         clearInventory();
         hotbar = new Hotbar(this);
@@ -66,12 +63,12 @@ public class Inventory {
         return owner;
     }
 
-    public double getArmorValue(){
-        double f=0;
-        for (Slot s : slots){
-            if(s.getItemType()==Armor.class&& s.getItem()!=null){
-                Armor a= (Armor) s.getItem();
-                f+=a.getArmorValue();
+    public double getArmorValue() {
+        double f = 0;
+        for (Slot s : slots) {
+            if (s.getItemType() == Armor.class && s.getItem() != null) {
+                Armor a = (Armor) s.getItem();
+                f += a.getArmorValue();
             }
         }
         return f;
@@ -97,16 +94,17 @@ public class Inventory {
         drawBorader(g2d, width, height);
         g2d.translate(-transX, -transY);
         g2d.scale(1 / scale, 1 / scale);
+        g.drawImage(Texture.sprite[32], (int) (Game.UNIT_SCALE / 2 + transX * scale + 64), (int) (Game.UNIT_SCALE / 2 + transY * scale), 64, 64, null);
+        drawString(g, (int) (Game.UNIT_SCALE / 2 + transX * scale + 64 * 3), (int) (Game.UNIT_SCALE / 2 + transY * scale), String.valueOf(money)+"$", 0);
 
         for (int i = 0; i < slots.length; i++) {
             slots[i].render(g2d);
         }
         for (int i = 0; i < slots.length; i++) {
             if (slots[i].item != null) {
-                if(slots[i].item.getQuality()!=null){
+                if (slots[i].item.getQuality() != null) {
                     g.setColor(slots[i].item.getQuality().getColor());
-                }
-                else {
+                } else {
                     g.setColor(Color.white);
                 }
                 if (slots[i].inBounds(MouseInput.mouseX, MouseInput.mouseY)) {
@@ -115,9 +113,9 @@ public class Inventory {
                         g.drawImage(Texture.Inventory[7][1], slots[i].bounds.x + slots[i].bounds.width * 2, slots[i].bounds.y, 64, 64, null);
                         g.drawImage(Texture.Inventory[6][2], slots[i].bounds.x + slots[i].bounds.width, slots[i].bounds.y + slots[i].bounds.height, 64, 64, null);
                         g.drawImage(Texture.Inventory[7][2], slots[i].bounds.x + slots[i].bounds.width * 2, slots[i].bounds.y + slots[i].bounds.height, 64, 64, null);
-                        if (slots[i].item!=null) {
-                            for (int e = 0;e<slots[i].item.getAttributes().size();e++) {
-                                g.drawString(slots[i].item.getAttributes().get(e), slots[i].bounds.x + slots[i].bounds.width + 8, slots[i].bounds.y+24+30*e);
+                        if (slots[i].item != null) {
+                            for (int e = 0; e < slots[i].item.getAttributes().size(); e++) {
+                                g.drawString(slots[i].item.getAttributes().get(e), slots[i].bounds.x + slots[i].bounds.width + 8, slots[i].bounds.y + 24 + 30 * e);
                             }
                         }
                     }
@@ -128,7 +126,6 @@ public class Inventory {
         if (MouseInput.holdItem != null) {
             g.drawImage(MouseInput.holdItem.getImage(), (int) (MouseInput.mouseX) - 32, (int) (MouseInput.mouseY) - 32, Game.UNIT_SCALE / 2, Game.UNIT_SCALE / 2, null);
         }
-        g.drawString(String.valueOf(money),100,100);
 
     }
 
@@ -153,14 +150,14 @@ public class Inventory {
         for (int i = 0; i < slots.length; i++) {
             if (slots[i].inBounds(mouseX, mouseY)) {
                 if (slots[i].item == null) {
-                    if(slots[i].isPuttable(item)) {
+                    if (slots[i].isPuttable(item)) {
                         slots[i].item = item;
                         clearIdentifyer();
                     }
                 } else {
                     for (int e = 0; e < slots.length; e++) {
                         if (slots[e].getIdentifyer().equals("last")) {
-                            if(slots[i].isPuttable(item)) {
+                            if (slots[i].isPuttable(item)) {
                                 Item tempItem = item;
                                 slots[e].item = slots[i].item;
                                 slots[i].item = tempItem;
@@ -191,8 +188,8 @@ public class Inventory {
     }
 
     public void deleteItem(float mx, float my) {
-        for (int i = 0;i<slots.length;i++) {
-            if(slots[i].inBounds(mx,my)) {
+        for (int i = 0; i < slots.length; i++) {
+            if (slots[i].inBounds(mx, my)) {
                 slots[i].deleteItem();
                 return;
             }
@@ -264,7 +261,7 @@ public class Inventory {
             case "testWeapon":
                 item = new testWeapon(new Extraordinary());
                 break;
-            case "shotgun":
+            case "Shotgun":
                 item = new Shotgun(new Primitiv());
                 break;
             case "IceStorm":
@@ -277,15 +274,25 @@ public class Inventory {
             case "ShotgunAmmo":
                 item = new ShotgunAmmo();
                 break;
+            case "HealPotion":
+                item = new HealPotion(1);
+                break;
+            case "OutstandingLootCreate":
+                item = new OutstandingLootCreate();
+                break;
+            case "FabricatedSniper":
+                item = new FabricatedSniper(new Primitiv());
+                break;
 
         }
         addItem(item);
     }
 
-    public void addMoney(double a){
-        money+=a;
+    public void addMoney(int a) {
+        money += a;
     }
-    public double getMoneyCount(){
+
+    public double getMoneyCount() {
         return money;
     }
 
@@ -309,18 +316,18 @@ public class Inventory {
         }
     }
 
-    public void addItems(Item[] items){
-        if(items!=null){
-            for (Item item: items){
+    public void addItems(Item[] items) {
+        if (items != null) {
+            for (Item item : items) {
                 addItem(item);
             }
         }
     }
 
 
-    public void addItems(ArrayList<Item> items){
-            for (Item item: items){
-                addItem(item);
+    public void addItems(ArrayList<Item> items) {
+        for (Item item : items) {
+            addItem(item);
         }
     }
 
@@ -346,10 +353,10 @@ public class Inventory {
     public void removeItem(int i) {
         slots[i].item = null;
 
-        }
+    }
 
 
-    public void removeItem(Item item){
+    public void removeItem(Item item) {
         removeItem(getByIndex(item));
     }
 
@@ -395,6 +402,22 @@ public class Inventory {
             for (int xx = 10; xx < 12; xx++) {
                 slots[index] = new ArmorSlot(new Rectangle((int) (xx * Game.UNIT_SCALE / 2 + transX * scale + 64 * 2), (int) (yy * Game.UNIT_SCALE / 2 + transY * scale + 64 * 2), Game.UNIT_SCALE / 2, Game.UNIT_SCALE / 2));
                 index++;
+            }
+        }
+    }
+
+    private void drawString(Graphics g, int x, int y, String string, int shade) {
+        int index = 0;
+        string.toUpperCase();
+        for (int i = 0; i < string.length(); i++) {
+            char c = string.charAt(i);
+            int temp = c;
+            int temp_integer = 32; //for upper case
+            if (temp <= 90 & temp >= 32) {
+                index = temp - temp_integer;
+                g.drawImage(Texture.goldenUIElements[index][shade], x + i * 64, y, 64, 64, null);
+            } else {
+                System.out.println("No supported char");
             }
         }
     }
