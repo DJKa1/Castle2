@@ -1,6 +1,5 @@
 package entities.creatures.slotmachine;
 
-import ID_Lists.ID;
 import ID_Lists.SymbolID;
 import graphics.Texture;
 
@@ -61,5 +60,15 @@ public class Symbol {
 
     public SymbolID getId() {
         return id;
+    }
+
+
+    public double getMultiplier(){
+        switch (id){
+            case Heart:return 3;
+            case Bell:return 2;
+            case Questionmark:return 1;
+        }
+        return 0;
     }
 }

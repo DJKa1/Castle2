@@ -45,6 +45,10 @@ public class Shop extends Creature {
         items.add(new IceStorm(new Primitiv()));
         items.add(new testWeapon(new Primitiv()));
     }
+
+    private void buyItem(){
+        game.getPlayer().getInventory().addItem(items.get(index));
+    }
     public void tick() {
         double dx = Math.sqrt(Math.pow(game.getPlayer().getCenter().getX()-(x+2.5), 2) + Math.pow(game.getPlayer().getCenter().getY() -(y+4), 2));
         if (dx < 1) {
@@ -74,7 +78,8 @@ public class Shop extends Creature {
                 }
             }
             if(KeyboardInput.impX) {
-                game.getPlayer().getInventory().addItem(items.get(index));
+                buyItem();
+
             }
 
         }else {
@@ -92,6 +97,7 @@ public class Shop extends Creature {
         }
         merchant.runAnimation();
     }
+
 
     @Override
     public void render(Graphics g) {

@@ -3,6 +3,7 @@ package Inventory;
 import ID_Lists.ItemID;
 import entities.creatures.Creature;
 import entities.creatures.Player;
+import entities.creatures.slotmachine.Symbol;
 import graphics.Animation;
 import graphics.Texture;
 import items.Armor.Armor;
@@ -27,11 +28,13 @@ public class Inventory {
     private Creature owner;
     public final int xpos = 10, ypos = 60, slotwidth = 200, slotheight = 70;
     public Slot[] slots;
+    private double money=0;
     //private Item holdItem = null;
     public int activeSlot = 1;
     private int first = 0, last = first + 9;
 
     private final int width = 16, height = 12;
+
 
     private Animation animation;
 
@@ -125,8 +128,10 @@ public class Inventory {
         if (MouseInput.holdItem != null) {
             g.drawImage(MouseInput.holdItem.getImage(), (int) (MouseInput.mouseX) - 32, (int) (MouseInput.mouseY) - 32, Game.UNIT_SCALE / 2, Game.UNIT_SCALE / 2, null);
         }
+        g.drawString(String.valueOf(money),100,100);
 
     }
+
 
     public Hotbar getHotbar() {
         return hotbar;
@@ -275,6 +280,13 @@ public class Inventory {
 
         }
         addItem(item);
+    }
+
+    public void addMoney(double a){
+        money+=a;
+    }
+    public double getMoneyCount(){
+        return money;
     }
 
     public void setItem(Item item, int index) {

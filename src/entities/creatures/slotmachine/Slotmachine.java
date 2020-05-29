@@ -16,8 +16,8 @@ public class Slotmachine extends Creature {
     private boolean running = false;
     private Roller[] rollers;
     private boolean nearby;
-    private boolean rollFinished;
-    private String status="";
+    private String lastResult ="";
+
 
     private final int width = 3;
 
@@ -31,6 +31,7 @@ public class Slotmachine extends Creature {
     }
 
     public void tick() {
+
         animation.runAnimation();
         double dx = Math.sqrt(Math.pow(game.getPlayer().getX() + 0.5 - (x + 1.5), 2) + Math.pow(game.getPlayer().getY() + 0.5 - (y + 3), 2));
         if (dx < 1) {
@@ -42,42 +43,21 @@ public class Slotmachine extends Creature {
             nearby = false;
         }
 
-        if (running) {
-            boolean temp = true;
-            for (Roller r : rollers) {
-
-                if (!r.isFinished()) {
-                    temp = false;
-                }
+        if (running){
+            int c=0;
+            for (Roller r : rollers){
+                r.tick();
+                c+=booltoInt(!r.isFinished());
             }
-            if (temp){
-                endRoll();
-            }
-
-        }
-    }
-
-    private void endRoll(){
-        rollFinished=false;
-        running=false;
-        status="LOSE";
-        SymbolID temp =rollers[0].getSymbol();
-        for (Roller r : rollers){
-            if (r.getSymbol()!=temp){
-                return;
+            if (c==0){
+                finishRoll();
             }
         }
-        status="WIN";
-
-
-
-
     }
 
     private void roll(){
+        lastResult="";
         running = true;
-        status="running";
-        rollFinished=false;
         buildRollers();
     }
 
@@ -85,6 +65,37 @@ public class Slotmachine extends Creature {
         rollers[0]=new Roller(3);
         rollers[1]=new Roller(6);
         rollers[2]=new Roller(9);
+    }
+
+    private int booltoInt(boolean b ){
+        if(b){
+            return 1;
+        }
+        return 0;
+    }
+
+    private void finishRoll(){
+        boolean won=true;
+        SymbolID id=rollers[0].getSymbol().getId();
+        for (Roller r :rollers){
+           if (r.getSymbol().getId()!=id){
+               won=false;
+           }
+        }
+
+        if ( won){
+            double points =rollers[0].getSymbol().getMultiplier();
+            game.getPlayer().getInventory().addMoney(points);
+            lastResult="U won "+ points;
+        }else {
+            lastResult= "No winnings";
+        }
+
+        running=false;
+
+
+
+
     }
 
 
@@ -97,11 +108,12 @@ public class Slotmachine extends Creature {
             g.fillRect(getPixelPosition(x), getPixelPosition(y), 128 * 3, 128 * 3);
 
             for (int i=0; i<rollers.length; i++){
-                rollers[i].render(g,getPixelPosition(x)+32+128*i,getPixelPosition(y)+128);
+                rollers[i].render(g,getPixelPosition(x)+26+118*i,getPixelPosition(y)+128);
             }
             g.drawImage(Texture.SlotMachine[12], getPixelPosition(x), getPixelPosition(y), 128 * 3, 128 * 3, null);
-
-            System.out.println(status);
         }
+        g.setColor(Color.red);
+        g.drawString(lastResult,getPixelPosition(x)+32,getPixelPosition(y)+256);
+
     }
 }
