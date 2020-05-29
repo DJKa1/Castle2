@@ -12,12 +12,14 @@ import java.awt.geom.Rectangle2D;
 public class Slotmachine extends Creature {
     private final int width = 3;
     private Animation animation;
-    private boolean running = false,rolling=false;
+    private boolean running = false, rolling = false;
     private Roller[] rollers;
     private boolean nearby;
     private String lastResult = "";
-    private int timeoutafterroll = 0;
+    private int timeoutafterroll = 0,delay = 100;
     private int cost = 10;
+    private boolean pay = false;
+    private int winAmount = 0;
 
     public Slotmachine(float x, float y, Game game) {
         super(x, y, game);
@@ -42,7 +44,7 @@ public class Slotmachine extends Creature {
                                 c++;
                             }
                         }
-                        if(c==rollers.length) {
+                        if (c == rollers.length) {
                             finishRoll();
                         }
                     }
@@ -50,17 +52,20 @@ public class Slotmachine extends Creature {
                     return;
                 }
             }
-            if(!rolling){
+            if (!rolling) {
                 timeoutafterroll++;
-                if(timeoutafterroll>90){
+                if (timeoutafterroll >= delay) {
                     running = false;
                 }
+                if(pay) {
+                    game.getPlayer().getInventory().money+=winAmount/(double)delay;
+                }
             }
-        }else {
+        } else {
             double dx = Math.sqrt(Math.pow(game.getPlayer().getX() + 0.5 - (x + 1.5), 2) + Math.pow(game.getPlayer().getY() + 0.5 - (y + 3), 2));
             if (dx < 1) {
                 nearby = true;
-                if (KeyboardInput.x && !running&&game.getPlayer().getInventory().getMoneyCount()>cost) {
+                if (KeyboardInput.x && !running && game.getPlayer().getInventory().getMoneyCount() > cost) {
                     roll();
                 }
             } else {
@@ -70,19 +75,22 @@ public class Slotmachine extends Creature {
     }
 
     private void roll() {
-        game.getPlayer().getInventory().money-=cost;
+        game.getPlayer().getInventory().money -= cost;
         lastResult = "";
         running = true;
         rolling = true;
         buildRollers();
         rollers[0].slow = true;
         timeoutafterroll = 0;
+        pay = false;
+        winAmount = 0;
     }
 
     private void buildRollers() {
         rollers[0] = new Roller(24);
         rollers[1] = new Roller(46);
         rollers[2] = new Roller(70);
+
     }
 
     private int booltoInt(boolean b) {
@@ -93,41 +101,23 @@ public class Slotmachine extends Creature {
     }
 
     private void finishRoll() {
+        rolling = false;
         int c = 0;
         for (int a = 0; a < rollers.length; a++) {
-            if (a<rollers.length-1) {
-                if (rollers[a].getSymbol().getId()==rollers[a+1].getSymbol().getId()) {
+            if (a < rollers.length - 1) {
+                if (rollers[a].getSymbol().getId() == rollers[a + 1].getSymbol().getId()) {
                     c++;
                 }
             }
         }
-        if(c==2) {
-            System.out.println("won");
-            game.getPlayer().getInventory().addMoney(100);
+        if (c == rollers.length - 1) {
+            pay = true;
+            winAmount = 100;
+        } else if (c == rollers.length - 2) {
+            pay = true;
+            winAmount = 10;
         }
-        rolling = false;
-        /*
-        boolean won = true;
-        SymbolID id = rollers[0].getSymbol().getId();
-        for (Roller r : rollers) {
-            if (r.getSymbol().getId() != id) {
-                won = false;
-            }
-        }
-
-        if (won) {
-            double points = rollers[0].getSymbol().getMultiplier();
-            game.getPlayer().getInventory().addMoney(points);
-            lastResult = "U won " + points;
-        } else {
-            lastResult = "No winnings";
-        }
-
-        running = false;
-
-         */
     }
-
 
     @Override
     public void render(Graphics g) {

@@ -31,7 +31,7 @@ public class Inventory {
     public int activeSlot = 1;
     private Hotbar hotbar;
     private Creature owner;
-    public int money = 10000;
+    public double money = 10000;
     private int first = 0, last = first + 9;
     private Animation animation;
 
@@ -94,8 +94,6 @@ public class Inventory {
         drawBorader(g2d, width, height);
         g2d.translate(-transX, -transY);
         g2d.scale(1 / scale, 1 / scale);
-        g.drawImage(Texture.sprite[32], (int) (Game.UNIT_SCALE / 2 + transX * scale + 64), (int) (Game.UNIT_SCALE / 2 + transY * scale), 64, 64, null);
-        drawString(g, (int) (Game.UNIT_SCALE / 2 + transX * scale + 64 * 3), (int) (Game.UNIT_SCALE / 2 + transY * scale), String.valueOf(money)+"$", 0);
 
         for (int i = 0; i < slots.length; i++) {
             slots[i].render(g2d);
@@ -288,7 +286,7 @@ public class Inventory {
         addItem(item);
     }
 
-    public void addMoney(int a) {
+    public void addMoney(double a) {
         money += a;
     }
 
@@ -406,19 +404,5 @@ public class Inventory {
         }
     }
 
-    private void drawString(Graphics g, int x, int y, String string, int shade) {
-        int index = 0;
-        string.toUpperCase();
-        for (int i = 0; i < string.length(); i++) {
-            char c = string.charAt(i);
-            int temp = c;
-            int temp_integer = 32; //for upper case
-            if (temp <= 90 & temp >= 32) {
-                index = temp - temp_integer;
-                g.drawImage(Texture.goldenUIElements[index][shade], x + i * 64, y, 64, 64, null);
-            } else {
-                System.out.println("No supported char");
-            }
-        }
-    }
+
 }
