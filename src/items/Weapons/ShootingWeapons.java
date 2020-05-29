@@ -54,6 +54,7 @@ public abstract class ShootingWeapons extends Weapons {
             else {
                 remainingMunition=item.getAmount();
                 inventory.removeItem(i);
+
             }
         }
 
