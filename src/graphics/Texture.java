@@ -14,7 +14,7 @@ public class Texture {
 
     public static BufferedImage[] sprite = new BufferedImage[1024];
     public static BufferedImage[][] tiles = new BufferedImage[24][10];
-    public static BufferedImage[][] goldenUIElements = new BufferedImage[64][3];
+    public static BufferedImage[][] goldenUIElements = new BufferedImage[64][15];
     public static BufferedImage[][] greenUIElements = new BufferedImage[64][3];
     public static BufferedImage[][] Inventory = new BufferedImage[64][64];
     public static BufferedImage[] SlotMachine = new BufferedImage[13];
@@ -56,7 +56,7 @@ public class Texture {
             }
         }
 
-        for (int l = 0; l < 3; l++) {
+        for (int l = 0; l < 15; l++) {
             for (int i = 0; i < 60; i++) {
                 goldenUIElements[i][l] = UIELementsSheet.grabImage(i, l, 16, 16);
             }
