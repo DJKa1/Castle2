@@ -6,7 +6,6 @@ import graphics.Animation;
 import graphics.Texture;
 import main_pack.Game;
 import main_pack.KeyboardInput;
-
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 

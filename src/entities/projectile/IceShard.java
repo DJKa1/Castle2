@@ -20,7 +20,7 @@ public class IceShard extends Projectile {
         width = (float) 2 / 16;
         height = (float) 2 / 16;
         hitbox = new Rectangle2D.Double(x, y, width, height);
-        projeticespeed = (float) 0.3;
+        projeticespeed = (float) 0.2;
         img = Texture.sprite[22];
         move.set(v);
         move.normalize();

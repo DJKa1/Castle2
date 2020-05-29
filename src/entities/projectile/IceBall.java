@@ -26,18 +26,17 @@ public class IceBall extends Projectile {
         move.normalize();
     }
 
+
+
     @Override
     public void tick() {
-        speedX = (float) move.x * projeticespeed;
-        speedY = (float) move.y * projeticespeed;
-        x += speedX;
-        y += speedY;
-        collision();
-        lifeTime--;
-        if (lifeTime < 0) {
-            projectileHandler.removeObject(this);
+        if (lifeTime <= 1) {
             split(splitAmount);
         }
+        super.tick();
+
+
+
     }
 
     @Override
@@ -46,14 +45,11 @@ public class IceBall extends Projectile {
             projectileHandler.removeObject(this);
             split(splitAmount);
         }
-        for (Creature k : checkCollision_forAll()) {
-            if (k != null && k.isHitby(id)) {
-                hitTarget(k);
-                projectileHandler.removeObject(this);
-            }
-        }
+        super.collision();
 
     }
+
+
 
     private void split(int amount) {
         float x = (float) getCenter().getX(), y = (float) getCenter().getY();

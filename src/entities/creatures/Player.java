@@ -60,27 +60,7 @@ public class Player extends Creature {
         animation[4] = playerWalkDown;
 
         //Test------------------------------------
-        /*
-        inventory.addItembyID("testWeapon");
-        inventory.addItem(new Shotgun(new Outstanding()));
-        inventory.addItembyID("IceStorm");
-        inventory.addItembyID("AK47");
-        FabricatedSniper fabi = new FabricatedSniper(new Outstanding());
-        fabi.getQuality().setDmg(4.5f);
-        fabi.addAttribute("OFFSET :"+ (int)(fabi.getQuality().getDmg()*100) + "%");
-        inventory.addItem(fabi);
-        inventory.addItem(new Boots(new Primitiv()));
-        for (int i = 0; i < 20; i++) {
-            inventory.addItembyID("SniperAmmo");
-            inventory.addItembyID("ShotgunAmmo");
-            inventory.addItem(new HealPotion(1));
-            inventory.addItem(new OutstandingLootCreate());
 
-
-        }
-        addBuff(new Poison(this,300,10));
-        addBuff(new Poison(this,300,10));
-        */
         //---------------------------------------
     }
 
