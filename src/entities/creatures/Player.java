@@ -60,6 +60,7 @@ public class Player extends Creature {
         animation[4] = playerWalkDown;
 
         //Test------------------------------------
+        /*
         inventory.addItembyID("testWeapon");
         inventory.addItem(new Shotgun(new Outstanding()));
         inventory.addItembyID("IceStorm");
@@ -79,7 +80,7 @@ public class Player extends Creature {
         }
         addBuff(new Poison(this,300,10));
         addBuff(new Poison(this,300,10));
-
+        */
         //---------------------------------------
     }
 
