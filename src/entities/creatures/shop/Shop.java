@@ -6,6 +6,8 @@ import graphics.Texture;
 import items.Item;
 import items.LootCreates.LootCreate;
 import items.LootCreates.OutstandingLootCreate;
+import items.Munition.ShotgunAmmo;
+import items.Munition.SniperAmmo;
 import items.Potions.HealPotion;
 import items.Quality.Outstanding;
 import items.Quality.Primitiv;
@@ -39,6 +41,8 @@ public class Shop extends Creature {
         right = new ShopButton(getPixelPosition(x+3),getPixelPosition(y+2.5),2);
         items.add(null);
         items.add(new HealPotion(1));
+        items.add(new ShotgunAmmo());
+        items.add(new SniperAmmo());
         items.add(new OutstandingLootCreate());
         items.add(new Shotgun(new Primitiv()));
         items.add(new FabricatedSniper(new Primitiv()));
