@@ -48,6 +48,8 @@ public class Shop extends Creature {
         items.add(new FabricatedSniper(new Primitiv()));
         items.add(new IceStorm(new Primitiv()));
         items.add(new testWeapon(new Primitiv()));
+        items.add(new ShotgunAmmo());
+        items.add(new SniperAmmo());
     }
 
     private void buyItem(){

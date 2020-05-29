@@ -344,13 +344,10 @@ public class Inventory {
     }
 
     public void removeItem(int i) {
-        if(slots[i].item.getAmount()>1){
-            slots[i].item.reduceAmount(1);
-        }else {
         slots[i].item = null;
 
         }
-    }
+
 
     public void removeItem(Item item){
         removeItem(getByIndex(item));
