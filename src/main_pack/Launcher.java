@@ -3,7 +3,7 @@ package main_pack;
 import java.awt.*;
 
 public class Launcher {
-    public static final boolean fullscreen = false;
+    public static final boolean fullscreen = true;
     static Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
     public static int WIDTH =2048, HEIGHT =1024;
     //-------------------

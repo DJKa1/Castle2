@@ -50,8 +50,8 @@ public class Shop extends Creature {
     }
 
     private void buyItem() {
-        System.out.println(items.get(index).getId().toString());
         game.getPlayer().getInventory().addItembyID(items.get(index).getId().toString());
+        Sound.Sound.playSound("Buy");
     }
 
     public void tick() {
@@ -81,7 +81,6 @@ public class Shop extends Creature {
             }
             if (KeyboardInput.impX) {
                 buyItem();
-
             }
 
         } else {

@@ -74,6 +74,7 @@ public class Sound {
                 case "SlotClack": playSfx(new File("./rsc/Audio/SlotmachineClack.wav"));break;
                 case "SlotWin": playSfx(new File("./rsc/Audio/SlotmachineBell.wav"));break;
                 case "YouLose": playSfx(new File("./rsc/Audio/YouLose.wav"));break;
+                case "Buy": playSfx(new File("./rsc/Audio/ChaChing.wav"));break;
             }
         }
     }
