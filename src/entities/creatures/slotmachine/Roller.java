@@ -11,6 +11,7 @@ public class Roller {
     private int count = 0;
     private double speed;
 
+    private int spike = 128;
 
     public Roller(int length) {
         symbols = new Symbol[length];
@@ -38,11 +39,14 @@ public class Roller {
     }
 
     public void tick() {
-
         if (moved <= (symbols.length - 1) * 128) {
             moved += speed;
         } else {
             finished = true;
+        }
+        if(moved>spike) {
+            spike+=128;
+            Sound.Sound.playSound("SlotClack");
         }
         if (slow) {
             if (speed > 1) {

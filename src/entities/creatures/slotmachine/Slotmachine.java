@@ -1,5 +1,6 @@
 package entities.creatures.slotmachine;
 
+import Sound.Sound;
 import entities.creatures.Creature;
 import graphics.Animation;
 import graphics.Texture;
@@ -21,10 +22,11 @@ public class Slotmachine extends Creature {
     private boolean pay = false;
     private int winAmount = 0;
 
+    private boolean playOnce[] = new boolean[1];
+
     public Slotmachine(float x, float y, Game game) {
         super(x, y, game);
         animation = new Animation(3, Texture.SlotMachine[0], Texture.SlotMachine[1], Texture.SlotMachine[2], Texture.SlotMachine[3], Texture.SlotMachine[4], Texture.SlotMachine[5], Texture.SlotMachine[6], Texture.SlotMachine[7], Texture.SlotMachine[8], Texture.SlotMachine[9], Texture.SlotMachine[10], Texture.SlotMachine[11]);
-        hitbox = new Rectangle2D.Double(x, y, 3, 3);
         rollers = new Roller[width];
     }
 
@@ -59,6 +61,7 @@ public class Slotmachine extends Creature {
                 }
                 if(pay) {
                     game.getPlayer().getInventory().money+=winAmount/(double)delay;
+                    Sound.playSound("SlotWin");
                 }
             }
         } else {
@@ -84,6 +87,9 @@ public class Slotmachine extends Creature {
         timeoutafterroll = 0;
         pay = false;
         winAmount = 0;
+        for (int i = 0; i< playOnce.length;i++) {
+            playOnce[i] = true;
+        }
     }
 
     private void buildRollers() {
@@ -116,6 +122,11 @@ public class Slotmachine extends Creature {
         } else if (c == rollers.length - 2) {
             pay = true;
             winAmount = 10;
+        } else {
+            if (playOnce[0]) {
+                Sound.playSound("YouLose");
+                playOnce[0] = false;
+            }
         }
     }
 

@@ -8,14 +8,12 @@ import java.awt.image.BufferedImage;
 public class Symbol {
     private BufferedImage img;
     private SymbolID id;
-
     public Symbol() {
     }
 
     public Symbol(SymbolID id) {
         this.id = id;
     }
-
 
     private void changeSymbol(SymbolID id) {
         this.id = id;
@@ -35,9 +33,9 @@ public class Symbol {
 
     public void roll() {
         int p = (int) (Math.random() * 100);
-        if (p < 5) {
+        if (p < 33) {
             changeSymbol(SymbolID.Bell);
-        } else if (p < 90) {
+        } else if (p < 66) {
             changeSymbol(SymbolID.Heart);
         } else if (p <= 100) {
             changeSymbol(SymbolID.Questionmark);

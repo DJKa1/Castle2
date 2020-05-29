@@ -52,7 +52,7 @@ public class Sound {
                 audioInputStream.close();
 
             } catch (IOException e) {
-                //e.printStackTrace();
+                e.printStackTrace();
             } catch (UnsupportedAudioFileException e) {
                 //e.printStackTrace();
             } catch (LineUnavailableException e) {
@@ -71,6 +71,9 @@ public class Sound {
                 case "Shotgun": playSfx(new File("./rsc/Audio/Shotgun.wav"));break;
                 case "Shotgun_Reload": playSfx(new File("./rsc/Audio/PumpShotgunReload.wav"));break;
                 case "Sniper": playSfx(new File("./rsc/Audio/Sniper.wav"));break;
+                case "SlotClack": playSfx(new File("./rsc/Audio/SlotmachineClack.wav"));break;
+                case "SlotWin": playSfx(new File("./rsc/Audio/SlotmachineBell.wav"));break;
+                case "YouLose": playSfx(new File("./rsc/Audio/YouLose.wav"));break;
             }
         }
     }

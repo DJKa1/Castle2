@@ -37,7 +37,7 @@ public class PlayerGUI {
 
     private void renderHealthbar(Graphics g) {
         //Border 8px
-        String msg = game.getPlayer().getHp() + "/" + game.getPlayer().getMaxHp();
+        String msg = (int)game.getPlayer().getHp() + "/" + (int)game.getPlayer().getMaxHp();
         int w = msg.length() * 32;
         g.setColor(backColor);
         g.fillRect(Launcher.WIDTH - w - 32, 0, Launcher.WIDTH, 56);
