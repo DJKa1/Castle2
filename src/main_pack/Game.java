@@ -3,24 +3,22 @@ package main_pack;
 import Handler.CreatureHandler;
 import Handler.Effectshandler;
 import Handler.ProjectileHandler;
-import ID_Lists.ItemID;
 import Maps.Map;
 import States.*;
 import graphics.Camera;
 import entities.creatures.Player;
 import graphics.Texture;
 import graphics.Window;
-import items.Item;
-import items.LootTable;
 import items.LootTableList;
-import items.Munition.SniperAmmo;
-import items.Quality.*;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Controller;
 import org.lwjgl.input.Controllers;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+
+import static main_pack.Launcher.GAMESCALE;
+
 
 
 public class Game implements Runnable {
@@ -117,7 +115,6 @@ public class Game implements Runnable {
 
         //Window
         window = new Window(title, width, height, this);
-        window.fullscreen();
         window.getCanvas().addMouseListener(mouseInput);
         window.getCanvas().addMouseMotionListener(mouseInput);
         window.getJFrame().addKeyListener(keyboardInput);
@@ -260,7 +257,8 @@ public class Game implements Runnable {
             return;
         }
         Graphics g = bs.getDrawGraphics();
-
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.scale(GAMESCALE,GAMESCALE);
         if (State.getState() != null) {
             State.getState().render(g);
         }

@@ -8,7 +8,6 @@ import main_pack.Game;
 import main_pack.KeyboardInput;
 
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 
 public class Slotmachine extends Creature {
     private final int width = 3;
@@ -17,10 +16,12 @@ public class Slotmachine extends Creature {
     private Roller[] rollers;
     private boolean nearby;
     private String lastResult = "";
-    private int timeoutafterroll = 0,delay = 100;
+    private int timeoutafterroll = 0, delay = 100;
     private int cost = 10;
     private boolean pay = false;
     private int winAmount = 0;
+
+    private boolean jackPot = false;
 
     private boolean playOnce[] = new boolean[1];
 
@@ -59,8 +60,8 @@ public class Slotmachine extends Creature {
                 if (timeoutafterroll >= delay) {
                     running = false;
                 }
-                if(pay) {
-                    game.getPlayer().getInventory().money+=winAmount/(double)delay;
+                if (pay) {
+                    game.getPlayer().getInventory().money += winAmount / (double) delay;
                     Sound.playSound("SlotWin");
                 }
             }
@@ -87,7 +88,8 @@ public class Slotmachine extends Creature {
         timeoutafterroll = 0;
         pay = false;
         winAmount = 0;
-        for (int i = 0; i< playOnce.length;i++) {
+        jackPot = false;
+        for (int i = 0; i < playOnce.length; i++) {
             playOnce[i] = true;
         }
     }
@@ -119,6 +121,7 @@ public class Slotmachine extends Creature {
         if (c == rollers.length - 1) {
             pay = true;
             winAmount = 100;
+            jackPot = true;
         } else if (c == rollers.length - 2) {
             pay = true;
             winAmount = 10;
@@ -138,13 +141,25 @@ public class Slotmachine extends Creature {
             g.setColor(new Color(25, 16, 46));
             g.fillRect(getPixelPosition(x), getPixelPosition(y), 128 * 3, 128 * 3);
 
-            for (int i = 0; i < rollers.length; i++) {
-                rollers[i].render(g, getPixelPosition(x) + 26 + 118 * i, getPixelPosition(y) + 128);
+            if (jackPot) {
+                drawJackpot(g,getPixelPosition(x)+8,getPixelPosition(y+1)-16);
+                drawJackpot(g,getPixelPosition(x+1),getPixelPosition(y+1)-16);
+                drawJackpot(g,getPixelPosition(x+2)-8,getPixelPosition(y+1)-16);
+            } else {
+                for (int i = 0; i < rollers.length; i++) {
+                    rollers[i].render(g, getPixelPosition(x) + 26 + 118 * i, getPixelPosition(y) + 128);
+                }
             }
-            g.drawImage(Texture.SlotMachine[12], getPixelPosition(x), getPixelPosition(y), 128 * 3, 128 * 3, null);
         }
-        g.setColor(Color.red);
-        g.drawString(lastResult, getPixelPosition(x) + 32, getPixelPosition(y) + 256);
+        g.drawImage(Texture.SlotMachine[12], getPixelPosition(x), getPixelPosition(y), 128 * 3, 128 * 3, null);
+    }
+
+    private void drawJackpot(Graphics g,int px,int py) {
+        for (int yy = 0; yy < 4; yy++) {
+            for (int xx = 0; xx < 4; xx++) {
+                g.drawImage(Texture.Inventory[8 + xx][1 + yy], px+xx*32, py+yy*32, 32, 32, null);
+            }
+        }
 
     }
 }

@@ -101,7 +101,7 @@ public class MouseInput implements MouseListener, MouseMotionListener , MouseWhe
 
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
-        mxWorld = (int) (mouseEvent.getX()-game.getCamera().getX());
+        mxWorld = (int) ((mouseEvent.getX()-game.getCamera().getX()));
         myWorld = (int) (mouseEvent.getY()-game.getCamera().getY());
         if (game.getactiveState().getClass() == GameState.class) {
             if (KeyboardInput.Keyboard) {

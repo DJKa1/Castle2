@@ -3,9 +3,10 @@ package main_pack;
 import java.awt.*;
 
 public class Launcher {
-    public static final boolean fullscreen = true;
+    public static final boolean fullscreen = false;
     static Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
     public static int WIDTH =2048, HEIGHT =1024;
+    public static double GAMESCALE = 1d;
     //-------------------
     public static String VERSION ="0.0.5";
     public static final boolean enablecheats=true;
@@ -17,7 +18,6 @@ public class Launcher {
             WIDTH = dim.width;
             HEIGHT = dim.height;
         }
-
         game.start();
     }
 }
