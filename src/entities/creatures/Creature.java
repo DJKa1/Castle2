@@ -49,6 +49,8 @@ public abstract class Creature extends Entity {
     protected List<Node> nextMoves;
     protected float aimX,aimY;
     protected LootTable dropList;
+    protected int lvl=0;
+    protected  double xpOnDeath=0;
 
     //Tageting-------------------
     protected Ellipse2D targetingArea;
@@ -189,6 +191,11 @@ public abstract class Creature extends Entity {
         g.fillRect(getPixelPosition(x),getPixelPosition(y), (int) (width*Game.UNIT_SCALE),20);
         g.setColor(Color.RED);
         g.fillRect(getPixelPosition(x),getPixelPosition(y), (int) (hp/maxHp*width*Game.UNIT_SCALE),20);
+    }
+
+    public void renderLvl(Graphics g ){
+        g.setColor(Color.lightGray);
+        g.drawString(String.valueOf(lvl),getPixelPosition(x),getPixelPosition(y));
     }
     public void renderHitbox(Graphics g){
         g.setColor(Color.blue);
@@ -402,6 +409,8 @@ public abstract class Creature extends Entity {
         if(hp<=0){
             effectshandler.addObject(new DeathEffect(x,y,effectshandler));
             creatureHandler.removeObject(this);
+           // System.out.println( "hey");
+            game.getGameState().addXp(xpOnDeath*lvl);
         }
     }
 
@@ -439,5 +448,21 @@ public abstract class Creature extends Entity {
             activeBuffs.get(i).tick();
         }
     }
+
+
+    //LVL ----------------------
+
+    protected double getDmgMultiplier(int lvl){
+        return Math.pow(((double)lvl/10)+1,2);
+    }
+
+    protected double getLifeMultiplier(int lvl){
+        return  Math.pow(((double)lvl/10)+1,2);
+    }
+    protected double getArmorMultiplier(int lvl){
+        return  Math.pow(((double)lvl/10)+1,2);
+    }
+
+
 
 }

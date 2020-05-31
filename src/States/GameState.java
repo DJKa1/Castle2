@@ -16,16 +16,21 @@ import main_pack.*;
 
 
 import java.awt.*;
+import java.util.LinkedList;
 
 public class GameState extends State{
     private CreatureHandler creatureHandler;
     private ProjectileHandler projectileHandler;
     private Effectshandler effectshandler;
+    private LinkedList<Spawner>spawnerList;
     private Player player;
     private PlayerGUI playerGUI;
     private F3Infopanel f3Infopanel;
+    //Wave-System ----------------------
+    private int wave=1;
+    private double xp;
     //-----------------------------
-    //noch static access
+    // noch static access
     public static Map map;
 
 
@@ -47,6 +52,25 @@ public class GameState extends State{
         return projectileHandler;
     }
     public Map getMap() { return map;}
+
+    public int getWave(){
+        return wave;
+    }
+
+    public void addXp(double v ){
+        xp+=v;
+    }
+
+    private void setWave(int v){
+        wave=v;
+    }
+
+    private void increaseWave(){
+        wave++;
+        for (Spawner s: spawnerList){
+            s.increaselvl(1);
+        }
+    }
     @Override
     public void init(){
         map=game.getMap();
@@ -56,17 +80,21 @@ public class GameState extends State{
         playerGUI = new PlayerGUI(player);
         camera = game.getCamera();
         creatureHandler=game.getCreatureHandler();
+        spawnerList=new LinkedList<>();
         texture = new Texture();
         f3Infopanel=new F3Infopanel(this);
         //------------------------------------------------------------------
 
-        //creatureHandler.addObject(new Spawner(30,30,game));
+        Spawner spawner1=new Spawner(25.5f,20,1,new GreenSlime(0,0,10,game),game);
+        creatureHandler.addObject(spawner1);
+        spawnerList.add(spawner1);
         creatureHandler.addObject(new Shop(24,30,game));
         creatureHandler.addObject(new Slotmachine(36,31,game));
         creatureHandler.addObject(player);
+
+
+
         /*
-        Dúath_láma g =new Dúath_láma(10,3,game);
-        creatureHandler.addObject(g);
         Dúath_láma c=new Dúath_láma(15,12,game);
         creatureHandler.addObject(c);
 
@@ -96,6 +124,11 @@ public class GameState extends State{
         }
 
         camera.tick(tempPlayer);
+
+
+        if ( xp>= Math.pow(2,wave)*100){
+            increaseWave();
+        }
     }
     @Override
     public void render(Graphics g) {
@@ -124,5 +157,6 @@ public class GameState extends State{
         playerGUI.render(g);
 
     }
+
 
 }

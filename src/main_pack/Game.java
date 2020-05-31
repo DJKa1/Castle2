@@ -168,6 +168,10 @@ public class Game implements Runnable {
         return gameConsole;
     }
 
+    public GameState getGameState() {
+        return (GameState) gameState;
+    }
+
     public Menu getMenu() {
         return menu;
     }

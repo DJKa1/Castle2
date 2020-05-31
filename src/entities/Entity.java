@@ -159,6 +159,8 @@ public abstract class Entity {
 
 
 
+
+
     public Creature checkCollision_ifOneOf( ID[] partner) {
         for (Creature k : CreatureHandler.creatures) {
             if (k!=this) {
@@ -172,6 +174,18 @@ public abstract class Entity {
                 }
             }
         }
+        return null;
+    }
+
+
+    public Creature checkCollision_ifOneOf(Rectangle2D rectangle2D ) {
+        for (Creature k : CreatureHandler.creatures) {
+            if (k!=this) {
+                if (k.getHitbox().intersects(rectangle2D)) {
+                    return k;
+                        }
+                    }
+                }
         return null;
     }
 

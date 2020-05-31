@@ -4,22 +4,73 @@ import graphics.Texture;
 import main_pack.Game;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.lang.reflect.InvocationTargetException;
 
 public class Spawner extends Creature {
-    int delay = 0;
-    float spawnRange=2;
+    int spawnRate,counter =0,retryAmount,retrycounter=0;
+    float spawnRange;
+    Creature creature;
 
-    public Spawner(float x, float y, Game game) {
+    public Spawner(float x, float y,int lvl,  Creature creature ,Game game) {
         super(x, y, game);
+        this.lvl=lvl;
+        this.creature=creature;
+        this.retryAmount=5;
+        this.spawnRange=2;
+        this.spawnRate=60;
+    }
+
+    public Spawner(float x, float y,int lvl , Creature creature,int retryAmount,int spawnRate ,float spawnRange, Game game) {
+        super(x, y, game);
+        this.lvl=lvl;
+        this.creature=creature;
+        this.retryAmount=retryAmount;
+        this.spawnRate=spawnRate;
+        this.spawnRange=spawnRange;
+    }
+
+    public void increaselvl(int v){
+        lvl+=v;
+    }
+
+    private void action()  {
+        float w= creature.getHeight();
+        float h = creature.getWidth();
+        if(retrycounter>=retryAmount){
+            retrycounter=0;
+            return;
+        }
+
+        float xs=getRandomSpred(),ys=getRandomSpred();
+        if(checkCollision_ifOneOf(new Rectangle2D.Double(x+xs,y+ys,w,h))==null&&checkCollision_ifOneOf(hitbox)==null){
+            try {
+                game.getCreatureHandler().addObject(creature.getClass().getConstructor(Float.TYPE,Float.TYPE,Integer.TYPE , Game.class).newInstance(x+xs,y+ys,lvl,game));
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+            counter = 0;
+            retrycounter=0;
+            return;
+        }else {
+            retrycounter++;
+            action();
+        }
+
     }
 
     @Override
     public void tick() {
-        if(delay>60) {
-            game.getCreatureHandler().addObject(new GreenSlime(x+getRandomSpred(),y+getRandomSpred(),game));
-            delay = 0;
+        if(counter>spawnRate) {
+            action();
         }
-        delay++;
+        counter++;
     }
 
     @Override

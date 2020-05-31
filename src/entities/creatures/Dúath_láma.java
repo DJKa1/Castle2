@@ -22,8 +22,27 @@ public class Dúath_láma extends Creature{
         targetable=new ID[]{ID.Player};
         hp=100;
         maxHp = hp;
+        xpOnDeath=40;
         movementRate= (float) 0.05;
         armorValue=1;
+        followingMultiplier=3;
+        weapon=new Shotgun(new Primitiv());
+        normalizeHitbox();
+        normalizeMovementhitbox();
+    }
+
+    public Dúath_láma(float x, float y,int lvl, Game game) {
+        super(x, y, game);
+        width=1;
+        height=1.6f;
+        targetingRange=5;
+        targetable=new ID[]{ID.Player};
+        baseDmg= (float) getDmgMultiplier(lvl);
+        hp= (float) (10*getLifeMultiplier(lvl));
+        armorValue=7*getArmorMultiplier(lvl);
+        maxHp = hp;
+        xpOnDeath=40;
+        movementRate= (float) 0.05;
         followingMultiplier=3;
         weapon=new Shotgun(new Primitiv());
         normalizeHitbox();

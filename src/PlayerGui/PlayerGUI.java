@@ -25,6 +25,7 @@ public class PlayerGUI {
         renderManaCount(g);
         renderBuffs(g);
         renderMoney(g);
+        renderWave(g);
     }
 
     private void renderMoney(Graphics g) {
@@ -72,6 +73,14 @@ public class PlayerGUI {
         g.fillRect((int) (Launcher.WIDTH - player.getManaCount() - 24-w), 64, (int) (player.getManaCount()), 32);
 
 
+    }
+
+
+    private void renderWave(Graphics g ){
+        String msg = String.valueOf(game.getGameState().getWave());
+        int w = msg.length() * 32;
+        g.setColor(backColor);
+        drawString(g, Launcher.WIDTH - w - 8, 256, msg, 14);
     }
 
 
