@@ -1,9 +1,11 @@
 package entities.projectile;
 
+import Buffs.Buff;
 import Buffs.iced;
 import Handler.Effectshandler;
 import Handler.ProjectileHandler;
 import entities.Vector2D;
+import entities.creatures.Creature;
 import graphics.Texture;
 import items.Weapons.Weapons;
 import main_pack.Game;
@@ -22,6 +24,7 @@ public class IceShard extends Projectile {
         hitbox = new Rectangle2D.Double(x, y, width, height);
         projeticespeed = (float) 0.2;
         img = Texture.sprite[22];
+
         move.set(v);
         move.normalize();
     }
@@ -32,5 +35,9 @@ public class IceShard extends Projectile {
     }
 
 
-
+    @Override
+    protected void hitTarget(Creature k) {
+        k.hit(weapon.getDmg(),new iced(k, 600,10));
+        k.setCurrentKnockback(knockback);
+    }
 }

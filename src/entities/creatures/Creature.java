@@ -179,6 +179,8 @@ public abstract class Creature extends Entity {
         effectshandler.addObject(new HealIndicator(x,y,amount,effectshandler));
     }
 
+
+
     public void setMaxHp(float maxHp) {
         this.maxHp = maxHp;
     }
@@ -451,11 +453,9 @@ public abstract class Creature extends Entity {
 
 
     //LVL ----------------------
-
     protected double getDmgMultiplier(int lvl){
         return Math.pow(((double)lvl/10)+1,2);
     }
-
     protected double getLifeMultiplier(int lvl){
         return  Math.pow(((double)lvl/10)+1,2);
     }
