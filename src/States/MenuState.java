@@ -26,7 +26,7 @@ public class MenuState extends State{
 
     @Override
     public void render(Graphics g) {
-        g.setColor(new Color(21, 10, 31));
+        g.setColor(new Color(46, 34, 47));
         g.fillRect(0,0, Launcher.WIDTH,Launcher.HEIGHT);
         menu.renderMenu(g);
     }

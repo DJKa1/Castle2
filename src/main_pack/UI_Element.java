@@ -5,27 +5,25 @@ import graphics.Texture;
 
 import java.awt.*;
 
-public class UI_Element{
+public class UI_Element {
     private Rectangle box;
-    private int shade;
-    private String content;
-    private int cellSize = Game.UNITDIMENSION;
+    public int cellSize = 128;
     private boolean selected = false;
+    public int imgX, imgY, imgWX, imgWY;
+    private String content;
+    private int shade = 0;
 
 
-    public UI_Element( int x, int y, String Content, int shade) {
-        box = new Rectangle(x * cellSize, y*cellSize, (Content.length()+2)*cellSize, cellSize);
-        this.shade = shade;
-        this.content = Content;
-
+    public UI_Element(String content, int x, int y, int imgX, int imgY, int imgWX, int imgWY) {
+        box = new Rectangle(x, y, imgWX * cellSize, imgWY * cellSize);
+        this.imgX = imgX;
+        this.imgY = imgY;
+        this.imgWX = imgWX;
+        this.imgWY = imgWY;
+        this.content = content;
     }
 
-    public void render(Graphics g) {
-        g.drawImage(Texture.goldenUIElements[59][shade], box.x, box.y, null);
-        drawString(g, 2*16+box.x, 0+box.y, content,cellSize, shade);
-    }
-
-    public static void drawString(Graphics g, int x, int y, String string,int size, int shade) {
+    public static void drawString(Graphics g, int x, int y, String string, int size, int shade) {
         int index = 0;
         string.toUpperCase();
         for (int i = 0; i < string.length(); i++) {
@@ -34,21 +32,38 @@ public class UI_Element{
             int temp_integer = 32; //for upper case
             if (temp <= 90 & temp >= 32) {
                 index = temp - temp_integer;
-                g.drawImage(Texture.goldenUIElements[index][shade], x + i*size, y, null);
+                g.drawImage(Texture.goldenUIElements[index][shade], x + i * size, y, null);
             } else {
                 System.out.println("No supported char");
             }
         }
     }
 
-    public void onClick() {
-        switch (content) {
-            case "CONTINUE":setToGameMode();break;
-            case "OPTIONS":break;
-            case "EXIT":System.exit(0);break;
+    public void render(Graphics g) {
+        for (int yy = 0; yy <imgWY; yy++) {
+            for (int xx = 0; xx <imgWX; xx++) {
+                g.drawImage(Texture.Inventory[imgX+xx][imgY+yy+shade],box.x+xx*cellSize, box.y+yy*cellSize,cellSize,cellSize, null);
+            }
         }
 
     }
+
+    public void onClick() {
+        switch (content) {
+            case "CONTINUE":
+                setToGameMode();
+                break;
+            case "OPTIONS":
+                break;
+            case "EXIT":
+                System.exit(0);
+                break;
+            case "JUSTTEXT":
+                break;
+        }
+
+    }
+
     private void setToGameMode() {
         State.setState(Game.gameState);
     }
@@ -59,10 +74,13 @@ public class UI_Element{
 
     public void setSelected(boolean selected) {
         this.selected = selected;
-        if(selected) {
+        if (selected) {
+            shade = 1;
+        } else {
             shade = 0;
-        }else {
-            shade = 2;
+        }
+        if(content.equals("JUSTTEXT")) {
+            shade = 0;
         }
     }
 
