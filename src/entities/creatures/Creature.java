@@ -21,6 +21,8 @@ import items.Item;
 import items.LootTable;
 import main_pack.Game;
 import Handler.ProjectileHandler;
+import main_pack.UI_Element;
+
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
@@ -187,17 +189,20 @@ public abstract class Creature extends Entity {
 
     //Render && Tick---------------------------------
     public void renderHealthbar(Graphics g) {
-        g.setColor(Color.BLACK);
+        g.setColor(new Color(21, 10, 31));
         g.fillRect(getPixelPosition(x)-5,getPixelPosition(y)-5, (int) (width* Game.UNIT_SCALE)+10,30);
         g.setColor(Color.WHITE);
         g.fillRect(getPixelPosition(x),getPixelPosition(y), (int) (width*Game.UNIT_SCALE),20);
-        g.setColor(Color.RED);
+        g.setColor(new Color(104, 24, 36));
         g.fillRect(getPixelPosition(x),getPixelPosition(y), (int) (hp/maxHp*width*Game.UNIT_SCALE),20);
+        g.setColor(new Color(180, 35, 19));
+        g.fillRect(getPixelPosition(x),getPixelPosition(y), (int) (hp/maxHp*width*Game.UNIT_SCALE),16);
     }
 
     public void renderLvl(Graphics g ){
-        g.setColor(Color.lightGray);
-        g.drawString(String.valueOf(lvl),getPixelPosition(x),getPixelPosition(y));
+        String str = "LVL "+lvl;
+        int w = (int)(width*128-str.length()*16)/2;
+        UI_Element.drawString(g,getPixelPosition(x)+w,getPixelPosition(y)-26,str,16,10);
     }
     public void renderHitbox(Graphics g){
         g.setColor(Color.blue);
@@ -217,6 +222,11 @@ public abstract class Creature extends Entity {
             g2d.drawLine(nextMoves.get(i-1).getX()*Game.UNIT_SCALE,nextMoves.get(i-1).getY()*Game.UNIT_SCALE,nextMoves.get(i).getX()*Game.UNIT_SCALE,nextMoves.get(i).getY()*Game.UNIT_SCALE);
         }
         g2d.setStroke(new BasicStroke());
+    }
+    public void renderBuffs(Graphics g) {
+        for (int i = 0; i< activeBuffs.size();i++) {
+            activeBuffs.get(i).render(g);
+        }
     }
 
     @Override

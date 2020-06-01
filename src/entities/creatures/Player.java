@@ -132,8 +132,7 @@ public class Player extends Creature {
             g2d.drawImage(inventory.getItem(inventory.getActiveSlot()).getImage(), getPixelPosition(x) + 64, getPixelPosition(y), Game.UNIT_SCALE, Game.UNIT_SCALE, null);
         }
         g2d.setTransform(oldtrans);
-
-
+        renderBuffs(g);
     }
 
     @Override

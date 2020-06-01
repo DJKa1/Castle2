@@ -16,7 +16,7 @@ public class GreenSlime extends Creature {
         targetingRange=3;
         targetable=new ID[]{ID.Player};
         movementRate= (float) 0.05;
-        armorValue=7;
+        armorValue=1;
         followingMultiplier=2;
         normalizeHitbox();
         normalizeMovementhitbox();
@@ -30,20 +30,15 @@ public class GreenSlime extends Creature {
         height=1;
         baseDmg= (float) getDmgMultiplier(lvl);
         hp= (float) (10*getLifeMultiplier(lvl));
-        armorValue=7*getArmorMultiplier(lvl);
+        armorValue=1*getArmorMultiplier(lvl);
         maxHp = hp;
         xpOnDeath=30;
         targetingRange=3;
         targetable=new ID[]{ID.Player};
         movementRate= (float) 0.05;
-
         followingMultiplier=2;
         normalizeHitbox();
         normalizeMovementhitbox();
-
-
-
-
     }
 
     @Override
@@ -51,7 +46,7 @@ public class GreenSlime extends Creature {
         g.drawImage(Texture.sprite[43],getPixelPosition(x),getPixelPosition(y),Game.UNIT_SCALE,Game.UNIT_SCALE,null);
         renderHealthbar(g);
         renderLvl(g);
-
+        renderBuffs(g);
     }
 
 }

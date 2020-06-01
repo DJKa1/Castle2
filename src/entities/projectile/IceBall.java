@@ -1,5 +1,6 @@
 package entities.projectile;
 
+import Buffs.iced;
 import Handler.Effectshandler;
 import Handler.ProjectileHandler;
 import entities.Vector2D;
@@ -34,9 +35,6 @@ public class IceBall extends Projectile {
             split(splitAmount);
         }
         super.tick();
-
-
-
     }
 
     @Override
@@ -46,9 +44,13 @@ public class IceBall extends Projectile {
             split(splitAmount);
         }
         super.collision();
-
     }
-
+    @Override
+    protected void hitTarget(Creature k){
+        k.hit(weapon.getDmg(),null);
+        k.setCurrentKnockback(knockback);
+        k.addBuff(new iced(k,10,10));
+    }
 
 
     private void split(int amount) {

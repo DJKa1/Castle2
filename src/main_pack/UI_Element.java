@@ -22,12 +22,10 @@ public class UI_Element{
 
     public void render(Graphics g) {
         g.drawImage(Texture.goldenUIElements[59][shade], box.x, box.y, null);
-        drawString(g, 2, 0, content, shade);
+        drawString(g, 2*16+box.x, 0+box.y, content,cellSize, shade);
     }
 
-    private void drawString(Graphics g, int x, int y, String string, int shade) {
-        x += box.x;
-        y += box.y;
+    public static void drawString(Graphics g, int x, int y, String string,int size, int shade) {
         int index = 0;
         string.toUpperCase();
         for (int i = 0; i < string.length(); i++) {
@@ -36,7 +34,7 @@ public class UI_Element{
             int temp_integer = 32; //for upper case
             if (temp <= 90 & temp >= 32) {
                 index = temp - temp_integer;
-                g.drawImage(Texture.goldenUIElements[index][shade], x*cellSize + i * cellSize, y, null);
+                g.drawImage(Texture.goldenUIElements[index][shade], x + i*size, y, null);
             } else {
                 System.out.println("No supported char");
             }

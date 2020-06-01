@@ -2,7 +2,9 @@ package Buffs;
 
 import ID_Lists.BuffID;
 import entities.creatures.Creature;
+import graphics.Texture;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public abstract class Buff {
@@ -31,6 +33,9 @@ public abstract class Buff {
         reduceDuration();
     }
 
+    public void render(Graphics g) {
+
+    }
     public boolean reduceDuration(){
         if (duration<=0){
            owner.removeBuff(this);

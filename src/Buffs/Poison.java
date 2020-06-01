@@ -1,6 +1,5 @@
 package Buffs;
 
-import Effects.DmgIndicator;
 import entities.creatures.Creature;
 import graphics.Texture;
 import main_pack.Game;
@@ -22,7 +21,7 @@ public class Poison extends Buff{
     private void init(){
         drainrate=(float)lvl/ Game.TICKRATE;
         tickdmg=(owner.getMaxHp()/100)*drainrate;
-        image= Texture.sprite[4];
+        image= Texture.Inventory[1][7];
     }
 
     private float round(float i){

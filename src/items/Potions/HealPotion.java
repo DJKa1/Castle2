@@ -10,7 +10,7 @@ public class HealPotion extends Potion{
 
     public HealPotion(int lvl) {
         super(lvl);
-        image= Texture.sprite[24];
+        image= Texture.Inventory[0][7];
     }
 
     @Override

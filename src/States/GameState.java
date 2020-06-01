@@ -28,7 +28,7 @@ public class GameState extends State{
     private F3Infopanel f3Infopanel;
     //Wave-System ----------------------
     private int wave=1;
-    private double xp;
+    public double xp;
     //-----------------------------
     // noch static access
     public static Map map;
@@ -85,7 +85,7 @@ public class GameState extends State{
         f3Infopanel=new F3Infopanel(this);
         //------------------------------------------------------------------
 
-        Spawner spawner1=new Spawner(25.5f,20,1,new GreenSlime(0,0,10,game),game);
+        Spawner spawner1=new Spawner(25.5f,20,1,new GreenSlime(0,0,25,game),game);
         creatureHandler.addObject(spawner1);
         spawnerList.add(spawner1);
         creatureHandler.addObject(new Shop(24,30,game));

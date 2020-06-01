@@ -77,10 +77,32 @@ public class PlayerGUI {
 
 
     private void renderWave(Graphics g ){
-        String msg = String.valueOf(game.getGameState().getWave());
+        String msg = "WAVE "+game.getGameState().getWave();
         int w = msg.length() * 32;
         g.setColor(backColor);
-        drawString(g, Launcher.WIDTH - w - 8, 256, msg, 14);
+        g.fillRect(Launcher.WIDTH - w - 32, 160, Launcher.WIDTH, 56);
+        drawString(g, Launcher.WIDTH - w - 8, 168, msg, 13);
+        int wi = 2*128;
+        double XPTNL = 0;
+        double LevelXP = 0;
+        if (!(game.getGameState().getWave()-1==0)) {
+            XPTNL = game.getGameState().xp-(Math.pow(2,game.getGameState().getWave()-1)*100);
+            LevelXP = (Math.pow(2,game.getGameState().getWave())*100)-(Math.pow(2,game.getGameState().getWave()-1)*100);
+        } else {
+            XPTNL = game.getGameState().xp;
+            LevelXP = (Math.pow(2,game.getGameState().getWave())*100);
+        }
+
+        double progress = XPTNL/LevelXP;
+        g.setColor(backColor);
+        g.fillRect((int) (Launcher.WIDTH -  (wi+32)), 216-8, wi+16, 56);
+        g.setColor(Color.WHITE);
+        g.fillRect((int) (Launcher.WIDTH - wi-24), 216, wi, 40);
+        g.setColor(new Color(14, 175, 155));
+        g.fillRect((int) (Launcher.WIDTH - wi) - 24, 216, (int)(progress*wi), 40);
+        g.setColor(new Color(48, 225, 185));
+        g.fillRect((int) (Launcher.WIDTH - wi) - 24, 216, (int)(progress*wi), 36);
+
     }
 
 
