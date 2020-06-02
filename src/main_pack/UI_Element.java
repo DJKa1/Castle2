@@ -11,7 +11,7 @@ public class UI_Element {
     private boolean selected = false;
     public int imgX, imgY, imgWX, imgWY;
     private String content;
-    private int shade = 0;
+    private int shade = 2;
 
 
     public UI_Element(String content, int x, int y, int imgX, int imgY, int imgWX, int imgWY) {
@@ -21,6 +21,9 @@ public class UI_Element {
         this.imgWX = imgWX;
         this.imgWY = imgWY;
         this.content = content;
+        if(content.equals("JUSTTEXT")){
+            shade = 0;
+        }
     }
 
     public static void drawString(Graphics g, int x, int y, String string, int size, int shade) {
@@ -77,7 +80,7 @@ public class UI_Element {
         if (selected) {
             shade = 1;
         } else {
-            shade = 0;
+            shade = 2;
         }
         if(content.equals("JUSTTEXT")) {
             shade = 0;

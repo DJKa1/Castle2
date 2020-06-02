@@ -23,8 +23,8 @@ public class iced extends Buff {
     }
     @Override
     public void render(Graphics g) {
-        if (lvl>10) {
-            g.drawImage(Texture.Inventory[4][7],(int)owner.getX()*128,(int)owner.getX()*128,128,128,null);
+        if (lvl>=10) {
+            g.drawImage(Texture.Inventory[4][7],(int)(owner.getX()*128),(int)(owner.getY()*128),128,128,null);
         }
     }
 
