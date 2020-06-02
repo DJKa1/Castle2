@@ -8,7 +8,7 @@ public class Boots extends Armor {
     public Boots(Quality quality) {
         super(quality);
         armorValue=3;
-        image= Texture.sprite[4];
+        image= Texture.Inventory[2][6];
 
         attributes.add("Armor : "+ armorValue +" + "+ quality.getArmorBoost());
     }

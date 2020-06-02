@@ -2,8 +2,11 @@ package items;
 
 import ID_Lists.ItemID;
 import items.Armor.Boots;
+import items.Armor.ChestPlate;
+import items.Armor.Helmet;
 import items.Munition.ShotgunAmmo;
 import items.Munition.SniperAmmo;
+import items.Potions.HealPotion;
 import items.Quality.*;
 import items.Weapons.FabricatedSniper;
 import items.Weapons.Shotgun;
@@ -112,6 +115,8 @@ public class LootTable {
             case ShotgunAmmo:return new ShotgunAmmo();
             case FabricatedSniper:return new FabricatedSniper(quality);
             case Boots:return new Boots(quality);
+            case ChestPlate:return new ChestPlate(quality);
+            case Helmet:return new Helmet(quality);
         }
     }
 }

@@ -12,11 +12,13 @@ public abstract class LootCreate extends Item {
     protected int maxRarity,minRarity;
     protected LootTable lootTable;
     protected int dropAmount;
+
     public LootCreate( ){
         super();
         lootTable= LootTableList.standartLootTable;
         isUseableInInventory = true;
         dropAmount=1;
+        rotate=false;
     }
     @Override
     public void tick() {

@@ -27,9 +27,13 @@ public class Slot {
         }
 
         if (item!=null) {
-            g.rotate(Math.toRadians(-45),bounds.x+bounds.width/2d, bounds.y+bounds.height/2);
-            g.drawImage(item.getImage(),bounds.x,bounds.y, bounds.width,bounds.height,null);
-            g.rotate(Math.toRadians(45),bounds.x+bounds.width/2d, bounds.y+bounds.height/2);
+            if(item.isRotate()) {
+                g.rotate(Math.toRadians(-45), bounds.x + bounds.width / 2d, bounds.y + bounds.height / 2);
+                g.drawImage(item.getImage(), bounds.x, bounds.y, bounds.width, bounds.height, null);
+                g.rotate(Math.toRadians(45), bounds.x + bounds.width / 2d, bounds.y + bounds.height / 2);
+            }else {
+                g.drawImage(item.getImage(), bounds.x, bounds.y, bounds.width, bounds.height, null);
+            }
 
             if (item.getAmount()>1) {
                 g.setColor(Color.RED);
@@ -52,6 +56,7 @@ public class Slot {
 
     public boolean isPuttable(Item item){
         if(itemType.isAssignableFrom(item.getClass())){
+
             return true;
         }
         return false;

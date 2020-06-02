@@ -23,6 +23,8 @@ public  abstract class Armor extends Item {
 
         attributes.add(quality.getId().toString());
 
+        rotate=false;
+
 
 
     }

@@ -18,14 +18,15 @@ public abstract class Potion extends Item {
 
     @Override
     public void use(Creature user) {
-        ((Player) user).getInventory().removeItem(this);
+        Item temp= ((Player) user).getInventory().getItembyId(this.id);
+        if(temp.getAmount()>1){
+            temp.reduceAmount(1);
+        }else {
+            ((Player) user).getInventory().removeItem(this);
+        }
     }
 
     @Override
     public void tick() {
-
     }
-
-
-
 }

@@ -12,7 +12,8 @@ public enum ItemID {
     Boots,
     Helmet,
     ChestPlate,
-    OutstandingLootCreate;
+    OutstandingLootCreate,
+    MoldyBox;
 
 
 

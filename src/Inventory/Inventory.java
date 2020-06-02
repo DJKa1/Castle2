@@ -6,6 +6,7 @@ import graphics.Animation;
 import graphics.Texture;
 import items.Armor.Armor;
 import items.Item;
+import items.LootCreates.MoldyBox;
 import items.LootCreates.OutstandingLootCreate;
 import items.Munition.ShotgunAmmo;
 import items.Munition.SniperAmmo;
@@ -27,6 +28,7 @@ public class Inventory {
     public final int xpos = 10, ypos = 60, slotwidth = 200, slotheight = 70;
     private final int width = 16, height = 12;
     public Slot[] slots;
+    public Slot[] armorSlots;
     //private Item holdItem = null;
     public int activeSlot = 1;
     private Hotbar hotbar;
@@ -45,6 +47,7 @@ public class Inventory {
     public Inventory(Creature owner) {
         this.owner = owner;
         slots = new Slot[12 * 8 - 15 + 4];
+        armorSlots=new Slot[4];
         init_slots();
         clearInventory();
         hotbar = new Hotbar(this);
@@ -144,22 +147,52 @@ public class Inventory {
         return null;
     }
 
+    private boolean noArmorofType(Item item){
+        for (Slot s : armorSlots) {
+            if (s.getItem() != null) {
+                if (s.getItem().getClass().getSimpleName() == item.getClass().getSimpleName()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+
+    }
+
     public void putItem(Item item, int mouseX, int mouseY) {
         for (int i = 0; i < slots.length; i++) {
             if (slots[i].inBounds(mouseX, mouseY)) {
                 if (slots[i].item == null) {
                     if (slots[i].isPuttable(item)) {
-                        slots[i].item = item;
-                        clearIdentifyer();
+                        if(slots[i].itemType == Armor.class){
+                            if (noArmorofType(item)){
+                                slots[i].item = item;
+                                clearIdentifyer();
+                            }
+                        }else {
+                            slots[i].item = item;
+                            clearIdentifyer();
+                        }
+
                     }
                 } else {
                     for (int e = 0; e < slots.length; e++) {
                         if (slots[e].getIdentifyer().equals("last")) {
                             if (slots[i].isPuttable(item)) {
-                                Item tempItem = item;
-                                slots[e].item = slots[i].item;
-                                slots[i].item = tempItem;
-                                clearIdentifyer();
+                                if(slots[i].itemType == Armor.class){
+                                    if (noArmorofType(item)){
+                                        Item tempItem = item;
+                                        slots[e].item = slots[i].item;
+                                        slots[i].item = tempItem;
+                                        clearIdentifyer();
+                                    }
+                                }else {
+                                    Item tempItem = item;
+                                    slots[e].item = slots[i].item;
+                                    slots[i].item = tempItem;
+                                    clearIdentifyer();
+                                }
+
                             }
                         }
 
@@ -282,6 +315,10 @@ public class Inventory {
                 item = new FabricatedSniper(new Primitiv());
                 break;
 
+            case "MoldyBox":
+                item=new MoldyBox();
+                break;
+
         }
         addItem(item);
     }
@@ -385,7 +422,7 @@ public class Inventory {
     }
 
     public void init_slots() {
-        int index = 0;
+        int index = 0,armorIndex=0;
         for (int i = 0; i < 9; i++) {
             slots[index] = new Slot(new Rectangle((int) (i * Game.UNIT_SCALE / 2 + transX * scale + 64 * 2), (int) (transY * scale + 64 * 2), Game.UNIT_SCALE / 2, Game.UNIT_SCALE / 2));
             index++;
@@ -398,7 +435,10 @@ public class Inventory {
         }
         for (int yy = 0; yy < 2; yy++) {
             for (int xx = 10; xx < 12; xx++) {
-                slots[index] = new ArmorSlot(new Rectangle((int) (xx * Game.UNIT_SCALE / 2 + transX * scale + 64 * 2), (int) (yy * Game.UNIT_SCALE / 2 + transY * scale + 64 * 2), Game.UNIT_SCALE / 2, Game.UNIT_SCALE / 2));
+                Slot temp=new ArmorSlot(new Rectangle((int) (xx * Game.UNIT_SCALE / 2 + transX * scale + 64 * 2), (int) (yy * Game.UNIT_SCALE / 2 + transY * scale + 64 * 2), Game.UNIT_SCALE / 2, Game.UNIT_SCALE / 2));
+                slots[index] =temp;
+                armorSlots[armorIndex]=temp;
+                armorIndex++;
                 index++;
             }
         }

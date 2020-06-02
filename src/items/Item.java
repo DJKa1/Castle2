@@ -15,6 +15,7 @@ public abstract class Item {
     protected BufferedImage image;
     protected Quality quality;
     protected boolean isUseableInInventory = false;
+    protected boolean rotate=true;
     
     public Item(){
         this.id=ItemID.valueOf(this.getClass().getSimpleName());
@@ -70,5 +71,9 @@ public abstract class Item {
     }
     public void removeAttribute(String attribute) {
         attributes.remove(attribute);
+    }
+
+    public boolean isRotate(){
+        return rotate;
     }
 }

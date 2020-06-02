@@ -4,6 +4,7 @@ import entities.creatures.Creature;
 import graphics.Animation;
 import graphics.Texture;
 import items.Item;
+import items.LootCreates.MoldyBox;
 import items.LootCreates.OutstandingLootCreate;
 import items.Munition.ShotgunAmmo;
 import items.Munition.SniperAmmo;
@@ -43,10 +44,12 @@ public class Shop extends Creature {
         items.add(new ShotgunAmmo());
         items.add(new SniperAmmo());
         items.add(new OutstandingLootCreate());
+        items.add(new MoldyBox());
         items.add(new Shotgun(new Primitiv()));
         items.add(new FabricatedSniper(new Primitiv()));
         items.add(new IceStorm(new Primitiv()));
         items.add(new testWeapon(new Primitiv()));
+
     }
 
     private void buyItem() {

@@ -34,6 +34,20 @@ public class LootTableList {
         standartLootTable.addItem(ItemID.Boots,new Extraordinary(),20);
         standartLootTable.addItem(ItemID.Boots,new Outstanding(),10);
 
+
+        standartLootTable.addItem(ItemID.ChestPlate,new Primitiv(),100);
+        standartLootTable.addItem(ItemID.ChestPlate,new Ramshackle(),90);
+        standartLootTable.addItem(ItemID.ChestPlate,new Fine(),60);
+        standartLootTable.addItem(ItemID.ChestPlate,new Extraordinary(),20);
+        standartLootTable.addItem(ItemID.ChestPlate,new Outstanding(),10);
+
+
+        standartLootTable.addItem(ItemID.Helmet,new Primitiv(),100);
+        standartLootTable.addItem(ItemID.Helmet,new Ramshackle(),90);
+        standartLootTable.addItem(ItemID.Helmet,new Fine(),60);
+        standartLootTable.addItem(ItemID.Helmet,new Extraordinary(),20);
+        standartLootTable.addItem(ItemID.Helmet,new Outstanding(),10);
+
         standartLootTable.addItem(ItemID.SniperAmmo,12,60);
         standartLootTable.addItem(ItemID.SniperAmmo,30,20);
         standartLootTable.addItem(ItemID.SniperAmmo,100,10);

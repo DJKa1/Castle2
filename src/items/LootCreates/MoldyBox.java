@@ -1,20 +1,18 @@
 package items.LootCreates;
 
 import graphics.Texture;
+import main_pack.MouseInput;
 
-public class OutstandingLootCreate extends LootCreate {
+public class MoldyBox extends LootCreate {
 
-    public OutstandingLootCreate(){
+    public MoldyBox(){
         super();
-        maxRarity=1;
-        minRarity=30;
-
+        maxRarity=60;
+        minRarity=90;
         dropAmount=1;
         image= Texture.Inventory[5][5];
         attributes.add("Press E");
         attributes.add("to open");
 
     }
-
-
 }
