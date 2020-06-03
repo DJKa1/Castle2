@@ -10,7 +10,7 @@ public class SniperAmmo extends Item {
 
     public SniperAmmo( ){
         super();
-        image= Texture.sprite[34];
+        image= Texture.Inventory[1][9];
         stackSize=100;
 
     }

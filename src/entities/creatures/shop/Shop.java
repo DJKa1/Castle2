@@ -27,7 +27,7 @@ public class Shop extends Creature {
     private int bannerindex = 0, cbannerindex = 30;
     private boolean nearby = false;
     private ShopButton left, right;
-    private ArrayList<Item> items = new ArrayList<>();
+    private ArrayList<Offer> offers = new ArrayList<>();
     private int index;
 
     public Shop(float x, float y, Game game) {
@@ -40,21 +40,26 @@ public class Shop extends Creature {
         left = new ShopButton(getPixelPosition(x+0.5), getPixelPosition(y + 2.75), 1);
         right = new ShopButton(getPixelPosition(x + 3.5), getPixelPosition(y + 2.75), 2);
 
-        items.add(new HealPotion(1));
-        items.add(new ShotgunAmmo());
-        items.add(new SniperAmmo());
-        items.add(new OutstandingLootCreate());
-        items.add(new MoldyBox());
-        items.add(new Shotgun(new Primitiv()));
-        items.add(new FabricatedSniper(new Primitiv()));
-        items.add(new IceStorm(new Primitiv()));
-        items.add(new testWeapon(new Primitiv()));
 
+        offers.add(new Offer(new HealPotion(1),20));
+        offers.add(new Offer(new ShotgunAmmo(),10,10));
+        offers.add(new Offer(new SniperAmmo(),10,10));
+        offers.add(new Offer(new OutstandingLootCreate(),100));
+        offers.add(new Offer(new MoldyBox(),50));
+        offers.add(new Offer(new Shotgun(new Primitiv()),150));
+        offers.add(new Offer(new FabricatedSniper(new Primitiv()),150));
+        offers.add(new Offer(new IceStorm(new Primitiv()),150));
+        offers.add(new Offer(new testWeapon(new Primitiv()),150));
     }
 
     private void buyItem() {
-        game.getPlayer().getInventory().addItembyID(items.get(index).getId().toString());
-        Sound.Sound.playSound("Buy");
+        if (game.getPlayer().getInventory().money>=offers.get(index).prize) {
+            game.getPlayer().getInventory().money-=offers.get(index).prize;
+            for (int i = 0;i<offers.get(index).amount;i++) {
+                game.getPlayer().getInventory().addItembyID(offers.get(index).item.getId().toString());
+            }
+            Sound.Sound.playSound("Buy");
+        }
     }
 
     public void tick() {
@@ -78,7 +83,7 @@ public class Shop extends Creature {
                     index--;
                 }
             } else if (right.pressed) {
-                if (index < items.size() - 1) {
+                if (index < offers.size() - 1) {
                     index++;
                 }
             }
@@ -114,19 +119,19 @@ public class Shop extends Creature {
 
 
         for (int i = 0; i < 3; i++) {
-            if (index - 1 + i >= 0 && index - 1 + i < items.size()) {
+            if (index - 1 + i >= 0 && index - 1 + i < offers.size()) {
                 switch (i) {
                     case 0:
                         ((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f));
-                        g.drawImage(items.get(index - 1 + i).getImage(), getPixelPosition(x + 1 + i) + 64, getPixelPosition(y + 2) + 96, 64, 64, null);
+                        g.drawImage(offers.get(index - 1 + i).item.getImage(), getPixelPosition(x + 1 + i) + 64, getPixelPosition(y + 2) + 96, 64, 64, null);
                         ((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
                         break;
                     case 1:
-                        g.drawImage(items.get(index - 1 + i).getImage(), getPixelPosition(x + 1 + i) + 16, getPixelPosition(y + 2) + 96, 96, 96, null);
+                        g.drawImage(offers.get(index - 1 + i).item.getImage(), getPixelPosition(x + 1 + i) + 16, getPixelPosition(y + 2) + 96, 96, 96, null);
                         break;
                     case 2:
                         ((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.75f));
-                        g.drawImage(items.get(index - 1 + i).getImage(), getPixelPosition(x + 1 + i), getPixelPosition(y + 2) + 96, 64, 64, null);
+                        g.drawImage(offers.get(index - 1 + i).item.getImage(), getPixelPosition(x + 1 + i), getPixelPosition(y + 2) + 96, 64, 64, null);
                         ((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
                         break;
                 }
@@ -141,8 +146,8 @@ public class Shop extends Creature {
             left.render(g);
             right.render(g);
             if (bannerindex >= 30) {
-                for (int i = 0; i < items.get(index).getAttributes().size(); i++) {
-                    String str = items.get(index).getAttributes().get(i);
+                for (int i = 0; i < offers.get(index).item.getAttributes().size(); i++) {
+                    String str = offers.get(index).item.getAttributes().get(i);
                     int NameWidth = g.getFontMetrics().stringWidth(str);
                     g.setColor(Color.WHITE);
                     g.drawString(str, getPixelPosition(x + 4) - NameWidth / 2, getPixelPosition(y + 2.2) + 30 * i);

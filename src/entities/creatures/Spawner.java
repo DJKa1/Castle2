@@ -18,7 +18,7 @@ public class Spawner extends Creature {
         this.creature=creature;
         this.retryAmount=5;
         this.spawnRange=2;
-        this.spawnRate=60*2;
+        this.spawnRate=60;
     }
 
     public Spawner(float x, float y,int lvl , Creature creature,int retryAmount,int spawnRate ,float spawnRange, Game game) {

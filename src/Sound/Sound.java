@@ -54,13 +54,13 @@ public class Sound {
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (UnsupportedAudioFileException e) {
-                //e.printStackTrace();
+                e.printStackTrace();
             } catch (LineUnavailableException e) {
-                //e.printStackTrace();
-                //System.exit(1);
+                e.printStackTrace();
+                System.exit(1);
             } catch (Exception e) {
-                //e.printStackTrace();
-                //System.exit(1);
+                e.printStackTrace();
+                System.exit(1);
             }
         });
     }
@@ -75,6 +75,7 @@ public class Sound {
                 case "SlotWin": playSfx(new File("./rsc/Audio/SlotmachineBell.wav"));break;
                 case "YouLose": playSfx(new File("./rsc/Audio/YouLose.wav"));break;
                 case "Buy": playSfx(new File("./rsc/Audio/ChaChing.wav"));break;
+                case "LevelUp": playSfx(new File("./rsc/Audio/LevelUp.wav"));break;
             }
         }
     }

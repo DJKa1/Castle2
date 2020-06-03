@@ -9,7 +9,7 @@ import items.Item;
 public class ShotgunAmmo extends Item {
     public ShotgunAmmo(){
         super();
-        image= Texture.sprite[33];
+        image= Texture.Inventory[0][9];
         stackSize=100;
     }
     @Override

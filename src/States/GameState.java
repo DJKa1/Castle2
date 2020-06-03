@@ -5,6 +5,7 @@ import Handler.Effectshandler;
 import Handler.ProjectileHandler;
 import Maps.Map;
 import PlayerGui.PlayerGUI;
+import Sound.Sound;
 import entities.creatures.*;
 import entities.creatures.shop.Shop;
 import entities.creatures.slotmachine.Slotmachine;
@@ -70,6 +71,7 @@ public class GameState extends State{
         for (Spawner s: spawnerList){
             s.increaselvl(1);
         }
+        Sound.playSound("LevelUp");
     }
     @Override
     public void init(){
