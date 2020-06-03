@@ -6,6 +6,7 @@ import graphics.Animation;
 import graphics.Texture;
 import items.Armor.Armor;
 import items.Item;
+import items.LootCreates.MagicLootCreate;
 import items.LootCreates.MoldyBox;
 import items.LootCreates.OutstandingLootCreate;
 import items.Munition.ShotgunAmmo;
@@ -317,6 +318,9 @@ public class Inventory {
 
             case "MoldyBox":
                 item=new MoldyBox();
+                break;
+            case "MagicLootCreate":
+                item=new MagicLootCreate();
                 break;
 
         }

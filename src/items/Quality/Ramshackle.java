@@ -9,7 +9,7 @@ public class Ramshackle extends Quality {
         super();
         color= Color.GREEN;
         minD=1;
-        maxD=1.4f;
+        maxD=2.8f;
         minA=1;
         maxA=1.4f;
 

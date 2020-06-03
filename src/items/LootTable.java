@@ -9,6 +9,7 @@ import items.Munition.SniperAmmo;
 import items.Potions.HealPotion;
 import items.Quality.*;
 import items.Weapons.FabricatedSniper;
+import items.Weapons.IceStorm;
 import items.Weapons.Shotgun;
 
 
@@ -117,6 +118,7 @@ public class LootTable {
             case Boots:return new Boots(quality);
             case ChestPlate:return new ChestPlate(quality);
             case Helmet:return new Helmet(quality);
+            case IceStorm:return new IceStorm(quality);
         }
     }
 }
