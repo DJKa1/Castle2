@@ -54,13 +54,13 @@ public class Sound {
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (UnsupportedAudioFileException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             } catch (LineUnavailableException e) {
-                e.printStackTrace();
-                System.exit(1);
+                //e.printStackTrace();
+                //System.exit(1);
             } catch (Exception e) {
-                e.printStackTrace();
-                System.exit(1);
+                //e.printStackTrace();
+                //System.exit(1);
             }
         });
     }
