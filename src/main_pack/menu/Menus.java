@@ -1,34 +1,20 @@
-package main_pack;
+package main_pack.menu;
 
 import graphics.Texture;
+import main_pack.Launcher;
+import main_pack.UI_Element;
 
 import java.awt.*;
 
-public class Menu {
-    protected Game game;
-    private KeyboardInput keyboardInput;
-    private MouseInput mouseInput;
-    private int selectedIndex = 0;
-    private double scale = 5;
+public abstract class Menus {
+    protected int selectedIndex = 0;
 
-    private double transX = Launcher.WIDTH / 2 - (10 * Game.UNITDIMENSION / 2 * scale);
-    private double transY = Launcher.HEIGHT / 2 - (6 * Game.UNITDIMENSION / 2 * scale);
+    protected UI_Element[] ui_elements;
 
-    private UI_Element[] ui_elements = new UI_Element[4];
-
-
-    public Menu(Game game) {
-        this.keyboardInput = game.getKeyboardInput();
-        this.mouseInput = game.getMouseInput();
-        ui_elements[0] = new UI_Element("CONTINUE", (int) (Launcher.WIDTH/2-1.5d*128), 128*3, 26,0,3,1);
-        ui_elements[1] = new UI_Element("OPTIONS", Launcher.WIDTH/2-3*128, (int) (128*4.5d), 32,0,6,1);
-        ui_elements[2] = new UI_Element("EXIT", (int) (Launcher.WIDTH/2-1.5d*128), (int) (128*6), 29,0,3,1);
-        ui_elements[3] = new UI_Element("JUSTTEXT", Launcher.WIDTH/2-3*128, 128, 38,0,6,1);
-    }
 
     public void renderMenu(Graphics g) {
-        for (int i = 0; i < ui_elements.length; i++) {
-            ui_elements[i].render(g);
+        for (UI_Element ui_element : ui_elements) {
+            ui_element.render(g);
         }
         for (int i = 0; i< 6;i++) {
             g.drawImage(Texture.Inventory[24][4],Launcher.WIDTH/2-3*128+i*128,128*2-40,128,128,null);

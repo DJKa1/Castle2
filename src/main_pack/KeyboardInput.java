@@ -101,7 +101,7 @@ public class KeyboardInput implements KeyListener {
 
                 //StateSwitch-------------------------------
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                    game.getMenu().setMenuIndex(0);
+                    game.menu[0].setMenuIndex(0);
                     State.setState(Game.menuState);
                 } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     State.setState((Game.consoleState));
@@ -118,11 +118,11 @@ public class KeyboardInput implements KeyListener {
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     State.setState(Game.gameState);
                 } else if (e.getKeyCode() == KeyEvent.VK_UP) {
-                    game.getMenu().moveMenuIndexUp();
+                    game.menu[game.getMenustate().menuindex].moveMenuIndexUp();
                 } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                    game.getMenu().moveMenuIndexDown();
+                    game.menu[game.getMenustate().menuindex].moveMenuIndexDown();
                 } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    game.getMenu().click();
+                    game.menu[game.getMenustate().menuindex].click();
                 }
 
                 //StateSwitch---------------------------

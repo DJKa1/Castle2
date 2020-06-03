@@ -10,6 +10,9 @@ import entities.creatures.Player;
 import graphics.Texture;
 import graphics.Window;
 import items.LootTableList;
+import main_pack.menu.MainMenu;
+import main_pack.menu.Menus;
+import main_pack.menu.OptionsMenu;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Controller;
 import org.lwjgl.input.Controllers;
@@ -50,7 +53,7 @@ public class Game implements Runnable {
     //GameStuff
     private Player player;
     private GameConsole gameConsole;
-    private Menu menu;
+    public Menus menu[];
     private Camera camera;
     private Map map;
     private LootTableList lootTableList;
@@ -99,7 +102,9 @@ public class Game implements Runnable {
 
         //GameState Classes
         gameConsole = new GameConsole(this);
-        menu = new Menu(this);
+        menu = new Menus[2];
+        menu[0] = new MainMenu();
+        menu[1] = new OptionsMenu();
 
         //States
         gameState = new GameState(this);
@@ -172,9 +177,7 @@ public class Game implements Runnable {
         return (GameState) gameState;
     }
 
-    public Menu getMenu() {
-        return menu;
-    }
+    public MenuState getMenustate() {return (MenuState) menuState;}
 
     public void activateConsole() {
         State.setState(consoleState);

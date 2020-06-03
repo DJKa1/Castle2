@@ -1,7 +1,9 @@
 package main_pack;
 
+import Sound.Sound;
 import States.State;
 import graphics.Texture;
+import main_pack.menu.OptionsMenu;
 
 import java.awt.*;
 
@@ -35,7 +37,7 @@ public class UI_Element {
             int temp_integer = 32; //for upper case
             if (temp <= 90 & temp >= 32) {
                 index = temp - temp_integer;
-                g.drawImage(Texture.goldenUIElements[index][shade], x + i * size, y, null);
+                g.drawImage(Texture.goldenUIElements[index][shade], x + i * size, y,size,size, null);
             } else {
                 System.out.println("No supported char");
             }
@@ -57,11 +59,21 @@ public class UI_Element {
                 setToGameMode();
                 break;
             case "OPTIONS":
+                Launcher.game.getMenustate().menuindex = 1;
+                break;
+            case "BACK":
+                Launcher.game.getMenustate().menuindex = 0;
                 break;
             case "EXIT":
                 System.exit(0);
                 break;
             case "JUSTTEXT":
+                break;
+            case "V2" :
+                Sound.Volume++;
+                break;
+            case "V1" :
+                Sound.Volume--;
                 break;
         }
 

@@ -33,9 +33,9 @@ public class Symbol {
 
     public void roll() {
         int p = (int) (Math.random() * 100);
-        if (p < 1) {
+        if (p < 33) {
             changeSymbol(SymbolID.Bell);
-        } else if (p < 99) {
+        } else if (p < 66) {
             changeSymbol(SymbolID.Heart);
         } else if (p <= 100) {
             changeSymbol(SymbolID.Questionmark);
