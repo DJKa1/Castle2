@@ -13,7 +13,8 @@ public enum ItemID {
     Helmet,
     ChestPlate,
     OutstandingLootCreate,
-    MoldyBox;
+    MoldyBox,
+    MagicLootCreate;
 
 
 

@@ -10,7 +10,7 @@ public class MoldyBox extends LootCreate {
         maxRarity=60;
         minRarity=90;
         dropAmount=1;
-        image= Texture.Inventory[5][5];
+        image= Texture.Inventory[1][5];
         attributes.add("Press E");
         attributes.add("to open");
 

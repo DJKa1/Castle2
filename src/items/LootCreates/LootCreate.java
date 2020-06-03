@@ -15,6 +15,8 @@ public abstract class LootCreate extends Item {
 
     public LootCreate( ){
         super();
+        maxRarity=1;
+        minRarity=100;
         lootTable= LootTableList.standartLootTable;
         isUseableInInventory = true;
         dropAmount=1;
