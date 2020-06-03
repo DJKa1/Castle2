@@ -85,15 +85,16 @@ public class PlayerGUI {
         int wi = 2*128;
         double XPTNL = 0;
         double LevelXP = 0;
-        if (!(game.getGameState().getWave()-1==0)) {
-            XPTNL = game.getGameState().xp-(Math.pow(2,game.getGameState().getWave()-1)*100);
-            LevelXP = (Math.pow(2,game.getGameState().getWave())*100)-(Math.pow(2,game.getGameState().getWave()-1)*100);
-        } else {
-            XPTNL = game.getGameState().xp;
-            LevelXP = (Math.pow(2,game.getGameState().getWave())*100);
-        }
+        //if (!(game.getGameState().getWave()-1==0)) {
+            XPTNL = (game.getGameState().xp-game.getGameState().getXpToWave(game.getGameState().getWave()-1));
+            LevelXP = game.getGameState().getXpToWave(game.getGameState().getWave())-game.getGameState().getXpToWave(game.getGameState().getWave()-1);
+        //} else {
+        //    XPTNL = game.getGameState().xp;
+        //    LevelXP = game.getGameState().getXpToWave(game.getGameState().getWave());
+        //}
 
         double progress = XPTNL/LevelXP;
+
         g.setColor(backColor);
         g.fillRect((int) (Launcher.WIDTH -  (wi+32)), 216-8, wi+16, 56);
         g.setColor(Color.WHITE);
@@ -102,7 +103,7 @@ public class PlayerGUI {
         g.fillRect((int) (Launcher.WIDTH - wi) - 24, 216, (int)(progress*wi), 40);
         g.setColor(new Color(48, 225, 185));
         g.fillRect((int) (Launcher.WIDTH - wi) - 24, 216, (int)(progress*wi), 36);
-
+        g.setColor(Color.red);
     }
 
 

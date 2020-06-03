@@ -128,7 +128,7 @@ public class GameState extends State{
         camera.tick(tempPlayer);
 
 
-        if ( xp>= Math.pow(2,wave)*100){
+        if (xp>= getXpToWave(wave)){
             increaseWave();
         }
     }
@@ -158,6 +158,10 @@ public class GameState extends State{
         player.getInventory().getHotbar().render(gd2);
         playerGUI.render(g);
 
+    }
+
+    public int getXpToWave(int w) {
+        return (int)((Math.pow(w-50d,3d)/10000d + w*0.5d+12.5d)*1000d);
     }
 
 

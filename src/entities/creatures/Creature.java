@@ -422,7 +422,7 @@ public abstract class Creature extends Entity {
             effectshandler.addObject(new DeathEffect(x,y,effectshandler));
             creatureHandler.removeObject(this);
            // System.out.println( "hey");
-            game.getGameState().addXp(xpOnDeath*lvl);
+            game.getGameState().addXp(xpOnDeath);
         }
     }
 
