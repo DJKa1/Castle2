@@ -12,7 +12,8 @@ public enum ID {
     Dúath_láma(),
     Spawner(),
     Slotmachine(),
-    Shop();
+    Shop(),
+    PoisonGroundEffect();
 
 
 
