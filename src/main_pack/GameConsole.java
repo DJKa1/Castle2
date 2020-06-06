@@ -23,6 +23,7 @@ public class GameConsole {
     private final Rectangle chatbox=new Rectangle(0,(Launcher.HEIGHT*8)/10,(Launcher.WIDTH*6)/10,Launcher.HEIGHT);
     private final int sx=(int) (chatbox.getX()+(chatbox.getWidth()/20)),sy=(int)(chatbox.getHeight()-(chatbox.getHeight()/20)),dy= (int) ((chatbox.getHeight()-chatbox.getY())/10);
     private Player player;
+    public boolean hackerman = false;
 
     public GameConsole(Game game){
         this.game=game;
@@ -148,6 +149,7 @@ public class GameConsole {
         consoleColor=Color.GREEN;
         setInput("YOU NOW POSSES THE POWER OF THE INTERNET");
         send();
+        hackerman = true;
     }
 
     public void give(String id)  {

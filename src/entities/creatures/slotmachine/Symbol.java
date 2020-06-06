@@ -5,9 +5,12 @@ import graphics.Texture;
 
 import java.awt.image.BufferedImage;
 
+import static main_pack.Launcher.game;
+
 public class Symbol {
     private BufferedImage img;
     private SymbolID id;
+
     public Symbol() {
     }
 
@@ -33,12 +36,22 @@ public class Symbol {
 
     public void roll() {
         int p = (int) (Math.random() * 100);
-        if (p < 33) {
-            changeSymbol(SymbolID.Bell);
-        } else if (p < 66) {
-            changeSymbol(SymbolID.Heart);
-        } else if (p <= 100) {
-            changeSymbol(SymbolID.Questionmark);
+        if (!game.getGameConsole().hackerman) {
+            if (p < 33) {
+                changeSymbol(SymbolID.Bell);
+            } else if (p < 66) {
+                changeSymbol(SymbolID.Heart);
+            } else if (p <= 100) {
+                changeSymbol(SymbolID.Questionmark);
+            }
+        }else {
+            if (p < 0) {
+                changeSymbol(SymbolID.Bell);
+            } else if (p < 100) {
+                changeSymbol(SymbolID.Heart);
+            } else if (p <= 100) {
+                changeSymbol(SymbolID.Questionmark);
+            }
         }
     }
 

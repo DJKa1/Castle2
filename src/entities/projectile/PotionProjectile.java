@@ -22,8 +22,8 @@ public class PotionProjectile extends Projectile {
         img = Texture.Inventory[5][7];
         move.set(aimX, aimY);
         move.normalize();
-        width = 1;
-        height = 1;
+        width = 0.5f;
+        height = 0.5f;
         hitbox = new Rectangle2D.Double(x, y, width, height);
     }
 
@@ -50,7 +50,6 @@ public class PotionProjectile extends Projectile {
                 hitTarget(k);
                 projectileHandler.removeObject(this);
                 game.getCreatureHandler().addObject(new PoisonGroundEffect(x,y,game));
-                System.out.println("AD");
             }
         }
     }

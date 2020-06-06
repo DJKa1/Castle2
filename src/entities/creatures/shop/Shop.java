@@ -40,6 +40,7 @@ public class Shop extends Creature {
 
 
         offers.add(new Offer(new HealPotion(1),20));
+        offers.add(new Offer(new PotionThrower(new Primitiv()),5,150));
         offers.add(new Offer(new ShotgunAmmo(),10,10));
         offers.add(new Offer(new SniperAmmo(),10,10));
         offers.add(new Offer(new MoldyBox(),50));
@@ -49,7 +50,6 @@ public class Shop extends Creature {
         offers.add(new Offer(new FabricatedSniper(new Primitiv()),150));
         offers.add(new Offer(new IceStorm(new Primitiv()),150));
         offers.add(new Offer(new testWeapon(new Primitiv()),150));
-        offers.add(new Offer(new PotionThrower(new Primitiv()),150));
 
     }
 
@@ -93,7 +93,6 @@ public class Shop extends Creature {
             }
 
         } else {
-            index = 0;
             nearby = false;
             MouseInput.interact = false;
             bannerindex = 0;

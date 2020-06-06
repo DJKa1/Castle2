@@ -23,8 +23,8 @@ public class Spawner extends Creature {
         this.retryAmount=5;
         this.spawnRange=2;
         this.spawnRate=10;
-        this.width=1;
-        this.height=1;
+        this.width=0;
+        this.height=0;
 
         area.setFrame(getCenter(), new Dimension((int)spawnRange,(int)spawnRange));
     }
