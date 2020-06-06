@@ -95,8 +95,6 @@ public class GameState extends State{
         creatureHandler.addObject(new Slotmachine(36,31,game));
         creatureHandler.addObject(player);
 
-        creatureHandler.addObject(new PoisonGroundEffect(30,30,game));
-
         /*
         Dúath_láma c=new Dúath_láma(15,12,game);
         creatureHandler.addObject(c);

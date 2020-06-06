@@ -11,10 +11,7 @@ import items.Munition.ShotgunAmmo;
 import items.Munition.SniperAmmo;
 import items.Potions.HealPotion;
 import items.Quality.Primitiv;
-import items.Weapons.FabricatedSniper;
-import items.Weapons.IceStorm;
-import items.Weapons.Shotgun;
-import items.Weapons.testWeapon;
+import items.Weapons.*;
 import main_pack.Game;
 import main_pack.KeyboardInput;
 import main_pack.MouseInput;
@@ -52,6 +49,7 @@ public class Shop extends Creature {
         offers.add(new Offer(new FabricatedSniper(new Primitiv()),150));
         offers.add(new Offer(new IceStorm(new Primitiv()),150));
         offers.add(new Offer(new testWeapon(new Primitiv()),150));
+        offers.add(new Offer(new PotionThrower(new Primitiv()),150));
 
     }
 

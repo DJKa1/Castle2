@@ -45,7 +45,6 @@ public class Spawner extends Creature {
 
     private void action() {
         if (getCreaturecountInArea() <= maxAmount) {
-            System.out.println(getCreaturecountInArea());
             float w = creature.getHeight();
             float h = creature.getWidth();
             if (retrycounter >= retryAmount) {

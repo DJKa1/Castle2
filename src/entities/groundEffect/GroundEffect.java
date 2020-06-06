@@ -1,16 +1,12 @@
 package entities.groundEffect;
 
 import Buffs.Buff;
-import Buffs.Poison;
-import entities.Entity;
 import entities.creatures.Creature;
 import main_pack.Game;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
 
 import static Handler.CreatureHandler.creatures;
-import static main_pack.Launcher.game;
 
 public class GroundEffect extends Creature {
     protected int dmg;
@@ -18,6 +14,7 @@ public class GroundEffect extends Creature {
     protected int delay = 0;
     protected int radius;
     protected Buff buff;
+    protected int lifetime;
 
     public GroundEffect(float x, float y, Game game) {
         super(x, y, game);
@@ -35,10 +32,13 @@ public class GroundEffect extends Creature {
             if(Math.sqrt(Math.pow(k.getCenter().getX()-x,2)+Math.pow(k.getCenter().getY()-y,2))<radius&&!(k.getClass().getSimpleName() == this.getClass().getSimpleName())){
                 if(delay==duration) {
                     k.hit(dmg,buff);
-                    System.out.println(k.getClass());
                 }
             }
         }
+        if(lifetime<=0){
+            game.getCreatureHandler().removeObject(this);
+        }
+        lifetime--;
     }
 
     @Override

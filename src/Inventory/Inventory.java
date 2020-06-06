@@ -14,10 +14,7 @@ import items.Munition.SniperAmmo;
 import items.Potions.HealPotion;
 import items.Quality.Extraordinary;
 import items.Quality.Primitiv;
-import items.Weapons.FabricatedSniper;
-import items.Weapons.IceStorm;
-import items.Weapons.Shotgun;
-import items.Weapons.testWeapon;
+import items.Weapons.*;
 import main_pack.Game;
 import main_pack.Launcher;
 import main_pack.MouseInput;
@@ -321,6 +318,9 @@ public class Inventory {
                 break;
             case "MagicLootCreate":
                 item=new MagicLootCreate();
+                break;
+            case "PotionThrower":
+                item=new PotionThrower(new Primitiv());
                 break;
 
         }

@@ -9,5 +9,6 @@ public class PoisonGroundEffect extends GroundEffect {
         duration = 60;
         radius = 2;
         dmg = 10;
+        lifetime = 60*5;
     }
 }

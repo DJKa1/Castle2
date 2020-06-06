@@ -1,6 +1,5 @@
 package entities.projectile;
 
-import Buffs.Buff;
 import Buffs.iced;
 import Handler.Effectshandler;
 import Handler.ProjectileHandler;

@@ -14,7 +14,8 @@ public enum ItemID {
     ChestPlate,
     OutstandingLootCreate,
     MoldyBox,
-    MagicLootCreate;
+    MagicLootCreate,
+    PotionThrower;
 
 
 
