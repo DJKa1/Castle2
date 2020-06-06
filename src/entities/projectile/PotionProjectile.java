@@ -22,7 +22,9 @@ public class PotionProjectile extends Projectile {
         img = Texture.Inventory[5][7];
         move.set(aimX, aimY);
         move.normalize();
-        hitbox = new Rectangle2D.Double(x, y, 1, 1);
+        width = 1;
+        height = 1;
+        hitbox = new Rectangle2D.Double(x, y, width, height);
     }
 
     public void tick() {

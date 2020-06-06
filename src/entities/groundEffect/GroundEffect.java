@@ -44,7 +44,7 @@ public class GroundEffect extends Creature {
     @Override
     public void render(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(Color.GREEN);
-        g2d.drawOval(getPixelPosition(x-radius),getPixelPosition(y-radius),radius*2*128,radius*2*128);
+        g2d.setColor(new Color(0,255,0,50));
+        g2d.fillOval(getPixelPosition(x-radius),getPixelPosition(y-radius),radius*2*128,radius*2*128);
     }
 }
