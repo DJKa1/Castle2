@@ -13,11 +13,10 @@ public class GreenSlime extends Creature {
         hp=10;
         maxHp = hp;
         xpOnDeath=30;
-        targetingRange=3;
+        targetingRange=15;
         targetable=new ID[]{ID.Player};
         movementRate= (float) 0.05;
         armorValue=1;
-        followingMultiplier=2;
         normalizeHitbox();
         normalizeMovementhitbox();
 

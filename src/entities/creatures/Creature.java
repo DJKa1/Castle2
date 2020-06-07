@@ -311,7 +311,7 @@ public abstract class Creature extends Entity {
 
         }
         if(!checkifNear(currentTarget)){
-            currentTarget=null;
+            //currentTarget=null;
         }
 
     }
@@ -423,11 +423,16 @@ public abstract class Creature extends Entity {
             creatureHandler.removeObject(this);
            // System.out.println( "hey");
             game.getGameState().addXp(xpOnDeath);
+            dropCoin();
         }
     }
 
     public void dropItems(Inventory inventory){
         inventory.addItems(dropList.dropItem(1,100));
+    }
+
+    public void dropCoin(){
+        game.getPlayer().inventory.addMoney(10);
     }
 
     //EffectManagment---------------------

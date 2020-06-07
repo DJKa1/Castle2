@@ -18,7 +18,7 @@ public class Dúath_láma extends Creature{
         super(x, y, game);
         width=1;
         height=1.6f;
-        targetingRange=5;
+        targetingRange=15;
         targetable=new ID[]{ID.Player};
         hp=100;
         maxHp = hp;

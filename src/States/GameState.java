@@ -88,9 +88,18 @@ public class GameState extends State{
         f3Infopanel=new F3Infopanel(this);
         //------------------------------------------------------------------
 
-        Spawner spawner1=new Spawner(25.5f,20,1,new GreenSlime(0,0,25,game),game);
+        Spawner spawner1=new Spawner(25.5f,15,1,new GreenSlime(0,0,1,game),game);
+        Spawner spawner2=new Spawner(35f,15,1,new Dúath_láma(0,0,1,game),game);
+        Spawner spawner3=new Spawner(25.5f,50,1,new GreenSlime(0,0,1,game),game);
+        Spawner spawner4=new Spawner(35,50,1,new GreenSlime(0,0,1,game),game);
         creatureHandler.addObject(spawner1);
+        creatureHandler.addObject(spawner2);
+        creatureHandler.addObject(spawner3);
+        creatureHandler.addObject(spawner4);
         spawnerList.add(spawner1);
+        spawnerList.add(spawner2);
+        spawnerList.add(spawner3);
+        spawnerList.add(spawner4);
         creatureHandler.addObject(new Shop(24,30,game));
         creatureHandler.addObject(new Slotmachine(36,31,game));
         creatureHandler.addObject(player);

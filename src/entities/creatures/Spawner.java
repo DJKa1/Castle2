@@ -22,7 +22,7 @@ public class Spawner extends Creature {
         this.creature=creature;
         this.retryAmount=5;
         this.spawnRange=2;
-        this.spawnRate=10;
+        this.spawnRate=240;
         this.width=0;
         this.height=0;
 
