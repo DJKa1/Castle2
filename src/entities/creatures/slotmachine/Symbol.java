@@ -36,18 +36,18 @@ public class Symbol {
 
     public void roll() {
         int p = (int) (Math.random() * 100);
-        if (!game.getGameConsole().hackerman) {
-            if (p < 33) {
+        if (game.getGameConsole().hackerman) {
+            if (p < 0) {
                 changeSymbol(SymbolID.Bell);
-            } else if (p < 66) {
+            } else if (p < 100) {
                 changeSymbol(SymbolID.Heart);
             } else if (p <= 100) {
                 changeSymbol(SymbolID.Questionmark);
             }
         }else {
-            if (p < 0) {
+            if (p < 33) {
                 changeSymbol(SymbolID.Bell);
-            } else if (p < 100) {
+            } else if (p < 66) {
                 changeSymbol(SymbolID.Heart);
             } else if (p <= 100) {
                 changeSymbol(SymbolID.Questionmark);

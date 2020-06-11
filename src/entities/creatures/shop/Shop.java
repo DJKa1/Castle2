@@ -41,10 +41,10 @@ public class Shop extends Creature {
 
         offers.add(new Offer(new HealPotion(1),20));
         offers.add(new Offer(new PotionThrower(new Primitiv()),5,150));
-        offers.add(new Offer(new ShotgunAmmo(),10,10));
+        offers.add(new Offer(new ShotgunAmmo(),10,8));
         offers.add(new Offer(new SniperAmmo(),10,10));
-        offers.add(new Offer(new MoldyBox(),50));
-        offers.add(new Offer(new OutstandingLootCreate(),100));
+        offers.add(new Offer(new MoldyBox(),200));
+        offers.add(new Offer(new OutstandingLootCreate(),500));
         offers.add(new Offer(new MagicLootCreate(),100));
         offers.add(new Offer(new Shotgun(new Primitiv()),150));
         offers.add(new Offer(new FabricatedSniper(new Primitiv()),150));

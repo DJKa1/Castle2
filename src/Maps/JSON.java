@@ -28,7 +28,6 @@ public class JSON {
         try {
             String speicher = Files.readString(Paths.get(saveMapFile.toURI()));
             JSONObject all = new JSONObject(speicher);
-
             Iterator<String> keys = all.keys();
             ArrayList<String> levelnames = new ArrayList<>();
             while (keys.hasNext()) {
